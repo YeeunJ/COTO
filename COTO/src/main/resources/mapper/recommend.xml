@@ -13,8 +13,8 @@
 		FROM recommend as recom left join user as us on recom.userID = us.id
 	</select>
 	
-	<select id="readRecommendCountList" resultType="com.walab.coding.model.RecomCountDTO" parameterType="hashmap">
-		SELECT recommend
+	<select id="readRecommendCountList" resultType="int" parameterType="hashmap">
+		SELECT NVL(count(*), 0)
 		FROM recomCount
 		WHERE recomID = #{recomID}
 	</select>
