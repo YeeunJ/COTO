@@ -267,7 +267,7 @@ fieldset {
 			<div class="input-field col s4">
 				<select id="siteName" required>
 					<optgroup label="코딩사이트 선택">
-						<c:forEach items="${CodingSite}" var="site">
+						<c:forEach items="${codingSite}" var="site">
 							<option value="${site.id}">${site.siteName}</option>
 						</c:forEach>
 					</optgroup>
@@ -291,14 +291,40 @@ fieldset {
 		</div>
 		
 		<p class="title">추천 문제집 난이도</p>
-		<div class="input-field col s10">
-			<!-- <input type="radio" name="difficulty" value="1" checked/>1
-			<input type="radio" name="difficulty" value="2" />2
-			<input type="radio" name="difficulty" value="3" />3
-			<input type="radio" name="difficulty" value="4" />4
-			<input type="radio" name="difficulty" value="5" />5 -->
-			<input id="difficulty" type="text" class="validate"> 
-			<span class="helper-text">1~5까지만 입력가능합니다.</span>
+		<div class="row">
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d1" value="1" checked/>
+					<label for="d1" class="diffCont">1</label>
+				</p>
+			</div>
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d2" value="2" class="radioMrg"/>
+					<label for="d2" class="diffCont">2</label>
+				</p>
+			</div>
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d3" value="3" class="radioMrg"/>
+					<label for="d3" class="diffCont">3</label>
+				</p>
+			</div>
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d4" value="4" class="radioMrg"/>
+					<label for="d4" class="diffCont">4</label>
+				</p>
+			</div>
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d5" value="5" class="radioMrg"/>
+					<label for="d5" class="diffCont">5</label>
+				</p>
+			</div>
+			
+			<!-- <input id="difficulty" type="text" class="validate"> 
+			<span class="helper-text">1~5까지만 입력가능합니다.</span> -->
 		</div>
 		
 		<p class="title">추천 문제집 태그</p>
@@ -400,7 +426,7 @@ $('#createRecomProblem').click(function() {
 	var problem = [];
 	var link = [];
 	var title = document.getElementById("title").value;
-	var difficulty = document.getElementById("difficulty").value;
+	var difficulty = document.getElementsByName("difficulty").value;
 	var tag = [];
 	var content = document.getElementById("content").value;
 	
