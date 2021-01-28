@@ -21,8 +21,8 @@
 		FROM userProblem as A, (SELECT startDate FROM goal WHERE userID=1 ORDER BY DATE(startDate) DESC limit 1) subquery 
 		WHERE A.regDate >= subquery.startDate and A.userID = #{userID}
 	</select>
-	<select id = "readRank" resultType = "hashmap">
-		SELECT (select name from user where A.userID = id) as username, count(userID) as cnt FROM `userProblem` as A group by userID order by count(userID) desc limit 0,5	
+	<select id = "readRank" resultType="com.walab.coding.model.RankDTO">
+		SELECT (select nickName from user where A.userID = id) as nickName, count(userID) as count FROM `userProblem` as A group by userID order by count(userID) desc limit 0,4	
 <!-- 	SELECT (select name from user where A.userid = id) as username, count(userid) as cnt FROM `userProblem` as A group by userid order by count(userid) desc limit 0,5
  -->	</select>
 </mapper>

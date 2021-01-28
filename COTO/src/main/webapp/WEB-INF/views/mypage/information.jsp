@@ -17,7 +17,7 @@
 
 #information:before {
 	content: "";
-	background-image: url("../resources/img/problem.jpg");
+	background-image: url("../resources/img/problem.png");
 	background-size: cover;
 	top: 0;
 	left: 0;
@@ -49,28 +49,33 @@
 	
 	<div class="area">
 		<div id="info">
+			<br><br>
 			<div id="headerButton">
-				<h5 class="header left orange-text">내 정보</h5>
-				<input type="button" value="수정하기 "
-					onclick="showInfoEdit();hideInfo();" class="mybtn right" />
+				<div class = "left">
+					<h5 class="orange-text" style = "margin: 0;">내 정보</h5>
+				</div>
+				<div class="right">
+					<input type="button" value="수정하기 " onclick="showInfoEdit();hideInfo();" class="mybtn right" />						
+				</div>
 			</div>
+			<br><br>
 			<div class="table">
 				<c:forEach items="${users}" var="user" varStatus="status">
 					<div class="tableRow">
-						<span class="tableCell th3">이름 </span> <span class="tableCell th8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${user.name}
-						</span>
+						<span class="tableCell th3">이름</span>
+						<span class="tableCell th8">${user.name}</span>
 					</div>
 					<div class="tableRow">
-						<span class="tableCell th3">닉네임 </span> <span
-							class="tableCell th8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${user.nickName}</span>
+						<span class="tableCell th3">닉네임</span> 
+						<span class="tableCell th8">${user.nickName}</span>
 					</div>
 					<div class="tableRow">
-						<span class="tableCell th3">학번</span> <span class="tableCell th8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${user.userNumber}</span>
+						<span class="tableCell th3">학번</span> 
+						<span class="tableCell th8">${user.userNumber}</span>
 					</div>
 					<div class="tableRow">
-						<span class="tableCell th3">자기소개 </span> <span
-							class="tableCell th8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${user.intro}
-						</span>
+						<span class="tableCell th3">자기소개</span> 
+						<span class="tableCell th8">${user.intro}</span>
 					</div>
 				</c:forEach>
 			</div>
@@ -79,14 +84,18 @@
 		<div id=infoEdit style="display: none">
 			<form:form id="updateInfo" method="post"
 				action="information/updateUser">
+				<br><br>
 				<div id="headerButton">
-					<h5 class="header left orange-text">내 정보 수정</h5>
+					<div class = "left">
+						<h5 class="orange-text" style = "margin: 0;">내 정보 수정</h5>
+					</div>
 					<div class="right">
 						<input id="submit" type="submit" value="수정하기 " class="mybtn" /> <input
 							id="add" type="button" value="취소하기 "
 							onclick="showInfo(); hideInfoEdit()" class="mybtn" />
 					</div>
 				</div>
+				<br><br>
 				<div class="table">
 					<c:forEach items="${users}" var="user" varStatus="status">
 						<input name="id" value="${user.id}" type="hidden" />
@@ -116,21 +125,26 @@
 		</div>
 
 		<div id="goal">
+			<br><br>
 			<div id="headerButton">
-				<h5 class="header left orange-text">내 목표</h5>
-				<input type="button" value="수정하기 "
-					onclick="showGoalEdit(); hideGoal();" class="mybtn right" />
+				<div class="left">
+					<h5 class="orange-text" style = "margin: 0;">내 목표</h5>
+				</div>
+				<div class="right">
+					<input type="button" value="수정하기 " onclick="showGoalEdit(); hideGoal();" class="mybtn right" />						
+				</div>
 			</div>
+			<br><br>
 			<div class="table">
 				<c:forEach items="${goals}" var="goal" varStatus="status">
 					<div class="tableRow">
 						<span class="tableCell th3">목표 내용</span> <span
-							class="tableCell th8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${goal.goal}
+							class="tableCell th8">${goal.goal}
 						</span>
 					</div>
 					<div class="tableRow">
 						<span class="tableCell th3">목표 기간</span> <span
-							class="tableCell th8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate
+							class="tableCell th8"><fmt:formatDate
 								pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
 								pattern="yyyy-MM-dd" value="${goal.endDate}" />
 						</span>
@@ -147,16 +161,18 @@
 		<div id=goalEdit style="display: none">
 			<form:form id="updateGoal" method="post"
 				action="information/updateGoal">
-
+				<br><br>
 				<div id="headerButton">
-					<h5 class="header left orange-text">내 목표 수정</h5>
+					<div class="left">
+						<h5 class="orange-text" style = "margin: 0;">내 목표 수정</h5>
+					</div>
 					<div class="right">
-						<input id="submit" type="submit" value="수정하기 " class="mybtn" /> <input
-							id="add" type="button" value="취소하기 "
+						<input id="submit" type="submit" value="수정하기 " class="mybtn" /> 
+						<input id="add" type="button" value="취소하기 "
 							onclick="showGoal(); hideGoalEdit()" class="mybtn" />
 					</div>
 				</div>
-
+				<br><br>
 				<div class="table">
 					<c:forEach items="${goals}" var="goal" varStatus="status">
 						<input name="id" value="${goal.id}" type="hidden" />

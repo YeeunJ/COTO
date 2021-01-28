@@ -139,17 +139,14 @@ function insertProblems(){
 			<div class="col s12 m4">
 				<div class="icon-block">
 					<span class="icon icon-award"></span>
-					<c:forEach items="${ranks}" var="rank" varStatus="status">
-					<li>${ranks.username} </li>
-					
-					</c:forEach>
-					
 					<h5 class="small-title">오늘의 랭킹</h5>
 					<ul class="fs-18 list">
-						<li class="ranking"><span class="bold">1.</span> 홍길동</li>
-						<li class="ranking"><span class="bold">2.</span> 김빛나리</li>
-						<li class="ranking"><span class="bold">3.</span> 양지후</li>
-						<li class="ranking"><span class="bold">4.</span> 정예은</li>
+						<c:forEach items="${ranks}" var="userProblem" varStatus="status">
+						<li class="ranking"><span class="bold">${rank.status}.</span> ${rank.nickName}</li>
+						<%-- 	<li class="ranking"><span class="bold">2.</span> ${user.name}</li>
+						<li class="ranking"><span class="bold">3.</span> ${user.name}</li>
+						<li class="ranking"><span class="bold">4.</span> ${user.name}</li> --%>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>

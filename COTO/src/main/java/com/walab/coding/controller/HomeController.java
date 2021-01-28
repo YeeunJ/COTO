@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.UserProblemsDTO;
 import com.walab.coding.service.CodingSiteService;
@@ -91,6 +92,17 @@ public class HomeController {
 		UserService.createUserProblem(probs);
 		
 		return "success";
+	}
+
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public ModelAndView viewRank(ModelAndView mv) {
+				
+		List<RankDTO> ranks = userProblemService.readRankList();
+		System.out.println(ranks.toString());
+		mv.addObject("ranks", ranks);
+		mv.setViewName("home");
+		
+		return mv;
 	}
 	
 }

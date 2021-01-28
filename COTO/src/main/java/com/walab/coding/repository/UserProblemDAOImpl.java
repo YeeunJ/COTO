@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.GoalDTO;
 import com.walab.coding.model.UserProblemDTO;
 
@@ -55,10 +56,11 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		
 		return sqlSession.selectOne(namespace+".readSovledUserProblem", userSolvedProblemParam);
 	}
-	public List<String> readRank(int probs) {
-		Map<String, Object> userRankParam = new HashMap<String, Object>();
-		//userRankParam.put("username", probs);
-		
-		return sqlSession.selectList(namespace+".readRank");
+	
+	public List<RankDTO> readRankList() {
+		List<RankDTO> rankList = new ArrayList<RankDTO>();
+		rankList = sqlSession.selectList(namespace+".readRank");
+
+		return rankList;
 	}
 }
