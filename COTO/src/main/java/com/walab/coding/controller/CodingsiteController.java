@@ -91,7 +91,6 @@ public class CodingsiteController {
 			html += "<a href='" + i.getSiteUrl() + "'>"+i.getSiteName()+"</a>"+"   |   ";
 		}
 		html+="</li>";
-		System.out.println(html);
 		return html;
 	}
 }
