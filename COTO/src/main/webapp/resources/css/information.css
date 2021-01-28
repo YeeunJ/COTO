@@ -1,0 +1,36 @@
+.area{
+	margin: 0 auto;
+	margin-bottom: 10%;
+	max-width: 60%;
+}
+
+#info{
+	margin-bottom: 10%;
+	color: gray;
+}
+#goal{
+	margin-bottom: 10%;
+	color: gray;
+}
+
+.th3{
+	text-align: center;
+	border-right: solid 1px orange !important;
+ 	border-bottom: none !important;
+ 	font-weight: normal !important;
+}
+.th8{
+	font-weight: normal !important;
+}
+
+.tableCell {
+ 	border-bottom: none !important;
+} 
+
+#headerButton{
+	float: center;
+	border: 1px black;
+	margin-bottom: 50px; 
+	margin-top: 0px;
+	vertical-align: middle;
+}

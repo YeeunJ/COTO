@@ -1,0 +1,149 @@
+#register-button {
+	float: left;
+}
+
+fieldset {
+  position: relative;
+  padding: 0 0 0 40px;
+  background: #fff;
+  border: none;
+}
+.searchText {
+	position: relative;
+	width: 65% !important;
+  	height: 50px;
+  	padding: 0;
+  	float: left;
+  	margin-right: 5% !important;
+}
+
+.searchBtn {
+	position: relative;
+	width: 20% !important;
+  	height: 50px;
+  	padding: 0;
+  	float: left;
+  	color:white;
+  	border-radius: 10px;
+}
+
+.title {
+	border: 0;
+	background-color: Transparent;
+}
+
+
+/* 문제 추천 - 문제집 등록 모달 */
+.title {
+	color: #e69238;
+    font-size: 25px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+#createProblems input {
+	width: 500px;
+}
+#createProblems textarea {
+	height: 70px;
+	width: 500px;
+	border: 1px solid #bdbdbd;
+}
+#createProblems #confirmSite {
+	height: 150px;
+}
+/* 문제집 세부 모달 */
+.desc {
+	margin-top: 28px;
+}
+#detailRecom {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 35px;
+}
+#readProblems {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	row-gap: 15px;
+}
+#readProblems p {
+	margin: 5px 0;
+}
+.details {
+	margin: 8px 0 20px 0;
+}
+.sitetitle {
+	font-weight: 600;
+	margin: auto 0 auto 30px;
+}
+#commentDetail{
+	background: #f3f3f3;
+	min-height: 470px;
+}
+#commentDetail textarea {
+	background: white;
+    display: inline-block;
+    margin: 15px 0;
+    line-height: 38px;
+    padding: 15px;
+    height: 70px;
+    border-radius: 10px;
+}
+.comment-wrapper{
+	padding: 15px;
+}
+.comment-add {
+	display: grid;
+    grid-template-columns: 4fr 1fr;
+    padding: 10px 15px;
+    border-bottom: 1px solid #bdbdbd;
+    margin-bottom: 15px;
+}
+.add-btn {
+	height: 35px;
+    width: 40px;
+    margin: auto 0 auto 15px;
+}
+.commentdate {
+	color: grey;
+	float: right;
+}
+.username {
+	font-weight: 600;
+}
+.comment {
+	margin: 12px 0 0 0;
+	border-bottom: 1px solid #bdbdbd;
+	padding-bottom: 12px;
+}
+.icon {
+	display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-size: cover !important;
+}
+.like-icon {
+	background: url("../img/emptyheart.png");
+	cursor: pointer;
+}
+.like-icon:hover {
+	background: url("../img/clickheart.png");
+	cursor: pointer;
+}
+.wrapper {
+	height: 305px;
+    overflow-y: scroll;
+}
+.comment-icon {
+	background: url("../img/comment.png");
+}
+.diff-icon {
+/* 	background: url("../img/.png");*/
+}
+.details {
+	display: grid;
+	grid-template-columns: 0.5fr 0.5fr 0.3fr 0.5fr 0.5fr 0.3fr 2fr;
+}
+.bold {
+	font-weight: bold;
+	font-size: 18px;
+}

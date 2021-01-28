@@ -1,0 +1,40 @@
+.register{
+	margin: 0 auto;
+	max-width: 60%;
+	margin-top: 5%;
+	margin-bottom: 10%;
+}
+
+.cell{
+	color: #e69138ff ;
+}
+.th1 .th2 .th3 .th4{
+	color: #e69138ff ;
+}
+input:focus{
+	border-bottom: 1px solid orange;
+}
+input.underine:focus{
+	border-bottom: 1px solid orange;
+}
+input.underline {border:0;border-bottom:1 solid orange;}
+
+.th1 .th2 .th3 .th4:onclick{
+	border-bottom: 1px solid orange;
+}
+
+cell:hover:before, cell.on a:before {
+    width: 100%;
+    padding: 0 2px;
+    transition: width 0.12s, padding 0.12s;
+}
+cell a:before {
+    content: ' ';
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    padding: 0;
+    left: -2px;
+    height: 4px;
+    background: orange;
+}

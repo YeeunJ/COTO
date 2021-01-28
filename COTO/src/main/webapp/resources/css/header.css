@@ -1,0 +1,89 @@
+ul.mymenu > li { 
+	display:inline-block;
+	/* width:80px; */ 
+	/* padding:5px 10px;  */
+	/* background:#eee;  */
+	text-align:center; 
+}
+li ul.submenu{
+	display:none;
+    position: absolute;
+	left:360px;
+	
+}
+li:hover ul.submenu{
+	display:block;
+	color:#666666;
+	transition-duration: 10s;
+}
+ul.myMenu > li ul.submenu > li { 
+	display:inline-block; 
+	background:#eee; 
+	text-align:center; 
+	}
+li ul.submenu>li{
+	
+	display:inline-block;
+	width:65%;
+	border:1px solid #eee;
+}
+ul { 
+	list-style:none; 
+	cursor:pointer;
+}
+ul.myMenu > li ul.submenu > li:hover { background:#fff; }
+#list { 
+  float:left; 
+  transition:all .3s ease;
+}
+#list:hover { color:#39d9c8; transition:all .3s ease !important; }
+#list > #listspan { position:relative; display: inline-block;}
+
+#list > #listspan::after {
+  content: '';
+  width: 0%;
+  right: 50% ;
+  height: -10px;
+  display: block;
+  position: absolute;
+  margin-top: 0px;
+  border-bottom: 4px solid orange;
+  transition:all .3s ease;
+}
+#list:hover > #listspan::after {
+  content: '';
+  width: 100%;
+  right: 0px;
+  height: -10px;
+  display: block;
+  position: absolute;
+  margin-top: 0px;
+  border-bottom: 4px solid orange;
+  transition:all .3s ease ;
+} 
+nav{
+	background-color: white !important;
+	width: 100% !important;
+	line-height: 63px !important;
+	height: 64px !important;
+}
+
+nav ul a {
+	color: gray !important;
+	font-size: 13px !important;
+	padding: 0px 31px !important;
+/* 	display: none !important;
+ */
+ }
+/* .mybtn{
+  background-color: white;
+  color: black;
+  border: 2px solid #666666;
+  border-radius : 30px;
+  padding:7px 20px;
+} */
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-size: none !important;
+}
+

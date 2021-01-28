@@ -1,0 +1,33 @@
+
+
+
+.button {
+	float: right;
+	margin: 2px 2px;
+}
+
+.edit {
+	display: none;
+}
+
+
+.tablehead {
+	font-weight : bold;
+	font-size : 16px;
+}
+
+input {
+	display:inline-block;
+	width:100%;
+}
+
+#codingSiteContainer{
+	min-height:100%;
+}
+.right{
+	float:right;
+}
+#codingsiteimg {
+    opacity: 0.4;
+    
+}

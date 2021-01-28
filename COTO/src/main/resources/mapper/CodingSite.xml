@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CodingSite">
+	<insert id="insertCodingSite">
+		insert into codingSite (siteName, siteUrl)
+		values
+		(#{siteName}, #{siteUrl})
+	</insert>
+	<update id="updateCodingSite">
+		update codingSite
+		set siteName=#{siteName},
+		siteUrl=#{siteUrl}
+		where id=#{id}
+	</update>
+	<delete id="deleteCodingSite">
+		delete from codingSite where id=#{id}
+	</delete>
+	<select id="readCodingsite"
+		resultType="com.walab.coding.model.CodingSiteDTO">
+		select id, siteName, siteUrl, regDate FROM codingSite
+	</select>
+</mapper>

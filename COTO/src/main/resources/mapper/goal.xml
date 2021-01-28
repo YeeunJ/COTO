@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- <mapper namespace="user">
+	<select id="user" resultType="com.walab.coding.Model.UserDTO" parameterType="hashmap">
+		SELECT name,email,userNumber,nickName,intro FROM user WHERE userID=#{userID}
+	</select>
+
+</mapper> -->
+
+<mapper namespace="goal">
+	<select id="readGoal" resultType="com.walab.coding.model.GoalDTO" parameterType="hashmap">
+		SELECT * FROM goal WHERE userID=#{userID} ORDER BY DATE(startDate) DESC limit 1	
+	</select>
+	 
+	<select id="readGoalList" resultType="com.walab.coding.model.GoalDTO" parameterType="hashmap">
+		SELECT * FROM goal WHERE userID=#{userID} ORDER BY DATE(startDate) DESC
+	</select>
+	
+	<update id="updateGoal" parameterType="hashmap">
+		UPDATE goal SET goal='${goal}', startDate='${startDate}', endDate='${endDate}' WHERE id = #{id}
+	</update>
+
+</mapper>
