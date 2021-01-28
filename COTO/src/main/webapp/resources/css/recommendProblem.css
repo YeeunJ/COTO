@@ -149,5 +149,14 @@ fieldset {
 }
 
 .radioMrg {
-	margin-right: 3%;
+	margin-left: 3%;
+}
+input[type='radio']:checked {
+  background-color: #e69238 !important;
+}
+.diffCont {
+	margin-left: 5%;
+	color: #e69238;
+    font-size: 16px;
+    font-weight: 500;
 }
