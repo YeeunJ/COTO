@@ -46,11 +46,13 @@ public class HomeController {
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		mv.addObject("CodingSite", codingSite);
 		//mv.addObject("userID", userID);
-		
-		//List<String> ranks = userProblemService.readRank(probs);
-		//System.out.println(ranks.toString());
-		//mv.addObject("ranks", ranks);
+					
+		List<RankDTO> ranks = userProblemService.readRankList();
+		System.out.println(ranks.toString());
+	
+		mv.addObject("ranks", ranks);
 		mv.setViewName("home");
+	
 		
 		return mv;
 	}
@@ -94,15 +96,6 @@ public class HomeController {
 		return "success";
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ModelAndView viewRank(ModelAndView mv) {
-				
-		List<RankDTO> ranks = userProblemService.readRankList();
-		System.out.println(ranks.toString());
-		mv.addObject("ranks", ranks);
-		mv.setViewName("home");
-		
-		return mv;
-	}
+
 	
 }

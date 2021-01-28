@@ -16,4 +16,9 @@ public class RankDTO {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
+	@Override
+	public String toString() {
+		return "RankDTO [cnt=" + cnt + ", nickName=" + nickName + "]";
+	}
+	
 }

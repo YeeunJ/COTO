@@ -141,8 +141,8 @@ function insertProblems(){
 					<span class="icon icon-award"></span>
 					<h5 class="small-title">오늘의 랭킹</h5>
 					<ul class="fs-18 list">
-						<c:forEach items="${ranks}" var="userProblem" varStatus="status">
-						<li class="ranking"><span class="bold">${rank.status}.</span> ${rank.nickName}</li>
+						<c:forEach items="${ranks}" var="rank" varStatus="status">
+							<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName}</li>
 						<%-- 	<li class="ranking"><span class="bold">2.</span> ${user.name}</li>
 						<li class="ranking"><span class="bold">3.</span> ${user.name}</li>
 						<li class="ranking"><span class="bold">4.</span> ${user.name}</li> --%>
