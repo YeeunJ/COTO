@@ -14,7 +14,7 @@
 	</select>
 	
 	<select id="readRecommendCountList" resultType="int" parameterType="hashmap">
-		SELECT NVL(count(*), 0)
+		SELECT COALESCE(count(*), 0)
 		FROM recomCount
 		WHERE recomID = #{recomID}
 	</select>
