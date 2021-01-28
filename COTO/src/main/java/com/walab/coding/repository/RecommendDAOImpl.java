@@ -39,13 +39,14 @@ public class RecommendDAOImpl implements RecommendDAO {
 		Map<String, Object> recommendCountListParam = new HashMap<String, Object>();
 		recommendCountListParam.put("recomID", recommend.getId());
 		
-		recommendCountList = sqlSession.selectList(namespace+".readRecommendCountList", recommendCountListParam);
+		//recommendCountList = sqlSession.selectList(namespace+".readRecommendCountList", recommendCountListParam);
+		cnt = sqlSession.selectOne(namespace+".readRecommendCountList", recommendCountListParam);
 		
-		for(int i=0;i<recommendCountList.size();i++) {
-			RecomCountDTO recomCount = recommendCountList.get(i);
-			
-			cnt += recomCount.getRecommend();
-		}
+//		for(int i=0;i<recommendCountList.size();i++) {
+//			RecomCountDTO recomCount = recommendCountList.get(i);
+//			
+//			if(recomCount.getUserID() != null) cnt++;
+//		}
 		
 		recommend.setRecomCount(cnt);
 		

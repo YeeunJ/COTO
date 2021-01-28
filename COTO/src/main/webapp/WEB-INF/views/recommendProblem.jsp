@@ -292,11 +292,11 @@ fieldset {
 		
 		<p class="title">추천 문제집 난이도</p>
 		<div class="input-field col s10">
-			<!-- <input type="radio" name="difficulty" value="1" checked/>1
-			<input type="radio" name="difficulty" value="2" />2
-			<input type="radio" name="difficulty" value="3" />3
-			<input type="radio" name="difficulty" value="4" />4
-			<input type="radio" name="difficulty" value="5" />5 -->
+			<input type="radio" name="difficulty" value="1" class="radioMrg" checked/>1
+			<input type="radio" name="difficulty" value="2" class="radioMrg"/>2
+			<input type="radio" name="difficulty" value="3" class="radioMrg"/>3
+			<input type="radio" name="difficulty" value="4" class="radioMrg"/>4
+			<input type="radio" name="difficulty" value="5"/>5
 			<input id="difficulty" type="text" class="validate"> 
 			<span class="helper-text">1~5까지만 입력가능합니다.</span>
 		</div>

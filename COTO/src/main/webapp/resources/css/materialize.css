@@ -6720,12 +6720,12 @@ textarea.materialize-textarea {
 
 /* Radio Buttons
    ========================================================================== */
-[type="radio"]:not(:checked),
+/* [type="radio"]:not(:checked),
 [type="radio"]:checked {
   position: absolute;
   opacity: 0;
   pointer-events: none;
-}
+} */
 
 [type="radio"]:not(:checked) + span,
 [type="radio"]:checked + span {
