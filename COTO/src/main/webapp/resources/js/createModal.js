@@ -27,6 +27,31 @@ function createModel(content, titleValue, actionFunction){
 		variant.fn.apply(this, variant.args);
 }
 
+
+function deleteThis(id){
+	var allid = "#"+id;
+	$(allid).remove();
+}
+
+var count=0;
+function insertProblems(){
+	var target = document.getElementById("siteName");
+	var siteName = target.options[target.selectedIndex].text;
+	
+	var siteId = $('#siteName').val();
+	var site = $("#siteName option:selected").val();
+	var value = document.getElementById("problems").value;
+	var valueSplit = value.split(',');
+	var data = $('#confirmSite').html();
+	for(var i in valueSplit){
+		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
+		count++;
+	}
+	$('#confirmSite').html(data);
+	document.getElementById("problems").value = "";
+};
+
+
 function rudModel(readContent, updateContent, titleValue, updateFunction, deleteFunction){
 		var variant = {
 			args: [

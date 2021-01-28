@@ -25,4 +25,10 @@
 		SELECT (select nickName from user where A.userID = id) as nickName, count(userID) as cnt FROM `userProblem` as A group by userID order by count(userID) desc limit 0,4	
 <!-- 	SELECT (select name from user where A.userid = id) as username, count(userid) as cnt FROM `userProblem` as A group by userid order by count(userid) desc limit 0,5
  -->	</select>
+ 
+ 	<insert id="createUserProblem" parameterType="com.walab.coding.model.UserProblemDTO">
+ 		INSERT INTO userProblem (userID, problemID) VALUES (#{userID}, #{problemID})
+<!-- 		INSERT INTO userProblem  (userID, siteID, problem, link, difficulty, memo) VALUES (#{userID}, #{siteID}, #{problem}, #{link}, #{difficulty}, #{memo})-->	
+	</insert>
+	
 </mapper>

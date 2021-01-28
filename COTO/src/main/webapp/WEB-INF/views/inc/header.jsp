@@ -25,9 +25,9 @@
 <script src="./resources/js/jquery.sweet-modal.min.js"></script>
 <script src="./resources/js/createModal.js"></script>
 <script>
-$(document).ready(function){
+$(document).ready(function(){
 	$(".dropdown-trigger").dropdown();
-}
+});
 </script>
 </head>
 <body>

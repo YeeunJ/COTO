@@ -9,6 +9,15 @@
 </mapper> -->
 
 <mapper namespace="user">
+
+	<insert id="createUserInfo" parameterType="com.walab.coding.model.UserDTO">
+		insert into user (name, email, nickname, intro, isAdmin) values (#{name}, #{email}, #{nickName}, #{intro}, 0)
+	</insert>
+	
+	<insert id="createUsergoal" parameterType="com.walab.coding.model.GoalDTO">
+		insert into goal (userID, goalNum, goal, startDate, endDate) values (#{userID}, #{goalNum}, #{goal}, #{startDate}, #{endDate})
+	</insert>
+	
 	<select id="userList"
 		resultType="com.walab.coding.model.UserDTO" parameterType="hashmap">
 		SELECT * FROM user WHERE id=#{userID}	</select>

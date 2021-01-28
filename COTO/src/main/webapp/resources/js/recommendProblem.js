@@ -1,26 +1,25 @@
 // 정렬
-document.addEventListener('DOMContentLoaded', function() {
-	var elems = document.querySelectorAll('select');
-    //var instances = M.FormSelect.init(elems, options);
-});
+//document.addEventListener('DOMContentLoaded', function() {
+//	var elems = document.querySelectorAll('select');
+//    var instances = M.FormSelect.init(elems, options);
+//});
 
 // Or with jQuery
 $(document).ready(function(){
     $('select').formSelect();
 });
 
-var instance = M.FormSelect.getInstance(elem);
-instance.getSelectedValues();
-instance.destroy();
+//var instance = M.FormSelect.getInstance(elem);
+//instance.getSelectedValues();
+//instance.destroy();
 
 
-
-/*$(document).ready(function() {
+$(document).ready(function() {
 	$('#register-button').on('click', function() {
 		 createModel("#registerRecommendProblem", "문제집 등록", addAjax);
 		 $('select').formSelect();
 	});
-});*/
+});
 
 function createProblems() {
 	createModel("#createProblems", "문제집 등록", addAjax);

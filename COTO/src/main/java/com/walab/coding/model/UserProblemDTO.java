@@ -4,20 +4,36 @@ import java.sql.Date;
 
 public class UserProblemDTO {
 	private int id;
+	private int userID;
+	private int problemID;
+	private int siteID;
 	private String problem;
 	private String site;
 	private String siteUrl;
 	private String link;
-	private String difficulty;
-	private String memo;
-	private Date regDate;
-	
-	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getUserID() {
+		return userID;
+	}
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+	public int getProblemID() {
+		return problemID;
+	}
+	public void setProblemID(int problemID) {
+		this.problemID = problemID;
+	}
+	public int getSiteID() {
+		return siteID;
+	}
+	public void setSiteID(int siteID) {
+		this.siteID = siteID;
 	}
 	public String getProblem() {
 		return problem;
@@ -61,6 +77,12 @@ public class UserProblemDTO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	private String difficulty;
+	private String memo;
+	private Date regDate;
+	
+	
+	
 	
 	
 }

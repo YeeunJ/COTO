@@ -302,17 +302,7 @@ fieldset {
 		</div>
 		
 		<p class="title">추천 문제집 태그</p>
-		<div class="row">
-			<div class="input-field col s10">
-				<input id="tags" type="text" class="validate"> 
-				<span class="helper-text">태그들을 입력할 때 ,로 구분해주세요!!</span>
-			</div>
-			<button type="button" id="addTag" class="modal_button lighten-1" onClick="insertTags()">추가</button>
-		</div>
-		<div class="input-field col s10">
-			<label for="last_tag">입력한 Tags</label> <br> <br>
-			<div id="confirmTag"></div>
-		</div>
+		<div id="problemTag" class="chips chips-placeholder"></div>
 		
 		<p class="title">추천 문제집 설명</p>
 		<textarea id="content" name="content" rows="5"></textarea>
@@ -377,6 +367,33 @@ fieldset {
 <%@ include file="./inc/footer.jsp"%>
 
 <script>
+$('.chips').material_chip();
+$('.chips-placeholder').material_chip({
+    placeholder: '+tag',
+    secondaryPlaceholder: '+Tag',
+});
+$('#tagAdd').click(function(){
+	var data= $('#problemTag').material_chip('data');
+	var tag = new Array();
+	for(var i=0 ; i<data.length ; i++) {
+		tag.push(data[i].tag);
+	}
+	$.ajax({
+        url : './recommendProblem/addTag',
+        type: 'POST',
+        data: {
+        	"tag":tag
+        },
+        success: function(data) {
+            alert('리스트에 추가하였습니다.');
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+	
+});
+
 $('#createRecomProblem').click(function() {
 	var probs;
 	var siteId = [];
@@ -411,24 +428,16 @@ $('#createRecomProblem').click(function() {
 		problem.push(p);
 		link.push(l);
 		
-		/* var p = {
-			siteID: siteId,
-			problem: valueSplit[0],
-			link: link,
-		}
-		probs.push(p); */
 		
 		console.log($(this).val());
 	});
 	
 	probs = {"siteId":siteId, "problem":problem, "link":link};
 	
-	$('.tag').each(function(){
-		var tagVal = $(this).val();
-		console.log(tagVal);
-		
-		tag.push(tagVal);
-	});
+	var data= $('#problemTag').material_chip('data');
+	for(var i=0 ; i<data.length ; i++) {
+		tag.push(data[i].tag);
+	}
 
 	for(var i=0 ; i<siteId.length ; i++) {
 		console.log("TEST: "+siteId[i]+"/"+problem[i]+"/"+link[i]);

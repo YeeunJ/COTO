@@ -8,39 +8,34 @@
 
 <script>
 //정렬
-document.addEventListener('DOMContentLoaded', function() {
+/* document.addEventListener('DOMContentLoaded', function() {
 	var elems = document.querySelectorAll('select');
     //var instances = M.FormSelect.init(elems, options);
 });
-
+ */
 // Or with jQuery
-$(document).ready(function(){
-    $('select').formSelect();
-});
 
-var instance = M.FormSelect.getInstance(elem);
+/* var instance = M.FormSelect.getInstance(elem);
 instance.getSelectedValues();
-instance.destroy();
-
+instance.destroy(); */
 
 
 
 function callModal() {
 	createModel("#createProblem", "푼 문제 등록", addajax);
+ 	$('select').formSelect();
 }
-
 
 function addajax(){
 	
-	var probs;
 	var siteId = [];
 	var problem = [];
 	var link = [];
 	
-	$('.problem').each(function(){
+	$('.sweet-modal-content .problem').each(function(){
 		
 		var s_id = 0;
-		var l = null;
+		var l = "";
 		var p;
 		var valueSplit = $(this).val().split(' ');
 		
@@ -61,22 +56,12 @@ function addajax(){
 		problem.push(p);
 		link.push(l);
 		
-		/* var p = {
-			siteID: siteId,
-			problem: valueSplit[0],
-			link: link,
-		}
-		probs.push(p); */
-		
-		console.log($(this).val());
 	});
+	console.log(problem);
+	console.log(siteId);
+	console.log(link);
 	
-	probs = {"siteId":siteId, "problem":problem, "link":link};
 
-	for(var i=0 ; i<siteId.length ; i++) {
-		console.log("TEST: "+siteId[i]+"/"+problem[i]+"/"+link[i]);
-	}
-	
 
    $.ajax({
         url : './createProblem',
@@ -91,7 +76,7 @@ function addajax(){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
     });
-   
+
 }
 
 function deleteThis(id){
@@ -101,18 +86,22 @@ function deleteThis(id){
 
 var count=0;
 function insertProblems(){
-	var siteId = $('#siteName').val();
-	var array = ['', '백준', 'leetcode', 'SW expert academy', 'oncoder', 'goorm', 'leetcode[database]', 'link'];
-	var site = $("#siteName option:selected").val();
-	var value = document.getElementById("problems").value;
+	
+	var siteName = $(".sweet-modal-content #siteName option:selected").text();
+	var siteId = $('.sweet-modal-content #siteName').val();
+	console.log("siteId: "+siteId);
+	var site = $(".sweet-modal-content #siteName option:selected").val();
+	var value = $(".sweet-modal-content #problems").val();
+	console.log(value);
 	var valueSplit = value.split(',');
-	var data = $('#confirmSite').html();
+	var data = $('.sweet-modal-content #confirmSite').html();
 	for(var i in valueSplit){
-		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+array[site]+')" id="last_name disabled" type="text" class="problem validate"/></div>';
+		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
 		count++;
 	}
+	$('.sweet-modal-content #confirmSite').html(data);
 	$('#confirmSite').html(data);
-	document.getElementById("problems").value = "";
+	$(".sweet-modal-content #problems").val("");
 };
 
 </script>
@@ -126,6 +115,7 @@ function insertProblems(){
 		<br>
 		<div class="row center">
 			<button id="register-button" class="probBtn" onclick="callModal()">문제 등록하러 가기 ></button>
+			<!-- onclick="callModal()" -->
 		</div>
 		<br> <br>
 	</div>
@@ -188,7 +178,10 @@ function insertProblems(){
 	<br>
 </div>
 <!-- second finish -->
-<div id="createProblem" class="container" style="display:none;">
+
+
+
+<div id="createProblem" class="container" style="display:none">
 	<form class="col s12">
 		<div class="row">
 			<div class="input-field col s4">
@@ -223,3 +216,5 @@ function insertProblems(){
 
 
 <%@ include file="./inc/footer.jsp"%>
+<%-- <%@ include file="./solvedProblem.jsp"%>
+ --%>
