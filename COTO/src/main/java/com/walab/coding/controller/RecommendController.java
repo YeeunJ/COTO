@@ -66,8 +66,8 @@ public class RecommendController {
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		
 		
-		mv.addObject("CodingSite", codingSite);
 		mv.addObject("recoms", recoms);
+		mv.addObject("codingSite", codingSite);
 //		mv.addObject("recomComment", recomComment);
 		mv.addObject("commentCount", commentCount);
 				
