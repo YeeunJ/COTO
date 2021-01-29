@@ -93,10 +93,27 @@ public class RecommendController {
 		
 		recomCommentService.createComment(dto);
 		
-		String html = "<div>"+content+"</div>";
+		
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		
+		int userid=2;
+		String html="<input type=\"text\" name=\"writer\" value=\""+userid+"\" hidden>\n"
+				+ "  <input type=\"text\" name=\"recomID\" value=\""+recomID+"\" hidden>";
+		
+		
+		for(int i=0 ; i<recomComment.size();i++) {
+			System.out.println( recomComment.get(i).get("regDate"));
+//			Date from = recomComment.get(i).get("regDate");
+//			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//			String to = transFormat.format(from);
+
+			html+="<div class=\'comment-wrapper\'>\n"
+				+ "		<span class=\'username\'>"+recomComment.get(i).get("name")+"</span><span class=\"commentdate\">"+recomComment.get(i).get("regDate")+"</span>\n"
+				+ "		<p class=\"comment\">"+recomComment.get(i).get("content")+"</p>\n"
+				+ "	</div>";
+		}
 		
 		return html;
-
 	}
 	
 	@RequestMapping(value = "/readComment", method = RequestMethod.POST)
@@ -104,7 +121,7 @@ public class RecommendController {
 	public String readComment(HttpServletRequest request) {
 		
 		int recomID = Integer.parseInt(request.getParameter("recomID"));		
-		List<Map<String,String>> recomComment = recomCommentService.read(recomID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 
 		System.out.println(recomComment.isEmpty());
 		System.out.println(recomComment.size());
@@ -129,28 +146,7 @@ public class RecommendController {
 		
 		return html;
 	}
-//		ModelAndView mv = new ModelAndView();
-//
-//		mv.addObject("test", "test입니동");
-//		mv.addObject("recomComment", recomComment);
-//		mv.setViewName("redirect:/ajaxContent/recomCommentContent");
-////		mv.setViewName("../ajaxContent/recomCommentContent");
-//		
-//		return mv;
 
-	/*@RequestMapping(value = "", method = RequestMethod.POST)
-	public ModelAndView recomProblems(HttpServletRequest httpServletRequest) {
-		ModelAndView mv = new ModelAndView();
-		
-		int recomID = Integer.parseInt(httpServletRequest.getParameter("recomID"));
-		List<RecomProblemsDTO> recomProblem = recommendService.readRecomProblems(recomID);
-		
-		mv.addObject("recomProblem", recomProblem);
-		mv.setViewName("recomProblems");
-				
-		return mv;
-	}*/
-	
 	@RequestMapping(value = "/createRecomProblem", method = RequestMethod.POST)
 	public @ResponseBody String createProblem(@RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="title") String title, @RequestParam(value="difficulty") int difficulty, @RequestParam(value="tag[]") List<String> tag, @RequestParam(value="content") String content) throws UnsupportedEncodingException {
 		RecommendDTO recom = new RecommendDTO();

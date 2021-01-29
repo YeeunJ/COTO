@@ -17,12 +17,12 @@ public class RecomCommentServiceImpl implements RecomCommentService {
 	RecomCommentDAO recomCommentDAO;
 	
 	@Override
-	public List<Map<String, String>> read(int recomID) {
+	public List<Map<String, Object>> read(int recomID) {
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("recomID", recomID);
 		
-		List<Map<String, String>> list = recomCommentDAO.readAll(param);
+		List<Map<String, Object>> list = recomCommentDAO.readAll(param);
 		
 		return list;
 	}
