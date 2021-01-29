@@ -1,6 +1,6 @@
 package com.walab.coding.model;
 
-public class TagDTO {
+public class RecomTagDTO {
 
 	private int id;
 	private int recomID;

@@ -3,6 +3,6 @@
 
 <mapper namespace="recomProblems">
 	<insert id="createRecomProblem" parameterType="com.walab.coding.model.RecomProblemsDTO">
-		INSERT INTO recomProblems (recomID, site, problem) VALUES (#{recomID}, #{site}, #{problem})
+		INSERT INTO recomProblem (recomID, problemID) VALUES (#{recomID}, #{problemID})
 	</insert>
 </mapper>

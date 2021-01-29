@@ -22,20 +22,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.walab.coding.model.CodingSiteDTO;
-import com.walab.coding.model.RecomProblemsDTO;
+import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecommendDTO;
-import com.walab.coding.model.TagDTO;
+import com.walab.coding.model.RecomTagDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.CodingSiteServiceImpl;
 import com.walab.coding.service.RecomCommentService;
-import com.walab.coding.service.RecomProblemsServiceImpl;
+import com.walab.coding.service.RecomProblemServiceImpl;
 import com.walab.coding.service.RecommendService;
 import com.walab.coding.service.RecomCommentServiceImpl;
-import com.walab.coding.service.RecomProblemsService;
+import com.walab.coding.service.RecomProblemService;
 import com.walab.coding.service.RecommendServiceImpl;
-import com.walab.coding.service.TagService;
-import com.walab.coding.service.TagServiceImpl;
+import com.walab.coding.service.RecomTagService;
+import com.walab.coding.service.RecomTagServiceImpl;
 /**
  * Handles requests for the application RecommendProblems page.
  */
@@ -51,9 +51,9 @@ public class RecommendController {
 	@Autowired
 	CodingSiteService codingSiteService;
 	@Autowired
-	RecomProblemsService recomProblemsService;
+	RecomProblemService recomProblemsService;
 	@Autowired
-	TagService tagService;
+	RecomTagService recomTagService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView recommendProblem(ModelAndView mv) {
@@ -148,29 +148,31 @@ public class RecommendController {
 	}
 
 	@RequestMapping(value = "/createRecomProblem", method = RequestMethod.POST)
-	public @ResponseBody String createProblem(@RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="title") String title, @RequestParam(value="difficulty") int difficulty, @RequestParam(value="tag[]") List<String> tag, @RequestParam(value="content") String content) throws UnsupportedEncodingException {
+	public @ResponseBody String createProblem(@RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="title") String title, @RequestParam(value="difficulty") String difficulty, @RequestParam(value="tag[]") List<String> tag, @RequestParam(value="content") String content) throws UnsupportedEncodingException {
 		RecommendDTO recom = new RecommendDTO();
-		List<RecomProblemsDTO> recomProbs = new ArrayList<RecomProblemsDTO>();
-		List<TagDTO> recomTags = new ArrayList<TagDTO>();
+		List<RecomProblemDTO> recomProbs = new ArrayList<RecomProblemDTO>();
+		List<RecomTagDTO> recomTags = new ArrayList<RecomTagDTO>();
 
 		int userID = 3;
 		
 		recom.setUserID(userID);
 		recom.setTitle(title);
-		recom.setDifficulty(difficulty);
+		recom.setDifficulty(Integer.parseInt(difficulty));
 		recom.setContent(content);
 		int recomID = recommendService.createRecomProblem(recom);
 		
 		for(int i=0 ; i<siteId.size() ; i++) {
 			System.out.println(siteId.get(i));
-			RecomProblemsDTO p = new RecomProblemsDTO();
+			RecomProblemDTO p = new RecomProblemDTO();
 			
 			p.setRecomID(recomID);
 			
 			if(Integer.parseInt(siteId.get(i)) != 0)
-				p.setSite(Integer.parseInt(siteId.get(i)));
+				p.setSiteID(Integer.parseInt(siteId.get(i)));
 			
-			p.setProblem(problem.get(i));
+			int problemID = recomProblemsService.readProblemID(Integer.parseInt(siteId.get(i)), problem.get(i));
+			
+			p.setProblemID(problemID);
 			
 			recomProbs.add(p);
 		}
@@ -178,7 +180,7 @@ public class RecommendController {
 		recomProblemsService.createRecomProblem(recomProbs);
 		
 		for(int i=0;i<tag.size();i++) {
-			TagDTO t = new TagDTO();
+			RecomTagDTO t = new RecomTagDTO();
 			
 			t.setRecomID(recomID);
 			t.setTag(tag.get(i));
@@ -186,7 +188,7 @@ public class RecommendController {
 			recomTags.add(t);
 		}
 		
-		tagService.createTag(recomTags);
+		recomTagService.createTag(recomTags);
 		
 		return "success";
 	}
