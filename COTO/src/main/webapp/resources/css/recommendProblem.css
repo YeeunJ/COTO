@@ -1,35 +1,41 @@
-#register-button {
+/* 문제 추천 - 전체 페이지 css */
+.custom-button {
+	background-color: white;
+	margin-top: 15%; ! important;
+	border: 2px solid #666666;
+	height: 31px;
+	border-radius: 20px;
 	float: left;
 }
-
 fieldset {
-  position: relative;
-  padding: 0 0 0 40px;
-  background: #fff;
-  border: none;
+	background: #fff;
+	border: none;
 }
-.searchText {
-	position: relative;
-	width: 65% !important;
-  	height: 50px;
-  	padding: 0;
-  	float: left;
-  	margin-right: 5% !important;
+.search {
+	padding: 0px;
+	margin-left: 10px;
+	display: flex;
+	float: right;
+	width: 25% !important;
 }
-
-.searchBtn {
-	position: relative;
-	width: 20% !important;
-  	height: 50px;
-  	padding: 0;
-  	float: left;
-  	color:white;
-  	border-radius: 10px;
+.search_bt {
+	all: unset;
 }
-
+.custom-button:hover {
+	background-color: #e69138ff;
+	color: white;
+	border: 1px solid #e69138ff;
+}
+.order {
+	width: 13%;
+	float: right;
+}
 .title {
 	border: 0;
 	background-color: Transparent;
+}
+.comment {
+	border-bottom: 1px solid #bdbdbd;
 }
 
 
@@ -146,4 +152,17 @@ fieldset {
 .bold {
 	font-weight: bold;
 	font-size: 18px;
+}
+
+.radioMrg {
+	margin-left: 3%;
+}
+input[type='radio']:checked {
+  background-color: #e69238 !important;
+}
+.diffCont {
+	margin-left: 5%;
+	color: #e69238;
+    font-size: 16px;
+    font-weight: 500;
 }

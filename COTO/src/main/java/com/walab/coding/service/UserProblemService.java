@@ -2,6 +2,7 @@ package com.walab.coding.service;
 
 import java.util.List;
 
+import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.UserProblemDTO;
 
 public interface UserProblemService {
@@ -9,9 +10,11 @@ public interface UserProblemService {
 	
 	int readSolvedP(int userID);
 	
-	public List<String> readRank(int probs);
+	public List<RankDTO> readRankList();
 	
 	public int update(UserProblemDTO upd);
 	
 	public int delete(int userProblemID);
+	
+	void createUserProblem(List<UserProblemDTO> p);
 }

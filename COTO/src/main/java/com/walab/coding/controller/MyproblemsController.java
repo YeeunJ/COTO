@@ -37,7 +37,7 @@ public class MyproblemsController {
 		
 		int userID = 1;
 		
-		List<UserProblemDTO> problems = userProblemService.read(userID);
+		//List<UserProblemDTO> problems = userProblemService.read(userID);
 		List<GoalDTO> goal = goalService.readGoal(userID);
 		int userSolvedP = userProblemService.readSolvedP(userID);
 		
@@ -45,13 +45,12 @@ public class MyproblemsController {
 		int goalNum = g.getGoalNum();
 		
 		mv.addObject("goal", goal);
-		mv.addObject("problems", problems);
+		//mv.addObject("problems", problems);
 		model.addAttribute("userSolvedP", userSolvedP);
 		model.addAttribute("goalNum", goalNum);
 
 		mv.setViewName("mypage/problems");
 
-		
 		return mv;
 	}
 	

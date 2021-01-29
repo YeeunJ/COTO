@@ -3,8 +3,9 @@
 
 <%@ include file="./inc/header.jsp"%>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
-<link href="./resources/css/recommendProblem.css?as" rel="stylesheet">
+<link href="./resources/css/recommendProblem.css?qwe" rel="stylesheet">
 <script src="./resources/js/recommendProblem.js"></script>
 
 <style>
@@ -26,69 +27,6 @@
 	opacity: 0.4;
 	z-index: -1;
 }
-
-.content {
-	top: 15%;
-	left: 50px;
-	width: 100%;
-	bottom: 100px;
-	color: #666666;
-	font-weight: 800;
-	position: absolute;
-}
-
-fieldset {
-	padding: 0 0 0 40px;
-	background: #fff;
-	border: none;
-}
-
-.search {
-	display: flex;
-	float: right;
-	width: 30% !important;
-}
-
-.search_bt {
-	all: unset;
-}
-
-.search-part {
-	margin-bottom: 5%;
-}
-
-.top-bar {
-	display: flex;
-}
-
-.custom-button {
-	background-color: white;
-	margin-top: 10%; ! important;
-	border: 1px solid #666666;
-	height: 31px;
-	border-radius: 20px;
-	float: left;
-}
-
-.custom-button:hover {
-	background-color: #e69138ff;
-	color: white;
-	border: 1px solid #e69138ff;
-}
-
-.order {
-	width: 13%;
-	float: right;
-}
-
-.title {
-	border: 0;
-	background-color: Transparent;
-}
-
-.comment {
-	border-bottom: 1px solid #bdbdbd;
-}
 </style>
 
 <div class="container">
@@ -99,7 +37,7 @@ fieldset {
 		</div>
 	</div>
 
-	<div class="search-part">
+	<div class="top-bar">
 		<fieldset class="search">
 			<input class="search_problem" type="search"
 				placeholder="검색어를 입력해주세요." />
@@ -107,12 +45,9 @@ fieldset {
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
-	</div>
-
-	<div class="top-bar">
-		<button class="input-field custom-button" onclick="createProblems()">문제
+		<button id="create" class="input-field custom-button" onclick="createProblems()">문제
 			추천집 만들기</button>
-		<div class="input-field col s12 order">
+		<div class="col order">
 			<select>
 				<option value="" disabled selected>정렬</option>
 				<option value="1">난이도순</option>
@@ -138,17 +73,17 @@ fieldset {
 				</c:if>
 			</c:forEach>
 			<div class="tableRow" id="recoms${recoms.id}"
-				onclick="printAllContent('#recoms${recoms.id}', ${recoms.id})">
-				<span class="tableCell td1">${status.count}</span> <span
-					class="tableCell td4 readTitle">${recoms.title}</span> <span
-					class="tableCell td2">${recoms.nickname}</span> <span
-					class="tableCell td1"></span> <span class="tableCell td1"></span> <span
-					class="tableCell td1">${ count }</span> <span
-					class="tableCell td15"></span> <span
-					class="tableCell td15 readRecommend">${recoms.recomCount}</span> <span
-					class="readProblem" style="display: none;">10문제</span> <span
-					class="readTag" style="display: none;">정렬</span> <span
-					class="readContent" style="display: none;">${recoms.content}</span>
+				onclick="printAllContent('#recoms${recoms.id}', ${recoms.id}, ${ count })">
+				<span class="tableCell td1">${status.count}</span> 
+				<span class="tableCell td4 readTitle">${recoms.title}</span> 
+				<span class="tableCell td2">${recoms.nickname}</span> 
+				<span class="tableCell td1"></span> 
+				<span class="tableCell td1 readRecommend">${recoms.recomCount}</span> 
+				<span class="tableCell td1">${ count }</span> 
+				<%-- <span class="tableCell td15 readRecommend">${recoms.recomCount}</span>  --%>
+				<span class="readProblem" style="display: none;">10문제</span> 
+				<span class="readTag" style="display: none;">정렬</span> 
+				<span class="readContent" style="display: none;">${recoms.content}</span>
 			</div>
 		</c:forEach>
 
@@ -255,19 +190,18 @@ fieldset {
 				<br><br> -->
 </div>
 
-
 <!-- 문제집 등록 모달 -->
-<div id="createProblems" class="container" style="display: none;">
+<div id="createProblems" class="container" style="">
 	<form class="col s12">
 		<p class="title">추천 문제집 제목</p>
-		<input id="title" type="text" placeholder="제목을 입력해주세요."></input>
+		<input id="title" class="title-input" type="text" placeholder="제목을 입력해주세요."></input>
 
 		<p class="title">추천 문제 등록</p>
 		<div class="row">
 			<div class="input-field col s4">
 				<select id="siteName" required>
 					<optgroup label="코딩사이트 선택">
-						<c:forEach items="${CodingSite}" var="site">
+						<c:forEach items="${codingSite}" var="site">
 							<option value="${site.id}">${site.siteName}</option>
 						</c:forEach>
 					</optgroup>
@@ -287,42 +221,57 @@ fieldset {
 		</div>
 		<div class="input-field col s10">
 			<label for="last_name">입력한 Problems</label> <br> <br>
-			<div id="confirmSite"></div>
+			<div class="recom-confirmSite" id="confirmSite"></div>
 		</div>
 		
 		<p class="title">추천 문제집 난이도</p>
-		<div class="input-field col s10">
-			<!-- <input type="radio" name="difficulty" value="1" checked/>1
-			<input type="radio" name="difficulty" value="2" />2
-			<input type="radio" name="difficulty" value="3" />3
-			<input type="radio" name="difficulty" value="4" />4
-			<input type="radio" name="difficulty" value="5" />5 -->
-			<input id="difficulty" type="text" class="validate"> 
-			<span class="helper-text">1~5까지만 입력가능합니다.</span>
+		<div class="row">
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d1" value="1" checked/>
+					<label for="d1" class="diffCont">1</label>
+				</p>
+			</div>
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d2" value="2" class="radioMrg"/>
+					<label for="d2" class="diffCont">2</label>
+				</p>
+			</div>
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d3" value="3" class="radioMrg"/>
+					<label for="d3" class="diffCont">3</label>
+				</p>
+			</div>
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d4" value="4" class="radioMrg"/>
+					<label for="d4" class="diffCont">4</label>
+				</p>
+			</div>
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d5" value="5" class="radioMrg"/>
+					<label for="d5" class="diffCont">5</label>
+				</p>
+			</div>
+			
+			
 		</div>
 		
 		<p class="title">추천 문제집 태그</p>
-		<div class="row">
-			<div class="input-field col s10">
-				<input id="tags" type="text" class="validate"> 
-				<span class="helper-text">태그들을 입력할 때 ,로 구분해주세요!!</span>
-			</div>
-			<button type="button" id="addTag" class="modal_button lighten-1" onClick="insertTags()">추가</button>
-		</div>
-		<div class="input-field col s10">
-			<label for="last_tag">입력한 Tags</label> <br> <br>
-			<div id="confirmTag"></div>
-		</div>
+		<div id="problemTag" class="chips chips-placeholder"></div>
 		
 		<p class="title">추천 문제집 설명</p>
-		<textarea id="content" name="content" rows="5"></textarea>
+		<textarea id="content" class="desc-textarea" name="content" rows="5"></textarea>
 
 	</form>
 </div>
 
 
 <!-- 세부 정보 모달 -->
-<div id="recomDetailModal" style="display: none;">
+<div id="recomDetailModal" style="display:none;">
 
 	<div id="detailRecom">
 		<div>
@@ -354,13 +303,13 @@ fieldset {
 		<div>
 			<div class="details">
 				<span class="like-icon icon"></span><span class="bold">34</span><span></span>
-				<span class="comment-icon icon"></span><span class="bold">18</span><span></span>
+				<span class="comment-icon icon"></span><span id="commentCount" class="bold">18</span><span></span>
 				<span class="diff-icon icon">3</span>
 			</div>
 			<div id="commentDetail">
 				<div class="comment-add">
 					<textarea id="comment-textarea" placeholder="댓글을 달아주세요."></textarea>
-					<button id="addComment" class="modal_button add-btn">등록</button>
+					<button id="addComment" class="modal_button add-btn" onclick="addComment()">등록</button>
 				</div>
 				<div id="modal-comment" class="wrapper">
 					<%-- 					<%@ include file="./ajaxContent/recomCommentContent.jsp"%>
@@ -377,13 +326,50 @@ fieldset {
 <%@ include file="./inc/footer.jsp"%>
 
 <script>
+$("#createProblem").click(function(){
+	$('.sweet-modal-content .chips').css("background", "grey");
+	$('.sweet-modal-content .chips').material_chip();
+	$('.sweet-modal-content .chips-placeholder').material_chip({
+	    placeholder: '+tag',
+	    secondaryPlaceholder: '+Tag',
+	});
+});
+
+$('.chips').material_chip();
+$('.chips-placeholder').material_chip({
+    placeholder: '+tag',
+    secondaryPlaceholder: '+Tag',
+});
+
+$('#tagAdd').click(function(){
+	var data= $('#problemTag').material_chip('data');
+	var tag = new Array();
+	for(var i=0 ; i<data.length ; i++) {
+		tag.push(data[i].tag);
+	}
+	$.ajax({
+        url : './recommendProblem/addTag',
+        type: 'POST',
+        data: {
+        	"tag":tag
+        },
+        success: function(data) {
+            alert('리스트에 추가하였습니다.');
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+	
+});
+
 $('#createRecomProblem').click(function() {
 	var probs;
 	var siteId = [];
 	var problem = [];
 	var link = [];
 	var title = document.getElementById("title").value;
-	var difficulty = document.getElementById("difficulty").value;
+	var difficulty = document.getElementsByName("difficulty").value;
 	var tag = [];
 	var content = document.getElementById("content").value;
 	
@@ -411,24 +397,16 @@ $('#createRecomProblem').click(function() {
 		problem.push(p);
 		link.push(l);
 		
-		/* var p = {
-			siteID: siteId,
-			problem: valueSplit[0],
-			link: link,
-		}
-		probs.push(p); */
 		
 		console.log($(this).val());
 	});
 	
 	probs = {"siteId":siteId, "problem":problem, "link":link};
 	
-	$('.tag').each(function(){
-		var tagVal = $(this).val();
-		console.log(tagVal);
-		
-		tag.push(tagVal);
-	});
+	var data= $('#problemTag').material_chip('data');
+	for(var i=0 ; i<data.length ; i++) {
+		tag.push(data[i].tag);
+	}
 
 	for(var i=0 ; i<siteId.length ; i++) {
 		console.log("TEST: "+siteId[i]+"/"+problem[i]+"/"+link[i]);
@@ -496,37 +474,42 @@ $('#createRecomProblem').click(function() {
 					content : $('#comment-textarea').val()
 				},
 				success : function(data) {
-					$('#modal-comment').append(data);
+					$('#modal-comment').html(data);
 				},
 				error : function(request, status, error) {
 					console.log("code:" + request.status + "\n"
 							+ "message:" + request.responseText + "\n"
 							+ "error:" + error);
-
-	
-	$('#addComment').click(
-			function() {
-				if (confirm("댓글을 추가하시겠습니까?")) {
-					$.ajax({
-						url : "recommendProblem/addComment",
-						type : "POST",
-						async : false,
-						data : {
-							recomID : 2,
-							content : $('#content').val()
-						},
-						success : function(data) {
-							$('#comment').append(data);
-						},
-						error : function(request, status, error) {
-							console.log("code:" + request.status + "\n"
-									+ "message:" + request.responseText + "\n"
-									+ "error:" + error);
-						}
-					});
 				}
 			});
 		}
 	});
 	
+	$(".sweet-modal-content #addComment").click(function() {
+		var userID = $("input[name='writer']").val();
+		var recomID = $("input[name='recomID']").val();
+		alert(userID + "/" + recomID);
+		
+		if (confirm("댓글을 추가하시겠습니까?")) {
+			$.ajax({
+				url : "recommendProblem/addComment",
+				type : "POST",
+				async : false,
+				data : {
+					userID : userID,
+					recomID : recomID,
+					content : $('#comment-textarea').val()
+				},
+				success : function(data) {
+					$('#modal-comment').html(data);
+				},
+				error : function(request, status, error) {
+					console.log("code:" + request.status + "\n"
+							+ "message:" + request.responseText + "\n"
+							+ "error:" + error);
+				}
+			});
+		}
+	});
+
 </script>

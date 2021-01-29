@@ -1,18 +1,13 @@
 // 정렬
-document.addEventListener('DOMContentLoaded', function() {
-	var elems = document.querySelectorAll('select');
-    //var instances = M.FormSelect.init(elems, options);
-});
+//document.addEventListener('DOMContentLoaded', function() {
+//	var elems = document.querySelectorAll('select');
+//    //var instances = M.FormSelect.init(elems, options);
+//});
 
 // Or with jQuery
 $(document).ready(function(){
     $('select').formSelect();
 });
-
-var instance = M.FormSelect.getInstance(elem);
-instance.getSelectedValues();
-instance.destroy();
-
 
 
 /*$(document).ready(function() {
@@ -26,7 +21,7 @@ function createProblems() {
 	createModel("#createProblems", "문제집 등록", addAjax);
 }
 
-function printAllContent(id, recomId, userId){
+function printAllContent(id, recomId, count){
 	//alert(recomId);
 	readComment(recomId);
 	$('#problems').html($(id+' .readProblem').html());
@@ -34,10 +29,46 @@ function printAllContent(id, recomId, userId){
 	$('#contents').html($(id+' .readContent').html());
 	$('#recommends').html($(id+' .readRecommend').html());
 	
+	$("#commentCount").text(count);
+	
 	rudModel("#recomDetailModal", "#updateRecommendProblem", $(id+' .readTitle').html(), updateAjax, deleteAjax);
 //	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), updateAjax, deleteAjax);
 	$('select').formSelect();
 }
+
+
+function addComment() {	
+	var userID = $("input[name='writer']").val();
+	var recomID = $("input[name='recomID']").val();
+
+	if (confirm("댓글을 추가하시겠습니까?")) {
+		$.ajax({
+			url : "recommendProblem/addComment",
+			type : "POST",
+			async : false,
+			data : {
+				userID : userID,
+				recomID : recomID,
+				content : $('.sweet-modal-content #comment-textarea').val()
+			},
+			success : function(data) {
+				$('.sweet-modal-content #modal-comment').html(data);
+				$('.sweet-modal-content #comment-textarea').val("");
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n"
+						+ "message:" + request.responseText + "\n"
+						+ "error:" + error);
+			}
+		});
+	}
+}
+
+$('.sweet-modal-content .chips').material_chip();
+$('.sweet-modal-content .chips-placeholder').material_chip({
+    placeholder: '+tag',
+    secondaryPlaceholder: '+Tag',
+});
 
 function readComment(recomID) {
 		$.ajax({
@@ -48,7 +79,6 @@ function readComment(recomID) {
 				recomID : recomID,
 			},
 			success : function(data) {
-				console.log(data);
 				$("#modal-comment").html(data);
 			},
 			error : function(request, status, error) {
@@ -126,12 +156,10 @@ $('#createProblem').click(function() {
 	
 	probs = {"siteId":siteId, "problem":problem, "link":link};
 	
-	$('.tag').each(function(){
-		var tagVal = $(this).val();
-		console.log(tagVal);
-		
-		tag.push(tagVal);
-	});
+	var data= $('#problemTag').material_chip('data');
+	for(var i=0 ; i<data.length ; i++) {
+		tag.push(data[i].tag);
+	}
 
 	for(var i=0; i<siteId.length; i++) {
 		console.log("TEST: "+siteId[i]+"/"+problem[i]+"/"+link[i]);

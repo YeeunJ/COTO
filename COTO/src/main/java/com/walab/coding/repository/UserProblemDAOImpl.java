@@ -10,7 +10,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.GoalDTO;
+import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.model.UserProblemDTO;
 
 @Repository
@@ -55,10 +57,43 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		
 		return sqlSession.selectOne(namespace+".readSovledUserProblem", userSolvedProblemParam);
 	}
-	public List<String> readRank(int probs) {
-		Map<String, Object> userRankParam = new HashMap<String, Object>();
-		//userRankParam.put("username", probs);
+	
+	public List<RankDTO> readRankList() {
+		List<RankDTO> rankList = new ArrayList<RankDTO>();
+		rankList = sqlSession.selectList(namespace+".readRank");
+
+		return rankList;
+	}
+
+	@Override
+	public void createUserProblem(UserProblemDTO p) {
 		
-		return sqlSession.selectList(namespace+".readRank");
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("siteID", p.getSiteID());
+		param.put("name", p.getProblem());
+		param.put("link", p.getLink());
+		
+		List<ProblemDTO> result = sqlSession.selectList("problem.readProblemByUser", param);
+		
+		int problemID;
+		if(result.size() == 0) {
+			
+			ProblemDTO newProb = new ProblemDTO();
+			newProb.setSiteID(p.getSiteID());
+			newProb.setName(p.getProblem());
+			newProb.setLink(p.getLink());
+			
+			sqlSession.insert("problem.createProblem", newProb);
+			problemID = sqlSession.selectOne("problem.readMaxID");
+			
+			System.out.println("problem에 없음! 새로운 problem 만들었음");
+		}else {
+			problemID = result.get(0).getId();
+			System.out.println("problem에 있음 : "+problemID);
+		}
+		
+		p.setProblemID(problemID);
+		sqlSession.insert(namespace+".createUserProblem", p);
+	
 	}
 }

@@ -21,16 +21,8 @@
 }
 .th8{
 	font-weight: normal !important;
+	padding-left: 50px !important;
 }
-
 .tableCell {
  	border-bottom: none !important;
 } 
-
-#headerButton{
-	float: center;
-	border: 1px black;
-	margin-bottom: 50px; 
-	margin-top: 0px;
-	vertical-align: middle;
-}

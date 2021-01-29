@@ -20,6 +20,15 @@
 .sweet-modal-close a.sweet-modal-close-link:hover {
 	background-color: #e3a96d;
 }
+/* 페이지 문구 공통 */
+.content {
+	top: 15%;
+	left: 50px;
+	width: 85%;
+	bottom: 100px;
+	color: #666666;
+	position: absolute;
+}
 
 /* button common */
 .whitebtn {
@@ -53,9 +62,15 @@
 
 .tableRow {
 	display: table-row !important;
+	cursor: pointer;
 }
 
-.th1, .th15, .th2, .th3, .th4, .th5, .th6, .th7, .th8, .th9 { font-weight: bold !important; }
+.th1, .th15, .th2, .th3, .th4, .th5, .th6, .th7, .th8, .th9 { 
+	font-weight: bold !important;
+	background-color: #e69138ff !important;
+	color: white;
+	text-align: center;
+}
 
 .tableCell {
 	display: table-cell !important; 

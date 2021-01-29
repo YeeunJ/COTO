@@ -153,19 +153,9 @@ $(document).ready(function() {
 	opacity: 0.4;
 	z-index: -1;
 }
-
-.content {
-	top: 15%;
-	left: 50px;
-	width: 100%;
-	bottom: 100px;
-	color: #666666;
-	font-weight: 800;
-	position: absolute;
-}
 </style>
 
-<div id="codingSiteContainer" class="container">
+<div id="SiteContainer" class="container">
 	<div id="manage">
 		<div class="content">
 			<h4>코딩 사이트 관리</h4>
@@ -185,9 +175,9 @@ $(document).ready(function() {
 	<form name="form1" action="manageCodingsite/addok" method="post">
 		 
 		<div id="table">
-			<div class="tableRow orange white-text">
-				<span class="tableCell th3 tablehead center">사이트 이름 </span> 
-				<span class="tableCell th5 tablehead center">URL</span> 
+			<div class="tableRow">
+				<span class="tableCell th3 tablehead">사이트 이름 </span> 
+				<span class="tableCell th5 tablehead">URL</span> 
 				<span class="tableCell th1"></span> 
 				<span class="tableCell th1"></span>
 
@@ -201,7 +191,7 @@ $(document).ready(function() {
 				</div>
 			</c:forEach>
 			
-			<div id="new" style="display: none !important;" class="tableRow content">
+			<div id="new" style="display: none !important;" class="tableRow">
 				<input id="editonly" type="hidden" name="id" />
 				<span class="tableCell td3 sub"><input  id="siteName" type='text'name='siteName'></span>
 				<span class="tableCell td5 sub"><input  id="siteUrl" type='text' name='siteUrl'></span> 
@@ -210,9 +200,5 @@ $(document).ready(function() {
 			</div>
 		</div>
 		</form>
-	</div><br><br><br>
-
-
-
-
+	</div>
 <%@ include file="./inc/footer.jsp"%>
