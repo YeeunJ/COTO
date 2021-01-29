@@ -148,7 +148,8 @@ public class RecommendController {
 	}
 
 	@RequestMapping(value = "/createRecomProblem", method = RequestMethod.POST)
-	public @ResponseBody String createProblem(@RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="title") String title, @RequestParam(value="difficulty") String difficulty, @RequestParam(value="tag[]") List<String> tag, @RequestParam(value="content") String content) throws UnsupportedEncodingException {
+	@ResponseBody
+	public ModelAndView createProblem(@RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="title") String title, @RequestParam(value="difficulty") String difficulty, @RequestParam(value="tag[]") List<String> tag, @RequestParam(value="content") String content) throws UnsupportedEncodingException {
 		RecommendDTO recom = new RecommendDTO();
 		List<RecomProblemDTO> recomProbs = new ArrayList<RecomProblemDTO>();
 		List<RecomTagDTO> recomTags = new ArrayList<RecomTagDTO>();
@@ -190,6 +191,13 @@ public class RecommendController {
 		
 		recomTagService.createTag(recomTags);
 		
-		return "success";
+		List<RecommendDTO> recoms = recommendService.readRecom();
+		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("recoms", recoms);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recommendContent");
+		
+		return mv;
 	}
 }
