@@ -1,4 +1,6 @@
-/* 코딩사이트관리 - 전체페이지 css */
+
+
+
 .button {
 	float: right;
 	margin: 2px 2px;
@@ -7,6 +9,7 @@
 .edit {
 	display: none;
 }
+
 
 .tablehead {
 	font-weight : bold;
@@ -18,11 +21,28 @@ input {
 	width:100%;
 }
 
-#SiteContainer{
+#codingSiteContainer{
 	min-height:100%;
 }
 .right{
 	float:right;
 }
+#codingsiteimg {
+    opacity: 0.4;
+    
+}
+.spanbtn{
+	min-width: 100px;
+}
+button {
+	display: inline-block !important;
+}
 
+span.btns {
+	display: none;
+	float: right;
+}
 
+span.addbtns {
+	float: right;
+}
