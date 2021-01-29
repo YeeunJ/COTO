@@ -13,13 +13,21 @@ function printAllContent(id, recomId, count){
 	readComment(recomId);
 	$('#problems').html($(id+' .readProblem').html());
 	$('#tags').html($(id+' .readTag').html());
-	$('#contents').html($(id+' .readContent').html());
-	$('#recommends').html($(id+' .readRecommend').html());
+	$('#readContents').html($(id+' .readContent').html());
+	$('#readRecommends').html($(id+' .readRecommend').html());
+	$('#readDifficulties').html($(id+' .readDifficulty').html());
 	
 	$("#commentCount").text(count);
 	
-	rudModel("#recomDetailModal", "#updateRecommendProblem", $(id+' .readTitle').html(), updateAjax, deleteAjax);
-//	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), updateAjax, deleteAjax);
+	/* $('#UuserProblemID').html(id.substring(8, id.length));
+	$('#Usite').html($(id+' .pSite').html());
+	$('#UproblemName').html($(id+' .pTitle').html());
+	$('#Umemo').html($(id+' .pMemo').html());
+	$('#Uregdate').html($(id+' .pRegdate').html());
+	$('#Udifficulty').attr('value', $(id+' .pDifficulty').attr('alt'));
+	console.log($(id+' .pDifficulty').attr('alt')); */
+	
+	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), updateAjax, deleteAjax);
 	$('select').formSelect();
 }
 
@@ -34,9 +42,9 @@ function addComment() {
 			type : "POST",
 			async : false,
 			data : {
-				userID : userID,
-				recomID : recomID,
-				content : $('.sweet-modal-content #comment-textarea').val()
+				//userID : userID,
+				//recomID : recomID,
+				//content : $('.sweet-modal-content #comment-textarea').val()
 			},
 			success : function(data) {
 				$('.sweet-modal-content #modal-comment').html(data);
@@ -63,7 +71,7 @@ function readComment(recomID) {
 			type : "POST",
 			async : false,
 			data : {
-				recomID : recomID,
+				//recomID : recomID,
 			},
 			success : function(data) {
 				$("#modal-comment").html(data);
@@ -82,10 +90,10 @@ function addajax(){
 	var siteId = [];
 	var problem = [];
 	var link = [];
-	var title = document.getElementById('createTitle').value;
+	var title = $('.sweet-modal-content #createTitle').val(); //document.getElementById('createTitle').value;
 	var difficulty_cnt = document.getElementsByName("difficulty").length;
 	var tag = [];
-	var content = document.getElementById('createContent').value;
+	var content = $('.sweet-modal-content #createContent').val(); //document.getElementById('createContent').value;
 	
 	console.log(title + " - " + content)
 	
@@ -144,6 +152,7 @@ function addajax(){
         },
         success: function(data) {
             alert('리스트에 추가하였습니다.');
+            $('#recommendContent').html(data);
         },
         error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -153,13 +162,41 @@ function addajax(){
 }
 
 function updateAjax (){
-	console.log("update!!");
-	//ajax 넣는 함수
+	$.ajax({
+		url: "./recommendProblem/updateRecomProblem",
+		type: "POST",
+		async: false,
+		data: {
+			id:$('#UuserProblemID').html(),
+			difficulty:$('.sweet-modal-content #Udifficulty').val(),
+			memo: $('.sweet-modal-content #Umemo').val()
+		},
+		success: function(data){
+			console.log(data);
+			$('#recommendContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
 }
 
 function deleteAjax (){
-	console.log("update!!");
-	//ajax 넣는 함수
+	$.ajax({
+		url: "./recommendProblem/deleteRecomProblem",
+		type: "POST",
+		async: false,
+		data: {
+			id:$('#UuserProblemID').html()
+		},
+		success: function(data){
+			console.log(data);
+			$('#recommendContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
 }
 
 function deleteThis(id){

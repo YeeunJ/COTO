@@ -58,53 +58,8 @@
 	</div>
 
 
-	<div class="table">
-		<div class="tableRow">
-			<span class="tableCell th1">No.</span> <span class="tableCell th4">제목</span>
-			<span class="tableCell th2">등록자</span> <span class="tableCell th1">난이도</span>
-			<span class="tableCell th1">추천수</span> <span class="tableCell th1">댓글수</span>
-		</div>
-		<c:forEach items="${recoms}" var="recoms" varStatus="status">
-			<c:set var="count" value="0" />
-			<c:forEach items="${commentCount}" var="c">
-				<c:if test="${ c.recomID eq recoms.id }">
-					<c:set var="count" value="${ c.count }" />
-				</c:if>
-			</c:forEach>
-			<div class="tableRow" id="recoms${recoms.id}"
-				onclick="printAllContent('#recoms${recoms.id}', ${recoms.id}, ${ count })">
-				<span class="tableCell td1">${status.count}</span> 
-				<span class="tableCell td4 readTitle">${recoms.title}</span> 
-				<span class="tableCell td2">${recoms.nickname}</span> 
-				<span class="tableCell td1"></span> 
-				<span class="tableCell td1 readRecommend">${recoms.recomCount}</span> 
-				<span class="tableCell td1">${ count }</span> 
-				<%-- <span class="tableCell td15 readRecommend">${recoms.recomCount}</span>  --%>
-				<span class="readProblem" style="display: none;">10문제</span> 
-				<span class="readTag" style="display: none;">정렬</span> 
-				<span class="readContent" style="display: none;">${recoms.content}</span>
-			</div>
-		</c:forEach>
-
-	</div>
-	<br> <br>
-
-	<!-- read -->
-	<div id="readRecommendProblem" hidden>
-		<div class="container">
-			<div class="col s12">
-				<span>문제 : </span><span id="problems"></span> <span>태그 : </span><span
-					id="tags"></span> <span>내용 : </span><span id="contents"></span> <span>추천
-					: </span><span id="recommends"></span><span>&nbsp;&nbsp;&nbsp;</span>
-				<button class="waves-effect waves-light btn green">추천</button>
-
-				<div>
-					<b>댓글</b>
-					<p class="comment">좋은 문제 감사합니다~~</p>
-				</div>
-
-			</div>
-		</div>
+	<div class="table" id="recommendContent">
+		<%@ include file="./ajaxContent/recommendContent.jsp"%>
 	</div>
 	<br> <br>
 
@@ -197,13 +152,45 @@
 
 
 <!-- 세부 정보 모달 -->
-<div id="recomDetailModal" style="display:none;">
+
+<div hidden>
+		<div class="container">
+			<div class="col s12">
+				<span>문제 : </span><span id="problems"></span> <span>태그 : </span><span
+					id="tags"></span> 
+
+				<div>
+					<b>댓글</b>
+					<p class="comment">좋은 문제 감사합니다~~</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+<div id="readRecommendProblem" style="display:none;">
 
 	<div id="detailRecom">
 		<div>
 			<div>
 				<p class="title">추천 문제 설명</p>
-				<p>배열에 대해 익히고, 재귀 함수를 익힐 수 있는 문제집입니다. 한번씩 풀어보세요~~</p>
+				<div class="readBox">
+					<span id="readContents" ></span>
+				</div>
+				<br><br>
+			</div>
+			
+			<div>
+				<p class="title">추천 문제 난이도</p>
+				<%-- <img style="width: 50px;" alt="" src="./resources/img/difficulty${}.png"> --%>
+				<div class="readBox">
+					<span id="readDifficulties"></span>
+				</div>
+				<br><br>
+			</div>
+			
+			<div>
+				<p class="title">추천 문제 태그</p>
 			</div>
 
 			<div>
@@ -228,9 +215,9 @@
 		</div>
 		<div>
 			<div class="details">
-				<span class="like-icon icon"></span><span class="bold">34</span><span></span>
-				<span class="comment-icon icon"></span><span id="commentCount" class="bold">18</span><span></span>
-				<span class="diff-icon icon">3</span>
+				<span class="like-icon icon"></span><span id="readRecommends" class="bold"></span><span></span>
+				<span class="comment-icon icon"></span><span id="commentCount" class="bold"></span><span></span>
+				<!-- <span class="diff-icon icon">3</span> -->
 			</div>
 			<div id="commentDetail">
 				<div class="comment-add">
@@ -238,8 +225,7 @@
 					<button id="addComment" class="modal_button add-btn" onclick="addComment()">등록</button>
 				</div>
 				<div id="modal-comment" class="wrapper">
-					<%-- 					<%@ include file="./ajaxContent/recomCommentContent.jsp"%>
- --%>
+					<%-- <%@ include file="./ajaxContent/recomCommentContent.jsp"%> --%>
 				</div>
 
 			</div>

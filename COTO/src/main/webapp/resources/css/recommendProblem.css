@@ -166,3 +166,7 @@ input[type='radio']:checked {
     font-size: 16px;
     font-weight: 500;
 }
+.readBox {
+	border-left: thick solid #e69238;
+	padding: 1% 3%;
+}
