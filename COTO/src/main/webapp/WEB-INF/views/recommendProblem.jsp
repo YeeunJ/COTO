@@ -261,7 +261,7 @@
 		</div>
 		
 		<p class="title">추천 문제집 태그</p>
-		<div id="problemTag" class="chips chips-placeholder"></div>
+		<div id="problemTag" class="chips chips-placeholder" onclick="chipTag()"></div>
 		
 		<p class="title">추천 문제집 설명</p>
 		<textarea id="content" class="desc-textarea" name="content" rows="5"></textarea>
@@ -323,16 +323,36 @@
 
 </div>
 
+<span id="ClickTest">click</span>
+
 <%@ include file="./inc/footer.jsp"%>
 
 <script>
-$("#createProblem").click(function(){
-	$('.sweet-modal-content .chips').css("background", "grey");
+$("#problemTag").click(function(){
+	var v = document.getElementsByClassName("chips");
+	alert(v.length);
+	
+	var att = document.createAttribute("onclick");
+	att.value="btnClick()";
+	v.setAttributeNode(att);
+});
+
+function btnClick(){ alert("Click!"); }
+
+function chipTag(){
 	$('.sweet-modal-content .chips').material_chip();
 	$('.sweet-modal-content .chips-placeholder').material_chip({
 	    placeholder: '+tag',
 	    secondaryPlaceholder: '+Tag',
 	});
+}
+
+function closeTag(){
+	alert("hello");
+};
+
+$(document).on('click', '.sweet-modal-content .close', function(){
+	alert("1");
 });
 
 $('.chips').material_chip();
@@ -403,10 +423,12 @@ $('#createRecomProblem').click(function() {
 	
 	probs = {"siteId":siteId, "problem":problem, "link":link};
 	
-	var data= $('#problemTag').material_chip('data');
+	var data= $('.sweet-modal-content #problemTag').material_chip('data');
 	for(var i=0 ; i<data.length ; i++) {
 		tag.push(data[i].tag);
 	}
+	console.log(tag);
+	
 
 	for(var i=0 ; i<siteId.length ; i++) {
 		console.log("TEST: "+siteId[i]+"/"+problem[i]+"/"+link[i]);

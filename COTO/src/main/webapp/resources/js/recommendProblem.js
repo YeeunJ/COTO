@@ -91,7 +91,6 @@ function readComment(recomID) {
 
 
 function addAjax (){
-	console.log("success");
 	//ajax 넣는 함수
 }
 

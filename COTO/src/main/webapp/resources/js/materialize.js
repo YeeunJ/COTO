@@ -7823,7 +7823,18 @@ $jscomp.polyfill = function (e, r, p, m) {
         renderedChip.classList.add('chip');
         renderedChip.textContent = chip.tag;
         renderedChip.setAttribute('tabindex', 0);
-        $(closeIcon).addClass('material-icons close');
+        
+        var att = document.createAttribute("onclick");
+        att.value="btnClick()";
+        closeIcon.setAttributeNode(att);
+        
+        // closeIcon.on("click", btnClick);
+       	// closeIcon.addEventListener("click",btnClick,false); 
+        
+        var att = document.createAttribute("onclick");
+		att.value="btnClick()";
+		closeIcon.setAttributeNode(att);
+
         closeIcon.textContent = 'close';
 
         // attach image if needed

@@ -130,7 +130,7 @@ function insertProblems(){
 				<div class="icon-block">
 					<span class="icon icon-award"></span>
 					<h5 class="small-title">오늘의 랭킹</h5>
-					<ul class="fs-18 list">
+					<ul class="fs-18 textList">
 						<c:forEach items="${ranks}" var="rank" varStatus="status">
 							<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName}</li>
 						<%-- 	<li class="ranking"><span class="bold">2.</span> ${user.name}</li>
@@ -164,7 +164,7 @@ function insertProblems(){
 					<h5 class="position-r small-title">
 						문제 순위<a href="./recommendProblem" class="more">더보기 ></a>
 					</h5>
-					<ul class="fs-18 list">
+					<ul class="fs-18 textList">
 						<li class="ranking"><span class="bold">1.</span> 백준 2097번</li>
 						<li class="ranking"><span class="bold">2.</span> 백준 10020번</li>
 						<li class="ranking"><span class="bold">3.</span> leetcode 27번</li>
