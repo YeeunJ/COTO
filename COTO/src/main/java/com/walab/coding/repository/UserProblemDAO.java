@@ -13,5 +13,5 @@ public interface UserProblemDAO {
 	public int readSolvedP(int userID);
 	public List<RankDTO> readRankList();
 	public void createUserProblem(UserProblemDTO p);
-	
+	public List<UserProblemDTO> searchProblemByContent(int userID, String searchValue);
 }

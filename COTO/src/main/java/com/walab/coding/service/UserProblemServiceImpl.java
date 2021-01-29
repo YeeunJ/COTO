@@ -74,4 +74,9 @@ public class UserProblemServiceImpl implements UserProblemService{
 		}
 	}
 
+	@Override
+	public List<UserProblemDTO> search(int userID, String searchValue) {
+		searchValue = "%".concat(searchValue).concat("%");
+		return userProblemDAO.searchProblemByContent(userID, searchValue);
+	}
 }

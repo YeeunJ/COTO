@@ -3,6 +3,25 @@ $(document).ready(function() {
 		 createModel("#registerSolvedProblem", "문제 등록", addAjax);
 		 $('select').formSelect();
 	});
+	
+	$('#searchButton').on('click', function() {
+		console.log("click");
+		$.ajax({
+			url: "problems/search",
+			type: "POST",
+			async: false,
+			data: {
+				searchValue:$('#searchValue').val()
+			},
+			success: function(data){
+				//console.log(data);
+				$('#problemsContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+	});
 });
 function printAllContent(id){
 	$('#site').html($(id+' .pSite').html());
@@ -40,7 +59,7 @@ function updateAjax(){
 			memo: $('.sweet-modal-content #Umemo').val()
 		},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			$('#problemsContent').html(data);
 		}, 
 		error:function(request, status, error){
@@ -58,7 +77,7 @@ function deleteAjax (){
 			id:$('#UuserProblemID').html()
 		},
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 			$('#problemsContent').html(data);
 		}, 
 		error:function(request, status, error){

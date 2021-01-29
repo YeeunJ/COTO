@@ -162,8 +162,6 @@
     margin: 0px;
 }
 
-.sweet-modal-box.alert{left: 0 !important;}
-
 
 /* materialize.css 파일에 있는 것 덮어씌우기 */
 input:not([type]):focus:not([readonly]),

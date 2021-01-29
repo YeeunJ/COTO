@@ -24,13 +24,10 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 	private String namespace = "userProblem";
 	
 	public List<UserProblemDTO> readAll(int userID) {
-		
-		List<UserProblemDTO> userProblemList = new ArrayList<UserProblemDTO>();
-		
 		Map<String, Object> userProblemListParam = new HashMap<String, Object>();
 		userProblemListParam.put("userID", userID);
 		
-		return userProblemList = sqlSession.selectList(namespace+".readUserProblemList", userProblemListParam);
+		return sqlSession.selectList(namespace+".readUserProblemList", userProblemListParam);
 	}
 	
 	public int updateProblem(UserProblemDTO upd) {
@@ -95,5 +92,16 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		p.setProblemID(problemID);
 		sqlSession.insert(namespace+".createUserProblem", p);
 	
+	}
+
+	@Override
+	public List<UserProblemDTO> searchProblemByContent(int userID, String searchValue) {
+		Map<String, Object> userProblemListParam = new HashMap<String, Object>();
+		userProblemListParam.put("userID", userID);
+		userProblemListParam.put("content1", searchValue);
+		userProblemListParam.put("content2", searchValue);
+		System.out.println(searchValue);
+		
+		return sqlSession.selectList(namespace+".searchUserProblemByContent", userProblemListParam);
 	}
 }

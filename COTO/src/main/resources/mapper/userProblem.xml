@@ -3,9 +3,16 @@
 
 <mapper namespace="userProblem">
 	<select id="readUserProblemList" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
-		select up.id as id, cs.siteName as site, cs.siteUrl as siteUrl, up.problem as problem, up.link as link, up.difficulty as difficulty, up.memo as memo, up.regDate as regDate 
-		from userProblem as up left join codingSite as cs on up.siteID = cs.id 
-		where up.userID = #{userID}
+		select up.id, p.name as problem, p.link as link, c.siteName as site, c.siteUrl as siteUrl, up.difficulty as difficulty, up.memo as memo, up.regdate as regdate from userProblem as up 
+		join problem as p on up.userID=p.id 
+		join codingSite as c on p.siteID=c.id 
+		where userID=#{userID}
+	</select>
+	<select id="searchUserProblemByContent" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
+		select up.id, p.name as problem, p.link as link, c.siteName as site, c.siteUrl as siteUrl, up.difficulty as difficulty, up.memo as memo, up.regdate as regdate from userProblem as up 
+		join problem as p on up.userID=p.id 
+		join codingSite as c on p.siteID=c.id 
+		where userID=#{userID} and (p.name like #{content1} or up.memo like #{content2})
 	</select>
 	
 	<delete id="deleteUserProblem" parameterType="hashmap">
