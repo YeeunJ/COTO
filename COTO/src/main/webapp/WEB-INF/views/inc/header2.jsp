@@ -10,11 +10,10 @@
 
 <link href="../resources/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
 <link href="../resources/css/jquery.sweet-modal.min.css" rel="stylesheet"/>
-<link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<!-- <link href="../resources/css/sb-admin-2.min.css" rel="stylesheet"> -->
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
 
 <link href="../resources/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 <link href="../resources/css/header.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -24,16 +23,15 @@
 <script src="../resources/js/materialize.js"></script>
 <script src="../resources/js/init.js"></script>
 <script src="../resources/js/jquery.sweet-modal.min.js"></script>
-<script src="../resources/js/sb-admin-2.min.js"></script>
 <script src="../resources/vendor/chart.js/Chart.min.js"></script>
 <script src="../resources/js/createModal.js"></script>
 
 </head>
 
 <script>
-$(document).ready(function){
+$(document).ready(function() {
 	$(".dropdown-trigger").dropdown();
-}
+});
 </script>
 <body>
 <!--   <nav class="white" role="navigation">

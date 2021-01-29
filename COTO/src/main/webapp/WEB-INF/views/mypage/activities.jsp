@@ -29,7 +29,18 @@
 }
 
 #SiteContainer {
-	min-height:100% !important;
+	min-height: 100% !important;
+}
+
+.prog {
+	background: lightgrey;
+}
+
+.progs {
+	background: blue;
+	color: #fff;
+	text-align: center;
+	line-height: 100%;
 }
 </style>
 
@@ -41,28 +52,26 @@
 		</div>
 	</div>
 
-	<div class="table center mt-5">
+	<div class="table center">
 		<div class="tableRow">
-			<span class="tableCell th1">No.</span>
-			<span class="tableCell th3">기간</span>
-			<span class="tableCell th3">달성률</span> 
-			<span class="tableCell th2">상태</span>
+			<span class="tableCell th1">No.</span> <span class="tableCell th3">기간</span>
+			<span class="tableCell th3">달성률</span> <span class="tableCell th2">상태</span>
 		</div>
-		
+
 		<c:forEach items="${goalList}" var="goals" varStatus="status">
-			<div class="tableRow" id="goals${goals.id}" onclick="printAllContent('#goals${goals.id}')">
+			<div class="tableRow" id="goals${goals.id}"
+				onclick="printAllContent('#goals${goals.id}')">
 				<div class="readGoal" hidden>${goals.goal}</div>
-				<div class="readGoalNum" hidden>${goals.goalNum} </div>
-				<span class="tableCell td1">${status.count}</span>
-				<span class="tableCell td3 readTitle"> <fmt:formatDate
-						pattern="yyyy-MM-dd" value="${goals.startDate}" /> ~ <fmt:formatDate
-						pattern="yyyy-MM-dd" value="${goals.endDate}" />
-				</span>
+				<div class="readGoalNum" hidden>${goals.goalNum}</div>
+				<span class="tableCell td1">${status.count}</span> 
+				<span class="tableCell td3 readTitle"> 
+					<fmt:formatDate pattern="yyyy-MM-dd" value="${goals.startDate}" /> 
+					~ <fmt:formatDate pattern="yyyy-MM-dd" value="${goals.endDate}" />
+				</span> 
 				<span class="tableCell td3 readRate">
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="70"
-							aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-							<span>70%</span>
+					<div class="prog">
+						<div class="progs" style="width: 20%;">
+							<span style="font-size: 10px;">20%</span>
 						</div>
 					</div>
 				</span>
@@ -84,11 +93,6 @@
 		<%@ include file="../ajaxContent/activitiesContent.jsp"%>
 	</div>
 </div>
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top"> <i
-	class="fas fa-angle-up"></i>
-</a>
 
 <%@ include file="../inc/footer.jsp"%>
 
