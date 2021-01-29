@@ -1,3 +1,28 @@
+/* 코딩사이트관리 - 전체페이지 css */
+.button {
+	float: right;
+	margin: 2px 2px;
+}
 
+.edit {
+	display: none;
+}
+
+.tablehead {
+	font-weight : bold;
+	font-size : 16px;
+}
+
+input {
+	display:inline-block;
+	width:100%;
+}
+
+#SiteContainer{
+	min-height:100%;
+}
+.right{
+	float:right;
+}
 
 

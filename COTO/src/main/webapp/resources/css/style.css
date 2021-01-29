@@ -62,9 +62,15 @@
 
 .tableRow {
 	display: table-row !important;
+	cursor: pointer;
 }
 
-.th1, .th15, .th2, .th3, .th4, .th5, .th6, .th7, .th8, .th9 { font-weight: bold !important; }
+.th1, .th15, .th2, .th3, .th4, .th5, .th6, .th7, .th8, .th9 { 
+	font-weight: bold !important;
+	background-color: #e69138ff !important;
+	color: white;
+	text-align: center;
+}
 
 .tableCell {
 	display: table-cell !important; 
