@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.walab.coding.model.RankDTO;
+import com.walab.coding.model.RecomTagDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.service.CodingSiteService;
+import com.walab.coding.service.RecomTagService;
 import com.walab.coding.service.UserProblemService;
 import com.walab.coding.service.UserService;
 
@@ -34,6 +36,9 @@ public class HomeController {
 	@Autowired
 	UserProblemService userProblemService;
 	
+	@Autowired
+	RecomTagService recomTagService;
+	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView viewHome(ModelAndView mv) {
@@ -45,9 +50,13 @@ public class HomeController {
 		//mv.addObject("userID", userID);
 					
 		List<RankDTO> ranks = userProblemService.readRankList();
+		List<UserProblemDTO> upd = userProblemService.readProblemList();
+		List<RecomTagDTO> rtd = recomTagService.readTagList();
 		//System.out.println(ranks.toString());
 	
 		mv.addObject("ranks", ranks);
+		mv.addObject("problems", upd);
+		mv.addObject("tags", rtd);
 		mv.setViewName("home");
 	
 		

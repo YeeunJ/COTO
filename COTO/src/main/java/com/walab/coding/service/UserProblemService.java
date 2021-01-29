@@ -19,4 +19,6 @@ public interface UserProblemService {
 	void createUserProblem(List<UserProblemDTO> p);
 	
 	List<UserProblemDTO> search(int userID, String searchValue);
+	
+	public List<UserProblemDTO> readProblemList();
 }

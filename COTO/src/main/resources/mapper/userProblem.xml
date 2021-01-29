@@ -14,6 +14,12 @@
 		join codingSite as c on p.siteID=c.id 
 		where userID=#{userID} and (p.name like #{content1} or up.memo like #{content2})
 	</select>
+	<select id="searchProblemOrderByCount" resultType="com.walab.coding.model.UserProblemDTO">
+		select cs.siteName as site, problem.name as problem 
+		from (SELECT problemID, count(*) FROM userProblem group by problemID order by count(*) desc limit 4) as pID
+		join problem on pID.problemID=problem.id
+		join codingSite as cs on problem.siteID = cs.id;
+	</select>
 	
 	<delete id="deleteUserProblem" parameterType="hashmap">
 		delete from userProblem where id = #{problemID}

@@ -146,14 +146,9 @@ function insertProblems(){
 					<span class="icon icon-tag"></span>
 					<h5 class="small-title">인기 태그</h5>
 					<ul class="fs-18 list">
-						<li class="tag"><span class="bold">#</span> DP</li>
-						<li class="tag"><span class="bold">#</span> 수학</li>
-						<li class="tag"><span class="bold">#</span> 조건문</li>
-						<li class="tag"><span class="bold">#</span> 기본 200제</li>
-						<li class="tag"><span class="bold">#</span> DP</li>
-						<li class="tag"><span class="bold">#</span> 수학</li>
-						<li class="tag"><span class="bold">#</span> 조건문</li>
-						<li class="tag"><span class="bold">#</span> 기본 200제</li>
+						<c:forEach items="${tags}" var="tag">
+							<li class="tag"><span class="bold">#</span>${tag.tag}</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -165,10 +160,9 @@ function insertProblems(){
 						문제 순위<a href="./recommendProblem" class="more">더보기 ></a>
 					</h5>
 					<ul class="fs-18 textList">
-						<li class="ranking"><span class="bold">1.</span> 백준 2097번</li>
-						<li class="ranking"><span class="bold">2.</span> 백준 10020번</li>
-						<li class="ranking"><span class="bold">3.</span> leetcode 27번</li>
-						<li class="ranking"><span class="bold">4.</span> 백준 407번</li>
+						<c:forEach items="${problems}" var="problem" varStatus="status">
+							<li class="ranking"><span class="bold">${status.count}.</span>${problem.site} ${problem.problem}</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>

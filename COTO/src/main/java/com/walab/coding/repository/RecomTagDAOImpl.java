@@ -1,9 +1,12 @@
 package com.walab.coding.repository;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.RecomTagDTO;
 
 @Repository
@@ -16,5 +19,10 @@ public class RecomTagDAOImpl implements RecomTagDAO {
 	@Override
 	public void createTag(RecomTagDTO t) {
 		sqlSession.insert(namespace + ".createTag", t);
+	}
+	
+	@Override
+	public List<RecomTagDTO> readTagOrderByCount() {
+		return sqlSession.selectList(namespace+".searchTagOrderByCount");
 	}
 }

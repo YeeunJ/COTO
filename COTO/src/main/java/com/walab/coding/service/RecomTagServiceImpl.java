@@ -20,4 +20,9 @@ public class RecomTagServiceImpl implements RecomTagService {
 			tagDAO.createTag(t);
 		}
 	}
+
+	@Override
+	public List<RecomTagDTO> readTagList() {
+		return tagDAO.readTagOrderByCount();
+	}
 }

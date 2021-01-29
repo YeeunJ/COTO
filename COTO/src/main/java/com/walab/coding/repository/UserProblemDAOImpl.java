@@ -104,4 +104,9 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		
 		return sqlSession.selectList(namespace+".searchUserProblemByContent", userProblemListParam);
 	}
+
+	@Override
+	public List<UserProblemDTO> readProblemOrderByCount() {
+		return sqlSession.selectList(namespace+".searchProblemOrderByCount");
+	}
 }
