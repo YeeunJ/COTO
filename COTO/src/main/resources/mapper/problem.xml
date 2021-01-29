@@ -13,5 +13,9 @@
 	<select id="readMaxID" resultType="int">
 		SELECT MAX(id) FROM problem;
 	</select>
+	
+	<select id="readProblemID" resultType="int" parameterType="hashmap">
+		SELECT id FROM problem WHERE name=#{name} AND siteID=#{siteID}
+	</select>
 
 </mapper>

@@ -4,17 +4,17 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.walab.coding.model.RecomProblemsDTO;
+import com.walab.coding.model.RecomTagDTO;
 
 @Repository
-public class RecomProblemsDAOImpl implements RecomProblemsDAO {
+public class RecomTagDAOImpl implements RecomTagDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	private String namespace = "recomProblems";
+	private String namespace = "tag";
 	
 	@Override
-	public void createRecomProblem(RecomProblemsDTO rp) {
-		sqlSession.insert(namespace + ".createRecomProblem", rp);
+	public void createTag(RecomTagDTO t) {
+		sqlSession.insert(namespace + ".createTag", t);
 	}
 }

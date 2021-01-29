@@ -3,6 +3,6 @@
 
 <mapper namespace="tag">
 	<insert id="createTag" parameterType="com.walab.coding.model.TagDTO">
-		INSERT INTO tag (recomID, tag) VALUES (#{recomID}, #{tag})
+		INSERT INTO recomTag (recomID, tag) VALUES (#{recomID}, #{tag})
 	</insert>
 </mapper>
