@@ -19,7 +19,7 @@
 		WHERE recomID = #{recomID}
 	</select>
 	
-	<select id="readRecommendProblemList" resultType="com.walab.coding.model.RecomProblemsDTO" parameterType="hashmap">
+	<select id="readRecommendProblemList" resultType="com.walab.coding.model.RecomProblemDTO" parameterType="hashmap">
 		SELECT cs.siteName as site, rp.problem as problem, rp.difficulty as difficulty
 		FROM recomProblems as rp left join codingSite as cs on rp.site = cs.id
 		WHERE rp.recomID = #{recomID}

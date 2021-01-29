@@ -37,7 +37,7 @@ public class MyproblemsController {
 		
 		int userID = 1;
 		
-		//List<UserProblemDTO> problems = userProblemService.read(userID);
+		List<UserProblemDTO> problems = userProblemService.read(userID);
 		List<GoalDTO> goal = goalService.readGoal(userID);
 		int userSolvedP = userProblemService.readSolvedP(userID);
 		
@@ -45,7 +45,7 @@ public class MyproblemsController {
 		int goalNum = g.getGoalNum();
 		
 		mv.addObject("goal", goal);
-		//mv.addObject("problems", problems);
+		mv.addObject("problems", problems);
 		model.addAttribute("userSolvedP", userSolvedP);
 		model.addAttribute("goalNum", goalNum);
 
@@ -102,9 +102,17 @@ public class MyproblemsController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView searchProblem(HttpServletRequest httpServletRequest) {		
 		
+		int userID = 1;
 		String searchValue= httpServletRequest.getParameter("searchValue");
 		
+		List<UserProblemDTO> problems = userProblemService.search(userID, searchValue);
+		System.out.println(searchValue);
+		for(UserProblemDTO upd: problems) {
+			System.out.println(upd.toString());
+		}
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("problems", problems);
+		mv.setViewName("ajaxContent/problemsContent");
 		return mv;
 	}
 }

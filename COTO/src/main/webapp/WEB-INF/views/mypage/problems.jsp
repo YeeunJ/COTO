@@ -205,9 +205,9 @@ var myDoughnutChart = new Chart(ctx1, {
 		<h5 class="font-color">내가 푼 문제들</h5>
 		
 		<fieldset class="search" style="float: right;">
-			<input class="search_problem" type="search"
+			<input id="searchValue" class="search_problem" type="search"
 				placeholder="검색어를 입력해주세요." />
-			<button class="search_bt" type="submit">
+			<button id="searchButton" class="search_bt" type="submit">
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>

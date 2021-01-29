@@ -11,6 +11,10 @@ public class UserProblemDTO {
 	private String site;
 	private String siteUrl;
 	private String link;
+	private String difficulty;
+	private String memo;
+	private Date regDate;
+	
 	public int getId() {
 		return id;
 	}
@@ -77,12 +81,11 @@ public class UserProblemDTO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	private String difficulty;
-	private String memo;
-	private Date regDate;
 	
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "UserProblemDTO [id=" + id + ", userID=" + userID + ", problemID=" + problemID + ", siteID=" + siteID
+				+ ", problem=" + problem + ", site=" + site + ", siteUrl=" + siteUrl + ", link=" + link
+				+ ", difficulty=" + difficulty + ", memo=" + memo + ", regDate=" + regDate + "]";
+	}
 }

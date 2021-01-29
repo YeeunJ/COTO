@@ -17,4 +17,6 @@ public interface UserProblemService {
 	public int delete(int userProblemID);
 	
 	void createUserProblem(List<UserProblemDTO> p);
+	
+	List<UserProblemDTO> search(int userID, String searchValue);
 }
