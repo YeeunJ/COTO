@@ -389,18 +389,35 @@ fieldset {
 
 </div>
 
+<span id="ClickTest">click</span>
+
 <%@ include file="./inc/footer.jsp"%>
 
 <script>
+$("#problemTag").click(function(){
+	var v = document.getElementsByClassName("chips");
+	alert(v.length);
+	
+	var att = document.createAttribute("onclick");
+	att.value="btnClick()";
+	v.setAttributeNode(att);
+});
+
+function btnClick(){ alert("Click!"); }
+
 function chipTag(){
 	$('.sweet-modal-content .chips').material_chip();
 	$('.sweet-modal-content .chips-placeholder').material_chip({
 	    placeholder: '+tag',
 	    secondaryPlaceholder: '+Tag',
 	});
-	
 }
-$('.sweet-modal-content .close').on("click", function(){
+
+function closeTag(){
+	alert("hello");
+};
+
+$(document).on('click', '.sweet-modal-content .close', function(){
 	alert("1");
 });
 
@@ -472,10 +489,12 @@ $('#createRecomProblem').click(function() {
 	
 	probs = {"siteId":siteId, "problem":problem, "link":link};
 	
-	var data= $('#problemTag').material_chip('data');
+	var data= $('.sweet-modal-content #problemTag').material_chip('data');
 	for(var i=0 ; i<data.length ; i++) {
 		tag.push(data[i].tag);
 	}
+	console.log(tag);
+	
 
 	for(var i=0 ; i<siteId.length ; i++) {
 		console.log("TEST: "+siteId[i]+"/"+problem[i]+"/"+link[i]);
