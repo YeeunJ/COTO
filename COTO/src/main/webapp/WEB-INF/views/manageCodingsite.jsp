@@ -153,31 +153,6 @@ $(document).ready(function() {
 	opacity: 0.4;
 	z-index: -1;
 }
-.button {
-	float: right;
-	margin: 2px 2px;
-}
-
-.edit {
-	display: none;
-}
-
-.tablehead {
-	font-weight : bold;
-	font-size : 16px;
-}
-
-input {
-	display:inline-block;
-	width:100%;
-}
-
-#SiteContainer{
-	min-height:100%;
-}
-.right{
-	float:right;
-}
 </style>
 
 <div id="SiteContainer" class="container">
@@ -200,9 +175,9 @@ input {
 	<form name="form1" action="manageCodingsite/addok" method="post">
 		 
 		<div id="table">
-			<div class="tableRow orange white-text">
-				<span class="tableCell th3 tablehead center">사이트 이름 </span> 
-				<span class="tableCell th5 tablehead center">URL</span> 
+			<div class="tableRow">
+				<span class="tableCell th3 tablehead">사이트 이름 </span> 
+				<span class="tableCell th5 tablehead">URL</span> 
 				<span class="tableCell th1"></span> 
 				<span class="tableCell th1"></span>
 
@@ -216,7 +191,7 @@ input {
 				</div>
 			</c:forEach>
 			
-			<div id="new" style="display: none !important;" class="tableRow content">
+			<div id="new" style="display: none !important;" class="tableRow">
 				<input id="editonly" type="hidden" name="id" />
 				<span class="tableCell td3 sub"><input  id="siteName" type='text'name='siteName'></span>
 				<span class="tableCell td5 sub"><input  id="siteUrl" type='text' name='siteUrl'></span> 
