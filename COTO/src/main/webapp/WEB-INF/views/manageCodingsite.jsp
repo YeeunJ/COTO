@@ -153,19 +153,34 @@ $(document).ready(function() {
 	opacity: 0.4;
 	z-index: -1;
 }
+.button {
+	float: right;
+	margin: 2px 2px;
+}
 
-.content {
-	top: 15%;
-	left: 50px;
-	width: 100%;
-	bottom: 100px;
-	color: #666666;
-	font-weight: 800;
-	position: absolute;
+.edit {
+	display: none;
+}
+
+.tablehead {
+	font-weight : bold;
+	font-size : 16px;
+}
+
+input {
+	display:inline-block;
+	width:100%;
+}
+
+#SiteContainer{
+	min-height:100%;
+}
+.right{
+	float:right;
 }
 </style>
 
-<div id="codingSiteContainer" class="container">
+<div id="SiteContainer" class="container">
 	<div id="manage">
 		<div class="content">
 			<h4>코딩 사이트 관리</h4>
@@ -210,9 +225,5 @@ $(document).ready(function() {
 			</div>
 		</div>
 		</form>
-	</div><br><br><br>
-
-
-
-
+	</div>
 <%@ include file="./inc/footer.jsp"%>

@@ -20,6 +20,15 @@
 .sweet-modal-close a.sweet-modal-close-link:hover {
 	background-color: #e3a96d;
 }
+/* 페이지 문구 공통 */
+.content {
+	top: 15%;
+	left: 50px;
+	width: 85%;
+	bottom: 100px;
+	color: #666666;
+	position: absolute;
+}
 
 /* button common */
 .whitebtn {
