@@ -94,7 +94,7 @@ var myDoughnutChart = new Chart(ctx1, {
 
 #problem:before {
 	content: "";
-	background-image: url("../resources/img/problem.jpg");
+	background-image: url("../resources/img/problem.png");
 	background-size: cover;
 	top: 0;
 	left: 0;
@@ -105,20 +105,8 @@ var myDoughnutChart = new Chart(ctx1, {
 	z-index: -1;
 }
 
-.content {
-	top: 15%;
-	left: 50px;
-	width: 100%;
-	bottom: 100px;
-	color: #666666;
-	font-weight: 800;
-	position: absolute;
-}
-
 .card {
-	border-radius: 10%;
-	!
-	improtant;
+	border-radius: 10% !improtant;
 }
 
 .font-color {
@@ -144,7 +132,7 @@ var myDoughnutChart = new Chart(ctx1, {
 }
 
 .card-title {
-	font-size: 10px; !important;
+	font-size: 10px !important;
 	margin-bottom: 10px;
 }
 </style>

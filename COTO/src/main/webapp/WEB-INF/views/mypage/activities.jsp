@@ -28,18 +28,12 @@
 	z-index: -1;
 }
 
-.content {
-	top: 15%;
-	left: 50px;
-	width: 100%;
-	bottom: 100px;
-	color: #666666;
-	font-weight: 800;
-	position: absolute;
+#SiteContainer {
+	min-height:100% !important;
 }
 </style>
 
-<div class="container">
+<div id="SiteContainer" class="container">
 	<div id="activities">
 		<div class="content">
 			<h4>내 기록</h4>

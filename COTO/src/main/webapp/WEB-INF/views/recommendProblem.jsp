@@ -27,69 +27,6 @@
 	opacity: 0.4;
 	z-index: -1;
 }
-
-.content {
-	top: 15%;
-	left: 50px;
-	width: 100%;
-	bottom: 100px;
-	color: #666666;
-	font-weight: 800;
-	position: absolute;
-}
-
-fieldset {
-	padding: 0 0 0 40px;
-	background: #fff;
-	border: none;
-}
-
-.search {
-	display: flex;
-	float: right;
-	width: 30% !important;
-}
-
-.search_bt {
-	all: unset;
-}
-
-.search-part {
-	margin-bottom: 5%;
-}
-
-.top-bar {
-	display: flex;
-}
-
-.custom-button {
-	background-color: white;
-	margin-top: 10%; ! important;
-	border: 1px solid #666666;
-	height: 31px;
-	border-radius: 20px;
-	float: left;
-}
-
-.custom-button:hover {
-	background-color: #e69138ff;
-	color: white;
-	border: 1px solid #e69138ff;
-}
-
-.order {
-	width: 13%;
-	float: right;
-}
-
-.title {
-	border: 0;
-	background-color: Transparent;
-}
-
-.comment {
-	border-bottom: 1px solid #bdbdbd;
-}
 </style>
 
 <div class="container">
@@ -100,7 +37,7 @@ fieldset {
 		</div>
 	</div>
 
-	<div class="search-part">
+	<div class="top-bar">
 		<fieldset class="search">
 			<input class="search_problem" type="search"
 				placeholder="검색어를 입력해주세요." />
@@ -108,12 +45,9 @@ fieldset {
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
-	</div>
-
-	<div class="top-bar">
 		<button id="create" class="input-field custom-button" onclick="createProblems()">문제
 			추천집 만들기</button>
-		<div class="input-field col s12 order">
+		<div class="col order">
 			<select>
 				<option value="" disabled selected>정렬</option>
 				<option value="1">난이도순</option>

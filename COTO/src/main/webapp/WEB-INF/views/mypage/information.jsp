@@ -27,16 +27,6 @@
 	opacity: 0.4;
 	z-index: -1;
 }
-
-.content {
-	top: 15%;
-	left: 50px;
-	width: 100%;
-	bottom: 100px;
-	color: #666666;
-	font-weight: 800;
-	position: absolute;
-}
 </style>
 
 <div class="container">
