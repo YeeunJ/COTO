@@ -1,3 +1,78 @@
+nav{
+	background-color: white !important;
+	width: 100% !important;
+	line-height: 63px !important;
+	height: 64px !important;
+}
+
+#list {
+	float:left; 
+  	transition:all .3s ease;
+	color: gray !important;
+	font-size: 13px !important;
+	padding: 0px 31px !important;
+
+ }
+ 
+.sub-menu {
+	position: relative;
+    display: inline-block;
+    margin-right: -4px;
+    text-align: center;
+}
+
+.sub-menu ul{
+	position: absolute;
+    top: 104%;
+    left: 0;
+    width: 500px;
+    background-color: #ffffff9c;
+    border-bottom: 4px solid #e69138ff;
+}
+#list:hover { color:#39d9c8; transition:all .3s ease !important; }
+#list > #listspan { position:relative; display: inline-block;}
+
+#list > #listspan::after {
+  content: '';
+  width: 0%;
+  right: 50% ;
+  height: -10px;
+  display: block;
+  position: absolute;
+  margin-top: 0px;
+  border-bottom: 4px solid orange;
+  transition:all .3s ease;
+}
+#list:hover > #listspan::after {
+  content: '';
+  width: 100%;
+  right: 0px;
+  height: -10px;
+  display: block;
+  position: absolute;
+  margin-top: 0px;
+  border-bottom: 4px solid orange;
+  transition:all .3s ease ;
+} 
+
+#sub-menu ul { 
+	list-style:none; 
+	cursor:pointer;
+	margin: 0;
+    padding: 0;
+}
+
+#sub-menu ul li {
+	position: relative;
+      display: inline-block;
+      margin-right: -4px;
+      text-align: center;
+}
+
+
+
+
+
 ul.mymenu > li { 
 	display:inline-block;
 	/* width:80px; */ 
@@ -27,61 +102,9 @@ li ul.submenu>li{
 	width:65%;
 	border:1px solid #eee;
 }
-ul { 
-	list-style:none; 
-	cursor:pointer;
-}
 ul.myMenu > li ul.submenu > li:hover { background:#fff; }
-#list { 
-  float:left; 
-  transition:all .3s ease;
-}
-#list:hover { color:#39d9c8; transition:all .3s ease !important; }
-#list > #listspan { position:relative; display: inline-block;}
 
-#list > #listspan::after {
-  content: '';
-  width: 0%;
-  right: 50% ;
-  height: -10px;
-  display: block;
-  position: absolute;
-  margin-top: 0px;
-  border-bottom: 4px solid orange;
-  transition:all .3s ease;
-}
-#list:hover > #listspan::after {
-  content: '';
-  width: 100%;
-  right: 0px;
-  height: -10px;
-  display: block;
-  position: absolute;
-  margin-top: 0px;
-  border-bottom: 4px solid orange;
-  transition:all .3s ease ;
-} 
-nav{
-	background-color: white !important;
-	width: 100% !important;
-	line-height: 63px !important;
-	height: 64px !important;
-}
 
-nav ul a {
-	color: gray !important;
-	font-size: 13px !important;
-	padding: 0px 31px !important;
-/* 	display: none !important;
- */
- }
-/* .mybtn{
-  background-color: white;
-  color: black;
-  border: 2px solid #666666;
-  border-radius : 30px;
-  padding:7px 20px;
-} */
 button, input, optgroup, select, textarea {
     margin: 0;
     font-size: none !important;

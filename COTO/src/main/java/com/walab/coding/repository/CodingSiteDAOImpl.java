@@ -33,7 +33,7 @@ public class CodingSiteDAOImpl implements CodingSiteDAO {
 	@Override
 	public List<CodingSiteDTO> readCodingSite() {
 		List<CodingSiteDTO> codingSitelist = new ArrayList<CodingSiteDTO>();
-		codingSitelist = sqlSession.selectList("CodingSite.readCodingsite");
+		codingSitelist = sqlSession.selectList("CodingSite.readCodingSite");
 
 		return codingSitelist;
 	}

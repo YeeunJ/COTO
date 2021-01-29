@@ -25,9 +25,16 @@
 <script src="./resources/js/jquery.sweet-modal.min.js"></script>
 <script src="./resources/js/createModal.js"></script>
 <script>
-$(document).ready(function){
+$(document).ready(function(){
 	$(".dropdown-trigger").dropdown();
-}
+	
+	$('.sub-menu ul').hide();
+	$(".sub-menu").hover(function () {
+	  $(this).children("ul").slideToggle("200");      
+	  //$(this).children("a").find("i.fa").toggleClass("fa-angle-up fa-angle-down");
+	});
+});
+
 </script>
 </head>
 <body>
@@ -52,22 +59,22 @@ $(document).ready(function){
     </div>
   </nav>
   -->
+  <!-- 
 <ul id="dropdown1" class="dropdown-content">
 	  <li><a href="#!">one</a></li>
 	  <li><a href="#!">two</a></li>
 	  <li><a href="#!">three</a></li>
-</ul>
+</ul> -->
 <nav role="navigation">
 	<div class = "container" >
 		<div class = "nav-wrapper">
 			<a href="./"><img class = "left" src="https://i.ibb.co/pXsymdb/2021-01-24-10-09-26.png" alt="2021-01-24-10-09-26" border="0" style="width: 90px; margin-top: 5px;"></a>		  
 			<a href="#" data-target="nav-mobile" class="sidenav-trigger right"><i class="material-icons orange-text">menu</i></a>
 			<ul class = "hide-on-med-and-down mymenu">
-				<li id = "list"><span id = "listspan"><a href="./recommendProblem">문제 추천</a></span></li>
-				<li id = "list"><span id = "listspan"><a href="./manageCodingsite">코딩 사이트 관리</a></span></li>
-<!-- 				<li id = "list"><span id = "listspan"><a href="./mypage/problems">마이 페이지</a></span></li> -->
-				<li id = "list" ><span id = "listspan"><a href="./mypage/problems" >마이 페이지<i class="material-icons right">arrow_drop_down</i></a></span>
-					<ul class="submenu">
+				<li id = "list"><span id = "listspan" onclick="./recommendProblem">문제 추천</span></li>
+				<li id = "list"><span id = "listspan" onclick="./manageCodingsite">코딩 사이트 관리</span></li>
+				<li id = "list" class="sub-menu"><span id = "listspan" onclick="./mypage/problems">마이 페이지<i class="material-icons right">arrow_drop_down</i></span>
+					<ul>
 						<li><a href="./mypage/problems"> my problems</a></li>
 						<li><a href="./mypage/information">내 정보 수정</a></li>
 						<li><a href="./mypage/activities">my activities</a></li>

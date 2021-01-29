@@ -15,7 +15,7 @@
 	<delete id="deleteCodingSite">
 		delete from codingSite where id=#{id}
 	</delete>
-	<select id="readCodingsite"
+	<select id="readCodingSite"
 		resultType="com.walab.coding.model.CodingSiteDTO">
 		select id, siteName, siteUrl, regDate FROM codingSite
 	</select>
