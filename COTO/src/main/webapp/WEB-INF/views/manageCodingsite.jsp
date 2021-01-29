@@ -25,10 +25,10 @@ $(document).ready(function() {
 	</c:forEach>
 
 	$('#editbtn').click(function() {
-		if ($(".edit").css("display") == "none") {
-			$('.edit').show();
+		if ($("span.btns").css("display") == "none") {
+			$('span.btns').show();
 		} else {
-			$('.edit').hide();
+			$('span.btns').hide();
 		}
 		if ($(this).html().substring(0, 4) == '편집완료') {
 			$(this).html('편집');
@@ -161,7 +161,6 @@ $(document).ready(function() {
 	bottom: 100px;
 	color: #666666;
 	font-weight: 800;
-	position: absolute;
 }
 </style>
 
@@ -173,43 +172,49 @@ $(document).ready(function() {
 		</div>
 	</div>
 	
-	<div class="table">
-		<div style="margin-bottom:10px;"class="right">
-			<button id="addbtn"
-				class=" whitebtn button">추가</button>
-			<button id="editbtn"
-				class=" whitebtn button">편집</button>
+		<div class="table">
+			<div style="margin-bottom:10px;"class="right">
+				<button id="addbtn"
+					class=" whitebtn button">추가</button>
+				<button id="editbtn"
+					class=" whitebtn button">편집</button>
+			</div>
+			
 		</div>
-		
-	</div>
-	<form name="form1" action="manageCodingsite/addok" method="post">
+		<form name="form1" action="manageCodingsite/addok" method="post">	
 		 
-		<div id="table">
+		<div class="table">
 			<div class="tableRow orange white-text">
 				<span class="tableCell th3 tablehead center">사이트 이름 </span> 
-				<span class="tableCell th5 tablehead center">URL</span> 
-				<span class="tableCell th1"></span> 
-				<span class="tableCell th1"></span>
+				<span class="tableCell th7 tablehead center">URL</span> 
 
 			</div>
 			<c:forEach items="${CodingSite}" var="u">
 				<div class="tableRow">
 			 		<span class="tableCell td3 sub ">${u.getSiteName()}</span> 
-					<span class="tableCell td5 sub "><a href="${u.getSiteUrl()}">${u.getSiteUrl()}</a></span> 
-					<span class="tableCell td1 sub "><button type="button" id="change" style="display:none;" class="editSite edit whitebtn">수정</button></span> 
-					<span class="tableCell td1 sub "><button style="display:none;" value="${u.getId()}" class="deleteBtn edit whitebtn" type="button">삭제</button></span>
+					<span class="tableCell td7 sub "><a href="${u.getSiteUrl()}">${u.getSiteUrl()}</a>
+					 <span class='btns'>
+                        <button type="button" id="change" class="editSite edit whitebtn">수정</button>
+                        <button class="deleteBtn edit whitebtn" type="button">삭제</button>
+                     </span>
+                    </span>
 				</div>
 			</c:forEach>
 			
 			<div id="new" style="display: none !important;" class="tableRow content">
 				<input id="editonly" type="hidden" name="id" />
 				<span class="tableCell td3 sub"><input  id="siteName" type='text'name='siteName'></span>
-				<span class="tableCell td5 sub"><input  id="siteUrl" type='text' name='siteUrl'></span> 
-				<span class="tableCell td1 sub"><button id="cancelAdd"class=" whitebtn" type="button">취소</button></span>
-				<span class="tableCell td1 sub"><button id="submitbtn"class=" whitebtn" type="submit">추가</button></span>
-			</div>
+                <span class="tableCell td6 sub"><input  id="siteUrl" type='text' name='siteUrl' style='width:60%'>
+                    <span class='addbtns'>
+                        <button id="cancelAdd"class=" whitebtn" type="button">취소</button>
+                        <button id="submitbtn"class=" whitebtn" type="submit">추가</button>
+                    </span>  
+                </span> 
+            </div>
+		
 		</div>
 		</form>
+		
 	</div><br><br><br>
 
 
