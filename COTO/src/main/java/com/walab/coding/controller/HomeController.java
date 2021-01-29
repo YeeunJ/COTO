@@ -45,7 +45,7 @@ public class HomeController {
 		//mv.addObject("userID", userID);
 					
 		List<RankDTO> ranks = userProblemService.readRankList();
-		System.out.println(ranks.toString());
+		//System.out.println(ranks.toString());
 	
 		mv.addObject("ranks", ranks);
 		mv.setViewName("home");
