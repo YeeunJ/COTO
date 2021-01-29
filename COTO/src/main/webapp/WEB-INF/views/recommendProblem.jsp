@@ -327,7 +327,7 @@ fieldset {
 		</div>
 		
 		<p class="title">추천 문제집 태그</p>
-		<div id="problemTag" class="chips chips-placeholder"></div>
+		<div id="problemTag" class="chips chips-placeholder" onclick="chipTag()"></div>
 		
 		<p class="title">추천 문제집 설명</p>
 		<textarea id="content" class="desc-textarea" name="content" rows="5"></textarea>
@@ -392,13 +392,16 @@ fieldset {
 <%@ include file="./inc/footer.jsp"%>
 
 <script>
-$("#createProblem").click(function(){
-	$('.sweet-modal-content .chips').css("background", "grey");
+function chipTag(){
 	$('.sweet-modal-content .chips').material_chip();
 	$('.sweet-modal-content .chips-placeholder').material_chip({
 	    placeholder: '+tag',
 	    secondaryPlaceholder: '+Tag',
 	});
+	
+}
+$('.sweet-modal-content .close').on("click", function(){
+	alert("1");
 });
 
 $('.chips').material_chip();
