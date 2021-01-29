@@ -94,7 +94,7 @@ var myDoughnutChart = new Chart(ctx1, {
 
 #problem:before {
 	content: "";
-	background-image: url("../resources/img/problem.jpg");
+	background-image: url("../resources/img/problem.png");
 	background-size: cover;
 	top: 0;
 	left: 0;
@@ -105,47 +105,37 @@ var myDoughnutChart = new Chart(ctx1, {
 	z-index: -1;
 }
 
-.content {
-	top: 15%;
-	left: 50px;
-	width: 100%;
-	bottom: 100px;
-	color: #666666;
-	font-weight: 800;
-	position: absolute;
-}
-
-.card {
-	border-radius: 10%;
-	!
-	improtant;
-}
-
 .font-color {
 	color: #e69138ff;
 }
 
 .search {
 	border: none;
+	padding: 0px !important;
 }
 
 .card-wrap {
 	display: flex;
 }
 
-.card-content {
+.card-content1, .card-content2, .card-content3 {
 	flex: 1;
 }
 
+.card-content1, .card-content2 {
+	margin-right: 15px;
+}
+
 .card-body {
+	border-radius: 10%;
 	height: 250px;
 	padding: 10px;
-	margin: 10px 5px;
 }
 
 .card-title {
-	font-size: 10px; !important;
-	margin-bottom: 10px;
+	font-size: 20px !important;
+	padding: 2% 2% 4% 2%;
+	
 }
 </style>
 
@@ -159,44 +149,45 @@ var myDoughnutChart = new Chart(ctx1, {
 
 	<!-- Content Row -->
 	<div class="card-wrap">
-		<div class="card-content">
+		<div class="card-content1">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">나의 목표</div>
 				<div>
-					<table>
+					<div id="table">
 						<c:forEach items="${goal}" var="goal" varStatus="status">
-							<tr class="box">
-								<td>목표</td>
-								<td>${goal.goal}</td>
-							</tr>
-							<tr class="box">
-								<td>기간</td>
-								<td><fmt:formatDate pattern="yyyy-MM-dd"
-										value="${goal.startDate}" /> ~ <fmt:formatDate
-										pattern="yyyy-MM-dd" value="${goal.endDate}" /></td>
-							</tr>
-							<tr class="box">
-								<td>총 문제수</td>
-								<td>${goal.goalNum}개</td>
-							</tr>
+							<div class="tableRow box">
+								<span class="tableCell td1">목표</span>
+								<span class="tableCell td4">${goal.goal}</span>
+							</div>
+							<div class="tableRow box">
+								<span class="tableCell td1">기간</span>
+								<span class="tableCell td4">
+								<fmt:formatDate pattern="yyyy-MM-dd" value="${goal.startDate}" /> 
+								~ <fmt:formatDate pattern="yyyy-MM-dd" value="${goal.endDate}" />
+								</span>
+							</div>
+							<div class="tableRow box">
+								<span class="tableCell td2">총 문제수</span>
+								<span class="tableCell td4">${goal.goalNum}개</span>
+							</div>
 						</c:forEach>
-					</table>
+					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="card-content">
+		<div class="card-content2">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">오늘 해야 할 양</div>
 				<canvas id="myBarChart" width="200" height="90"></canvas>
 			</div>
 		</div>
 
-		<div class="card-content">
+		<div class="card-content3">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">현재 상황</div>
 				<canvas id="myDoughnutChart" width="200" height="90"></canvas>
-				<div class="" style="margin-left:22%; margin-top:5%;">
+				<div class="" style="margin-left:25%; margin-top:5%;">
 					<span> 
 						<i class="fas fa-circle" style="color: lightblue;"></i> 총 문제수
 					</span> 
@@ -212,16 +203,15 @@ var myDoughnutChart = new Chart(ctx1, {
 	<div>
 		<br>
 		<h5 class="font-color">내가 푼 문제들</h5>
-		<br>
-
-		<fieldset class="search" style="float: left;">
+		
+		<fieldset class="search" style="float: right;">
 			<input class="search_problem" type="search"
 				placeholder="검색어를 입력해주세요." />
 			<button class="search_bt" type="submit">
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
-		<button id="register-button" class="mybtn" style="margin-top: 12px; float: right;">문제 등록하기</button>
+		<button id="register-button" class="mybtn" style="margin-top: 2%; float: left;">문제 등록하기</button>
 
 		<div class="table" id="problemsContent">
 			<%@ include file="../ajaxContent/problemsContent.jsp"%>
@@ -314,8 +304,4 @@ var myDoughnutChart = new Chart(ctx1, {
 	</div>
 </div>
 
-
-<a class="scroll-to-top rounded" href="#page-top"> <i
-	class="fas fa-angle-up"></i>
-</a>
 <%@ include file="../inc/footer.jsp"%>

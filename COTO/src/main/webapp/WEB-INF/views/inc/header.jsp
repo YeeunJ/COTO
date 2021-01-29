@@ -27,7 +27,6 @@
 <script>
 $(document).ready(function(){
 	$(".dropdown-trigger").dropdown();
-	
 	$('.sub-menu ul').hide();
 	$(".sub-menu").hover(function () {
 	  $(this).children("ul").slideToggle("200");      

@@ -31,3 +31,18 @@ input {
     opacity: 0.4;
     
 }
+.spanbtn{
+	min-width: 100px;
+}
+button {
+	display: inline-block !important;
+}
+
+span.btns {
+	display: none;
+	float: right;
+}
+
+span.addbtns {
+	float: right;
+}

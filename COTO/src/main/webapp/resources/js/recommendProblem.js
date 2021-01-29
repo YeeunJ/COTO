@@ -1,32 +1,14 @@
-// 정렬
-document.addEventListener('DOMContentLoaded', function() {
-	var elems = document.querySelectorAll('select');
-    //var instances = M.FormSelect.init(elems, options);
-});
-
 // Or with jQuery
 $(document).ready(function(){
     $('select').formSelect();
 });
 
-var instance = M.FormSelect.getInstance(elem);
-instance.getSelectedValues();
-instance.destroy();
-
-
-
-/*$(document).ready(function() {
-	$('#register-button').on('click', function() {
-		 createModel("#registerRecommendProblem", "문제집 등록", addAjax);
-		 $('select').formSelect();
-	});
-});*/
-
-function createProblems() {
-	createModel("#createProblems", "문제집 등록", addAjax);
+function callModal() {
+	createModel("#createProblems", "문제집 등록", addajax);
+ 	$('select').formSelect();
 }
 
-function printAllContent(id, recomId, userId){
+function printAllContent(id, recomId, count){
 	//alert(recomId);
 	readComment(recomId);
 	$('#problems').html($(id+' .readProblem').html());
@@ -34,10 +16,46 @@ function printAllContent(id, recomId, userId){
 	$('#contents').html($(id+' .readContent').html());
 	$('#recommends').html($(id+' .readRecommend').html());
 	
+	$("#commentCount").text(count);
+	
 	rudModel("#recomDetailModal", "#updateRecommendProblem", $(id+' .readTitle').html(), updateAjax, deleteAjax);
 //	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), updateAjax, deleteAjax);
 	$('select').formSelect();
 }
+
+
+function addComment() {	
+	var userID = $("input[name='writer']").val();
+	var recomID = $("input[name='recomID']").val();
+
+	if (confirm("댓글을 추가하시겠습니까?")) {
+		$.ajax({
+			url : "recommendProblem/addComment",
+			type : "POST",
+			async : false,
+			data : {
+				userID : userID,
+				recomID : recomID,
+				content : $('.sweet-modal-content #comment-textarea').val()
+			},
+			success : function(data) {
+				$('.sweet-modal-content #modal-comment').html(data);
+				$('.sweet-modal-content #comment-textarea').val("");
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n"
+						+ "message:" + request.responseText + "\n"
+						+ "error:" + error);
+			}
+		});
+	}
+}
+
+$('.sweet-modal-content .chips').material_chip();
+$('.sweet-modal-content .chips-placeholder').material_chip({
+    placeholder: '+tag',
+    secondaryPlaceholder: '+Tag',
+});
 
 function readComment(recomID) {
 		$.ajax({
@@ -48,7 +66,6 @@ function readComment(recomID) {
 				recomID : recomID,
 			},
 			success : function(data) {
-				console.log(data);
 				$("#modal-comment").html(data);
 			},
 			error : function(request, status, error) {
@@ -60,40 +77,22 @@ function readComment(recomID) {
 }
 
 
-function addAjax (){
-	console.log("success");
-	//ajax 넣는 함수
-}
-
-function updateAjax (){
-	console.log("update!!");
-	//ajax 넣는 함수
-}
-
-function deleteAjax (){
-	console.log("update!!");
-	//ajax 넣는 함수
-}
-
-function deleteThis(id){
-	var allid = "#"+id;
-	$(allid).remove();
-}
-
-$('#createProblem').click(function() {
-	var probs;
+function addajax(){
+	
 	var siteId = [];
 	var problem = [];
 	var link = [];
-	var title = document.getElementById("title").value;
-	var difficulty = document.getElementById("difficulty").value;
+	var title = document.getElementById('createTitle').value;
+	var difficulty_cnt = document.getElementsByName("difficulty").length;
 	var tag = [];
-	var content = document.getElementById("content").value;
+	var content = document.getElementById('createContent').value;
 	
-	$('.problem').each(function(){
+	console.log(title + " - " + content)
+	
+	$('.sweet-modal-content .problem').each(function(){
 		
 		var s_id = 0;
-		var l = null;
+		var l = "";
 		var p;
 		var valueSplit = $(this).val().split(' ');
 		
@@ -114,31 +113,30 @@ $('#createProblem').click(function() {
 		problem.push(p);
 		link.push(l);
 		
-		/* var p = {
-			siteID: siteId,
-			problem: valueSplit[0],
-			link: link,
-		}
-		probs.push(p); */
-		
-		console.log($(this).val());
 	});
+	
+	console.log(problem);
+	console.log(siteId);
+	console.log(link);
 	
 	probs = {"siteId":siteId, "problem":problem, "link":link};
 	
-	$('.tag').each(function(){
-		var tagVal = $(this).val();
-		console.log(tagVal);
-		
-		tag.push(tagVal);
-	});
+	var tag_data= $('.sweet-modal-content #problemTag').material_chip('data');
+	for(var i=0; i<tag_data.length; i++) {
+		tag.push(tag_data[i].tag);
+	}
+	console.log(tag);
+	
+	for(var i=0;i<difficulty_cnt;i++) {
+		if(document.getElementsByName("difficulty")[i].checked == true)
+			var difficulty = document.getElementsByName("difficulty")[i].value;
+	}		
 
 	for(var i=0; i<siteId.length; i++) {
 		console.log("TEST: "+siteId[i]+"/"+problem[i]+"/"+link[i]);
 	}
 	
-
-   $.ajax({
+	$.ajax({
         url : './recommendProblem/createRecomProblem',
         type: 'POST',
         data: {
@@ -151,25 +149,45 @@ $('#createProblem').click(function() {
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
     });
-});
+
+}
+
+function updateAjax (){
+	console.log("update!!");
+	//ajax 넣는 함수
+}
+
+function deleteAjax (){
+	console.log("update!!");
+	//ajax 넣는 함수
+}
+
+function deleteThis(id){
+	var allid = "#"+id;
+	$(allid).remove();
+}
 
 var count=0;
 function insertProblems(){
-	var siteId = $('#siteName').val();
-	var array = ['', '백준', 'leetcode', 'SW expert academy', 'oncoder', 'goorm', 'leetcode[database]', 'link'];
-	var site = $("#siteName option:selected").val();
-	var value = document.getElementById("problems").value;
+	
+	var siteName = $(".sweet-modal-content #siteName option:selected").text();
+	var siteId = $('.sweet-modal-content #siteName').val();
+	console.log("siteId: "+siteId);
+	var site = $(".sweet-modal-content #siteName option:selected").val();
+	var value = $(".sweet-modal-content #problems").val();
+	console.log(value);
 	var valueSplit = value.split(',');
-	var data = $('#confirmSite').html();
+	var data = $('.sweet-modal-content #confirmSite').html();
 	for(var i in valueSplit){
-		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+array[site]+')" id="last_name disabled" type="text" class="problem validate"/></div>';
+		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
 		count++;
 	}
+	$('.sweet-modal-content #confirmSite').html(data);
 	$('#confirmSite').html(data);
-	document.getElementById("problems").value = "";
+	$(".sweet-modal-content #problems").val("");
 };
 	
-count=0;
+/*count=0;
 function insertTags(){
 	var value = document.getElementById("tags").value;
 	var valueSplit = value.split(',');
@@ -181,4 +199,4 @@ function insertTags(){
 	}
 	$('#confirmTag').html(data);
 	document.getElementById("tags").value = "";
-};
+};*/

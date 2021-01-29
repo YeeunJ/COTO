@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import com.walab.coding.model.RecomProblemsDTO;
+import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.repository.RecommendDAO;
 
@@ -24,8 +24,8 @@ public class RecommendServiceImpl implements RecommendService {
 	}
 	
 	@Override
-	public List<RecomProblemsDTO> readRecomProblems(int recomID) {
-		List<RecomProblemsDTO> recomProblems = recommendDAO.readRecomProblems(recomID);
+	public List<RecomProblemDTO> readRecomProblems(int recomID) {
+		List<RecomProblemDTO> recomProblems = recommendDAO.readRecomProblems(recomID);
 		
 		return recomProblems;
 	}

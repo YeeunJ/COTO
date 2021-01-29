@@ -67,4 +67,11 @@ public class UserProblemServiceImpl implements UserProblemService{
 		return result;
 	}
 
+	@Override
+	public void createUserProblem(List<UserProblemDTO> prob) {
+		for(UserProblemDTO p : prob) {
+			userProblemDAO.createUserProblem(p);
+		}
+	}
+
 }

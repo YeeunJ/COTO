@@ -15,4 +15,6 @@ public interface UserProblemService {
 	public int update(UserProblemDTO upd);
 	
 	public int delete(int userProblemID);
+	
+	void createUserProblem(List<UserProblemDTO> p);
 }

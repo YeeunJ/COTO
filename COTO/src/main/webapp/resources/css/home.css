@@ -122,9 +122,15 @@
 	background: #e692382b;
 }
 
-.list li {
-	margin: 0 auto 10px auto;
-	max-width: 280px;
+
+.textList {
+	width: fit-content;
+	text-align:left;
+	margin: 0 auto;
+}
+
+.textList li {
+	margin-bottom: 10px;
 	padding: 6px 11px;
 }
 

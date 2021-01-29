@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.walab.coding.model.RecomCountDTO;
-import com.walab.coding.model.RecomProblemsDTO;
+import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecommendDTO;
 
 @Repository
@@ -53,8 +53,8 @@ public class RecommendDAOImpl implements RecommendDAO {
 		recommendList.set(index, recommend);
 	}
 	
-	public List<RecomProblemsDTO> readRecomProblems(int recomID) {
-		List<RecomProblemsDTO> recommendProblemsList = new ArrayList<RecomProblemsDTO>();
+	public List<RecomProblemDTO> readRecomProblems(int recomID) {
+		List<RecomProblemDTO> recommendProblemsList = new ArrayList<RecomProblemDTO>();
 		
 		Map<String, Object> recommendProblemsListParam = new HashMap<String, Object>();
 		recommendProblemsListParam.put("recomID", recomID);

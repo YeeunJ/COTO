@@ -51,82 +51,40 @@ public class MyinformationController {
 		
 		return mv;
 	}
-//	@RequestMapping(value = "/editok", method = {RequestMethod.GET, RequestMethod.POST})
-//	public ModelAndView editGoal(ModelAndView mv) {
-//		
-//		int userID = 1;
-//		GoalDTO goal; //지금 session 처리와 로그인을 안해서 넣어놓은 예시 데이터!! 나중에 session 처리 할께요!!
-//		
-//		goal = goalService.updateGoal(userID);
-//		System.out.println(goal.toString());
-//		mv.addObject("updateGoal", goal);
-//		mv.setViewName("mypage/information");
-////		if(goalService.updateGoal(GoalDTO goalDTO)==0)
-////		System.out.println("목표 수정 실패");
-////		else
-////		System.out.println("목표 수정 성공!!");
-//		
-//		return mv;
-//	}	
-	
-//	@RequestMapping(value="/editok", method = {RequestMethod.GET, RequestMethod.POST})
-//	public String editGoal(GoalDTO goalDTO, ModelAndView mv) {
-//		mv.addObject("goals", goalService.updateGoal(goalDTO));
-////		mv.addObject("startDate", startDate);
-////		mv.addObject("endDate", endDate);
-//
-//		if(goalService.updateGoal(goalDTO)==0)
-//				System.out.println("목표 수정 실패");
-//		else
-//			System.out.println("목표 수정 성공!!");
-//		return "redirect:/mypage/information";	
-//	}
-//	@RequestMapping(value="/editok", method = RequestMethod.POST)
-//	public String editGoal(GoalDTO goalDTO) {
-//		if(goalService.updateGoal(goalDTO)==0)
-//				System.out.println("데이터 수정 실패");
-//		else
-//			System.out.println("데이터 수정 성공!!");
-//		return "redirect:/";
-//	}	
+
 	@RequestMapping(value = "/updateGoal", method = RequestMethod.POST)
-	public ModelAndView updateGoal(HttpServletRequest httpServletRequest) {
+	public ModelAndView updateGoal(ModelAndView mv, HttpServletRequest httpServletRequest) throws ParseException {
 		
 		int userID = 1;
 		
-//		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
+		String goal = httpServletRequest.getParameter("goal");
+		Date startDate = transFormat.parse(httpServletRequest.getParameter("startDate"));
+		Date endDate = transFormat.parse(httpServletRequest.getParameter("endDate"));
+				
+		java.sql.Date sdate = new java.sql.Date(startDate.getTime());
+		java.sql.Date edate = new java.sql.Date(endDate.getTime());
 
 		GoalDTO updateGoal = new GoalDTO();
-		updateGoal.setGoal(httpServletRequest.getParameter("goal"));
+		updateGoal.setGoal(goal);
+		updateGoal.setStartDate(sdate);
+		updateGoal.setEndDate(edate);
 		updateGoal.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
-		try {
-			updateGoal.setStartDate(transFormat.parse(httpServletRequest.getParameter("startDate")));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		try {
-			updateGoal.setEndDate(transFormat.parse(httpServletRequest.getParameter("endDate")));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		
-		
-		if(goalService.updateGoal(updateGoal) > 0) {
-			System.out.println("success");
-		}else {
-			System.out.println("fail");
-			System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate());
-		}
-		
+
 		List<GoalDTO> goals = goalService.readGoal(userID);
-		ModelAndView mv = new ModelAndView();
 		mv.addObject("goals", goals);
-		mv.setViewName("redirect:/mypage/information");
+
+		if(goalService.updateGoal(updateGoal) > 0) {
+		System.out.println("success");
+		//System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate());
+
+	}else {
+		System.out.println("fail");
+		//System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate());
+	}
 		
+		mv.setViewName("redirect:/mypage/information");
 		return mv;
 
 	}
