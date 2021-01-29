@@ -3,8 +3,9 @@
 
 <%@ include file="./inc/header.jsp"%>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
-<link href="./resources/css/recommendProblem.css?as" rel="stylesheet">
+<link href="./resources/css/recommendProblem.css?qwe" rel="stylesheet">
 <script src="./resources/js/recommendProblem.js"></script>
 
 <style>
@@ -44,7 +45,7 @@
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
-		<button class="input-field custom-button" onclick="createProblems()">문제
+		<button id="create" class="input-field custom-button" onclick="createProblems()">문제
 			추천집 만들기</button>
 		<div class="col order">
 			<select>
@@ -72,17 +73,17 @@
 				</c:if>
 			</c:forEach>
 			<div class="tableRow" id="recoms${recoms.id}"
-				onclick="printAllContent('#recoms${recoms.id}', ${recoms.id})">
-				<span class="tableCell td1">${status.count}</span> <span
-					class="tableCell td4 readTitle">${recoms.title}</span> <span
-					class="tableCell td2">${recoms.nickname}</span> <span
-					class="tableCell td1"></span> <span class="tableCell td1"></span> <span
-					class="tableCell td1">${ count }</span> <span
-					class="tableCell td15"></span> <span
-					class="tableCell td15 readRecommend">${recoms.recomCount}</span> <span
-					class="readProblem" style="display: none;">10문제</span> <span
-					class="readTag" style="display: none;">정렬</span> <span
-					class="readContent" style="display: none;">${recoms.content}</span>
+				onclick="printAllContent('#recoms${recoms.id}', ${recoms.id}, ${ count })">
+				<span class="tableCell td1">${status.count}</span> 
+				<span class="tableCell td4 readTitle">${recoms.title}</span> 
+				<span class="tableCell td2">${recoms.nickname}</span> 
+				<span class="tableCell td1"></span> 
+				<span class="tableCell td1 readRecommend">${recoms.recomCount}</span> 
+				<span class="tableCell td1">${ count }</span> 
+				<%-- <span class="tableCell td15 readRecommend">${recoms.recomCount}</span>  --%>
+				<span class="readProblem" style="display: none;">10문제</span> 
+				<span class="readTag" style="display: none;">정렬</span> 
+				<span class="readContent" style="display: none;">${recoms.content}</span>
 			</div>
 		</c:forEach>
 
@@ -189,12 +190,11 @@
 				<br><br> -->
 </div>
 
-
 <!-- 문제집 등록 모달 -->
-<div id="createProblems" class="container" style="display: none;">
+<div id="createProblems" class="container" style="">
 	<form class="col s12">
 		<p class="title">추천 문제집 제목</p>
-		<input id="title" type="text" placeholder="제목을 입력해주세요."></input>
+		<input id="title" class="title-input" type="text" placeholder="제목을 입력해주세요."></input>
 
 		<p class="title">추천 문제 등록</p>
 		<div class="row">
@@ -221,7 +221,7 @@
 		</div>
 		<div class="input-field col s10">
 			<label for="last_name">입력한 Problems</label> <br> <br>
-			<div id="confirmSite"></div>
+			<div class="recom-confirmSite" id="confirmSite"></div>
 		</div>
 		
 		<p class="title">추천 문제집 난이도</p>
@@ -257,22 +257,21 @@
 				</p>
 			</div>
 			
-			<!-- <input id="difficulty" type="text" class="validate"> 
-			<span class="helper-text">1~5까지만 입력가능합니다.</span> -->
+			
 		</div>
 		
 		<p class="title">추천 문제집 태그</p>
 		<div id="problemTag" class="chips chips-placeholder"></div>
 		
 		<p class="title">추천 문제집 설명</p>
-		<textarea id="content" name="content" rows="5"></textarea>
+		<textarea id="content" class="desc-textarea" name="content" rows="5"></textarea>
 
 	</form>
 </div>
 
 
 <!-- 세부 정보 모달 -->
-<div id="recomDetailModal" style="display: none;">
+<div id="recomDetailModal" style="display:none;">
 
 	<div id="detailRecom">
 		<div>
@@ -304,13 +303,13 @@
 		<div>
 			<div class="details">
 				<span class="like-icon icon"></span><span class="bold">34</span><span></span>
-				<span class="comment-icon icon"></span><span class="bold">18</span><span></span>
+				<span class="comment-icon icon"></span><span id="commentCount" class="bold">18</span><span></span>
 				<span class="diff-icon icon">3</span>
 			</div>
 			<div id="commentDetail">
 				<div class="comment-add">
 					<textarea id="comment-textarea" placeholder="댓글을 달아주세요."></textarea>
-					<button id="addComment" class="modal_button add-btn">등록</button>
+					<button id="addComment" class="modal_button add-btn" onclick="addComment()">등록</button>
 				</div>
 				<div id="modal-comment" class="wrapper">
 					<%-- 					<%@ include file="./ajaxContent/recomCommentContent.jsp"%>
@@ -327,11 +326,21 @@
 <%@ include file="./inc/footer.jsp"%>
 
 <script>
+$("#createProblem").click(function(){
+	$('.sweet-modal-content .chips').css("background", "grey");
+	$('.sweet-modal-content .chips').material_chip();
+	$('.sweet-modal-content .chips-placeholder').material_chip({
+	    placeholder: '+tag',
+	    secondaryPlaceholder: '+Tag',
+	});
+});
+
 $('.chips').material_chip();
 $('.chips-placeholder').material_chip({
     placeholder: '+tag',
     secondaryPlaceholder: '+Tag',
 });
+
 $('#tagAdd').click(function(){
 	var data= $('#problemTag').material_chip('data');
 	var tag = new Array();
@@ -465,37 +474,42 @@ $('#createRecomProblem').click(function() {
 					content : $('#comment-textarea').val()
 				},
 				success : function(data) {
-					$('#modal-comment').append(data);
+					$('#modal-comment').html(data);
 				},
 				error : function(request, status, error) {
 					console.log("code:" + request.status + "\n"
 							+ "message:" + request.responseText + "\n"
 							+ "error:" + error);
-
-	
-	$('#addComment').click(
-			function() {
-				if (confirm("댓글을 추가하시겠습니까?")) {
-					$.ajax({
-						url : "recommendProblem/addComment",
-						type : "POST",
-						async : false,
-						data : {
-							recomID : 2,
-							content : $('#content').val()
-						},
-						success : function(data) {
-							$('#comment').append(data);
-						},
-						error : function(request, status, error) {
-							console.log("code:" + request.status + "\n"
-									+ "message:" + request.responseText + "\n"
-									+ "error:" + error);
-						}
-					});
 				}
 			});
 		}
 	});
 	
+	$(".sweet-modal-content #addComment").click(function() {
+		var userID = $("input[name='writer']").val();
+		var recomID = $("input[name='recomID']").val();
+		alert(userID + "/" + recomID);
+		
+		if (confirm("댓글을 추가하시겠습니까?")) {
+			$.ajax({
+				url : "recommendProblem/addComment",
+				type : "POST",
+				async : false,
+				data : {
+					userID : userID,
+					recomID : recomID,
+					content : $('#comment-textarea').val()
+				},
+				success : function(data) {
+					$('#modal-comment').html(data);
+				},
+				error : function(request, status, error) {
+					console.log("code:" + request.status + "\n"
+							+ "message:" + request.responseText + "\n"
+							+ "error:" + error);
+				}
+			});
+		}
+	});
+
 </script>
