@@ -25,6 +25,7 @@ import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecommendDTO;
+import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.RecomTagDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.CodingSiteServiceImpl;
@@ -196,6 +197,28 @@ public class RecommendController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("recoms", recoms);
 		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recommendContent");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ModelAndView searchProblem(HttpServletRequest httpServletRequest) {		
+		
+		int userID = 1;
+		String searchValue= httpServletRequest.getParameter("searchValue");
+		String orderValue= httpServletRequest.getParameter("orderValue");
+		
+		List<RecommendDTO> recoms = recommendService.search(searchValue, orderValue);
+		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
+		System.out.println(searchValue);
+		System.out.println(orderValue);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("recoms", recoms);
+		mv.addObject("commentCount", commentCount);
+		
 		mv.setViewName("ajaxContent/recommendContent");
 		
 		return mv;

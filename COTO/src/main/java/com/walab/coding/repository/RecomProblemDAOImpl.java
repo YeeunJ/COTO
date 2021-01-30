@@ -1,6 +1,7 @@
 package com.walab.coding.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.walab.coding.model.RecomProblemDTO;
+import com.walab.coding.model.UserProblemDTO;
 
 @Repository
 public class RecomProblemDAOImpl implements RecomProblemDAO {

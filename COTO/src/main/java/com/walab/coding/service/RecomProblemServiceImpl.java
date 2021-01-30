@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.walab.coding.model.RecomProblemDTO;
+import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.repository.RecomProblemDAO;
 
 @Service

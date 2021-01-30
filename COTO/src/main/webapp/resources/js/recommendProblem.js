@@ -1,8 +1,35 @@
 // Or with jQuery
 $(document).ready(function(){
     $('select').formSelect();
+    
+    $('#searchButton').on('click', function() {
+		console.log("click");
+		search();
+	});
+	$('#orderValue').on('change', function() {
+		console.log("change");
+		search();
+	});
 });
 
+function search(){
+	$.ajax({
+			url: "recommendProblem/search",
+			type: "POST",
+			async: false,
+			data: {
+				searchValue:$('#searchValue').val(),
+				orderValue:$('#orderValue option:selected').val()
+			},
+			success: function(data){
+				//console.log(data);
+				$('#problemsContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+	});
+}
 function callModal() {
 	createModel("#createProblems", "문제집 등록", addajax);
  	$('select').formSelect();

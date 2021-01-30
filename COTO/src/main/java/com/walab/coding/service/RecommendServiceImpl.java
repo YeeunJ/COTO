@@ -36,4 +36,12 @@ public class RecommendServiceImpl implements RecommendService {
 		
 		return recomID;
 	}
+	
+	@Override
+	public List<RecommendDTO> search(String searchValue, String orderValue) {
+		searchValue = "%".concat(searchValue).concat("%");
+		if(orderValue == null)
+			orderValue ="regdate";
+		return recommendDAO.searchProblemByContents(searchValue, orderValue);
+	}
 }

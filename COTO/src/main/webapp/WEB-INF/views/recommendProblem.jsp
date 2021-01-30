@@ -39,20 +39,20 @@
 
 	<div class="top-bar">
 		<fieldset class="search">
-			<input class="search_problem" type="search"
+			<input id="searchValue" class="search_problem" type="search"
 				placeholder="검색어를 입력해주세요." />
-			<button class="search_bt" type="submit">
+			<button id="searchButton" class="search_bt" type="submit">
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
 		<button class="input-field custom-button" onclick="callModal()">문제 추천집 만들기</button>
 		<div class="col order">
-			<select>
-				<option value="" disabled selected>정렬</option>
-				<option value="1">난이도순</option>
-				<option value="2">제목순</option>
-				<option value="3">추천순</option>
-				<option value="4">최신순</option>
+			<select id="orderValue">
+				<option value="regdate" disabled selected>정렬</option>
+				<option value="difficulty">난이도순</option>
+				<option value="title">제목순</option>
+				<option value="recommend">추천순</option>
+				<option value="regdate">최신순</option>
 			</select>
 		</div>
 	</div>

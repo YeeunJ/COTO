@@ -13,6 +13,12 @@
 		FROM recommend as recom left join user as us on recom.userID = us.id
 	</select>
 	
+	<select id="searchRecommendList" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">
+		SELECT recom.id as id, recom.title as title, recom.content as content, us.nickname as nickname, recom.difficulty as difficulty
+		FROM recommend as recom left join user as us on recom.userID = us.id
+		where recom.title like #{searchValue} order by ${orderValue}
+	</select>
+	
 	<select id="readRecommendCountList" resultType="int" parameterType="hashmap">
 		SELECT COALESCE(count(*), 0) 
 		FROM recomCount
