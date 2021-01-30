@@ -18,7 +18,7 @@
 		<span class ="tableCell td2 pTitle"><a href="${problem.link}" target="_blank">${problem.problem}</a></span>
 		<span class ="tableCell td4 pMemo">${problem.memo}</span>
 		<span class ="tableCell td2 pRegdate">${problem.regDate}</span>
-		<span class ="tableCell td1 pDifficulty"><img style="width: 34px;" alt="${problem.difficulty}" src="../resources/img/difficulty${problem.difficulty}.png"></span>
+		<span class ="tableCell td1 pDifficulty"><img style="width: 60px;" alt="${problem.difficulty}" src="../resources/img/difficulty${problem.difficulty}.png"></span>
 		<span class="pSite" style="display:none;">${problem.site}</span>
 		<span class="pSiteUrl" style="display:none;">${problem.siteUrl}</span>
 	</div>

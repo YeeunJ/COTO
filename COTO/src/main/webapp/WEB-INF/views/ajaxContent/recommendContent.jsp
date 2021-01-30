@@ -18,12 +18,12 @@
 	</c:forEach>
 	
 	<div class="tableRow" id="recoms${recoms.id}" onclick="printAllContent('#recoms${recoms.id}', ${recoms.id}, ${ count })">
-		<span class="tableCell td1">${status.count}</span> 
-		<span class="tableCell td4 readTitle">${recoms.title}</span> 
-		<span class="tableCell td2">${recoms.nickname}</span> 
-		<span class="tableCell td1"><img style="width: 34px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
-		<span class="tableCell td1 readRecommend">${recoms.recomCount}</span> 
-		<span class="tableCell td1">${ count }</span> 
+		<span class="tableCell td1 alignCenter">${status.count}</span> 
+		<span class="tableCell td4 alignCenter readTitle">${recoms.title}</span> 
+		<span class="tableCell td2 alignCenter">${recoms.nickname}</span> 
+		<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
+		<span class="tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
+		<span class="tableCell td1 alignCenter">${ count }</span> 
 		
 		<span class="readContent" style="display: none;">${recoms.content}</span>
 		<span class="readDifficulty" style="display: none;">${recoms.difficulty}</span>
