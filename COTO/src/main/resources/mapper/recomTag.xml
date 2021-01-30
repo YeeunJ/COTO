@@ -5,7 +5,13 @@
 	<insert id="createTag" parameterType="com.walab.coding.model.RecomTagDTO">
 		INSERT INTO recomTag (recomID, tag) VALUES (#{recomID}, #{tag})
 	</insert>
+	
 	<select id="searchTagOrderByCount" resultType="com.walab.coding.model.RecomTagDTO" >
 		SELECT tag FROM recomTag group by tag order by count(*) desc limit 8
 	</select>
+	
+	<select id="readProblemTagList" resultType="com.walab.coding.model.RecomTagDTO" >
+		SELECT recomID, tag FROM recomTag
+	</select>
+	
 </mapper>

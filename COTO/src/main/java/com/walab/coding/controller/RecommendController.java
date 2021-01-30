@@ -64,12 +64,23 @@ public class RecommendController {
 		List<RecommendDTO> recoms = recommendService.readRecom();
 		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
+		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
+		
+		for(int i=0;i<recomProblem.size();i++) {
+			for(int j=0;j<codingSite.size();j++) {
+				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
+					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
+			}
+		}
 		
 		
 		mv.addObject("recoms", recoms);
 		mv.addObject("codingSite", codingSite);
 //		mv.addObject("recomComment", recomComment);
 		mv.addObject("commentCount", commentCount);
+		mv.addObject("recomProblem", recomProblem);
+		mv.addObject("recomProblemTag", recomProblemTag);
 				
 		mv.setViewName("recommendProblem");
 

@@ -27,6 +27,18 @@
 	opacity: 0.4;
 	z-index: -1;
 }
+
+.readTagChips {
+	height: 32px;
+	font-size: 15px;
+	font-weight: 500;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 32px;
+	padding: 8px 12px;
+    border-radius: 16px;
+    background-color: #e4e4e4;
+    margin-right: 2%;
+}
 </style>
 
 <div class="container">
@@ -152,22 +164,6 @@
 
 
 <!-- 세부 정보 모달 -->
-
-<div hidden>
-		<div class="container">
-			<div class="col s12">
-				<span>문제 : </span><span id="problems"></span> <span>태그 : </span><span
-					id="tags"></span> 
-
-				<div>
-					<b>댓글</b>
-					<p class="comment">좋은 문제 감사합니다~~</p>
-				</div>
-
-			</div>
-		</div>
-	</div>
-	
 <div id="readRecommendProblem" style="display:none;">
 
 	<div id="detailRecom">
@@ -191,26 +187,13 @@
 			
 			<div>
 				<p class="title">추천 문제 태그</p>
+				<div id="readTags"></div>
+				<br><br>
 			</div>
 
 			<div>
 				<p class="title desc">추천 문제</p>
-				<div id="readProblems">
-					<div class="sitetitle">백준</div>
-					<div>
-						<p>122번</p>
-						<p>1256번</p>
-						<p>129번</p>
-						<p>3번</p>
-						<p>2980번</p>
-					</div>
-					<div class="sitetitle">leetcode</div>
-					<div>
-						<p>별짓기</p>
-						<p>하노이탑</p>
-						<p>9002번</p>
-					</div>
-				</div>
+				<div id="readProblems" class="readBox"></div>
 			</div>
 		</div>
 		<div>
@@ -234,8 +217,6 @@
 	</div>
 
 </div>
-
-<span id="ClickTest">click</span>
 
 <%@ include file="./inc/footer.jsp"%>
 

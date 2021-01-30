@@ -27,8 +27,20 @@
 		
 		<span class="readContent" style="display: none;">${recoms.content}</span>
 		<span class="readDifficulty" style="display: none;">${recoms.difficulty}</span>
-
-		<span class="readProblem" style="display: none;">10문제</span> 
-		<span class="readTag" style="display: none;">정렬</span> 
+		<span class="readTag" style="display: none;">
+			<c:forEach items="${recomProblemTag}" var="rpt">
+				<c:if test="${rpt.recomID eq recoms.id}">
+					<span class="readTagChips">${rpt.tag}</span>
+				</c:if>
+			</c:forEach>
+		</span> 
+		<div class="readProblem" style="display: none;">
+			<c:forEach items="${recomProblem}" var="rp">
+				<c:if test="${rp.recomID eq recoms.id}">
+					<div class="sitetitle">${rp.siteName}</div>
+					<div><p>${rp.name}</p></div>
+				</c:if>
+			</c:forEach>
+		</div>
 	</div>
 </c:forEach>

@@ -6,6 +6,8 @@ public class RecomProblemDTO {
 	private int recomID;
 	private int siteID;
 	private int problemID;
+	private String name;
+	private String siteName;
 	
 	public int getId() {
 		return id;
@@ -30,5 +32,17 @@ public class RecomProblemDTO {
 	}
 	public void setProblemID(int problemID) {
 		this.problemID = problemID;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getSiteName() {
+		return siteName;
+	}
+	public void setSiteName(String siteName) {
+		this.siteName = siteName;
 	}
 }

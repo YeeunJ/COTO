@@ -25,4 +25,9 @@ public class RecomTagDAOImpl implements RecomTagDAO {
 	public List<RecomTagDTO> readTagOrderByCount() {
 		return sqlSession.selectList(namespace+".searchTagOrderByCount");
 	}
+	
+	@Override
+	public List<RecomTagDTO> readProblemTag() {
+		return sqlSession.selectList(namespace+".readProblemTagList");
+	}
 }
