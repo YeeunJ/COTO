@@ -19,13 +19,10 @@ function printAllContent(id, recomId, count){
 	
 	$("#commentCount").text(count);
 	
-	/* $('#UuserProblemID').html(id.substring(8, id.length));
-	$('#Usite').html($(id+' .pSite').html());
-	$('#UproblemName').html($(id+' .pTitle').html());
-	$('#Umemo').html($(id+' .pMemo').html());
-	$('#Uregdate').html($(id+' .pRegdate').html());
-	$('#Udifficulty').attr('value', $(id+' .pDifficulty').attr('alt'));
-	console.log($(id+' .pDifficulty').attr('alt')); */
+	$('#updateRecomID').html(recomId);
+	$('#updateContents').html($(id+' .readContent').html());
+	$('#updateTags').html($(id+' .readTag').html());
+	$('#updateProblems').html($(id+' .readProblem').html());
 	
 	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), updateAjax, deleteAjax);
 	$('select').formSelect();
@@ -162,14 +159,23 @@ function addajax(){
 }
 
 function updateAjax (){
+	var difficulty_cnt = document.getElementsByName("updateDifficulty").length;
+	
+	for(var i=0;i<difficulty_cnt;i++) {
+		if(document.getElementsByName("updateDifficulty")[i].checked == true)
+			var difficulty = document.getElementsByName("updateDifficulty")[i].value;
+	}
+	
 	$.ajax({
 		url: "./recommendProblem/updateRecomProblem",
 		type: "POST",
 		async: false,
 		data: {
-			id:$('#UuserProblemID').html(),
-			difficulty:$('.sweet-modal-content #Udifficulty').val(),
-			memo: $('.sweet-modal-content #Umemo').val()
+			id:$('#updateRecomID').html(),
+			content: $('.sweet-modal-content #updateContents').val(),
+			/*tag: $('.sweet-modal-content #updateTags').val(),
+			problem: $('.sweet-modal-content #updateProblems').val(),*/
+			difficulty:difficulty
 		},
 		success: function(data){
 			console.log(data);
@@ -187,7 +193,7 @@ function deleteAjax (){
 		type: "POST",
 		async: false,
 		data: {
-			id:$('#UuserProblemID').html()
+			id:$('#updateRecomID').html()
 		},
 		success: function(data){
 			console.log(data);
@@ -223,17 +229,3 @@ function insertProblems(){
 	$('#confirmSite').html(data);
 	$(".sweet-modal-content #problems").val("");
 };
-	
-/*count=0;
-function insertTags(){
-	var value = document.getElementById("tags").value;
-	var valueSplit = value.split(',');
-	var data = $('#confirmTag').html();
-	for(var i in valueSplit){
-		valueSplit[i] = valueSplit[i].trim();
-		data += '<div id = "confirmTagValue'+count+'" onClick="deleteThis(\'confirmTagValue'+count+'\')"><input disabled name="'+valueSplit[i]+'" value="'+valueSplit[i]+'" id="last_tag disabled" type="text" class="tag validate"/></div>';
-		count++;
-	}
-	$('#confirmTag').html(data);
-	document.getElementById("tags").value = "";
-};*/

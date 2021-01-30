@@ -12,4 +12,6 @@ public interface RecommendService {
 	List<RecomProblemDTO> readRecomProblems(int recomID);
 	
 	int createRecomProblem(RecommendDTO recommend);
+	
+	public int deleteRecom(int recomID);
 }

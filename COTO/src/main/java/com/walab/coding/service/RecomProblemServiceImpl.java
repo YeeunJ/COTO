@@ -32,4 +32,9 @@ public class RecomProblemServiceImpl implements RecomProblemService {
 		
 		return recomProblems;
 	}
+	
+	@Override
+	public int deleteRecomProblem(int recomID) {
+		return recomProblemsDAO.deleteRecomProblem(recomID);
+	}
 }

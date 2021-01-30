@@ -14,4 +14,6 @@ public interface RecommendDAO {
 	public List<RecomProblemDTO> readRecomProblems(int recomID);
 	
 	public int createRecomProblem(RecommendDTO recommend);
+	
+	public int deleteRecom(int recomID);
 }

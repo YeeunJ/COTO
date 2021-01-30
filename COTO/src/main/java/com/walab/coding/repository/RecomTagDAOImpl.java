@@ -1,6 +1,8 @@
 package com.walab.coding.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +31,13 @@ public class RecomTagDAOImpl implements RecomTagDAO {
 	@Override
 	public List<RecomTagDTO> readProblemTag() {
 		return sqlSession.selectList(namespace+".readProblemTagList");
+	}
+	
+	@Override
+	public int deleteRecomTag(int recomID) {
+		Map<String, Object> recomTagListParam = new HashMap<String, Object>();
+		recomTagListParam.put("recomID", recomID);
+		
+		return sqlSession.delete(namespace+".deleteRecomTag", recomTagListParam);
 	}
 }

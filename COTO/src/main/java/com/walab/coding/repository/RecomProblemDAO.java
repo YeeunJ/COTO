@@ -11,4 +11,6 @@ public interface RecomProblemDAO {
 	public int readProblemID(int siteID, String problem);
 	
 	public List<RecomProblemDTO> readProblem();
+	
+	public int deleteRecomProblem(int recomID);
 }
