@@ -44,4 +44,8 @@ public class RecommendServiceImpl implements RecommendService {
 			orderValue ="regdate";
 		return recommendDAO.searchProblemByContents(searchValue, orderValue);
 	}
+	
+	public int deleteRecom(int recomID) {
+		return recommendDAO.deleteRecom(recomID);
+	}
 }

@@ -42,5 +42,15 @@ public class RecomCommentServiceImpl implements RecomCommentService {
 		recomCommentDAO.createComment(r);
 		
 	}
+	
+	@Override
+	public int deleteRecomComment(int recomID) {
+		return recomCommentDAO.deleteRecomComment(recomID);
+	}
+	
+	@Override
+	public int deleteRecomCount(int recomID) {
+		return recomCommentDAO.deleteRecomCount(recomID);
+	}
 
 }

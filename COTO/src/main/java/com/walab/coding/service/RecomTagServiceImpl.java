@@ -25,4 +25,14 @@ public class RecomTagServiceImpl implements RecomTagService {
 	public List<RecomTagDTO> readTagList() {
 		return tagDAO.readTagOrderByCount();
 	}
+	
+	@Override
+	public List<RecomTagDTO> readProblemTag() {
+		return tagDAO.readProblemTag();
+	}
+	
+	@Override
+	public int deleteRecomTag(int recomID) {
+		return tagDAO.deleteRecomTag(recomID);
+	}
 }

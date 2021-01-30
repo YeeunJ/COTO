@@ -65,12 +65,23 @@ public class RecommendController {
 		List<RecommendDTO> recoms = recommendService.readRecom();
 		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
+		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
+		
+		for(int i=0;i<recomProblem.size();i++) {
+			for(int j=0;j<codingSite.size();j++) {
+				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
+					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
+			}
+		}
 		
 		
 		mv.addObject("recoms", recoms);
 		mv.addObject("codingSite", codingSite);
 //		mv.addObject("recomComment", recomComment);
 		mv.addObject("commentCount", commentCount);
+		mv.addObject("recomProblem", recomProblem);
+		mv.addObject("recomProblemTag", recomProblemTag);
 				
 		mv.setViewName("recommendProblem");
 
@@ -194,9 +205,116 @@ public class RecommendController {
 		
 		List<RecommendDTO> recoms = recommendService.readRecom();
 		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
+		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
+		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
+		
+		for(int i=0;i<recomProblem.size();i++) {
+			for(int j=0;j<codingSite.size();j++) {
+				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
+					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
+			}
+		}
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("recoms", recoms);
 		mv.addObject("commentCount", commentCount);
+		mv.addObject("recomProblem", recomProblem);
+		mv.addObject("recomProblemTag", recomProblemTag);
+		mv.setViewName("ajaxContent/recommendContent");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/updateRecomProblem", method = RequestMethod.POST)
+	public ModelAndView updateRecomProblem(HttpServletRequest httpServletRequest) {
+		
+//		int userID = 3;
+//		
+//		UserProblemDTO upd = new UserProblemDTO();
+//		upd.setDifficulty(httpServletRequest.getParameter("difficulty"));
+//		upd.setMemo(httpServletRequest.getParameter("memo"));
+//		upd.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
+//		
+//		if(userProblemService.update(upd) > 0) {
+//			System.out.println("success");
+//		}else {
+//			System.out.println("fail");
+//		}
+//		
+		List<RecommendDTO> recoms = recommendService.readRecom();
+		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
+		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
+		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
+		
+		for(int i=0;i<recomProblem.size();i++) {
+			for(int j=0;j<codingSite.size();j++) {
+				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
+					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
+			}
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("recoms", recoms);
+		mv.addObject("commentCount", commentCount);
+		mv.addObject("recomProblem", recomProblem);
+		mv.addObject("recomProblemTag", recomProblemTag);
+		mv.setViewName("ajaxContent/recommendContent");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomProblem", method = RequestMethod.POST)
+	public ModelAndView deleteRecomProblem(HttpServletRequest httpServletRequest) {
+		int userID = 3;
+		int recomID = Integer.parseInt(httpServletRequest.getParameter("id"));
+		
+		System.out.println(recomID);
+		if(recommendService.deleteRecom(recomID) > 0) {
+			System.out.println("recom success");
+		}else {
+			System.out.println("recom fail");
+		}
+		if(recomCommentService.deleteRecomComment(recomID) > 0) {
+			System.out.println("recomComment success");
+		}else {
+			System.out.println("recomComment fail");
+		}
+		if(recomProblemsService.deleteRecomProblem(recomID) > 0) {
+			System.out.println("recomProblem success");
+		}else {
+			System.out.println("recomProblem fail");
+		}
+		if(recomTagService.deleteRecomTag(recomID) > 0) {
+			System.out.println("recomTag success");
+		}else {
+			System.out.println("recomTag fail");
+		}
+		if(recomCommentService.deleteRecomCount(recomID) > 0) {
+			System.out.println("recomCount success");
+		}else {
+			System.out.println("recomCount fail");
+		}
+		
+		List<RecommendDTO> recoms = recommendService.readRecom();
+		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
+		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
+		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
+		
+		for(int i=0;i<recomProblem.size();i++) {
+			for(int j=0;j<codingSite.size();j++) {
+				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
+					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
+			}
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("recoms", recoms);
+		mv.addObject("commentCount", commentCount);
+		mv.addObject("recomProblem", recomProblem);
+		mv.addObject("recomProblemTag", recomProblemTag);
 		mv.setViewName("ajaxContent/recommendContent");
 		
 		return mv;

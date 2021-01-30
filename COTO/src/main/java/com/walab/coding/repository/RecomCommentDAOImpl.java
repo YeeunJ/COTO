@@ -1,5 +1,6 @@
 package com.walab.coding.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +38,22 @@ public class RecomCommentDAOImpl implements RecomCommentDAO{
 		
 		sqlSession.insert("recomComment.createComment", r);
 		
+	}
+	
+	@Override
+	public int deleteRecomComment(int recomID) {
+		Map<String, Object> recomCommentListParam = new HashMap<String, Object>();
+		recomCommentListParam.put("recomID", recomID);
+		
+		return sqlSession.delete("recomComment.deleteRecomComment", recomCommentListParam);
+	}
+	
+	@Override
+	public int deleteRecomCount(int recomID) {
+		Map<String, Object> recomCountListParam = new HashMap<String, Object>();
+		recomCountListParam.put("recomID", recomID);
+		
+		return sqlSession.delete("recomComment.deleteRecomCount", recomCountListParam);
 	}
 	
 }

@@ -8,5 +8,10 @@ import com.walab.coding.model.RecomTagDTO;
 public interface RecomTagDAO {
 
 	void createTag(RecomTagDTO t);
+	
 	public List<RecomTagDTO> readTagOrderByCount();
+	
+	public List<RecomTagDTO> readProblemTag();
+	
+	public int deleteRecomTag(int recomID);
 }

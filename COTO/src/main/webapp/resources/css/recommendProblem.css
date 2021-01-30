@@ -170,3 +170,8 @@ input[type='radio']:checked {
 	border-left: thick solid #e69238;
 	padding: 1% 3%;
 }
+#detailRecomUpdate {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 35px;
+}

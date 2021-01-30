@@ -14,4 +14,6 @@ public interface RecommendService {
 	int createRecomProblem(RecommendDTO recommend);
 	
 	public List<RecommendDTO> search(String searchValue, String orderValue);
+
+	public int deleteRecom(int recomID);
 }
