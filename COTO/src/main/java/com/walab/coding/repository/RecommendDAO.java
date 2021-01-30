@@ -15,9 +15,7 @@ public interface RecommendDAO {
 	
 	public int createRecomProblem(RecommendDTO recommend);
 	
-<<<<<<< HEAD
 	public List<RecommendDTO> searchProblemByContents(String searchValue, String orderValue);
-=======
+
 	public int deleteRecom(int recomID);
->>>>>>> branch 'master' of https://github.com/YeeunJ/COTO.git
 }
