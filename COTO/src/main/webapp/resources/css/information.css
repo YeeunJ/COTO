@@ -18,10 +18,15 @@
 	border-right: solid 1px orange !important;
  	border-bottom: none !important;
  	font-weight: normal !important;
+ 	background-color: white !important;
+ 	color: #666666 !important;
 }
-.th8{
+.td8{
 	font-weight: normal !important;
 	padding-left: 50px !important;
+}
+.td8:hover{
+	background-color: white !important;
 }
 .tableCell {
  	border-bottom: none !important;

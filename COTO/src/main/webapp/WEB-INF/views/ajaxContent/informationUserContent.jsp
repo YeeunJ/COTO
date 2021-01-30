@@ -8,19 +8,19 @@
 	<c:forEach items="${users}" var="user" varStatus="status">
 		<div class="tableRow">
 			<span class="tableCell th3">이름</span>
-			<span class="tableCell th8">${user.name}</span>
+			<span class="tableCell td8">${user.name}</span>
 		</div>
 		<div class="tableRow">
 			<span class="tableCell th3">닉네임</span> 
-			<span class="tableCell th8">${user.nickName}</span>
+			<span class="tableCell td8">${user.nickName}</span>
 		</div>
 		<div class="tableRow">
 			<span class="tableCell th3">학번</span> 
-			<span class="tableCell th8">${user.userNumber}</span>
+			<span class="tableCell td8">${user.userNumber}</span>
 		</div>
 		<div class="tableRow">
 			<span class="tableCell th3">자기소개</span> 
-			<span class="tableCell th8">${user.intro}</span>
+			<span class="tableCell td8">${user.intro}</span>
 		</div>
 	</c:forEach>
 </div>

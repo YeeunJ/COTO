@@ -10,17 +10,17 @@
 		<input name="id" value="${goal.id}" type="hidden" />
 		<div class="tableRow">
 			<span class="tableCell th3">목표 내용 </span> <span
-				class="tableCell th8"><input type="text" name="goal"
+				class="tableCell td8"><input type="text" name="goal"
 				value="${goal.goal}" placeholder="${goal.goal}" /> </span>
 		</div>
 		<div class="tableRow">
 			<span class="tableCell th3">목표 시작일</span> <span
-				class="tableCell th8"><input type="date" name="startDate"
+				class="tableCell td8"><input type="date" name="startDate"
 				value="${sDate}" /> </span>
 		</div>
 		<div class="tableRow">
 			<span class="tableCell th3">목표 종료일</span> <span
-				class="tableCell th8"><input type="date" name="endDate"
+				class="tableCell td8"><input type="date" name="endDate"
 				value="${eDate}" /> </span>
 		</div>
 	</c:forEach>

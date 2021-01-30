@@ -9,12 +9,12 @@
 	<c:forEach items="${goals}" var="goal" varStatus="status">
 		<div class="tableRow">
 			<span class="tableCell th3">목표 내용</span> <span
-				class="tableCell th8">${goal.goal}
+				class="tableCell td8">${goal.goal}
 			</span>
 		</div>
 		<div class="tableRow">
 			<span class="tableCell th3">목표 기간</span> <span
-				class="tableCell th8"><fmt:formatDate
+				class="tableCell td8"><fmt:formatDate
 					pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
 					pattern="yyyy-MM-dd" value="${goal.endDate}" />
 			</span>

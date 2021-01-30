@@ -33,11 +33,13 @@
 }
 
 .prog {
-	background: lightgrey;
+	background: #e3e3e3;
+	border-radius: 10px;
 }
 
 .progs {
-	background: blue;
+	background: #e69138ff;
+	border-radius: 10px;
 	color: #fff;
 	text-align: center;
 	line-height: 100%;
@@ -79,7 +81,7 @@
 					var="endDate" />
 				<c:choose>
 					<c:when test="${endDate > nowDate}">
-						<span class="tableCell td2 readStatus" style="color: blue;">진행중</span>
+						<span class="tableCell td2 readStatus" style="color: #e69138ff;">진행중</span>
 					</c:when>
 					<c:otherwise>
 						<span class="tableCell td2 readStatus">종료</span>
