@@ -69,4 +69,12 @@ public class RecommendDAOImpl implements RecommendDAO {
 		
 		return recomID;
 	}
+	
+	@Override
+	public int deleteRecom(int recomID) {
+		Map<String, Object> recomListParam = new HashMap<String, Object>();
+		recomListParam.put("recomID", recomID);
+		
+		return sqlSession.delete(namespace+".deleteRecom", recomListParam);
+	}
 }

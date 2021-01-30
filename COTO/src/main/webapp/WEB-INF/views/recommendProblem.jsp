@@ -74,13 +74,6 @@
 		<%@ include file="./ajaxContent/recommendContent.jsp"%>
 	</div>
 	<br> <br>
-
-	<!-- update -->
-	<!-- <div id="updateRecommendProblem">
-					<div class = "container">
-					</div>
-				</div>
-				<br><br> -->
 </div>
 
 <!-- 문제집 등록 모달 -->
@@ -215,7 +208,92 @@
 
 		</div>
 	</div>
+</div>
 
+<!-- 세부 정보 모달 update -->
+<div id="updateRecommendProblem" style="display:none;">
+	<form>
+			<span id="updateRecomID" style="display:none;"></span>
+			<div>
+				<p class="title">추천 문제 설명</p>
+				<textarea id="updateContents" class="validate" rows="5"></textarea>
+				<br><br>
+			</div>
+			
+			<div>
+				<p class="title">추천 문제 난이도</p>
+				<div class="row">
+					<div class="input-field col s2">
+						<p>
+							<input type="radio" name="updateDifficulty" id="ud1" value="1" checked/>
+							<label for="ud1" class="diffCont">1</label>
+						</p>
+					</div>
+					<div class="input-field col s2">
+						<p>
+							<input type="radio" name="updateDifficulty" id="ud2" value="2" class="radioMrg"/>
+							<label for="ud2" class="diffCont">2</label>
+						</p>
+					</div>
+					<div class="input-field col s2">
+						<p>
+							<input type="radio" name="updateDifficulty" id="ud3" value="3" class="radioMrg"/>
+							<label for="ud3" class="diffCont">3</label>
+						</p>
+					</div>
+					<div class="input-field col s2">
+						<p>
+							<input type="radio" name="updateDifficulty" id="ud4" value="4" class="radioMrg"/>
+							<label for="ud4" class="diffCont">4</label>
+						</p>
+					</div>
+					<div class="input-field col s2">
+						<p>
+							<input type="radio" name="updateDifficulty" id="ud5" value="5" class="radioMrg"/>
+							<label for="ud5" class="diffCont">5</label>
+						</p>
+					</div>
+				</div>
+				<br><br>
+			</div>
+			
+			<div>
+				<p class="title">추천 문제 태그</p>
+				<div id="updateTags" style="display:none;"></div>
+				<div id="problemTag" class="chips chips-placeholder" onclick="chipTag()"></div>
+				<br><br>
+			</div>
+	
+			<div>
+				<p class="title desc">추천 문제</p>
+				<div class="row">
+					<div class="input-field col s4">
+						<select id="siteName" required>
+							<optgroup label="코딩사이트 선택">
+								<c:forEach items="${codingSite}" var="site">
+									<option value="${site.id}">${site.siteName}</option>
+								</c:forEach>
+							</optgroup>
+							<optgroup label="링크로 입력">
+								<option value="0">링크로 입력</option>
+							</optgroup>
+						</select>
+						<label>코딩사이트 선택</label> 
+						<span class="helper-text">코딩 사이트를 선택해서 입력하거나 링크로 입력할 수 있습니다.</span>
+					</div>
+					<div class="input-field col s6">
+						<input id="problems" type="text" class="validate"> 
+						<label for="problems">Problems</label> 
+						<span class="helper-text">문제들을 입력할 때 ,로 구분해주세요!!</span>
+					</div>
+					<button type="button" id="add" class="modal_button lighten-1" onClick="insertProblems()">추가</button>
+				</div>
+				<div class="input-field col s10">
+					<label for="last_name">입력한 Problems</label> <br> <br>
+					<div class="recom-confirmSite" id="confirmSite"></div>
+				</div>
+			</div>
+	</form>		
 </div>
 
 <%@ include file="./inc/footer.jsp"%>

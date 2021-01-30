@@ -36,4 +36,9 @@ public class RecommendServiceImpl implements RecommendService {
 		
 		return recomID;
 	}
+	
+	@Override
+	public int deleteRecom(int recomID) {
+		return recommendDAO.deleteRecom(recomID);
+	}
 }

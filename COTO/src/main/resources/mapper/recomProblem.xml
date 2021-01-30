@@ -10,4 +10,8 @@
 		SELECT rp.id as id, rp.recomID as recomID, p.name as name, p.siteID as siteID
 		FROM recomProblem as rp left join problem as p on rp.problemID = p.id
 	</select>
+	
+	<delete id="deleteRecomProblem" parameterType="hashmap">
+		delete from recomProblem where recomID = #{recomID}
+	</delete>
 </mapper>

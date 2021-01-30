@@ -28,4 +28,8 @@
 	<insert id="createRecomProblem" parameterType="com.walab.coding.model.RecommendDTO" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO recommend (userID, title, difficulty, content) VALUES (#{userID}, #{title}, #{difficulty}, #{content})
 	</insert>
+	
+	<delete id="deleteRecom" parameterType="hashmap">
+		delete from recommend where id = #{recomID}
+	</delete>
 </mapper>

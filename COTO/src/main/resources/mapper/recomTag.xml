@@ -14,4 +14,7 @@
 		SELECT recomID, tag FROM recomTag
 	</select>
 	
+	<delete id="deleteRecomTag" parameterType="hashmap">
+		delete from recomTag where recomID = #{recomID}
+	</delete>
 </mapper>
