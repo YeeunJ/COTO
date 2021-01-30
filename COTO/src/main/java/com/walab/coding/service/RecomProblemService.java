@@ -9,4 +9,6 @@ public interface RecomProblemService {
 	public void createRecomProblem(List<RecomProblemDTO> recomprobs);
 	
 	public int readProblemID(int siteID, String problem);
+	
+	public List<RecomProblemDTO> readProblem();
 }

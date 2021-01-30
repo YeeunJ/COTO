@@ -11,8 +11,8 @@ function callModal() {
 function printAllContent(id, recomId, count){
 	//alert(recomId);
 	readComment(recomId);
-	$('#problems').html($(id+' .readProblem').html());
-	$('#tags').html($(id+' .readTag').html());
+	$('#readProblems').html($(id+' .readProblem').html());
+	$('#readTags').html($(id+' .readTag').html());
 	$('#readContents').html($(id+' .readContent').html());
 	$('#readRecommends').html($(id+' .readRecommend').html());
 	$('#readDifficulties').html($(id+' .readDifficulty').html());

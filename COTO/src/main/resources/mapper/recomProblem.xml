@@ -5,4 +5,9 @@
 	<insert id="createRecomProblem" parameterType="com.walab.coding.model.RecomProblemDTO">
 		INSERT INTO recomProblem (recomID, problemID) VALUES (#{recomID}, #{problemID})
 	</insert>
+	
+	<select id="readRecommendProblemList" resultType="com.walab.coding.model.RecomProblemDTO">
+		SELECT rp.id as id, rp.recomID as recomID, p.name as name, p.siteID as siteID
+		FROM recomProblem as rp left join problem as p on rp.problemID = p.id
+	</select>
 </mapper>

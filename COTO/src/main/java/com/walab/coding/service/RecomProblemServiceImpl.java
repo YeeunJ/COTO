@@ -25,4 +25,11 @@ public class RecomProblemServiceImpl implements RecomProblemService {
 	public int readProblemID(int siteID, String problem) {
 		return recomProblemsDAO.readProblemID(siteID, problem);
 	}
+	
+	@Override
+	public List<RecomProblemDTO> readProblem() {
+		List<RecomProblemDTO> recomProblems = recomProblemsDAO.readProblem();
+		
+		return recomProblems;
+	}
 }
