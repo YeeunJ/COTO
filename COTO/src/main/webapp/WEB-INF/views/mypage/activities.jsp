@@ -71,7 +71,7 @@
 				<span class="tableCell td3 readRate">
 					<div class="prog">
 						<div class="progs" style="width: 20%;">
-							<span style="font-size: 10px;">20%</span>
+							<span style="font-size: 10px;"> ${goals.goalNum}</span>
 						</div>
 					</div>
 				</span>
