@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.walab.coding.model.RecomCommentDTO;
+import com.walab.coding.model.RecommendDTO;
 
 @Repository("recomCommentDAO")
 public class RecomCommentDAOImpl implements RecomCommentDAO{

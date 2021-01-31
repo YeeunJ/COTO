@@ -11,6 +11,7 @@ public class RecommendDTO {
 	private int difficulty;
 	private String content;
 	private int recomCount;
+	private int recomCommentCount;
 	private Date deleteDate;
 	private Date regDate;
 	
@@ -55,6 +56,12 @@ public class RecommendDTO {
 	}
 	public void setRecomCount(int recomCount) {
 		this.recomCount = recomCount;
+	}
+	public int getRecomCommentCount() {
+		return recomCommentCount;
+	}
+	public void setRecomCommentCount(int recomCommentCount) {
+		this.recomCommentCount = recomCommentCount;
 	}
 	public Date getDeleteDate() {
 		return deleteDate;
