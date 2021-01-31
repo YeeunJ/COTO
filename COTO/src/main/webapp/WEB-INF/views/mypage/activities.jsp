@@ -40,9 +40,13 @@
 .progs {
 	background: #e69138ff;
 	border-radius: 10px;
-	color: #fff;
-	text-align: center;
 	line-height: 100%;
+}
+.rate{
+	/* margin: auto; */
+	margin-left: 102%;
+	font-size: 14px;
+	color: black;
 }
 </style>
 
@@ -64,16 +68,16 @@
 			<div class="tableRow" id="goals${goals.id}"
 				onclick="printAllContent('#goals${goals.id}')">
 				<div class="readGoal" hidden>${goals.goal}</div>
-				<div class="readGoalNum" hidden>${goals.goalNum}</div>
+				<div class="readGoalNum" hidden>${goals.goalNum}개</div>
 				<span class="tableCell td1">${status.count}</span> 
 				<span class="tableCell td3 readTitle"> 
 					<fmt:formatDate pattern="yyyy-MM-dd" value="${goals.startDate}" /> 
 					~ <fmt:formatDate pattern="yyyy-MM-dd" value="${goals.endDate}" />
-				</span> 
-				<span class="tableCell td3 readRate">
+				</span>
+				<span class="tableCell td3">
 					<div class="prog">
-						<div class="progs" style="width: 20%;">
-							<span style="font-size: 10px;"> ${goals.goalNum}</span>
+						<div class="progs" style="width: ${goals.rate}%;">
+							<span class="rate readRate"> ${goals.rate}% </span>
 						</div>
 					</div>
 				</span>

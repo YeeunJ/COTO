@@ -10,7 +10,8 @@
 function printAllContent(id){
 	$('#readGoalList #goal').html($(id+' .readGoal').html());
 	$('#readGoalList #term').html($(id+' .readTitle').html());
-	$('#readGoalList #goalNum').html($(id+' .readGoalNum').html()+'개');
+	$('#readGoalList #goalNum').html($(id+' .readGoalNum').html());
+	$('#readGoalList #rate').html($(id+' .readRate').html());
 	
 	/*$('#UuserProblemID').html(id.substring(8, id.length));
 	$('#Usite').html($(id+' .pSite').html());

@@ -116,6 +116,5 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		countSolvedProblemParam.put("userID", userID);
 		
 		return sqlSession.selectList(namespace+".countUserProblemEachDay", countSolvedProblemParam);
-		
 	}
 }
