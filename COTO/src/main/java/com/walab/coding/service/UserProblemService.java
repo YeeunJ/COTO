@@ -21,4 +21,6 @@ public interface UserProblemService {
 	List<UserProblemDTO> search(int userID, String searchValue);
 	
 	public List<UserProblemDTO> readProblemList();
+	
+	public List<UserProblemDTO> countSolvedProblemEachDay(int userID);
 }

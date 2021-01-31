@@ -12,31 +12,28 @@
 window.onload = function() {
 <!-- Bar cahrt -->
 var ctx = document.getElementById("myBarChart"); 
+var labels = new Array();
+var data = new Array();
+<c:forEach items="${countSolvedProblemEachDay}" var="countList" >
+	var json = new Object();
+	labels.push("${countList.regDate}");
+	data.push("${countList.countSolvedP}");
+</c:forEach>
+
 var myBarChart = new Chart(ctx , {
     type: 'bar',
     data: {
-        labels: ['01.14','01.18'],
+        labels: labels,
         datasets: [{
             label: '푼 문제수',
-            data: [
-                10, 5
-            ],
+            data: data,
             borderColor: "rgba(255, 201, 14, 1)",
             backgroundColor: "rgba(255, 201, 14, 0.5)",
             fill: false,
         }]
     },
     options: {
-        responsive: true,
-        tooltips: {
-            mode: 'index',
-            intersect: false,
-            callbacks: {
-                title: function(tooltipItems, data) {
-                    return data.labels[tooltipItems[0].datasetIndex];
-                }
-            }
-        },
+        //responsive: true,
         hover: {
             mode: 'nearest',
             intersect: true
@@ -66,7 +63,7 @@ var myBarChart = new Chart(ctx , {
 
 <!-- Doughnut cahrt -->
 data = { datasets: [{
-	backgroundColor: ['lightblue','yellow'], 
+	backgroundColor: ['lightblue','rgba(255, 201, 14, 0.5)'], 
 	data: [ ${goalNum}, ${userSolvedP} ] }],
 	labels: ['총 문제수','푼 문제수']};
 	
@@ -76,9 +73,9 @@ var myDoughnutChart = new Chart(ctx1, {
     data: data, 
     options: {
        legend: {
-         display: false
+         display: true
        }
-    } 
+    },
  });
 
 }
@@ -177,23 +174,19 @@ var myDoughnutChart = new Chart(ctx1, {
 
 		<div class="card-content2">
 			<div class="card shadow card-body">
-				<div class="font-color card-title">오늘 해야 할 양</div>
-				<canvas id="myBarChart" width="200" height="90"></canvas>
+				<div class="font-color card-title">하루의 기록</div>
+				<canvas id="myBarChart" width="200" height="130"></canvas>
 			</div>
 		</div>
 
 		<div class="card-content3">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">현재 상황</div>
-				<canvas id="myDoughnutChart" width="200" height="90"></canvas>
-				<div class="" style="margin-left:25%; margin-top:5%;">
-					<span> 
-						<i class="fas fa-circle" style="color: lightblue;"></i> 총 문제수
-					</span> 
-					<span> 
-						<i class="fas fa-circle" style="color: yellow;"></i> 푼 문제수
-					</span>
-				</div>
+				<canvas id="myDoughnutChart" width="200" height="110"></canvas>
+				<!-- <div class="" style="margin-left:25%; margin-top:5%;">
+					<span><i class="fas fa-circle" style="color: lightblue;"></i>총 문제수</span> 
+					<span><i class="fas fa-circle" style="color: rgba(255, 201, 14, 0.5);"></i>푼 문제수</span>
+				</div> -->
 			</div>
 		</div>
 	</div>
