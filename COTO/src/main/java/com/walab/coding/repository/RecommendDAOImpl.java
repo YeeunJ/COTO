@@ -27,6 +27,8 @@ public class RecommendDAOImpl implements RecommendDAO {
 		
 		for(int i=0;i<recommendList.size();i++) {
 			readRecomCount(recommendList.get(i), i);
+			int recomID = recommendList.get(i).getId();
+			recommendList.get(i).setRecomCommentCount(sqlSession.selectOne("recomComment.readRecomCommentCount", recomID));
 		}
 		
 		return recommendList;
@@ -34,19 +36,12 @@ public class RecommendDAOImpl implements RecommendDAO {
 	
 	public void readRecomCount(RecommendDTO recommend, int index) {
 		
-		List<RecomCountDTO> recommendCountList = new ArrayList<RecomCountDTO>();
+		//List<RecomCountDTO> recommendCountList = new ArrayList<RecomCountDTO>();
 		int cnt = 0;
 		Map<String, Object> recommendCountListParam = new HashMap<String, Object>();
 		recommendCountListParam.put("recomID", recommend.getId());
 		
-		//recommendCountList = sqlSession.selectList(namespace+".readRecommendCountList", recommendCountListParam);
-		cnt = sqlSession.selectOne(namespace+".readRecommendCountList", recommendCountListParam);
-		
-//		for(int i=0;i<recommendCountList.size();i++) {
-//			RecomCountDTO recomCount = recommendCountList.get(i);
-//			
-//			if(recomCount.getUserID() != null) cnt++;
-//		}
+		cnt = sqlSession.selectOne(namespace+".readRecommendCount", recommendCountListParam);
 		
 		recommend.setRecomCount(cnt);
 		

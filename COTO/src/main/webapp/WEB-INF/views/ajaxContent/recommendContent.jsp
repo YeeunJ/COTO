@@ -10,12 +10,12 @@
 </div>
 
 <c:forEach items="${recoms}" var="recoms" varStatus="status">
-	<c:set var="count" value="0" />
+	<%-- <c:set var="count" value="0" />
 	<c:forEach items="${commentCount}" var="c">
 		<c:if test="${ c.recomID eq recoms.id }">
 			<c:set var="count" value="${ c.count }" />
 		</c:if>
-	</c:forEach>
+	</c:forEach> --%>
 	
 	<div class="tableRow" id="recoms${recoms.id}" onclick="printAllContent('#recoms${recoms.id}', ${recoms.id}, ${ count })">
 		<span class="tableCell td1 alignCenter">${status.count}</span> 
@@ -23,7 +23,8 @@
 		<span class="tableCell td2 alignCenter">${recoms.nickname}</span> 
 		<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
 		<span class="tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
-		<span class="tableCell td1 alignCenter">${ count }</span> 
+		<span class="tableCell td1 alignCenter">${ recoms.recomCommentCount }</span> 
+		<%-- <span class="tableCell td1 alignCenter">${ count }</span>  --%>
 		
 		<span class="readContent" style="display: none;">${recoms.content}</span>
 		<span class="readDifficulty" style="display: none;">${recoms.difficulty}</span>
