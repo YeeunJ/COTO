@@ -1,7 +1,7 @@
 // Or with jQuery
 $(document).ready(function(){
     //$('select').formSelect();
-    
+    $('#orderValue').formSelect();
     $('#searchButton').on('click', function() {
 		console.log("click");
 		search();
