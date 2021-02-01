@@ -38,7 +38,7 @@ function printAllContent(id){
 	$('#Udifficulty').attr('value', $(id+' .pDifficulty').attr('alt'));
 	console.log($(id+' .pDifficulty').attr('alt'));
 	
-	rudModel("#readSolvedProblem", "#updateSolvedProblem", $(id+' .pTitle').html(), updateAjax, deleteAjax);
+	rudModel("#readSolvedProblem", "#updateSolvedProblem", $(id+' .pTitle').html(), $(id+' .pTitle').html(), updateAjax, deleteAjax);
 	//$('select').formSelect();
 }
 

@@ -52,7 +52,7 @@ function insertProblems(){
 };
 
 
-function rudModel(readContent, updateContent, titleValue, updateFunction, deleteFunction){
+function rudModel(readContent, updateContent, titleValue, titleValue2, updateFunction, deleteFunction){
 		var variant = {
 			args: [
 				{
@@ -66,6 +66,7 @@ function rudModel(readContent, updateContent, titleValue, updateFunction, delete
 							classes: 'modal_button',
 							action: function() {
 								return $.sweetModal({
+									title: titleValue2,
 									content: $(updateContent).html(),
 									buttons: [
 										{
