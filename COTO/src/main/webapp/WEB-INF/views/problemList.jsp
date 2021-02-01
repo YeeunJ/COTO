@@ -18,7 +18,7 @@
 
 #problem:before {
 	content: "";
-	background-image: url("./resources/img/recommendimg.jpg");
+	background-image: url("./resources/img/problemList.jpg");
 	background-size: cover;
 	top: 0;
 	left: 0;
