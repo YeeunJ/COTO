@@ -338,6 +338,10 @@ public class RecommendController {
 		
 		mv.addObject("recoms", recoms);
 		mv.addObject("commentCount", commentCount);
+		System.out.println("hello");
+		for(RecommendDTO recom: recoms) {
+			System.out.println(recom.getTitle());
+		}
 		
 		mv.setViewName("ajaxContent/recommendContent");
 		

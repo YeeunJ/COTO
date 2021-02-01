@@ -24,7 +24,7 @@ function search(){
 				orderValue:$('#orderValue option:selected').val()
 			},
 			success: function(data){
-				//console.log(data);
+				console.log(data);
 				$('#problemsContent').html(data);
 			}, 
 			error:function(request, status, error){

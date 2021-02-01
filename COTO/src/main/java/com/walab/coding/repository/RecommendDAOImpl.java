@@ -25,27 +25,7 @@ public class RecommendDAOImpl implements RecommendDAO {
 		
 		recommendList = sqlSession.selectList(namespace+".readRecommendList");
 		
-		for(int i=0;i<recommendList.size();i++) {
-			readRecomCount(recommendList.get(i), i);
-			int recomID = recommendList.get(i).getId();
-			recommendList.get(i).setRecomCommentCount(sqlSession.selectOne("recomComment.readRecomCommentCount", recomID));
-		}
-		
 		return recommendList;
-	}
-	
-	public void readRecomCount(RecommendDTO recommend, int index) {
-		
-		//List<RecomCountDTO> recommendCountList = new ArrayList<RecomCountDTO>();
-		int cnt = 0;
-		Map<String, Object> recommendCountListParam = new HashMap<String, Object>();
-		recommendCountListParam.put("recomID", recommend.getId());
-		
-		cnt = sqlSession.selectOne(namespace+".readRecommendCount", recommendCountListParam);
-		
-		recommend.setRecomCount(cnt);
-		
-		recommendList.set(index, recommend);
 	}
 	
 	public List<RecomProblemDTO> readRecomProblems(int recomID) {

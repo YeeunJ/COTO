@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecommendDTO;
+import com.walab.coding.repository.RecomCommentDAO;
+import com.walab.coding.repository.RecomCountDAO;
 import com.walab.coding.repository.RecommendDAO;
 
 @Service
@@ -15,10 +17,21 @@ public class RecommendServiceImpl implements RecommendService {
 
 	@Autowired
 	RecommendDAO recommendDAO;
+	@Autowired
+	RecomCountDAO recomCountDAO;
+	@Autowired
+	RecomCommentDAO recomCommentDAO;
 	
 	@Override
 	public List<RecommendDTO> readRecom() {
 		List<RecommendDTO> recoms = recommendDAO.readRecom();
+		
+		for(int i=0;i<recoms.size();i++) {
+			recoms.get(i).setRecomCount(recomCountDAO.readRecomCount(recoms.get(i), i));
+			
+			int recomID = recoms.get(i).getId();
+			recoms.get(i).setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));
+		}
 		
 		return recoms;
 	}

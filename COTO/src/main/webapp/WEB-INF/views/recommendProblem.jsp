@@ -63,11 +63,11 @@
 		<button class="input-field custom-button" onclick="callModal()">문제 추천집 만들기</button>
 		<div class="col order">
 			<select id="orderValue">
-				<option value="regdate" disabled selected>정렬</option>
-				<option value="difficulty">난이도순</option>
-				<option value="title">제목순</option>
+				<option value="recom.regdate" disabled selected>정렬</option>
+				<option value="recom.difficulty">난이도순</option>
+				<option value="recom.title">제목순</option>
 				<option value="recommend">추천순</option>
-				<option value="regdate">최신순</option>
+				<option value="recom.regdate">최신순</option>
 			</select>
 		</div>
 	</div>

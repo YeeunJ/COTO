@@ -25,6 +25,7 @@ function createModel(content, titleValue, actionFunction){
 		
 		variant.fn = variant.fn || $.sweetModal;
 		variant.fn.apply(this, variant.args);
+		$('select').formSelect();
 }
 
 
@@ -102,6 +103,7 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 		
 		variant.fn = variant.fn || $.sweetModal;
 		variant.fn.apply(this, variant.args);
+		$('select').formSelect();
 }
 
 function readModel(readContent, titleValue){
