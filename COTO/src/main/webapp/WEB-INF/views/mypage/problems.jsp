@@ -133,6 +133,19 @@ var myDoughnutChart = new Chart(ctx1, {
 	padding: 2% 2% 4% 2%;
 	
 }
+
+.radioMrg {
+	margin-left: 3%;
+}
+input[type='radio']:checked {
+  background-color: #e69238 !important;
+}
+.diffCont {
+	margin-left: 5%;
+	color: #e69238;
+    font-size: 16px;
+    font-weight: 500;
+}
 </style>
 
 <div class="container">
@@ -286,7 +299,39 @@ var myDoughnutChart = new Chart(ctx1, {
 				</div>
 				<div class="row mrg">
 					<p class="title">난이도</p>
-					<input id="Udifficulty" type="text" class="validate" placeholder="1~5사이 숫자로 난이도를 표현하세요!!">
+					<div class="row">
+						<div class="input-field col s2">
+							<p>
+								<input type="radio" name="difficulty" id="d1" value="1" checked/>
+								<label for="d1" class="diffCont">1</label>
+							</p>
+						</div>
+						<div class="input-field col s2">
+							<p>
+								<input type="radio" name="difficulty" id="d2" value="2" class="radioMrg"/>
+								<label for="d2" class="diffCont">2</label>
+							</p>
+						</div>
+						<div class="input-field col s2">
+							<p>
+								<input type="radio" name="difficulty" id="d3" value="3" class="radioMrg"/>
+								<label for="d3" class="diffCont">3</label>
+							</p>
+						</div>
+						<div class="input-field col s2">
+							<p>
+								<input type="radio" name="difficulty" id="d4" value="4" class="radioMrg"/>
+								<label for="d4" class="diffCont">4</label>
+							</p>
+						</div>
+						<div class="input-field col s2">
+							<p>
+								<input type="radio" name="difficulty" id="d5" value="5" class="radioMrg"/>
+								<label for="d5" class="diffCont">5</label>
+							</p>
+						</div>
+
+					</div>
 				</div>
 				<p class="title">메모</p>
 				<textarea id="Umemo" type="text" class="validate" placeholder="이 문제에 메모하고 싶은 내용을 적어주세요!!"></textarea>

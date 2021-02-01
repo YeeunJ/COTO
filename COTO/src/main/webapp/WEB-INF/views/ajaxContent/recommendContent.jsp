@@ -17,17 +17,26 @@
 		</c:if>
 	</c:forEach> --%>
 	
-	<div class="tableRow" id="recoms${recoms.id}" onclick="printAllContent('#recoms${recoms.id}', ${recoms.id}, ${ count })">
+	<div class="tableRow" id="recoms${recoms.id}" onclick="printAllContent('#recoms${recoms.id}', ${recoms.id}, ${recoms.recomCommentCount})">
 		<span class="tableCell td1 alignCenter">${status.count}</span> 
 		<span class="tableCell td4 alignCenter readTitle">${recoms.title}</span> 
 		<span class="tableCell td2 alignCenter">${recoms.nickname}</span> 
 		<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
 		<span class="tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
-		<span class="tableCell td1 alignCenter">${ recoms.recomCommentCount }</span> 
+		<span class="tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
 		<%-- <span class="tableCell td1 alignCenter">${ count }</span>  --%>
 		
 		<span class="readContent" style="display: none;">${recoms.content}</span>
-		<span class="readDifficulty" style="display: none;">${recoms.difficulty}</span>
+		<span class="readDifficulty" style="display: none;">
+			<c:choose>
+				<c:when test="${recoms.difficulty eq 1}"><img style="width: 60px;" alt="1" src="./resources/img/difficulty1.png"></c:when>
+				<c:when test="${recoms.difficulty eq 2}"><img style="width: 60px;" alt="2" src="./resources/img/difficulty2.png"></c:when>
+				<c:when test="${recoms.difficulty eq 3}"><img style="width: 60px;" alt="3" src="./resources/img/difficulty3.png"></c:when>
+				<c:when test="${recoms.difficulty eq 4}"><img style="width: 60px;" alt="4" src="./resources/img/difficulty4.png"></c:when>
+				<c:when test="${recoms.difficulty eq 5}"><img style="width: 60px;" alt="5" src="./resources/img/difficulty5.png"></c:when>
+				<c:otherwise></c:otherwise>
+			</c:choose>
+		</span>
 		<span class="readTag" style="display: none;">
 			<c:forEach items="${recomProblemTag}" var="rpt">
 				<c:if test="${rpt.recomID eq recoms.id}">
