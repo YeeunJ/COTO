@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.walab.coding.model.PaginationDTO;
 import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.model.RecomProblemDTO;
 
@@ -38,6 +39,21 @@ public class ProblemDAOImpl implements ProblemDAO {
 		List<ProblemDTO> problemList = new ArrayList<ProblemDTO>();
 		problemList  = sqlSession.selectList(namespace+".readProblem");
 		return problemList;
+	}
+
+	@Override
+	public int readProblemListCnt() {
+		// 총 게시글 개수 확인
+		return sqlSession.selectOne(namespace+".readProblemCnt");
+	}
+
+	@Override
+	public List<ProblemDTO> readProblemByPage(PaginationDTO page) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("startList", page.getStartList());
+		param.put("listSize", page.getListSize());
+		
+		return sqlSession.selectList(namespace+"readProblemByPage", param);
 	}
 	
 }

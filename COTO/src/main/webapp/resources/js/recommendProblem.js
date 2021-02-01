@@ -117,6 +117,7 @@ function readComment(recomID) {
 function resetContent() {
 	$('#createProblems #confirmSite').html("");
 	$('#selectHtml').html(selectHtml);
+	$('.sweet-modal-content .chip').remove();
 }
 
 

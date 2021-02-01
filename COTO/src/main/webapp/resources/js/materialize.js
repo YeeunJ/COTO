@@ -7824,10 +7824,6 @@ $jscomp.polyfill = function (e, r, p, m) {
         renderedChip.textContent = chip.tag;
         renderedChip.setAttribute('tabindex', 0);
         
-        var att = document.createAttribute("onclick");
-        att.value="btnClick()";
-        closeIcon.setAttributeNode(att);
-        
         // closeIcon.on("click", btnClick);
        	// closeIcon.addEventListener("click",btnClick,false); 
         

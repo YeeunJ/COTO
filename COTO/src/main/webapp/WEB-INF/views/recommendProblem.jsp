@@ -80,7 +80,7 @@
 </div>
 
 <!-- 문제집 등록 모달 -->
-<div id="createProblems" class="container" style="">
+<div id="createProblems" class="container" style="display:none;">
 	<form class="col s12">
 		<p class="title">추천 문제집 제목</p>
 		<input id="createTitle" type="text" placeholder="제목을 입력해주세요."></input>
@@ -308,12 +308,11 @@
 
 <script>
 $("#problemTag").click(function(){
-	var v = document.getElementsByClassName("chips");
-	alert(v.length);
+	/* var v = document.getElementsByClassName("chips");
 	
 	var att = document.createAttribute("onclick");
 	att.value="btnClick()";
-	v.setAttributeNode(att);
+	v.setAttributeNode(att); */
 });
 
 function chipTag(){

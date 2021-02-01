@@ -24,5 +24,12 @@
 		INNER JOIN codingSite ON problem.siteID = codingSite.id)
 		INNER JOIN userProblem ON problem.id = userProblem.problemID) GROUP BY problem.id;
 	</select>
-
+	
+	<select id="readProblemByPage" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
+		SELECT * FROM problem LIMIT #{startList}, #{listSize}
+	</select>
+	
+	<select id="readProblemCnt" resultType="int">
+		SELECT COUNT(*) as listCnt FROM problem
+	</select>
 </mapper>

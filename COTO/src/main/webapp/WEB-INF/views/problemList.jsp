@@ -61,8 +61,81 @@
 		<%@ include file="./ajaxContent/problemListContent.jsp"%>
 	</div>
 	<br> <br>
+	
+	<!-- pagination{s} -->
+
+	<ul class="pagination">
+		<c:if test="${pagination.prev}">
+			<li class="disabled"><a href="#!" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')"><i class="material-icons">chevron_left</i></a></li>
+		</c:if>
+
+		<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
+			<li class="<c:out value="${pagination.page == idx ? 'active' : 'waves-effect'}"/> "><a href="#!" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')"> ${idx} </a></li>
+		</c:forEach>
+
+		<c:if test="${pagination.next}">
+			<li class="waves-effect"><a href="#" onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')" ><i class="material-icons">chevron_right</i></a></li>
+		</c:if>
+	</ul>
+	
+	 <ul class="pagination">
+	    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+	    <li class="active"><a href="#!">1</a></li>
+	    <li class="waves-effect"><a href="#!">2</a></li>
+	    <li class="waves-effect"><a href="#!">3</a></li>
+	    <li class="waves-effect"><a href="#!">4</a></li>
+	    <li class="waves-effect"><a href="#!">5</a></li>
+	    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+	  </ul>
+          
+
+	<!-- pagination{e} -->
+
 </div>
 
+<script>
+
+
+//이전 버튼 이벤트
+function fn_prev(page, range, rangeSize) {
+
+		var page = ((range - 2) * rangeSize) + 1;
+		var range = range - 1;
+		var url = "${pageContext.request.contextPath}/board/getBoardList";
+
+		url = url + "?page=" + page;
+		url = url + "&range=" + range;
+
+		location.href = url;
+}
+
+
+
+//페이지 번호 클릭
+function fn_pagination(page, range, rangeSize, searchType, keyword) {
+	var url = "${pageContext.request.contextPath}/board/getBoardList";
+
+	url = url + "?page=" + page;
+	url = url + "&range=" + range;
+	location.href = url;	
+
+}
+
+//다음 버튼 이벤트
+function fn_next(page, range, rangeSize) {
+
+	var page = parseInt((range * rangeSize)) + 1;
+	var range = parseInt(range) + 1;
+	var url = "${pageContext.request.contextPath}/board/getBoardList";
+
+	url = url + "?page=" + page;
+	url = url + "&range=" + range;
+
+	location.href = url;
+
+}
+
+</script>
 
 <%@ include file="./inc/footer.jsp"%>
 
