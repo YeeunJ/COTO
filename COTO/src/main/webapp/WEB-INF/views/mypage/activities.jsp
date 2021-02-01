@@ -42,11 +42,27 @@
 	border-radius: 10px;
 	line-height: 100%;
 }
+
 .rate{
-	/* margin: auto; */
-	margin-left: 102%;
+	margin: auto; 
 	font-size: 14px;
 	color: black;
+}
+
+.th2_ {
+	text-align: center;
+	border-right: solid 1px orange !important;
+	border-bottom: none !important;
+	font-weight: normal !important;
+	background-color: white !important;
+	color: #666666 !important;
+	width: 20%;
+}
+
+.td5 {
+	font-weight: normal !important;
+	padding-left: 50px !important;
+	border-bottom: none !important;
 }
 </style>
 
@@ -77,7 +93,7 @@
 				<span class="tableCell td3">
 					<div class="prog">
 						<div class="progs" style="width: ${goals.rate}%;">
-							<span class="rate readRate"> ${goals.rate}% </span>
+							<span class="rate readRate"> ${goals.rate}%</span>	
 						</div>
 					</div>
 				</span>

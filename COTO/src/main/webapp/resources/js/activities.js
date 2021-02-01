@@ -1,15 +1,15 @@
 
 
 function printAllContent(id, goalID){
-	$('#readGoalList #goal').html($(id+' .readGoal').html());
-	$('#readGoalList #term').html($(id+' .readTitle').html());
-	$('#readGoalList #goalNum').html($(id+' .readGoalNum').html());
-	$('#readGoalList #rate').html($(id+' .readRate').html());
-	
+
 	readProblemActivities(goalID);
 	
+	$('#goal').html($(id+' .readGoal').html());
+	$('#term').html($(id+' .readTitle').html());
+	$('#goalNum').html($(id+' .readGoalNum').html());
+	$('#rate').html($(id+' .readRate').html());
 	
-	readModel("#readGoalList", $(id+' .readTitle').html(), readProblemActivities);
+	readModel("#readGoalList", "기록 상세보기");
 	$('select').formSelect();
 }
 
@@ -23,7 +23,7 @@ function readProblemActivities(goalID){
 		},
 		success: function(data){
 			console.log(data);
-			$('#activitiesContent').html(data);
+			$('#readGoalList').html(data);
 		}, 
 		error:function(request, status, error){
 			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

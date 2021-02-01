@@ -46,15 +46,15 @@ public class MyactivitiesController {
 	}
 	
 	@RequestMapping(value = "/readProblemActivities", method = RequestMethod.POST)
-	public ModelAndView readProblemActivities(ModelAndView mv,HttpServletRequest httpServletRequest) {
+	public ModelAndView readProblemActivities(HttpServletRequest httpServletRequest) {
 		
 		int userID = 1;
 		int goalID = Integer.parseInt(httpServletRequest.getParameter("id"));
 		
 		List<UserProblemDTO> readProblemActivities = userProblemService.readProblemActivities(userID, goalID);
-	
-		mv.addObject("readProblemActivities", readProblemActivities);
 		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("readProblemActivities", readProblemActivities);
 		mv.setViewName("ajaxContent/activitiesContent");
 		
 		return mv;
