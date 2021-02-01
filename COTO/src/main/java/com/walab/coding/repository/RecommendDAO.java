@@ -9,8 +9,6 @@ public interface RecommendDAO {
 
 	public List<RecommendDTO> readRecom();
 	
-	public void readRecomCount(RecommendDTO recommend, int index);
-	
 	public List<RecomProblemDTO> readRecomProblems(int recomID);
 	
 	public int createRecomProblem(RecommendDTO recommend);
