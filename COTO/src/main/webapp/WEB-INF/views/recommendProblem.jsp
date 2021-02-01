@@ -214,7 +214,7 @@
 					<button id="addComment" class="modal_button add-btn" onclick="addComment()">등록</button>
 				</div>
 				<div id="modal-comment" class="wrapper">
-					<%-- <%@ include file="./ajaxContent/recomCommentContent.jsp"%> --%>
+					<%@ include file="./ajaxContent/recomCommentContent.jsp"%>
 				</div>
 
 			</div> 
