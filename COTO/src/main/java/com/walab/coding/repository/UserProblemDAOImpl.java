@@ -119,8 +119,9 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 	}
 	
 	@Override
-	public List<UserProblemDTO> readProblemActivities(int goalID){
+	public List<UserProblemDTO> readProblemActivities(int userID, int goalID){
 		Map<String, Object> readProblemListParam = new HashMap<String, Object>();
+		readProblemListParam.put("userID", userID);
 		readProblemListParam.put("goalID", goalID);
 		
 		return sqlSession.selectList(namespace+".readProblemActivities", readProblemListParam);
