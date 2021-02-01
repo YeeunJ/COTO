@@ -14,6 +14,7 @@ public class UserProblemDTO {
 	private String difficulty;
 	private String memo;
 	private Date regDate;
+	private int countSolvedP;
 	
 	public int getId() {
 		return id;
@@ -81,6 +82,12 @@ public class UserProblemDTO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	public int getCountSolvedP() {
+		return countSolvedP;
+	}
+	public void setCountSolvedP(int countSolvedP) {
+		this.countSolvedP = countSolvedP;
+	}
 	
 	@Override
 	public String toString() {
@@ -88,4 +95,6 @@ public class UserProblemDTO {
 				+ ", problem=" + problem + ", site=" + site + ", siteUrl=" + siteUrl + ", link=" + link
 				+ ", difficulty=" + difficulty + ", memo=" + memo + ", regDate=" + regDate + "]";
 	}
+	
+	
 }

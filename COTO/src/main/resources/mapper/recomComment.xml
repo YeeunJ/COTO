@@ -30,6 +30,10 @@
 		SELECT recomID, COUNT(recomID) AS count FROM recomComment GROUP BY recomID
 	</select>
 	
+	<select id="readRecomCommentCount" resultType="int" parameterType="int">
+		SELECT COALESCE(COUNT(*), 0) FROM recomComment WHERE recomID = #{recomID}
+	</select>
+	
 	<insert id="createComment" parameterType="com.walab.coding.model.RecomCommentDTO">
 		INSERT INTO recomComment (recomID, content, userId) VALUES (#{recomID}, #{content}, #{userId})
 	</insert>

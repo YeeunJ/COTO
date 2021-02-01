@@ -14,11 +14,16 @@
 	</select>
 	 
 	<select id="readGoalList" resultType="com.walab.coding.model.GoalDTO" parameterType="hashmap">
-		SELECT * FROM goal WHERE userID=#{userID} ORDER BY DATE(startDate) DESC
+		SELECT (count(if(<![CDATA[A.regdate >= B.startdate and A.regdate <= B.enddate]]>, A.userID, null))/B.goalNum)*100 as rate, 
+		B.id, B.goalNum, B.goal, B.startdate as startDate, B.enddate as endDate
+		FROM YeeunJ.userProblem as A, 
+		(SELECT * FROM YeeunJ.goal WHERE userID=#{userID}) as B 
+		WHERE A.userID=#{userID}
+		GROUP BY B.startdate, B.enddate
+		ORDER BY DATE(startdate) desc;
 	</select>
 	
 	<update id="updateGoal" parameterType="hashmap">
 		UPDATE goal SET goal='${goal}', startDate='${startDate}', endDate='${endDate}' WHERE id = #{id}
 	</update>
-
 </mapper>

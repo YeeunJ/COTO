@@ -84,4 +84,9 @@ public class UserProblemServiceImpl implements UserProblemService{
 	public List<UserProblemDTO> readProblemList() {
 		return userProblemDAO.readProblemOrderByCount();
 	}
+	
+	@Override
+	public List<UserProblemDTO> countSolvedProblemEachDay(int userID){
+		return userProblemDAO.countSolvedProblemEachDay(userID);
+	}
 }

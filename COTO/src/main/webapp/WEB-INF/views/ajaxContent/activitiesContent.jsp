@@ -12,9 +12,9 @@
 	<div class="tableRow">
 		<span class="tableCell th2">총 문제수</span><span class="tableCell td5" id="goalNum"></span>
 	</div>
-	<!-- <div class="tableRow">
+	<div class="tableRow">
 		<span class="tableCell th2">달성률</span> <span class="tableCell td5" id="rate"></span>
-	</div> -->
+	</div>
 </div>
 <hr style="border: 0.1px solid lightgrey">
 <div class="tableRow">

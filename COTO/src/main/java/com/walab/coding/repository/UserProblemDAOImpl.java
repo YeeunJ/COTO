@@ -109,4 +109,12 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 	public List<UserProblemDTO> readProblemOrderByCount() {
 		return sqlSession.selectList(namespace+".searchProblemOrderByCount");
 	}
+	
+	@Override
+	public List<UserProblemDTO> countSolvedProblemEachDay(int userID){
+		Map<String, Object> countSolvedProblemParam = new HashMap<String, Object>();
+		countSolvedProblemParam.put("userID", userID);
+		
+		return sqlSession.selectList(namespace+".countUserProblemEachDay", countSolvedProblemParam);
+	}
 }

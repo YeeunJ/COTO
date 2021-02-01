@@ -39,6 +39,9 @@
     background-color: #e4e4e4;
     margin-right: 2%;
 }
+.alignCenter {
+	text-align: center;
+}
 </style>
 
 <div class="container">
@@ -80,7 +83,7 @@
 <div id="createProblems" class="container" style="display:none;">
 	<form class="col s12">
 		<p class="title">추천 문제집 제목</p>
-		<input id="createTitle" class="title-input" type="text" placeholder="제목을 입력해주세요."></input>
+		<input id="createTitle" type="text" placeholder="제목을 입력해주세요."></input>
 
 		<p class="title">추천 문제 등록</p>
 		<div class="row">
@@ -150,7 +153,7 @@
 		<div id="problemTag" class="chips chips-placeholder" onclick="chipTag()"></div>
 		
 		<p class="title">추천 문제집 설명</p>
-		<textarea id="createContent" class="desc-textarea" rows="5"></textarea>
+		<textarea id="createContent" rows="5"></textarea>
 
 	</form>
 </div>

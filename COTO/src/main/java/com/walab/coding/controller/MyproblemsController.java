@@ -40,6 +40,7 @@ public class MyproblemsController {
 		List<UserProblemDTO> problems = userProblemService.read(userID);
 		List<GoalDTO> goal = goalService.readGoal(userID);
 		int userSolvedP = userProblemService.readSolvedP(userID);
+		List<UserProblemDTO> countSolvedProblemEachDay = userProblemService.countSolvedProblemEachDay(userID);
 		
 		GoalDTO g = goal.get(0);
 		int goalNum = g.getGoalNum();
@@ -48,6 +49,7 @@ public class MyproblemsController {
 		mv.addObject("problems", problems);
 		model.addAttribute("userSolvedP", userSolvedP);
 		model.addAttribute("goalNum", goalNum);
+		mv.addObject("countSolvedProblemEachDay", countSolvedProblemEachDay);
 
 		mv.setViewName("mypage/problems");
 
