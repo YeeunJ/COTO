@@ -91,8 +91,8 @@ public class UserProblemServiceImpl implements UserProblemService{
 	}
 	
 	@Override
-	public List<UserProblemDTO> readProblemActivities(int goalID){
-		List<UserProblemDTO> problems = userProblemDAO.readProblemActivities(goalID);
+	public List<UserProblemDTO> readProblemActivities(int userID, int goalID){
+		List<UserProblemDTO> problems = userProblemDAO.readProblemActivities(userID, goalID);
 		
 		for(UserProblemDTO problem: problems){
 			

@@ -3,10 +3,14 @@
 
 <mapper namespace="userProblem">
 	<select id="readUserProblemList" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
-		select up.id, p.name as problem, p.link as link, c.siteName as site, c.siteUrl as siteUrl, up.difficulty as difficulty, up.memo as memo, up.regdate as regdate from userProblem as up 
-		join problem as p on up.userID=p.id 
-		join codingSite as c on p.siteID=c.id 
-		where userID=#{userID}
+		select subquery.id, subquery.problemID, subquery.difficulty as difficulty, subquery.memo as memo, subquery.regdate as regdate,
+	   		   p.name as problem, p.link as link, p.siteID,
+	   		   c.siteName as site, c.siteUrl as siteUrl 
+		from (select up.id as id, up.problemID as problemID,
+       		  up.difficulty as difficulty, up.memo as memo, up.regdate as regdate 
+	   		  from YeeunJ.userProblem as up where up.userID=#{userID}) as subquery 
+		join YeeunJ.problem as p on subquery.problemID=p.id 
+		join YeeunJ.codingSite as c on p.siteID=c.id ;
 	</select>
 	
 	<select id="searchUserProblemByContent" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
@@ -33,7 +37,7 @@
 	
 	<select id="readSovledUserProblem" resultType="int" parameterType="hashmap">
 		SELECT count(A.userID) as solved 
-		FROM userProblem as A, (SELECT startDate FROM goal WHERE userID=1 ORDER BY DATE(startDate) DESC limit 1) subquery 
+		FROM userProblem as A, (SELECT startDate FROM goal WHERE userID=#{userID} ORDER BY DATE(startDate) DESC limit 1) subquery 
 		WHERE A.regDate >= subquery.startDate and A.userID = #{userID}
 	</select>
 	
@@ -55,9 +59,15 @@
 	</select>
 	
 	<select id="readProblemActivities" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
-		select up.id, p.name as problem, p.link as link, c.siteName as site, c.siteUrl as siteUrl, up.difficulty as difficulty, up.memo as memo, up.regdate as regdate from userProblem as up 
-		join problem as p on up.userID=p.id 
-		join codingSite as c on p.siteID=c.id 
-		where userID=#{userID}
+		select subquery.id, subquery.problemID, subquery.difficulty as difficulty, subquery.memo as memo, subquery.regdate as regdate, 
+	   		   p.name as problem, p.link as link, <!-- p.siteID, -->
+	   		   c.siteName as site, c.siteUrl as siteUrl
+		from (select up.id as id, up.problemID as problemID, up.difficulty as difficulty, up.memo as memo, up.regdate as regdate 
+			  from YeeunJ.userProblem as up
+			  join YeeunJ.goal as g on up.userID=g.userID
+			  where up.userID=#{userID} and g.id=#{goalID} and
+			  <![CDATA[date_format(up.regdate,'%Y-%m-%d') >= date_format(g.startdate,'%Y-%m-%d') and date_format(up.regdate,'%Y-%m-%d') <= date_format(g.enddate,'%Y-%m-%d']]>)) as subquery 
+		join YeeunJ.problem as p on subquery.problemID=p.id
+		join YeeunJ.codingSite as c on p.siteID=c.id;
 	</select>
 </mapper>
