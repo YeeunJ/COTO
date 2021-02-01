@@ -9,7 +9,7 @@ public interface UserDAO {
 	
 	public int createUserInfo(UserDTO u);
 	public int createUsergoal(GoalDTO g);
-
+	public int readUserIDByEmail(String email);
 	public List<UserDTO> readUserAll(int userID);
 //	public List<UserDTO> updateUser(int userID);
 	public int updateUser(UserDTO updateUser);

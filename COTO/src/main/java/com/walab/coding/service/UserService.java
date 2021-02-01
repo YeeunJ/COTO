@@ -10,6 +10,8 @@ public interface UserService {
 	List<UserDTO> readUser(int userID);
 	public void regist(UserDTO ud);
 	
+	public int readUserIDByEmail(String email);
+	
 	int createUserinfo(UserDTO u);
 	
 	int createUsergoal(GoalDTO g);

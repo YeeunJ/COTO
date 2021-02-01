@@ -32,6 +32,19 @@ public class UserDAOImpl implements UserDAO{
 		return userList = sqlSession.selectList(namespace+".userList", userListParam);
 	}
 	
+	public int readUserIDByEmail(String email) {
+		Map<String, Object> userListParam = new HashMap<String, Object>();
+		userListParam.put("email", email);
+		int id = 0;
+		try {
+			id = sqlSession.selectOne(namespace+".readUserIDByEmail", userListParam);
+		}catch (NullPointerException e){
+			System.out.println(e);
+			id = 0;
+		}
+		return id;
+	}
+	
 //	public List<UserDTO> updateUser(int userID){
 //		
 //		int userList = new ArrayList<UserDTO>();

@@ -45,10 +45,10 @@
 						<li id = "list" onclick="location.href='../mypage/activities'"><span id = "listspan">my activities</span></li>
 					</ul>
 				</li>
-				<li class = "right"><span class = "center" style = "display: inline-block;"><a href="../register" class="registerA"><button class = "mybtn">로그인</button></a></span></li>
+				<li class = "right"><span class = "center" style = "display: inline-block;"><a href="../login" class="registerA"><button class = "mybtn">로그인</button></a></span></li>
 		  	</ul>
 			<ul id="nav-mobile" class="sidenav">
-				<li><a href="../register">로그인</a></li>
+				<li><a href="../login">로그인</a></li>
 				<li><a href="../recommendProblem">문제 추천</a></li>
 				<li><a href="../manageCodingsite">코딩 사이트 관리</a></li>
 				<li><a href="../mypage/problems">마이 페이지 - my problems</a></li>

@@ -20,6 +20,12 @@ public class UserServiceImpl implements UserService{
 		return users;
 	}
 	
+	public int readUserIDByEmail(String email) {
+		int userID = userDAO.readUserIDByEmail(email);
+		
+		return userID;
+	}
+	
 	public void regist(UserDTO ud) {
 		
 	}

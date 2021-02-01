@@ -13,11 +13,11 @@
 			<div id="table">
 				<div class="row">
 					<span class="cell td1">이름</span> <span class="cell td1"><input
-						type="text" name="name" placeholder="이름을 입력하세요. " required /></span>
+						type="text" name="name" placeholder="이름을 입력하세요. "  value="${user.name}" readonly/></span>
 				</div>
 				<div class="row">
 					<span class="cell td2">이메일</span> <span class="cell td2"><input
-						type="email" name="email" placeholder="이메일을 입력하세요. " required /> </span>
+						type="email" name="email" placeholder="이메일을 입력하세요. " value="${user.email}" readonly/> </span>
 				</div>
 				<div class="row">
 					<span class="cell td3">닉네임</span> <span class="cell td3"><input
