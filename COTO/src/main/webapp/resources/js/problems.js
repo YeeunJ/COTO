@@ -49,13 +49,20 @@ function addAjax (){
 }
 
 function updateAjax(){
+	var difficulty_cnt = document.getElementsByName("difficulty").length;
+	
+	for(var i=0;i<difficulty_cnt;i++) {
+		if(document.getElementsByName("difficulty")[i].checked == true)
+			var difficulty = document.getElementsByName("difficulty")[i].value;
+	}
+	
 	$.ajax({
 		url: "problems/update",
 		type: "POST",
 		async: false,
 		data: {
 			id:$('#UuserProblemID').html(),
-			difficulty:$('.sweet-modal-content #Udifficulty').val(),
+			difficulty:difficulty,
 			memo: $('.sweet-modal-content #Umemo').val()
 		},
 		success: function(data){
