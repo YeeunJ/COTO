@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	language="java"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java"%>
+
 <style>
 .th2_ {
 	text-align: center;
@@ -58,12 +58,10 @@
 		<span class ="tableCell td1">${status.count}</span>
 		<span class ="tableCell td2"><a href="${readP.link}" target="_blank">${readP.problem}</a></span>
 		<span class ="tableCell td4">${readP.memo}</span>
-		<span class ="tableCell td2">${readP.regdate}</span>
+		<span class ="tableCell td2">${readP.regDate}</span>
 		<span class ="tableCell td2">
 			<img style="width: 60px;" alt="${readP.difficulty}" src="../resources/img/difficulty${readP.difficulty}.png">
 		</span>
-		<span class="pSite" style="display:none;">${readP.site}</span>
-		<span class="pSiteUrl" style="display:none;">${readP.siteUrl}</span>
 	</div>
 </c:forEach>
 </div>

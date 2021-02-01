@@ -24,5 +24,5 @@ public interface UserProblemService {
 	
 	public List<UserProblemDTO> countSolvedProblemEachDay(int userID);
 	
-	public List<UserProblemDTO> readProblemActivities(int goalID);
+	public List<UserProblemDTO> readProblemActivities(int userID, int goalID);
 }
