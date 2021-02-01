@@ -1,0 +1,34 @@
+/* 문제 리스트 - 전체 페이지 css */
+fieldset {
+	background: #fff;
+	border: none;
+}
+.top-bar{
+	padding-bottom: 80px !important;
+}
+.search {
+	padding: 0px;
+	margin-left: 10px;
+	display: flex;
+	float: right;
+	width: 25% !important;
+}
+.search_bt {
+	all: unset;
+}
+.custom-button:hover {
+	background-color: #e69138ff;
+	color: white;
+	border: 1px solid #e69138ff;
+}
+.order {
+	width: 13%;
+	float: right;
+}
+.title {
+	border: 0;
+	background-color: Transparent;
+}
+.comment {
+	border-bottom: 1px solid #bdbdbd;
+}

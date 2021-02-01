@@ -5,16 +5,16 @@
 
 <div class="tableRow">
 	<span class="tableCell th1">No.</span>
-	<span class="tableCell th2">문제 제목</span>
-	<span class="tableCell th4">사이트</span>
+	<span class="tableCell th3">문제 제목</span>
+	<span class="tableCell th2">사이트</span>
 	<span class="tableCell th1">푼사람 수</span>
 </div>
 
 <c:forEach items="${problems}" var="problem" varStatus="status">
 	<div class="tableRow" id="problem${problem.id}">
 		<span class="tableCell td1">${status.count}</span> 
-		<span class="tableCell td2">${problem.name}</span> 
-		<span class="tableCell td4"> <a href="${problem.link}" target="_blank">${problem.siteID}</a></span> 
+		<span class="tableCell td3"> <a href="${problem.link}">${problem.name}</a></span> 
+		<span class="tableCell td2"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
 		<span class="tableCell td1">${status.count}</span> 
 		
 

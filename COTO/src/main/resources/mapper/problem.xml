@@ -19,7 +19,9 @@
 	</select>
 	
 	<select id="readProblem" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT * FROM problem 
+		SELECT problem.name, problem.link, problem.siteID as siteID, codingSite.siteName as siteName, codingSite.siteUrl as siteUrl, problem.regdate
+		FROM YeeunJ.codingSite as codingSite
+		INNER JOIN YeeunJ.problem as problem ON codingSite.id=problem.siteID;
 	</select>
 
 </mapper>
