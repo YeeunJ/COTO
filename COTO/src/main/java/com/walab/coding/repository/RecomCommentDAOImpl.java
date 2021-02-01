@@ -57,4 +57,9 @@ public class RecomCommentDAOImpl implements RecomCommentDAO{
 		return sqlSession.delete("recomComment.deleteRecomCount", recomCountListParam);
 	}
 	
+	@Override
+	public int readRecomCommentCount(int recomID) {
+		return sqlSession.selectOne("recomComment.readRecomCommentCount", recomID);
+	}
+	
 }

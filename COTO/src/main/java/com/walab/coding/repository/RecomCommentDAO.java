@@ -12,4 +12,5 @@ public interface RecomCommentDAO {
 	public void createComment(RecomCommentDTO r);
 	public int deleteRecomComment(int recomID);
 	public int deleteRecomCount(int recomID);
+	public int readRecomCommentCount(int recomID);
 }
