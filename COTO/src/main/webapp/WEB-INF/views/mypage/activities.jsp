@@ -66,7 +66,7 @@
 
 		<c:forEach items="${goalList}" var="goals" varStatus="status">
 			<div class="tableRow" id="goals${goals.id}"
-				onclick="printAllContent('#goals${goals.id}')">
+				onclick="printAllContent('#goals${goals.id}', ${goals.id})">
 				<div class="readGoal" hidden>${goals.goal}</div>
 				<div class="readGoalNum" hidden>${goals.goalNum}개</div>
 				<span class="tableCell td1">${status.count}</span> 

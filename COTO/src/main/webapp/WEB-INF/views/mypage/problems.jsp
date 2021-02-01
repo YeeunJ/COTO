@@ -63,7 +63,7 @@ var myBarChart = new Chart(ctx , {
 
 <!-- Doughnut cahrt -->
 data = { datasets: [{
-	backgroundColor: ['lightblue','rgba(255, 201, 14, 0.5)'], 
+	backgroundColor: ['lightgrey','rgba(255, 201, 14, 0.5)'], 
 	data: [ ${goalNum}, ${userSolvedP} ] }],
 	labels: ['총 문제수','푼 문제수']};
 	
@@ -71,13 +71,13 @@ var ctx1 = document.getElementById("myDoughnutChart");
 var myDoughnutChart = new Chart(ctx1, { 
     type: 'doughnut', 
     data: data, 
+    
     options: {
        legend: {
          display: true
-       }
+       },
     },
  });
-
 }
 </script>
 
