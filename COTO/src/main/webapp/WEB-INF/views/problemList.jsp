@@ -59,6 +59,8 @@
 	
 	<div class="table center" id="problemContent">
 		<%@ include file="./ajaxContent/problemListContent.jsp"%>
+		<h2>test</h2>
+		<%@ include file="./ajaxContent/problemListByPageContent.jsp"%>
 	</div>
 	<br> <br>
 	
@@ -100,6 +102,22 @@ console.log(${pagination.page});
 console.log(${pagination.rangeSize});
 console.log(${pagination.startPage});
 console.log(${pagination.endPage});
+function readProblemByPage(){
+	$.ajax({
+        url : './recommendProblem/addTag',
+        type: 'POST',
+        data: {
+        	"tag":tag
+        },
+        success: function(data) {
+            alert('리스트에 추가하였습니다.');
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+}
+
 //이전 버튼 이벤트
 function fn_prev(page, range, rangeSize) {
 
