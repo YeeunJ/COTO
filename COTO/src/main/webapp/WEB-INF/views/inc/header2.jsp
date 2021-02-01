@@ -28,50 +28,25 @@
 
 </head>
 
-<script>
-$(document).ready(function() {
-	$(".dropdown-trigger").dropdown();
-});
-</script>
 <body>
-<!--   <nav class="white" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="../home" class="brand-logo"></a><img src="https://i.ibb.co/pXsymdb/2021-01-24-10-09-26.png" alt="2021-01-24-10-09-26" border="0" style="width: 80px; padding: 5px;">
-      <ul class="right hide-on-med-and-down">
-        <li><a href="../recommendProblem">문제 추천</a></li>
-        <li><a href="../manageCodingsite">코딩 사이트 관리</a></li>
-        <li><a href="../mypage/problems">마이 페이지</a></li>
-        <li><a href="../register">로그인</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="sidenav">
-        <li><a href="../register">로그인</a></li>
-        <li><a href="../recommendProblem">문제 추천</a></li>
-        <li><a href="../manageCodingsite">코딩 사이트 관리</a></li>
-        <li><a href="../mypage/problems">mypage - my problems</a></li>
-        <li><a href="../mypage/information">myPage - 내 정보 수정</a></li>
-        <li><a href="../mypage/activities">myPage - my activities</a></li>
-      </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    </div>
-  </nav> -->
-<ul id="dropdown1" class="dropdown-content">
-	  <li><a href="#!">마이 페이지 - my problems</a></li>
-	  <li><a href="#!">two</a></li>
-	  <li><a href="#!">three</a></li>
-</ul>
 <nav role="navigation">
 	<div class = "container" >
 		<div class = "nav-wrapper">
 			<a href="../"><img class = "left" src="https://i.ibb.co/pXsymdb/2021-01-24-10-09-26.png" alt="2021-01-24-10-09-26" border="0" style="width: 90px; margin-top: 5px;"></a>		  
 			<a href="#" data-target="nav-mobile" class="sidenav-trigger right"><i class="material-icons orange-text">menu</i></a>
-			<ul class = "hide-on-med-and-down">
-				<li id = "list"><span id = "listspan"><a href="../recommendProblem">문제 추천</a></span></li>
-				<li id = "list"><span id = "listspan"><a href="../manageCodingsite">코딩 사이트 관리</a></span></li>
-<!--  			<li id = "list"><span id = "listspan"><a href="../mypage/problems">마이 페이지</a></span></li>  -->	
-				<li id = "list"><span id = "listspan"><a class="dropdown-trigger" href="../mypage/problems" data-target="dropdown1">마이 페이지<i class="material-icons right">arrow_drop_down</i></a></span></li>
+			<ul class = "hide-on-med-and-down mymenu">
+				<li id = "list"><span id = "listspan" onclick="location.href='../recommendProblem'">문제 추천</span></li>
+				<li id = "list"><span id = "listspan" onclick="location.href='../problemList'">문제 리스트</span></li>
+				<li id = "list"><span id = "listspan" onclick="location.href='../manageCodingsite'">코딩 사이트 관리</span></li>
+				<li id = "list"><span id = "listspan" onclick="location.href='../mypage/problems'">마이 페이지<i class="material-icons right">arrow_drop_down</i></span>
+					<ul class = "submenu">
+						<li id = "list" onclick="location.href='../mypage/problems'"><span id = "listspan"> my problems</span></li>
+						<li id = "list" onclick="location.href='../mypage/information'"><span id = "listspan">내 정보 수정</span></li>
+						<li id = "list" onclick="location.href='../mypage/activities'"><span id = "listspan">my activities</span></li>
+					</ul>
+				</li>
 				<li class = "right"><span class = "center" style = "display: inline-block;"><a href="../register"><button class = "mybtn">로그인</button></a></span></li>
 		  	</ul>
-
 			<ul id="nav-mobile" class="sidenav">
 				<li><a href="../register">로그인</a></li>
 				<li><a href="../recommendProblem">문제 추천</a></li>

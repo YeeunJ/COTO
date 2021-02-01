@@ -94,5 +94,3 @@ $(document).ready(function(){
 	    </div>
 	</div>
 </nav>
-</body>
-</html>
