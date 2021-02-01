@@ -270,32 +270,34 @@ public class RecommendController {
 		int userID = 3;
 		int recomID = Integer.parseInt(httpServletRequest.getParameter("id"));
 		
-		System.out.println(recomID);
-		if(recommendService.deleteRecom(recomID) > 0) {
-			System.out.println("recom success");
-		}else {
-			System.out.println("recom fail");
-		}
-		if(recomCommentService.deleteRecomComment(recomID) > 0) {
-			System.out.println("recomComment success");
-		}else {
-			System.out.println("recomComment fail");
-		}
-		if(recomProblemsService.deleteRecomProblem(recomID) > 0) {
-			System.out.println("recomProblem success");
-		}else {
-			System.out.println("recomProblem fail");
-		}
-		if(recomTagService.deleteRecomTag(recomID) > 0) {
-			System.out.println("recomTag success");
-		}else {
-			System.out.println("recomTag fail");
-		}
-		if(recomCommentService.deleteRecomCount(recomID) > 0) {
-			System.out.println("recomCount success");
-		}else {
-			System.out.println("recomCount fail");
-		}
+		recommendService.deleteRecom(recomID);
+		
+//		System.out.println(recomID);
+//		if(recommendService.deleteRecom(recomID) > 0) {
+//			System.out.println("recom success");
+//		}else {
+//			System.out.println("recom fail");
+//		}
+//		if(recomCommentService.deleteRecomComment(recomID) > 0) {
+//			System.out.println("recomComment success");
+//		}else {
+//			System.out.println("recomComment fail");
+//		}
+//		if(recomProblemsService.deleteRecomProblem(recomID) > 0) {
+//			System.out.println("recomProblem success");
+//		}else {
+//			System.out.println("recomProblem fail");
+//		}
+//		if(recomTagService.deleteRecomTag(recomID) > 0) {
+//			System.out.println("recomTag success");
+//		}else {
+//			System.out.println("recomTag fail");
+//		}
+//		if(recomCommentService.deleteRecomCount(recomID) > 0) {
+//			System.out.println("recomCount success");
+//		}else {
+//			System.out.println("recomCount fail");
+//		}
 		
 		List<RecommendDTO> recoms = recommendService.readRecom();
 		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
