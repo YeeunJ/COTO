@@ -19,9 +19,10 @@
 	</select>
 	
 	<select id="readProblem" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT problem.name, problem.link, problem.siteID as siteID, codingSite.siteName as siteName, codingSite.siteUrl as siteUrl, problem.regdate
-		FROM YeeunJ.codingSite as codingSite
-		INNER JOIN YeeunJ.problem as problem ON codingSite.id=problem.siteID;
+		SELECT problem.id, userProblem.problemID, COUNT(*) as count, problem.name, problem.link, problem.siteID as siteID, codingSite.siteName as siteName, codingSite.siteUrl as siteUrl, problem.regdate 
+		FROM ((problem
+		INNER JOIN codingSite ON problem.siteID = codingSite.id)
+		INNER JOIN userProblem ON problem.id = userProblem.problemID) GROUP BY problem.id;
 	</select>
 
 </mapper>

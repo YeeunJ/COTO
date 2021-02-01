@@ -5,6 +5,7 @@ import java.util.Date;
 public class ProblemDTO {
 	int id;
 	int siteID;
+	int count;
 	String siteName;
 	String siteUrl;
 	String name;
@@ -22,6 +23,12 @@ public class ProblemDTO {
 	}
 	public void setSiteID(int siteID) {
 		this.siteID = siteID;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	public String getSiteName() {
 		return siteName;

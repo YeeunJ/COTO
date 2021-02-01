@@ -15,7 +15,7 @@
 		<span class="tableCell td1">${status.count}</span> 
 		<span class="tableCell td3"> <a href="${problem.link}">${problem.name}</a></span> 
 		<span class="tableCell td2"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
-		<span class="tableCell td1">${status.count}</span> 
+		<span class="tableCell td1">${problem.count}</span> 
 		
 
 	</div>
