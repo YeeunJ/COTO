@@ -1,6 +1,6 @@
 // Or with jQuery
 $(document).ready(function(){
-    $('select').formSelect();
+    //$('select').formSelect();
     
     $('#searchButton').on('click', function() {
 		console.log("click");
@@ -11,6 +11,8 @@ $(document).ready(function(){
 		search();
 	});
 });
+
+var selectHtml="";
 
 function search(){
 	$.ajax({
@@ -31,13 +33,15 @@ function search(){
 	});
 }
 function callModal() {
+	selectHtml = $('#selectHtml').html();
 	createModel("#createProblems", "문제집 등록", addajax);
  	$('select').formSelect();
 }
 
 function printAllContent(id, recomId, count){
-	//alert(recomId);
+	selectHtml = $('#selectHtml').html();
 	readComment(recomId);
+	
 	$('#readRecomID').html(recomId);
 	$('#readProblems').html($(id+' .readProblem').html());
 	$('#readTags').html($(id+' .readTag').html());
@@ -45,7 +49,6 @@ function printAllContent(id, recomId, count){
 	$('#readRecommends').html($(id+' .readRecommend').html());
 	$('#readDifficulties').html($(id+' .readDifficulty').html());
 	//$('#commentCount').html($(id+' .readCommentCount').html());
-	
 	$("#commentCount").text(count);
 	
 	$('#updateRecomID').html(recomId);
@@ -69,9 +72,9 @@ function addComment() {
 			type : "POST",
 			async : false,
 			data : {
-				//userID : userID,
-				//recomID : recomID,
-				//content : $('.sweet-modal-content #comment-textarea').val()
+				userID : userID,
+				recomID : recomID,
+				content : $('.sweet-modal-content #comment-textarea').val()
 			},
 			success : function(data) {
 				$('.sweet-modal-content #modal-comment').html(data);
@@ -93,22 +96,27 @@ $('.sweet-modal-content .chips-placeholder').material_chip({
 });
 
 function readComment(recomID) {
-		$.ajax({
-			url : "recommendProblem/readComment",
-			type : "POST",
-			async : false,
-			data : {
-				//recomID : recomID,
-			},
-			success : function(data) {
-				$("#modal-comment").html(data);
-			},
-			error : function(request, status, error) {
-				console.log("code:" + request.status + "\n"
-						+ "message:" + request.responseText + "\n"
-						+ "error:" + error);
-			}
-		});
+	$.ajax({
+		url : "recommendProblem/readComment",
+		type : "POST",
+		async : false,
+		data : {
+			recomID : recomID,
+		},
+		success : function(data) {
+			$("#modal-comment").html(data);
+		},
+		error : function(request, status, error) {
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}
+
+function resetContent() {
+	$('#createProblems #confirmSite').html("");
+	$('#selectHtml').html(selectHtml);
 }
 
 

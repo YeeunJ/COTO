@@ -80,14 +80,14 @@
 </div>
 
 <!-- 문제집 등록 모달 -->
-<div id="createProblems" class="container" style="display:none;">
+<div id="createProblems" class="container" style="">
 	<form class="col s12">
 		<p class="title">추천 문제집 제목</p>
 		<input id="createTitle" type="text" placeholder="제목을 입력해주세요."></input>
 
 		<p class="title">추천 문제 등록</p>
 		<div class="row">
-			<div class="input-field col s4">
+			<div id="selectHtml" class="input-field col s4">
 				<select id="siteName" required>
 					<optgroup label="코딩사이트 선택">
 						<c:forEach items="${codingSite}" var="site">
@@ -194,7 +194,7 @@
 		<div>
 			<div class="details">
 				<%@ include file="./ajaxContent/recomCountContent.jsp"%>
-				<!-- <span class="diff-icon icon">3</span> -->
+				<span class="comment-icon icon"></span><span id="commentCount" class="bold"></span><span></span>
 			</div>
 			<div id="commentDetail">
 				<div class="comment-add">
@@ -205,7 +205,7 @@
 					<%-- <%@ include file="./ajaxContent/recomCommentContent.jsp"%> --%>
 				</div>
 
-			</div>
+			</div> 
 
 		</div>
 	</div>
@@ -275,7 +275,7 @@
 			<div>
 				<p class="title desc">추천 문제</p>
 				<div class="row">
-					<div class="input-field col s4">
+					<div id="selectHtml" class="input-field col s4">
 						<select id="updateSiteName" required>
 							<optgroup label="코딩사이트 선택">
 								<c:forEach items="${codingSite}" var="site">
@@ -298,7 +298,7 @@
 				</div>
 				<div class="input-field col s10">
 					<label for="last_name">입력한 Problems</label> <br> <br>
-					<div class="recom-confirmSite" id="updateConfirmSite"></div>
+					<div class="recom-confirmSite" id="confirmSite updateConfirmSite"></div>
 				</div>
 			</div>
 	</form>		
@@ -316,8 +316,6 @@ $("#problemTag").click(function(){
 	v.setAttributeNode(att);
 });
 
-function btnClick(){ alert("Click!"); }
-
 function chipTag(){
 	$('.sweet-modal-content .chips').material_chip();
 	$('.sweet-modal-content .chips-placeholder').material_chip({
@@ -325,14 +323,6 @@ function chipTag(){
 	    secondaryPlaceholder: '+Tag',
 	});
 }
-
-function closeTag(){
-	alert("hello");
-};
-
-$(document).on('click', '.sweet-modal-content .close', function(){
-	alert("1");
-});
 
 $('.chips').material_chip();
 $('.chips-placeholder').material_chip({

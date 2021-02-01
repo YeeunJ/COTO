@@ -24,7 +24,6 @@
 		<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
 		<span class="tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
 		<span class="tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
-		<%-- <span class="tableCell td1 alignCenter">${ count }</span>  --%>
 		
 		<span class="readContent" style="display: none;">${recoms.content}</span>
 		<span class="readDifficulty" style="display: none;">
