@@ -78,17 +78,17 @@
 	</div>
 	<br> <br>
 	
-		<div class="table" style="text-align: center">
-				<ul class="pagination ">
-					<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-					<li class="active orange"><a href="#!">1</a></li>
-					<li class="waves-effect"><a href="#!">2</a></li>
-					<li class="waves-effect"><a href="#!">3</a></li>
-					<li class="waves-effect"><a href="#!">4</a></li>
-					<li class="waves-effect"><a href="#!">5</a></li>
-					<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-				</ul>
-			</div> 
+	<div class="table" style="text-align: center">
+		<ul class="pagination ">
+			<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+			<li class="active orange"><a href="#!">1</a></li>
+			<li class="waves-effect"><a href="#!">2</a></li>
+			<li class="waves-effect"><a href="#!">3</a></li>
+			<li class="waves-effect"><a href="#!">4</a></li>
+			<li class="waves-effect"><a href="#!">5</a></li>
+			<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+		</ul>
+	</div> 
 </div>
 
 <!-- 문제집 등록 모달 -->
@@ -214,7 +214,7 @@
 					<button id="addComment" class="modal_button add-btn" onclick="addComment()">등록</button>
 				</div>
 				<div id="modal-comment" class="wrapper">
-					<%-- <%@ include file="./ajaxContent/recomCommentContent.jsp"%> --%>
+					<%@ include file="./ajaxContent/recomCommentContent.jsp"%>
 				</div>
 
 			</div> 

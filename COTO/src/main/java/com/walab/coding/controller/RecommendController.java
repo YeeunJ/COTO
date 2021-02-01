@@ -92,7 +92,7 @@ public class RecommendController {
 	
 	@RequestMapping(value = "/addComment", method = RequestMethod.POST)
 	@ResponseBody
-	public String addComment(HttpServletRequest request) {
+	public ModelAndView addComment(HttpServletRequest request, ModelAndView mv) {
 		int recomID = Integer.parseInt(request.getParameter("recomID"));
 		int userId = 2;
 		String content = request.getParameter("content");
@@ -109,54 +109,45 @@ public class RecommendController {
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		
 		int userid=2;
-		String html="<input type=\"text\" name=\"writer\" value=\""+userid+"\" hidden>\n"
-				+ "  <input type=\"text\" name=\"recomID\" value=\""+recomID+"\" hidden>";
 		
+		mv.addObject("userid", userid);
+		mv.addObject("recomID", recomID);
+		mv.addObject("recomComment", recomComment);
+		mv.setViewName("ajaxContent/recomCommentContent");
 		
-		for(int i=0 ; i<recomComment.size();i++) {
-			System.out.println( recomComment.get(i).get("regDate"));
-//			Date from = recomComment.get(i).get("regDate");
-//			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//			String to = transFormat.format(from);
-
-			html+="<div class=\'comment-wrapper\'>\n"
-				+ "		<span class=\'username\'>"+recomComment.get(i).get("name")+"</span><span class=\"commentdate\">"+recomComment.get(i).get("regDate")+"</span>\n"
-				+ "		<p class=\"comment\">"+recomComment.get(i).get("content")+"</p>\n"
-				+ "	</div>";
-		}
+		return mv;
 		
-		return html;
+//		String html="<input type=\"text\" name=\"writer\" value=\""+userid+"\" hidden>\n"
+//				+ "  <input type=\"text\" name=\"recomID\" value=\""+recomID+"\" hidden>";
+//		
+//		
+//		for(int i=0 ; i<recomComment.size();i++) {
+//			System.out.println( recomComment.get(i).get("regDate"));
+//
+//			html+="<div class=\'comment-wrapper\'>\n"
+//				+ "		<span class=\'username\'>"+recomComment.get(i).get("name")+"</span><span class=\"commentdate\">"+recomComment.get(i).get("regDate")+"</span>\n"
+//				+ "		<p class=\"comment\">"+recomComment.get(i).get("content")+"</p>\n"
+//				+ "	</div>";
+//		}
+//		
+//		return html;
 	}
 	
 	@RequestMapping(value = "/readComment", method = RequestMethod.POST)
 	@ResponseBody
-	public String readComment(HttpServletRequest request) {
+	public ModelAndView readComment(HttpServletRequest request, ModelAndView mv) {
 		
 		int recomID = Integer.parseInt(request.getParameter("recomID"));		
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
-
-		System.out.println(recomComment.isEmpty());
-		System.out.println(recomComment.size());
-		
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		Date startDate = transFormat.parse(httpServeletRequest.getParameter("startDate"));
-		
 		
 		int userid=2;
-		String html="<input type=\"text\" name=\"writer\" value=\""+userid+"\" hidden>\n"
-				+ "  <input type=\"text\" name=\"recomID\" value=\""+recomID+"\" hidden>";
 		
-		for(int i=0 ; i<recomComment.size();i++) {
-			String regDate = transFormat.format(recomComment.get(i).get("regDate"));
-			
-			html+="<div class=\'comment-wrapper\'>\n"
-				+ "		<span class=\'username\'>"+recomComment.get(i).get("name")+"</span><span class=\"commentdate\">"+regDate+"</span>\n"
-				+ "		<p class=\"comment\">"+recomComment.get(i).get("content")+"</p>\n"
-				+ "	</div>";
-		}
-		System.out.println(html);
+		mv.addObject("userid", userid);
+		mv.addObject("recomID", recomID);
+		mv.addObject("recomComment", recomComment);
+		mv.setViewName("ajaxContent/recomCommentContent");
 		
-		return html;
+		return mv;
 	}
 
 	@RequestMapping(value = "/createRecomProblem", method = RequestMethod.POST)

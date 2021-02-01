@@ -27,7 +27,17 @@ public class ProblemlistController {
 	ProblemService problemService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ModelAndView viewProblems(ModelAndView mv,
+	public ModelAndView viewProblems(ModelAndView mv) {
+		
+		List<ProblemDTO> problemList = problemService.readProblems();		
+		mv.addObject("problems", problemList);
+		mv.setViewName("problemList");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/getProblemList", method = RequestMethod.GET)
+	public ModelAndView getProblemList(ModelAndView mv,
 			@RequestParam(required=false, defaultValue="1") int page,
 			@RequestParam(required=false, defaultValue="1") int range) {
 		
@@ -39,11 +49,10 @@ public class ProblemlistController {
 		pagination.pageInfo(page, range, listCnt);
 		System.out.println(pagination.toString());
 		
-		List<ProblemDTO> problemList = problemService.readProblems();
 		mv.addObject("pagination", pagination);
+		mv.addObject("problems", problemService.readProblemByPage(pagination));
 		
-		mv.addObject("problems", problemList);
-		mv.setViewName("problemList");
+		mv.setViewName("ajaxContent/problemListByPageContent");
 		
 		return mv;
 	}
