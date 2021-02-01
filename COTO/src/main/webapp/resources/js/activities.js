@@ -8,7 +8,8 @@ function printAllContent(id, goalID){
 	
 	readProblemActivities(goalID);
 	
-	readModel("#readGoalList", $(id+' .readTitle').html());
+	
+	readModel("#readGoalList", $(id+' .readTitle').html(), readProblemActivities);
 	$('select').formSelect();
 }
 
@@ -21,7 +22,7 @@ function readProblemActivities(goalID){
 			id:goalID
 		},
 		success: function(data){
-			//console.log(data);
+			console.log(data);
 			$('#activitiesContent').html(data);
 		}, 
 		error:function(request, status, error){

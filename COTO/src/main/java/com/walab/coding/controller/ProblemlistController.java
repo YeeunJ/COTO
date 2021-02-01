@@ -32,10 +32,12 @@ public class ProblemlistController {
 			@RequestParam(required=false, defaultValue="1") int range) {
 		
 		int listCnt = problemService.readProblemListCnt();
+		System.out.println(page+"//"+range+"//"+listCnt);
 		
 		//pagination 객체 생성
 		PaginationDTO pagination = new PaginationDTO();
 		pagination.pageInfo(page, range, listCnt);
+		System.out.println(pagination.toString());
 		
 		List<ProblemDTO> problemList = problemService.readProblems();
 		mv.addObject("pagination", pagination);

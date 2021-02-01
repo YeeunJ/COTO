@@ -63,10 +63,10 @@
 	<br> <br>
 	
 	<!-- pagination{s} -->
-
+	
 	<ul class="pagination">
 		<c:if test="${pagination.prev}">
-			<li class="disabled"><a href="#!" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')"><i class="material-icons">chevron_left</i></a></li>
+			<li class="waves-effect"><a href="#!" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')"><i class="material-icons">chevron_left</i></a></li>
 		</c:if>
 
 		<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
@@ -95,7 +95,11 @@
 
 <script>
 
-
+console.log(${pagination.range});
+console.log(${pagination.page});
+console.log(${pagination.rangeSize});
+console.log(${pagination.startPage});
+console.log(${pagination.endPage});
 //이전 버튼 이벤트
 function fn_prev(page, range, rangeSize) {
 
