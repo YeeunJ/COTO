@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.walab.coding.model.PaginationDTO;
 import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.service.ProblemService;
 
@@ -25,9 +27,19 @@ public class ProblemlistController {
 	ProblemService problemService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ModelAndView viewProblems(ModelAndView mv) {
-				
+	public ModelAndView viewProblems(ModelAndView mv,
+			@RequestParam(required=false, defaultValue="1") int page,
+			@RequestParam(required=false, defaultValue="1") int range) {
+		
+		int listCnt = problemService.readProblemListCnt();
+		
+		//pagination 객체 생성
+		PaginationDTO pagination = new PaginationDTO();
+		pagination.pageInfo(page, range, listCnt);
+		
 		List<ProblemDTO> problemList = problemService.readProblems();
+		mv.addObject("pagination", pagination);
+		
 		mv.addObject("problems", problemList);
 		mv.setViewName("problemList");
 		

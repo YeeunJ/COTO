@@ -1,6 +1,6 @@
 // Or with jQuery
 $(document).ready(function(){
-    //$('select').formSelect();
+    $('select').formSelect();
     
     $('#searchButton').on('click', function() {
 		console.log("click");
@@ -11,8 +11,6 @@ $(document).ready(function(){
 		search();
 	});
 });
-
-var selectHtml="";
 
 function search(){
 	$.ajax({
@@ -33,31 +31,27 @@ function search(){
 	});
 }
 function callModal() {
-	selectHtml = $('#selectHtml').html();
 	createModel("#createProblems", "문제집 등록", addajax);
  	$('select').formSelect();
 }
 
 function printAllContent(id, recomId, count){
-	selectHtml = $('#selectHtml').html();
+	//alert(recomId);
 	readComment(recomId);
-	
-	$('#readRecomID').html(recomId);
 	$('#readProblems').html($(id+' .readProblem').html());
 	$('#readTags').html($(id+' .readTag').html());
 	$('#readContents').html($(id+' .readContent').html());
 	$('#readRecommends').html($(id+' .readRecommend').html());
 	$('#readDifficulties').html($(id+' .readDifficulty').html());
-	//$('#commentCount').html($(id+' .readCommentCount').html());
+	
 	$("#commentCount").text(count);
 	
 	$('#updateRecomID').html(recomId);
-	$('.sweet-modal-content #updateTitle').val($(id+' .readTitle').html());
 	$('#updateContents').html($(id+' .readContent').html());
 	$('#updateTags').html($(id+' .readTag').html());
 	$('#updateProblems').html($(id+' .readProblem').html());
 	
-	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), $(id+' .readTitle').html(), updateAjax, deleteAjax);
+	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), updateAjax, deleteAjax);
 	$('select').formSelect();
 }
 
@@ -72,9 +66,9 @@ function addComment() {
 			type : "POST",
 			async : false,
 			data : {
-				userID : userID,
-				recomID : recomID,
-				content : $('.sweet-modal-content #comment-textarea').val()
+				//userID : userID,
+				//recomID : recomID,
+				//content : $('.sweet-modal-content #comment-textarea').val()
 			},
 			success : function(data) {
 				$('.sweet-modal-content #modal-comment').html(data);
@@ -96,28 +90,22 @@ $('.sweet-modal-content .chips-placeholder').material_chip({
 });
 
 function readComment(recomID) {
-	$.ajax({
-		url : "recommendProblem/readComment",
-		type : "POST",
-		async : false,
-		data : {
-			recomID : recomID,
-		},
-		success : function(data) {
-			$("#modal-comment").html(data);
-		},
-		error : function(request, status, error) {
-			console.log("code:" + request.status + "\n"
-					+ "message:" + request.responseText + "\n"
-					+ "error:" + error);
-		}
-	});
-}
-
-function resetContent() {
-	$('#createProblems #confirmSite').html("");
-	$('#selectHtml').html(selectHtml);
-	$('.sweet-modal-content .chip').remove();
+		$.ajax({
+			url : "recommendProblem/readComment",
+			type : "POST",
+			async : false,
+			data : {
+				//recomID : recomID,
+			},
+			success : function(data) {
+				$("#modal-comment").html(data);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n"
+						+ "message:" + request.responseText + "\n"
+						+ "error:" + error);
+			}
+		});
 }
 
 
@@ -198,44 +186,7 @@ function addajax(){
 }
 
 function updateAjax (){
-	var title = $('.sweet-modal-content #updateTitle').val(); 
-	var content = $('.sweet-modal-content #updateContents').val();
-	var tag = [];
 	var difficulty_cnt = document.getElementsByName("updateDifficulty").length;
-	var siteId = [];
-	var problem = [];
-	var link = [];
-	
-	$('.sweet-modal-content .updateConfirmProblem').each(function(){
-		
-		var s_id = 0;
-		var l = "";
-		var p;
-		var valueSplit = $(this).val().split(' ');
-		
-		if($(this).attr('name') == 0){ // link로 설정하는 경우
-			l = valueSplit[0];
-			console.log("link: "+l);
-			
-			var split = l.split('/');
-			p = split[split.length-1];
-			console.log("problem: "+split[split.length-1]);
-
-		} else { // siteId 존재하는 경우
-			s_id = $(this).attr('name');
-			p = valueSplit[0];
-		}
-		
-		siteId.push(s_id);
-		problem.push(p);
-		link.push(l);
-		
-	});
-	
-	var tag_data= $('.sweet-modal-content #updateProblemTag').material_chip('data');
-	for(var i=0; i<tag_data.length; i++) {
-		tag.push(tag_data[i].tag);
-	}
 	
 	for(var i=0;i<difficulty_cnt;i++) {
 		if(document.getElementsByName("updateDifficulty")[i].checked == true)
@@ -248,7 +199,10 @@ function updateAjax (){
 		async: false,
 		data: {
 			id:$('#updateRecomID').html(),
-			"siteId":siteId, "problem":problem, "link":link, "title":title, "difficulty":difficulty, "tag":tag, "content":content
+			content: $('.sweet-modal-content #updateContents').val(),
+			/*tag: $('.sweet-modal-content #updateTags').val(),
+			problem: $('.sweet-modal-content #updateProblems').val(),*/
+			difficulty:difficulty
 		},
 		success: function(data){
 			console.log(data);
@@ -302,30 +256,3 @@ function insertProblems(){
 	$('#confirmSite').html(data);
 	$(".sweet-modal-content #problems").val("");
 };
-
-count=0;
-function updateProblems(){
-	
-	var siteName = $(".sweet-modal-content #updateSiteName option:selected").text();
-	var siteId = $('.sweet-modal-content #updateSiteName').val();
-	console.log("siteId: "+siteId);
-	var site = $(".sweet-modal-content #updateSiteName option:selected").val();
-	var value = $(".sweet-modal-content #updateConfirmProblems").val();
-	console.log(value);
-	var valueSplit = value.split(',');
-	var data = $('.sweet-modal-content #"updateConfirmSite"').html();
-	for(var i in valueSplit){
-		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
-		count++;
-	}
-	$('.sweet-modal-content #updateConfirmSite').html(data);
-	$('#updateConfirmSite').html(data);
-	$(".sweet-modal-content #updateConfirmProblems").val("");
-};
-
-function addRecomCount(){
-	var recomID = $('#readRecomID').html();
-	
-	console.log(recomID);
-
-}

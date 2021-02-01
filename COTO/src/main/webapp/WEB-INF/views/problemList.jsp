@@ -5,19 +5,20 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
-<link href="./resources/css/recommendProblem.css?qwe" rel="stylesheet">
-<script src="./resources/js/recommendProblem.js"></script>
+<link href="./resources/css/problemList.css?qwe" rel="stylesheet">
+<script src="./resources/js/problemList.js"></script>
+
 
 <style>
-#recommend {
+#problem {
 	position: relative;
 	padding: 80px 0;
 	margin-bottom: 3%;
 }
 
-#recommend:before {
+#problem:before {
 	content: "";
-	background-image: url("./resources/img/recommendimg.jpg");
+	background-image: url("./resources/img/problemList.jpg");
 	background-size: cover;
 	top: 0;
 	left: 0;
@@ -27,201 +28,114 @@
 	opacity: 0.4;
 	z-index: -1;
 }
-
-.readTagChips {
-	height: 32px;
-	font-size: 15px;
-	font-weight: 500;
-    color: rgba(0, 0, 0, 0.6);
-    line-height: 32px;
-	padding: 8px 12px;
-    border-radius: 16px;
-    background-color: #e4e4e4;
-    margin-right: 2%;
-}
 </style>
 
 <div class="container">
-	<div id="recommend">
+	<div id="problem">
 		<div class="content">
 			<h4>문제 리스트</h4>
 			<p>다른 사람들이 많이 푼 문제를 확인하고 풀어보세요!</p>
 		</div>
 	</div>
 
-
+	<div class="top-bar">
+		<fieldset class="search">
+			<input id="searchValue" class="search_problem" type="search"
+				placeholder="검색어를 입력해주세요." />
+			<button id="searchButton" class="search_bt" type="submit">
+				<i class="fa fa-search"></i>
+			</button>
+		</fieldset>
+		<div class="col order">
+			<select id="orderValue">
+				<option value="regdate" disabled selected>정렬</option>
+				<option value="title">제목순</option>
+				<option value="site">사이트순</option>
+				<option value="regdate">최신순</option>
+				<option value="solve">많이 풀어본 문제순</option>
+			</select>
+		</div>
+	</div>
+	
 	<div class="table center" id="problemContent">
 		<%@ include file="./ajaxContent/problemListContent.jsp"%>
 	</div>
 	<br> <br>
+	
+	<!-- pagination{s} -->
+
+	<ul class="pagination">
+		<c:if test="${pagination.prev}">
+			<li class="disabled"><a href="#!" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')"><i class="material-icons">chevron_left</i></a></li>
+		</c:if>
+
+		<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
+			<li class="<c:out value="${pagination.page == idx ? 'active' : 'waves-effect'}"/> "><a href="#!" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')"> ${idx} </a></li>
+		</c:forEach>
+
+		<c:if test="${pagination.next}">
+			<li class="waves-effect"><a href="#" onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')" ><i class="material-icons">chevron_right</i></a></li>
+		</c:if>
+	</ul>
+	
+	 <ul class="pagination">
+	    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+	    <li class="active"><a href="#!">1</a></li>
+	    <li class="waves-effect"><a href="#!">2</a></li>
+	    <li class="waves-effect"><a href="#!">3</a></li>
+	    <li class="waves-effect"><a href="#!">4</a></li>
+	    <li class="waves-effect"><a href="#!">5</a></li>
+	    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+	  </ul>
+          
+
+	<!-- pagination{e} -->
+
 </div>
 
-<!-- 세부 정보 모달 -->
-<div id="readRecommendProblem" style="display:none;">
+<script>
 
-	<div id="detailRecom">
-		<div>
-			<div>
-				<p class="title">추천 문제 설명</p>
-				<div class="readBox">
-					<span id="readContents" ></span>
-				</div>
-				<br><br>
-			</div>
-			
-			<div>
-				<p class="title">추천 문제 난이도</p>
-				<%-- <img style="width: 50px;" alt="" src="./resources/img/difficulty${}.png"> --%>
-				<div class="readBox">
-					<span id="readDifficulties"></span>
-				</div>
-				<br><br>
-			</div>
-			
-			<div>
-				<p class="title">추천 문제 태그</p>
-				<div id="readTags"></div>
-				<br><br>
-			</div>
 
-			<div>
-				<p class="title desc">추천 문제</p>
-				<div id="readProblems" class="readBox"></div>
-			</div>
-		</div>
-		<div>
-			<div class="details">
-				<span class="like-icon icon"></span><span id="readRecommends" class="bold"></span><span></span>
-				<span class="comment-icon icon"></span><span id="commentCount" class="bold"></span><span></span>
-				<!-- <span class="diff-icon icon">3</span> -->
-			</div>
-			<div id="commentDetail">
-				<div class="comment-add">
-					<textarea id="comment-textarea" placeholder="댓글을 달아주세요."></textarea>
-					<button id="addComment" class="modal_button add-btn" onclick="addComment()">등록</button>
-				</div>
-				<div id="modal-comment" class="wrapper">
-					<%-- <%@ include file="./ajaxContent/recomCommentContent.jsp"%> --%>
-				</div>
+//이전 버튼 이벤트
+function fn_prev(page, range, rangeSize) {
 
-			</div>
+		var page = ((range - 2) * rangeSize) + 1;
+		var range = range - 1;
+		var url = "${pageContext.request.contextPath}/board/getBoardList";
 
-		</div>
-	</div>
-</div>
+		url = url + "?page=" + page;
+		url = url + "&range=" + range;
 
+		location.href = url;
+}
+
+
+
+//페이지 번호 클릭
+function fn_pagination(page, range, rangeSize, searchType, keyword) {
+	var url = "${pageContext.request.contextPath}/board/getBoardList";
+
+	url = url + "?page=" + page;
+	url = url + "&range=" + range;
+	location.href = url;	
+
+}
+
+//다음 버튼 이벤트
+function fn_next(page, range, rangeSize) {
+
+	var page = parseInt((range * rangeSize)) + 1;
+	var range = parseInt(range) + 1;
+	var url = "${pageContext.request.contextPath}/board/getBoardList";
+
+	url = url + "?page=" + page;
+	url = url + "&range=" + range;
+
+	location.href = url;
+
+}
+
+</script>
 
 <%@ include file="./inc/footer.jsp"%>
 
-<script>
-$("#problemTag").click(function(){
-	var v = document.getElementsByClassName("chips");
-	alert(v.length);
-	
-	var att = document.createAttribute("onclick");
-	att.value="btnClick()";
-	v.setAttributeNode(att);
-});
-
-function btnClick(){ alert("Click!"); }
-
-function chipTag(){
-	$('.sweet-modal-content .chips').material_chip();
-	$('.sweet-modal-content .chips-placeholder').material_chip({
-	    placeholder: '+tag',
-	    secondaryPlaceholder: '+Tag',
-	});
-}
-
-function closeTag(){
-	alert("hello");
-};
-
-$(document).on('click', '.sweet-modal-content .close', function(){
-	alert("1");
-});
-
-$('.chips').material_chip();
-$('.chips-placeholder').material_chip({
-    placeholder: '+tag',
-    secondaryPlaceholder: '+Tag',
-});
-
-$('#tagAdd').click(function(){
-	var data= $('#problemTag').material_chip('data');
-	var tag = new Array();
-	for(var i=0 ; i<data.length ; i++) {
-		tag.push(data[i].tag);
-	}
-	$.ajax({
-        url : './recommendProblem/addTag',
-        type: 'POST',
-        data: {
-        	"tag":tag
-        },
-        success: function(data) {
-            alert('리스트에 추가하였습니다.');
-        },
-        error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        },
-    });
-	
-});
-	
-
-	$("#addComment").click(function() {
-		var userID = $("input[name='writer']").val();
-		var recomID = $("input[name='recomID']").val();
-		alert(userID + "/" + recomID);
-		
-		if (confirm("댓글을 추가하시겠습니까?")) {
-			$.ajax({
-				url : "recommendProblem/addComment",
-				type : "POST",
-				async : false,
-				data : {
-					userID : userID,
-					recomID : recomID,
-					content : $('#comment-textarea').val()
-				},
-				success : function(data) {
-					$('#modal-comment').html(data);
-				},
-				error : function(request, status, error) {
-					console.log("code:" + request.status + "\n"
-							+ "message:" + request.responseText + "\n"
-							+ "error:" + error);
-				}
-			});
-		}
-	});
-	
-	$(".sweet-modal-content #addComment").click(function() {
-		var userID = $("input[name='writer']").val();
-		var recomID = $("input[name='recomID']").val();
-		alert(userID + "/" + recomID);
-		
-		if (confirm("댓글을 추가하시겠습니까?")) {
-			$.ajax({
-				url : "recommendProblem/addComment",
-				type : "POST",
-				async : false,
-				data : {
-					userID : userID,
-					recomID : recomID,
-					content : $('#comment-textarea').val()
-				},
-				success : function(data) {
-					$('#modal-comment').html(data);
-				},
-				error : function(request, status, error) {
-					console.log("code:" + request.status + "\n"
-							+ "message:" + request.responseText + "\n"
-							+ "error:" + error);
-				}
-			});
-		}
-	});
-
-</script>

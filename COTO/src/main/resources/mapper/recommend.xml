@@ -11,6 +11,7 @@
 	<select id="readRecommendList" resultType="com.walab.coding.model.RecommendDTO">
 		SELECT recom.id as id, recom.title as title, recom.content as content, us.nickname as nickname, recom.difficulty as difficulty
 		FROM recommend as recom left join user as us on recom.userID = us.id
+		WHERE recom.deletedate IS NULL
 	</select>
 	
 	<select id="searchRecommendList" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">
@@ -35,7 +36,13 @@
 		INSERT INTO recommend (userID, title, difficulty, content) VALUES (#{userID}, #{title}, #{difficulty}, #{content})
 	</insert>
 	
-	<delete id="deleteRecom" parameterType="hashmap">
+	<!-- <delete id="deleteRecom" parameterType="hashmap">
 		delete from recommend where id = #{recomID}
-	</delete>
+	</delete> -->
+	
+	<update id="deleteRecom" parameterType="hashmap">
+		UPDATE YeeunJ.recommend 
+		SET deletedate = now()
+		WHERE id = #{recomID};
+	</update>
 </mapper>

@@ -2,6 +2,8 @@ package com.walab.coding.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,18 +28,34 @@ public class MyactivitiesController {
 	@Autowired
 	GoalService goalService;
 	
+	@Autowired
+	UserProblemService userProblemService;
+	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewProblems(ModelAndView mv, Model model) {
 		
 		int userID = 1; //지금 session 처리와 로그인을 안해서 넣어놓은 예시 데이터!! 나중에 session 처리 할께요!!
 		
 		List<GoalDTO> goalList = goalService.readGoalAll(userID);
-			
+	
 		mv.addObject("goalList", goalList);
 		
 		mv.setViewName("mypage/activities");
 		
 		return mv;
 	}
-
+	
+	@RequestMapping(value = "/readProblemActivities", method = RequestMethod.POST)
+	public ModelAndView readProblemActivities(ModelAndView mv,HttpServletRequest httpServletRequest) {
+		
+		int goalID = Integer.parseInt(httpServletRequest.getParameter("id"));
+		
+		List<UserProblemDTO> readProblemActivities = userProblemService.readProblemActivities(goalID);
+	
+		mv.addObject("readProblemActivities", readProblemActivities);
+		
+		mv.setViewName("ajaxContent/activitiesContent");
+		
+		return mv;
+	}
 }

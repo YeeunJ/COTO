@@ -16,4 +16,5 @@ public interface UserProblemDAO {
 	public List<UserProblemDTO> searchProblemByContent(int userID, String searchValue);
 	public List<UserProblemDTO> readProblemOrderByCount();
 	public List<UserProblemDTO> countSolvedProblemEachDay(int userID);
+	public List<UserProblemDTO> readProblemActivities(int goalID);
 }

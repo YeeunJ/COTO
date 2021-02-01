@@ -19,7 +19,17 @@
 	</select>
 	
 	<select id="readProblem" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT * FROM problem 
+		SELECT problem.id, userProblem.problemID, COUNT(*) as count, problem.name, problem.link, problem.siteID as siteID, codingSite.siteName as siteName, codingSite.siteUrl as siteUrl, problem.regdate 
+		FROM ((problem
+		INNER JOIN codingSite ON problem.siteID = codingSite.id)
+		INNER JOIN userProblem ON problem.id = userProblem.problemID) GROUP BY problem.id;
 	</select>
-
+	
+	<select id="readProblemByPage" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
+		SELECT * FROM problem LIMIT #{startList}, #{listSize}
+	</select>
+	
+	<select id="readProblemCnt" resultType="int">
+		SELECT COUNT(*) as listCnt FROM problem
+	</select>
 </mapper>

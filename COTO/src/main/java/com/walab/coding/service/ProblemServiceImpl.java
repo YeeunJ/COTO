@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.walab.coding.model.RecomProblemDTO;
+import com.walab.coding.model.PaginationDTO;
 import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.repository.ProblemDAO;
 import com.walab.coding.repository.RecommendDAO;
@@ -21,6 +22,16 @@ public class ProblemServiceImpl implements ProblemService {
 	public List<ProblemDTO> readProblems() {
 		List<ProblemDTO> problems = problemDAO.readProblem();
 		return problems;
+	}
+
+	@Override
+	public int readProblemListCnt() {
+		return problemDAO.readProblemListCnt();
+	}
+
+	@Override
+	public List<ProblemDTO> readProblemByPage(PaginationDTO page) {
+		return problemDAO.readProblemByPage(page);
 	}
 	
 }

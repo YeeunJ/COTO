@@ -87,7 +87,7 @@
 
 		<p class="title">추천 문제 등록</p>
 		<div class="row">
-			<div class="input-field col s4">
+			<div id="selectHtml" class="input-field col s4">
 				<select id="siteName" required>
 					<optgroup label="코딩사이트 선택">
 						<c:forEach items="${codingSite}" var="site">
@@ -161,7 +161,7 @@
 
 <!-- 세부 정보 모달 -->
 <div id="readRecommendProblem" style="display:none;">
-
+	<span id="readRecomID" style="display:none;"></span>
 	<div id="detailRecom">
 		<div>
 			<div>
@@ -174,7 +174,6 @@
 			
 			<div>
 				<p class="title">추천 문제 난이도</p>
-				<%-- <img style="width: 50px;" alt="" src="./resources/img/difficulty${}.png"> --%>
 				<div class="readBox">
 					<span id="readDifficulties"></span>
 				</div>
@@ -194,9 +193,8 @@
 		</div>
 		<div>
 			<div class="details">
-				<span class="like-icon icon"></span><span id="readRecommends" class="bold"></span><span></span>
+				<%@ include file="./ajaxContent/recomCountContent.jsp"%>
 				<span class="comment-icon icon"></span><span id="commentCount" class="bold"></span><span></span>
-				<!-- <span class="diff-icon icon">3</span> -->
 			</div>
 			<div id="commentDetail">
 				<div class="comment-add">
@@ -207,7 +205,7 @@
 					<%-- <%@ include file="./ajaxContent/recomCommentContent.jsp"%> --%>
 				</div>
 
-			</div>
+			</div> 
 
 		</div>
 	</div>
@@ -217,6 +215,13 @@
 <div id="updateRecommendProblem" style="display:none;">
 	<form>
 			<span id="updateRecomID" style="display:none;"></span>
+			
+			<div>
+				<p class="title">추천 문제집 제목</p>
+				<input id="updateTitle" type="text" class="validate"/>
+				<br><br>
+			</div>
+			
 			<div>
 				<p class="title">추천 문제 설명</p>
 				<textarea id="updateContents" class="validate" rows="5"></textarea>
@@ -263,15 +268,15 @@
 			<div>
 				<p class="title">추천 문제 태그</p>
 				<div id="updateTags" style="display:none;"></div>
-				<div id="problemTag" class="chips chips-placeholder" onclick="chipTag()"></div>
+				<div id="updateProblemTag" class="chips chips-placeholder" onclick="chipTag()"></div>
 				<br><br>
 			</div>
 	
 			<div>
 				<p class="title desc">추천 문제</p>
 				<div class="row">
-					<div class="input-field col s4">
-						<select id="siteName" required>
+					<div id="selectHtml" class="input-field col s4">
+						<select id="updateSiteName" required>
 							<optgroup label="코딩사이트 선택">
 								<c:forEach items="${codingSite}" var="site">
 									<option value="${site.id}">${site.siteName}</option>
@@ -285,15 +290,15 @@
 						<span class="helper-text">코딩 사이트를 선택해서 입력하거나 링크로 입력할 수 있습니다.</span>
 					</div>
 					<div class="input-field col s6">
-						<input id="problems" type="text" class="validate"> 
-						<label for="problems">Problems</label> 
+						<input id="updateConfirmProblems" type="text" class="validate"> 
+						<label for="updateConfirmProblems">Problems</label> 
 						<span class="helper-text">문제들을 입력할 때 ,로 구분해주세요!!</span>
 					</div>
-					<button type="button" id="add" class="modal_button lighten-1" onClick="insertProblems()">추가</button>
+					<button type="button" id="updateAdd" class="modal_button lighten-1" onClick="updateProblems()">추가</button>
 				</div>
 				<div class="input-field col s10">
 					<label for="last_name">입력한 Problems</label> <br> <br>
-					<div class="recom-confirmSite" id="confirmSite"></div>
+					<div class="recom-confirmSite" id="confirmSite updateConfirmSite"></div>
 				</div>
 			</div>
 	</form>		
@@ -303,15 +308,12 @@
 
 <script>
 $("#problemTag").click(function(){
-	var v = document.getElementsByClassName("chips");
-	alert(v.length);
+	/* var v = document.getElementsByClassName("chips");
 	
 	var att = document.createAttribute("onclick");
 	att.value="btnClick()";
-	v.setAttributeNode(att);
+	v.setAttributeNode(att); */
 });
-
-function btnClick(){ alert("Click!"); }
 
 function chipTag(){
 	$('.sweet-modal-content .chips').material_chip();
@@ -320,14 +322,6 @@ function chipTag(){
 	    secondaryPlaceholder: '+Tag',
 	});
 }
-
-function closeTag(){
-	alert("hello");
-};
-
-$(document).on('click', '.sweet-modal-content .close', function(){
-	alert("1");
-});
 
 $('.chips').material_chip();
 $('.chips-placeholder').material_chip({
