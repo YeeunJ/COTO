@@ -1,13 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="./resources/css/manageCodingsite.css" />
+<link rel="stylesheet" href="./resources/css/manageCodingsite.css?asd" />
 <script src="./resources/js/manageCodingsite.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <%@ include file="./inc/header.jsp"%>
 <script>
 
-var isAdd = true;
+var isAdd = false;
 
 $(document).ready(function() {
 	
@@ -29,9 +29,29 @@ $(document).ready(function() {
 			$('span.btns').show();
 		} else {
 			$('span.btns').hide();
+			console.log($('.siteUrl').val());
+			
+			$(".siteUrl").each(function() {
+				var parent = $(this).parent('.tableCell');
+				var url = $(this).val();
+				var buttons = '<span class="btns"><button type="button" id="change" class="editSite edit whitebtn">수정</button><button class="deleteBtn edit whitebtn" type="button">삭제</button></span>';
+
+				parent.html('<a href="'+url+'">'+url+'</a>'+buttons);
+	      	});
+			$(".siteName").each(function() {
+				console.log($(this).val());
+				var parent = $(this).parent('.tableCell');
+				var name = $(this).val();
+				parent.html(name);
+	      	});
 		}
 		if ($(this).html().substring(0, 4) == '편집완료') {
+			$('div#new').attr('style', 'display: none !important');
+			$('#siteName').val("");
+			$('#siteUrl').val("");
+			
 			$(this).html('편집');
+			
 		} else {
 			$(this).html('편집완료');
 		}
@@ -55,7 +75,9 @@ $(document).ready(function() {
 	});
   	
 	$('#addbtn').click(function() {
-		setAddBtnMode(false)
+		setAddBtnMode(false);
+		$(".wide").css("margin-top", "8px");
+		$('.addbtn').css("display", "block");
 	});
   	$('#cancelAdd').click(function(){
 	  	if(!isAdd) setAddBtnMode(true); 
@@ -92,23 +114,29 @@ $(document).ready(function() {
 		var index = $('.tableRow').index(tableRow);
 		form.action="manageCodingsite/editok";
 		
-		$(editCell[0]).html('<input id="editonly" type="hidden" name="id" value="'+ posts[index-1].id +'" /> <input id="siteName" type="text" name="siteName" value="'+posts[index-1].siteName+'">');
-		$(editCell[1]).html('<input id="siteUrl" type="text" name="siteUrl" value="'+ posts[index-1].siteUrl +'">');
-		$(editCell[2]).html('<button id="cancelbtn" class="cancelbtn whitebtn" type="button">취소</button>');
-		$(editCell[3]).html('<button id="submitbtn" class="submitbtn whitebtn" type="submit">수정</button>');
-	});
+		var buttons = '<span class="btns wide"><button id="cancelbtn" class="cancelbtn whitebtn" type="button">취소</button><button id="submitbtn" class="submitbtn whitebtn" type="submit">수정</button></span>';
+
+		$(editCell[0]).html('<input id="editonly" type="hidden" name="id" value="'+ posts[index-1].id +'" /> <input id="siteName"  class="siteName" type="text" name="siteName" value="'+posts[index-1].siteName+'">');
+		$(editCell[1]).html('<input id="siteUrl" class="siteUrl" type="text" name="siteUrl" value="'+ posts[index-1].siteUrl +'">');
+		$(editCell[1]).append(buttons);
+		
+		$(".wide").css("margin-top", "8px");
+		$("span.btns").css("display", "block");
+ 	});
 
 
 	$(document).on("click", "#cancelbtn", function() {
 		var tableRow = $(this).closest('.tableRow');
 		var cancelCell = tableRow.find('.tableCell');
 		var index = $('.tableRow').index(tableRow);
+		var buttons = '<span class="btns"><button type="button" id="change" class="editSite edit whitebtn">수정</button><button class="deleteBtn edit whitebtn" type="button">삭제</button></span>';
 
 		$(cancelCell[0]).html(posts[index-1].siteName);
 		$(cancelCell[1]).html('<a href="'+posts[index-1].siteUrl+'">'+posts[index-1].siteUrl+'</a>');
-		$(cancelCell[2]).html('<button type="button" id="change" class="editSite edit whitebtn">수정</button>');
-		$(cancelCell[3]).html('<button value="'+posts[index-1].id+'" class="deleteBtn edit whitebtn" type="button">삭제</button>');
+		$(cancelCell[1]).append(buttons);
 
+		$("span.btns").css("margin-top", "0px"); 
+		$("span.btns").css("display", "block");
 
 	});
 	
@@ -172,50 +200,47 @@ $(document).ready(function() {
 		</div>
 	</div>
 	
-		<div class="table">
-			<div style="margin-bottom:10px;"class="right">
-				<button id="addbtn"
-					class=" whitebtn button">추가</button>
-				<button id="editbtn"
-					class=" whitebtn button">편집</button>
-			</div>
-			
+	<div class="table">
+		<div style="margin-bottom:10px;"class="right">
+			<button id="addbtn"
+				class=" whitebtn button">추가</button>
+			<button id="editbtn"
+				class=" whitebtn button">편집</button>
 		</div>
-		<form name="form1" action="manageCodingsite/addok" method="post">	
+	</div>
+		
+	<form name="form1" action="manageCodingsite/addok" method="post">	
 		 
 		<div class="table">
 			<div class="tableRow orange white-text">
 				<span class="tableCell th3 tablehead center">사이트 이름 </span> 
 				<span class="tableCell th7 tablehead center">URL</span> 
-
 			</div>
 			<c:forEach items="${CodingSite}" var="u">
-				<div class="tableRow">
-			 		<span class="tableCell td3 sub ">${u.getSiteName()}</span> 
-					<span class="tableCell td7 sub "><a href="${u.getSiteUrl()}">${u.getSiteUrl()}</a>
-					 <span class='btns'>
-                        <button type="button" id="change" class="editSite edit whitebtn">수정</button>
-                        <button class="deleteBtn edit whitebtn" type="button">삭제</button>
-                     </span>
+			<div class="tableRow">
+		 		<span class="tableCell td3 sub ">${u.getSiteName()}</span> 
+				<span class="tableCell td7 sub "><a href="${u.getSiteUrl()}">${u.getSiteUrl()}</a>
+				 <span class='btns'>
+                       <button type="button" id="change" class="editSite edit whitebtn">수정</button>
+                       <button class="deleteBtn edit whitebtn" type="button">삭제</button>
                     </span>
-				</div>
+                   </span>
+			</div>
 			</c:forEach>
-			
-			<div id="new" style="display: none !important;" class="tableRow content">
+			<div id="new" class="tableRow" style="display: none !important;">
 				<input id="editonly" type="hidden" name="id" />
-				<span class="tableCell td3 sub"><input  id="siteName" type='text'name='siteName'></span>
-                <span class="tableCell td6 sub"><input  id="siteUrl" type='text' name='siteUrl' style='width:60%'>
-                    <span class='addbtns'>
-                        <button id="cancelAdd"class=" whitebtn" type="button">취소</button>
-                        <button id="submitbtn"class=" whitebtn" type="submit">추가</button>
+				<span class="tableCell td3 sub"><input id="siteName" type='text'name='siteName'></span>
+				<span class="tableCell td7 sub"><input id="siteUrl" type='text' name='siteUrl' style='width:70%'>
+                    <span class='btns wide addbtn'>
+                        <button id="cancelAdd" class="cancelbtn whitebtn" type="button">취소</button>
+                        <button id="submitbtn" class="submitbtn whitebtn" type="submit">추가</button>
                     </span>  
                 </span> 
-            </div>
-		
+			</div>
 		</div>
-		</form>
-		
-	</div><br><br><br>
+	</form>
+</div>
+	<br><br><br>
 
 
 

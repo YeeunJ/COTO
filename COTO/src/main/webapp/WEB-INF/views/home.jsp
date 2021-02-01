@@ -21,10 +21,15 @@ instance.destroy(); */
 
 
 
+var selectHtml="";
+
 function callModal() {
+	selectHtml = $('#selectHtml').html();
+	
 	createModel("#createProblem", "푼 문제 등록", addajax);
  	$('select').formSelect();
 }
+
 
 function addajax(){
 	
@@ -104,6 +109,14 @@ function insertProblems(){
 	$(".sweet-modal-content #problems").val("");
 };
 
+function resetContent() {
+	
+	$('#createProblem #confirmSite').html("");
+	$('#selectHtml').html(selectHtml);
+	
+}
+
+
 </script>
 
 <!-- first section start- 문제 등록, 내 정보 -->
@@ -175,10 +188,10 @@ function insertProblems(){
 
 
 
-<div id="createProblem" class="container" style="display:none">
+<div id="createProblem" class="container" style="display:none;">
 	<form class="col s12">
 		<div class="row">
-			<div class="input-field col s4">
+			<div id="selectHtml" class="input-field col s4">
 				<select id="siteName" required>
 					<optgroup label="코딩사이트 선택">
 						<c:forEach items="${CodingSite}" var="site">

@@ -20,7 +20,9 @@ input {
 	display:inline-block;
 	width:100%;
 }
-
+#siteUrl {
+	width: 70%;
+}
 #codingSiteContainer{
 	min-height:100%;
 }
@@ -41,8 +43,15 @@ button {
 span.btns {
 	display: none;
 	float: right;
+	width: 150px;
 }
 
 span.addbtns {
 	float: right;
+}
+.editSite {
+	margin-right:4px;
+}
+#cancelbtn {
+	margin-right: 4px;
 }
