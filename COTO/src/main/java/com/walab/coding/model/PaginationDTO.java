@@ -1,7 +1,7 @@
 package com.walab.coding.model;
 
 public class PaginationDTO {
-	private int listSize = 10;                //초기값으로 목록개수를 10으로 셋팅
+	private int listSize = 2;                //초기값으로 목록개수를 10으로 셋팅
 	private int rangeSize = 10;            //초기값으로 페이지범위를 10으로 셋팅
 	private int page;
 	private int range;
@@ -109,6 +109,12 @@ public class PaginationDTO {
 			this.endPage = this.pageCnt;
 			this.next = false;
 		}
+	}
+	@Override
+	public String toString() {
+		return "PaginationDTO [listSize=" + listSize + ", rangeSize=" + rangeSize + ", page=" + page + ", range="
+				+ range + ", listCnt=" + listCnt + ", pageCnt=" + pageCnt + ", startPage=" + startPage + ", startList="
+				+ startList + ", endPage=" + endPage + ", prev=" + prev + ", next=" + next + "]";
 	}
 
 }
