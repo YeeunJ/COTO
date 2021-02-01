@@ -52,3 +52,11 @@ button, input, optgroup, select, textarea {
 	display: block;
 	transition-duration: 10s;
 }
+
+.container {
+	min-width: 787px !important;
+}
+
+.registerA {
+	padding: 0 0 0 15px;
+}

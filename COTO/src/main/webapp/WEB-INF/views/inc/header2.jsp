@@ -45,7 +45,7 @@
 						<li id = "list" onclick="location.href='../mypage/activities'"><span id = "listspan">my activities</span></li>
 					</ul>
 				</li>
-				<li class = "right"><span class = "center" style = "display: inline-block;"><a href="../register"><button class = "mybtn">로그인</button></a></span></li>
+				<li class = "right"><span class = "center" style = "display: inline-block;"><a href="../register" class="registerA"><button class = "mybtn">로그인</button></a></span></li>
 		  	</ul>
 			<ul id="nav-mobile" class="sidenav">
 				<li><a href="../register">로그인</a></li>
