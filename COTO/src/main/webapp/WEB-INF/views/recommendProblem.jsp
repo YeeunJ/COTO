@@ -3,7 +3,11 @@
 
 <%@ include file="./inc/header.jsp"%>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<link rel = "stylesheet"
+         href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel = "stylesheet"
+         href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+<script src = "./resources/js/recommendProblem.js"></script>
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
 <link href="./resources/css/recommendProblem.css?qwe" rel="stylesheet">
 <script src="./resources/js/recommendProblem.js"></script>
@@ -161,7 +165,8 @@
 		</div>
 		
 		<p class="title">추천 문제집 태그</p>
-		<div id="problemTag" class="chips chips-placeholder" onclick="chipTag()"></div>
+		<div id="problemTag" class="chips chips-placeholder input-field">
+		</div>
 		
 		<p class="title">추천 문제집 설명</p>
 		<textarea id="createContent" rows="5"></textarea>
@@ -328,11 +333,12 @@ $("#problemTag").click(function(){
 });
 
 function chipTag(){
+	/*
 	$('.sweet-modal-content .chips').material_chip();
 	$('.sweet-modal-content .chips-placeholder').material_chip({
 	    placeholder: '+tag',
 	    secondaryPlaceholder: '+Tag',
-	});
+	});*/
 }
 
 //수정 필요 ! -> update 창이 뜨면 보이도록
@@ -360,7 +366,7 @@ function updateChipTag(data) {
 	}
 
 	td += "]";
-	
+	/*
 	$('.sweet-modal-content .chips').material_chip();
 	$('.sweet-modal-content .chips-initial').material_chip({
 	    //data: td,
@@ -371,7 +377,7 @@ function updateChipTag(data) {
 		    }, {
 		      tag: 'Google',
 		    }],
-	});
+	});*/
 
 	td="";
 }

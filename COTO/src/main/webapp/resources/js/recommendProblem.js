@@ -35,7 +35,6 @@ function search(){
 function callModal() {
 	selectHtml = $('#selectHtml').html();
 	createModel("#createProblems", "문제집 등록", addajax);
- 	$('select').formSelect();
 }
 
 function printAllContent(id, recomId, count){
@@ -176,11 +175,7 @@ function addComment() {
 	}
 }
 
-$('.sweet-modal-content .chips').material_chip();
-$('.sweet-modal-content .chips-placeholder').material_chip({
-    placeholder: '+tag',
-    secondaryPlaceholder: '+Tag',
-});
+
 
 function readComment(recomID) {
 	$.ajax({

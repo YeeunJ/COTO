@@ -8003,7 +8003,9 @@ $jscomp.polyfill = function (e, r, p, m) {
       value: function selectChip(chipIndex) {
         var $chip = this.$chips.eq(chipIndex);
         this._selectedChip = $chip;
-        $chip[0].focus();
+        //$(this).remove();
+        //console.log($(this).attr('class'));
+        //$chip[0].focus();
 
         // fire chipSelect callback
         if (typeof this.options.onChipSelect === 'function') {

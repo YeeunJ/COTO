@@ -27,7 +27,7 @@ function callModal() {
 	selectHtml = $('#selectHtml').html();
 	
 	createModel("#createProblem", "푼 문제 등록", addajax);
- 	$('select').formSelect();
+ 	//$('select').formSelect();
 }
 
 
