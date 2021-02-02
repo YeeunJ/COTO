@@ -12,16 +12,22 @@
 		<form id="registerInfo" method="post" action="./registerUserinfo">
 			<div id="table">
 				<div class="row">
-					<span class="cell td1">이름</span> <span class="cell td1"><input
+					<span class="cell td1">이름</span> <span class="cell td1">
+					<span class = "red-text" style="display:inline-block;">&nbsp;*</span>
+					<input
 						type="text" name="name" placeholder="이름을 입력하세요. "  value="${user.name}" readonly/></span>
 				</div>
 				<div class="row">
-					<span class="cell td2">이메일</span> <span class="cell td2"><input
+					<span class="cell td2">이메일</span> <span class="cell td2">
+					<span class = "red-text" style="display:inline-block;">&nbsp;*</span>
+					<input
 						type="email" name="email" placeholder="이메일을 입력하세요. " value="${user.email}" readonly/> </span>
 				</div>
 				<div class="row">
-					<span class="cell td3">닉네임</span> <span class="cell td3"><input
-						type="text" name="nickName" placeholder="닉네임을 입력하세요. " required style="display:inline-block;"/></span><p class = "red-text" style="display:inline-block; padding-bottom: 10px;">&nbsp;*</p>
+					<span class="cell td3">닉네임</span> <span class="cell td3" >
+					<span class = "red-text" style="display:inline-block;">&nbsp;*</span>
+					<input
+						type="text" name="nickName" placeholder="닉네임을 입력하세요. " required style="display:inline-block;"/></span>
 				</div>
 				<div class="row">
 					<span class="cell td4">자기소개 </span> <span class="cell td4"><input
