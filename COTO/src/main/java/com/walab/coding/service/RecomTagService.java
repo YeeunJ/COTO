@@ -13,4 +13,6 @@ public interface RecomTagService {
 	public List<RecomTagDTO> readProblemTag();
 	
 	public int deleteRecomTag(int recomID);
+	
+	public int updateTag(List<RecomTagDTO> rt);
 }

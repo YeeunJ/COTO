@@ -71,6 +71,7 @@ public class RecommendController {
 		List<RecommendDTO> recoms = recommendService.readRecom();
 //		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();		
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite2 = codingSiteService.read();
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
 		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
 		
@@ -84,6 +85,7 @@ public class RecommendController {
 		
 		mv.addObject("recoms", recoms);
 		mv.addObject("codingSite", codingSite);
+		mv.addObject("codingSite2", codingSite2);
 //		mv.addObject("recomComment", recomComment);
 //		mv.addObject("commentCount", commentCount);
 		mv.addObject("recomProblem", recomProblem);
@@ -262,21 +264,46 @@ public class RecommendController {
 	}
 	
 	@RequestMapping(value = "/updateRecomProblem", method = RequestMethod.POST)
-	public ModelAndView updateRecomProblem(HttpServletRequest httpServletRequest) {
+	public ModelAndView updateRecomProblem(HttpServletRequest httpServletRequest, @RequestParam(value="tag[]") List<String> tag) {
 		
 //		int userID = 3;
-//		
-//		UserProblemDTO upd = new UserProblemDTO();
-//		upd.setDifficulty(httpServletRequest.getParameter("difficulty"));
-//		upd.setMemo(httpServletRequest.getParameter("memo"));
-//		upd.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
-//		
-//		if(userProblemService.update(upd) > 0) {
+//		List<RecomProblemDTO> recomProbs = new ArrayList<RecomProblemDTO>();
+		
+		RecommendDTO recom = new RecommendDTO();
+		List<RecomTagDTO> recomTags = new ArrayList<RecomTagDTO>();
+		
+		recom.setId(Integer.parseInt(httpServletRequest.getParameter("recomID")));
+		recom.setTitle(httpServletRequest.getParameter("title"));
+		recom.setDifficulty(Integer.parseInt(httpServletRequest.getParameter("difficulty")));
+		recom.setContent(httpServletRequest.getParameter("content"));
+		
+		if(recommendService.updateRecommend(recom) > 0) {
+			System.out.println("success");
+		}else {
+			System.out.println("fail");
+		}
+		
+		recomTagService.deleteRecomTag(Integer.parseInt(httpServletRequest.getParameter("recomID")));
+		
+		
+		for(int i=0;i<tag.size();i++) {
+			RecomTagDTO t = new RecomTagDTO();
+			
+			t.setRecomID(Integer.parseInt(httpServletRequest.getParameter("recomID")));
+			t.setTag(tag.get(i));
+			
+			recomTags.add(t);
+		}
+		
+		recomTagService.createTag(recomTags);
+		//recomTagService.updateTag(recomTags);
+		
+//		if(recomTagService.updateTag(recomTags) > 0) {
 //			System.out.println("success");
 //		}else {
 //			System.out.println("fail");
 //		}
-//		
+
 		List<RecommendDTO> recoms = recommendService.readRecom();
 		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
 		List<CodingSiteDTO> codingSite = codingSiteService.read();

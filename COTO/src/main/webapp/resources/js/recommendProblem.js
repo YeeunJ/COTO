@@ -54,8 +54,9 @@ function printAllContent(id, recomId, count){
 	$('#updateRecomID').html(recomId);
 	$('.sweet-modal-content #updateTitle').val($(id+' .readTitle').html());
 	$('#updateContents').html($(id+' .readContent').html());
-	$('#updateTags').html($(id+' .readTag').html());
+	$('#updateTags').text($(id+' .readTag').text());
 	$('#updateProblems').html($(id+' .readProblem').html());
+	selectHtml2 = $('#selectHtml2').html();
 	
 	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), $(id+' .readTitle').html(), updateAjax, deleteAjax);
 	$('select').formSelect();
@@ -198,6 +199,7 @@ function addajax(){
 }
 
 function updateAjax (){
+	var recomID = $('.sweet-modal-content #updateRecomID').val(); 
 	var title = $('.sweet-modal-content #updateTitle').val(); 
 	var content = $('.sweet-modal-content #updateContents').val();
 	var tag = [];
@@ -205,6 +207,8 @@ function updateAjax (){
 	var siteId = [];
 	var problem = [];
 	var link = [];
+	
+	console.log(recomID);
 	
 	$('.sweet-modal-content .updateConfirmProblem').each(function(){
 		
@@ -247,8 +251,8 @@ function updateAjax (){
 		type: "POST",
 		async: false,
 		data: {
-			id:$('#updateRecomID').html(),
-			"siteId":siteId, "problem":problem, "link":link, "title":title, "difficulty":difficulty, "tag":tag, "content":content
+			"recomID": recomID, "title":title, "difficulty":difficulty, "tag":tag, "content":content
+			/*"siteId":siteId, "problem":problem, "link":link, */
 		},
 		success: function(data){
 			console.log(data);
@@ -315,7 +319,7 @@ function updateProblems(){
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #"updateConfirmSite"').html();
 	for(var i in valueSplit){
-		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
 		count++;
 	}
 	$('.sweet-modal-content #updateConfirmSite').html(data);

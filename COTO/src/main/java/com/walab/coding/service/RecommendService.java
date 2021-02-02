@@ -16,4 +16,6 @@ public interface RecommendService {
 	public List<RecommendDTO> search(String searchValue, String orderValue);
 
 	public int deleteRecom(int recomID);
+	
+	public int updateRecommend(RecommendDTO r);
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecommendDTO;
+import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.repository.RecomCommentDAO;
 import com.walab.coding.repository.RecomCountDAO;
 import com.walab.coding.repository.RecommendDAO;
@@ -58,7 +59,13 @@ public class RecommendServiceImpl implements RecommendService {
 		return recommendDAO.searchProblemByContents(searchValue, orderValue);
 	}
 	
+	@Override
 	public int deleteRecom(int recomID) {
 		return recommendDAO.deleteRecom(recomID);
+	}
+	
+	@Override
+	public int updateRecommend(RecommendDTO r) {
+		return recommendDAO.updateRecommend(r);
 	}
 }
