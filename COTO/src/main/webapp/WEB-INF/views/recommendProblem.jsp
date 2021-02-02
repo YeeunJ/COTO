@@ -60,7 +60,7 @@
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
-		<button class="input-field custom-button" onclick="callModal()">문제 추천집 만들기</button>
+		<button class="input-field custom-button" onclick="callModal()">글쓰기</button>
 		<div class="col order">
 			<select id="orderValue">
 				<option value="recom.regdate" disabled selected>정렬</option>
@@ -225,7 +225,7 @@
 <!-- 세부 정보 모달 update -->
 <div id="updateRecommendProblem" style="display:none;">
 	<form>
-			<span id="updateRecomID" style="display:none;"></span>
+			<textarea id="updateRecomID" class="validate" style="display:none;"></textarea>
 			
 			<div>
 				<p class="title">추천 문제집 제목</p>
@@ -278,19 +278,21 @@
 			
 			<div>
 				<p class="title">추천 문제 태그</p>
-				<div id="updateTags" style="display:none;"></div>
-				<div id="updateProblemTag" class="chips chips-placeholder" onclick="chipTag()"></div>
+				<textarea id="updateTags" class="validate" style="display:none;"></textarea>
+				<!-- <div id="updateTags" style="display:none;"></div> -->
+				<div id="updateProblemTag" class="chips chips-initial" onclick="updateChipTag()"></div>
 				<br><br>
 			</div>
 	
 			<div>
 				<p class="title desc">추천 문제</p>
 				<div class="row">
-					<div id="selectHtml" class="input-field col s4">
+					<div id="selectHtml2" class="input-field col s4">
 						<select id="updateSiteName" required>
 							<optgroup label="코딩사이트 선택">
-								<c:forEach items="${codingSite}" var="site">
-									<option value="${site.id}">${site.siteName}</option>
+								<option value="11">입력</option>
+								<c:forEach items="${codingSite2}" var="s">
+									<option value="${s.id}">${s.siteName}</option>
 								</c:forEach>
 							</optgroup>
 							<optgroup label="링크로 입력">
@@ -308,8 +310,8 @@
 					<button type="button" id="updateAdd" class="modal_button lighten-1" onClick="updateProblems()">추가</button>
 				</div>
 				<div class="input-field col s10">
-					<label for="last_name">입력한 Problems</label> <br> <br>
-					<div class="recom-confirmSite" id="confirmSite updateConfirmSite"></div>
+					<label for="updateLast_name">입력한 Problems</label> <br> <br>
+					<div class="recom-confirmSite" id="updateConfirmSite"></div>
 				</div>
 			</div>
 	</form>		
@@ -334,11 +336,52 @@ function chipTag(){
 	});
 }
 
+// 수정 필요 ! -> update 창이 뜨면 보이도록
+function updateChipTag() {
+	var tagData = $('.sweet-modal-content #updateTags').val();
+	var tdSplit = tagData.split('\n');
+	var cnt=0;
+	var td = "";
+	
+	for(var i in tdSplit){
+		tdSplit[i] = tdSplit[i].trim();
+		tdSplit[i] = tdSplit[i].replaceAll(' ', ''); 
+		if(tdSplit[i] === '') continue;
+		else {
+			//console.log(tdSplit[i]);
+			if(cnt == 0) td += "[{\ntag: \'"+tdSplit[i]+"\',\n}"
+			else td += ", {\ntag: \'"+tdSplit[i]+"\',\n}"
+
+			console.log(td);
+			//tag[cnt].push()
+			cnt++;
+		}
+
+		//td = "";
+	}
+
+	td += "]";
+	
+	$('.sweet-modal-content .chips').material_chip();
+	$('.sweet-modal-content .chips-initial').material_chip({
+	    //data: td,
+		data: [{
+		      tag: 'Apple',
+		    }, {
+		      tag: 'Microsoft',
+		    }, {
+		      tag: 'Google',
+		    }],
+	});
+
+	td="";
+}
+/* 
 $('.chips').material_chip();
 $('.chips-placeholder').material_chip({
     placeholder: '+tag',
     secondaryPlaceholder: '+Tag',
-});
+}); */
 
 $('#tagAdd').click(function(){
 	var data= $('#problemTag').material_chip('data');

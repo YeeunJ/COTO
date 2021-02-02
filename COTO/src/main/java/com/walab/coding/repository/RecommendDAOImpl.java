@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.walab.coding.model.RecomCountDTO;
 import com.walab.coding.model.RecomProblemDTO;
+import com.walab.coding.model.RecomTagDTO;
 import com.walab.coding.model.RecommendDTO;
 
 @Repository
@@ -61,5 +62,16 @@ public class RecommendDAOImpl implements RecommendDAO {
 		recomListParam.put("recomID", recomID);
 		
 		return sqlSession.delete(namespace+".deleteRecom", recomListParam);
+	}
+	
+	@Override
+	public int updateRecommend(RecommendDTO r) {
+		Map<String, Object> recommendParam = new HashMap<String, Object>();
+		recommendParam.put("id", r.getId());
+		recommendParam.put("title", r.getTitle());
+		recommendParam.put("difficulty", r.getDifficulty());
+		recommendParam.put("content", r.getContent());
+		
+		return sqlSession.update(namespace+".updateRecommend", recommendParam);
 	}
 }

@@ -39,4 +39,8 @@
 		SET deletedate = now()
 		WHERE id = #{recomID};
 	</update>
+	
+	<update id="updateRecommend" parameterType="hashmap">
+		UPDATE recommend SET title=#{title}, difficulty=#{difficulty}, content=#{content} where id = #{id}
+	</update>
 </mapper>
