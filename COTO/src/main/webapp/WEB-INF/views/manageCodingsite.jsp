@@ -190,7 +190,6 @@ $(document).ready(function() {
 	width: 100%;
 	bottom: 100px;
 	color: #666666;
-	font-weight: 800;
 }
 </style>
 

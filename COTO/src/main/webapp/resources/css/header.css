@@ -12,7 +12,6 @@ button, input, optgroup, select, textarea {
 
 #list {
 	float:left; 
-  	transition:all .3s ease;
 	color: gray !important;
 	font-size: 13px !important;
 	padding: 0px 25px !important;
@@ -33,7 +32,6 @@ button, input, optgroup, select, textarea {
   display: block;
   position: absolute;
   margin-top: 0px;
-  transition:all .3s ease ;
 } 
 
 .submenu {
