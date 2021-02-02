@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.GoalDTO;
 import com.walab.coding.model.UserDTO;
@@ -35,9 +37,19 @@ public class MyinformationController {
 	
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ModelAndView viewUsers(ModelAndView mv) {
+	public ModelAndView viewUsers(HttpServletRequest request, ModelAndView mv) {
 		
-		int userID = 1; //지금 session 처리와 로그인을 안해서 넣어놓은 예시 데이터!! 나중에 session 처리 할께요!!
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("mypage/information",true));
+		}
 		
 		List<UserDTO> users = userService.readUser(userID);
 		System.out.println(users.toString());
@@ -53,10 +65,19 @@ public class MyinformationController {
 	}
 
 	@RequestMapping(value = "/updateGoal", method = RequestMethod.POST)
-	public ModelAndView updateGoal(ModelAndView mv, HttpServletRequest httpServletRequest) throws ParseException {
+	public ModelAndView updateGoal(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServletRequest) throws ParseException {
 		
-		int userID = 1;
-		
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("redirect:/mypage/information",true));
+		}		
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		String goal = httpServletRequest.getParameter("goal");
@@ -89,9 +110,19 @@ public class MyinformationController {
 
 	}
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-	public ModelAndView updateInfo(HttpServletRequest httpServletRequest) {
+	public ModelAndView updateInfo(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServletRequest) {
 		
-		int userID = 1;
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("redirect:/mypage/information",true));
+		}	
 		
 		UserDTO updateUser = new UserDTO();
 		updateUser.setName(httpServletRequest.getParameter("name"));
@@ -108,11 +139,11 @@ public class MyinformationController {
 		}
 		
 		List<UserDTO> users = userService.readUser(userID);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("users", users);
-		mv.setViewName("redirect:/mypage/information");
+		ModelAndView mvNew = new ModelAndView();
+		mvNew.addObject("users", users);
+		mvNew.setViewName("redirect:/mypage/information");
 		
-		return mv;
+		return mvNew;
 
 	}
 }

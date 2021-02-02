@@ -37,7 +37,7 @@ public class HomeController {
 	CodingSiteService codingSiteService;
 	
 	@Autowired
-	UserService UserService;
+	UserService userService;
 
 	@Autowired
 	UserProblemService userProblemService;
@@ -63,19 +63,8 @@ public class HomeController {
 //	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView viewHome(ModelAndView mv) {
-//		HttpSession session = request.getSession();
-//		UserDTO ud = (UserDTO) session.getAttribute("user");
-//		int id = 0;
-//		id = UserService.readUserIDByEmail(ud.getEmail());
-//		session.setAttribute("user", ud);
-//		//System.out.println(id);
-//		if(id > 0) {
-//			ud.setId(id);
-//			session.setAttribute("user", ud);
-//			mv.setView(new RedirectView("/",true));
-//		}
-//		super.viewHome(request, response, handler, mv);	
-		int userID = 1;
+		
+
 		int probs = 0;
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		mv.addObject("CodingSite", codingSite);
@@ -98,13 +87,24 @@ public class HomeController {
 	// 문제 등록 모달로부터 UserProblemsDTO LiST를 반환받아야 함. 
 	@RequestMapping(value = "/createProblem", method=RequestMethod.POST)
 	@ResponseBody
-	public String createProblem(@RequestParam(value="siteId[]") List<String> siteId, 
+	public String createProblem(HttpServletRequest request, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, 
 											  @RequestParam(value="problem[]") List<String> problem, 
 											  @RequestParam(value="link[]") List<String> link) {
 		
 		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
 	
-		int userID = 1;
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("home",true));
+		}
+		
 		System.out.println("size: "+link.size());
 		System.out.println("link[0]"+link.get(0));
 		

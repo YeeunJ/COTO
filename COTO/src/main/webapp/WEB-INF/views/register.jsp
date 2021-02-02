@@ -28,15 +28,14 @@
 					type="text" name="intro" placeholder="자기소개를 입력하세요. " /></span>
 			</div>
 		</div>
-			<br>
-			<br>
-			<div class="center">
+		<br>
+		<br>
+		<div class="center">
 			<button id="userInfoBtn" class="btn-small waves-effect waves-light" style="background-color: #e69138ff">등록</button>
-				<!-- <input type="submit" value="등록 " id="download-button"
-					class="btn-small waves-effect waves-light" style="background-color: #e69138ff"
-					onclick="hideUserInfo(); showUserGoal()" /> -->
-			</div>
+		</div>
 	</div>
+	
+	
 	<div class="register" id=userGoal style="display: none">
 		<h5 class="header center gray-text">초기 목표 등록</h5>
 		<br>
