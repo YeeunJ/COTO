@@ -26,12 +26,4 @@
 		SELECT COUNT(*) as listCnt FROM problem
 	</select>
 	
-	<select id="readProblemID" resultType="int" parameterType="hashmap">
-		SELECT id FROM problem WHERE name=#{name} AND siteID=#{siteID}
-	</select>
-	
-	<select id="readProblemMaxID" resultType="int">
-		SELECT MAX(id) FROM problem;
-	</select>
-	
 </mapper>
