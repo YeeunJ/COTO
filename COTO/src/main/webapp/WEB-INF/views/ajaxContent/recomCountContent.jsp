@@ -5,4 +5,3 @@
 
 
 <span class="like-icon icon" onclick="addRecomCount()"></span><span id="readRecommends" class="bold"></span><span></span>
-<span class="comment-icon icon"></span><span id="commentCount" class="bold"></span><span></span>

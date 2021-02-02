@@ -174,9 +174,17 @@ public class RecommendController {
 			if(Integer.parseInt(siteId.get(i)) != 0)
 				p.setSiteID(Integer.parseInt(siteId.get(i)));
 			
-			int problemID = recomProblemsService.readProblemID(Integer.parseInt(siteId.get(i)), problem.get(i));
+			p.setName(problem.get(i));
+//			int problemID = 0;
+//			problemID = recomProblemsService.readProblemID(Integer.parseInt(siteId.get(i)), problem.get(i));
+//			
+//			if(problemID == 0) {
+//				
+//			}
+//			else p.setProblemID(problemID);
 			
-			p.setProblemID(problemID);
+			if(link.get(i) == null) p.setLink(null);
+			else p.setLink(link.get(i));
 			
 			recomProbs.add(p);
 		}
