@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -23,18 +24,20 @@ import com.walab.coding.service.UserService;
  */
 
 @Controller
+@RequestMapping("/register")
 public class RegisterController {
 	
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String register() {
 		return "register";
 	}
 	
 	@RequestMapping(value = "/registerUserinfo", method = RequestMethod.POST)
-	public ModelAndView registerUserinfo(ModelAndView mv,HttpServletRequest httpServeletRequest) {
+	@ResponseBody
+	public void registerUserinfo(HttpServletRequest httpServeletRequest) {
 		
 		String name = httpServeletRequest.getParameter("name");
 		String email = httpServeletRequest.getParameter("email");
@@ -48,13 +51,12 @@ public class RegisterController {
 		u.setIntro(intro);
 		
 		int result = userService.createUserinfo(u);
-		
-		mv.setViewName("home");
-		return mv;
+
 	}
 	
 	@RequestMapping(value = "/registerUsergoal", method = RequestMethod.POST)
-	public ModelAndView registerUsergoal(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServeletRequest) throws ParseException {
+	@ResponseBody
+	public void registerUsergoal(HttpServletRequest request, HttpServletRequest httpServeletRequest) throws ParseException {
 		
 		HttpSession session = request.getSession();
 		UserDTO ud = (UserDTO) session.getAttribute("user");
@@ -65,7 +67,7 @@ public class RegisterController {
 		if(userID > 0) {
 			ud.setId(userID);
 			session.setAttribute("user", ud);
-			mv.setView(new RedirectView("home",true));
+//			mv.setView(new RedirectView("home",true));
 		}
 		
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -74,9 +76,7 @@ public class RegisterController {
 		Date startDate = transFormat.parse(httpServeletRequest.getParameter("startDate"));
 		Date endDate = transFormat.parse(httpServeletRequest.getParameter("endDate"));
 		int goalNum = Integer.parseInt(httpServeletRequest.getParameter("goalNum"));
-		
-		System.out.println(startDate + "/" + endDate); 
-		
+				
 		GoalDTO g = new GoalDTO();
 		g.setUserID(userID);
 		g.setGoalNum(goalNum);
@@ -85,8 +85,15 @@ public class RegisterController {
 		g.setEndDate(endDate);
 
 		int result = userService.createUsergoal(g);
-		mv.setViewName("home");
-		return mv;
+				
+	}
+	@RequestMapping(value = "/dupCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public int dupCheck(HttpServletRequest httpServeletRequest) throws ParseException {
 		
+		String nickName = httpServeletRequest.getParameter("nickName");
+		int result = userService.readUserCountByNickname(nickName);
+
+		return result;
 	}
 }
