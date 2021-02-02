@@ -20,12 +20,6 @@
 		where recom.title like #{searchValue} order by ${orderValue}
 	</select>
 	
-	<select id="readRecommendCount" resultType="int" parameterType="hashmap">
-		SELECT COALESCE(count(*), 0) 
-		FROM recomCount
-		WHERE recomID = #{recomID}
-	</select>
-	
 	<select id="readRecommendProblemList" resultType="com.walab.coding.model.RecomProblemDTO" parameterType="hashmap">
 		SELECT cs.siteName as site, rp.problem as problem, rp.difficulty as difficulty
 		FROM recomProblems as rp left join codingSite as cs on rp.site = cs.id
@@ -44,5 +38,9 @@
 		UPDATE YeeunJ.recommend 
 		SET deletedate = now()
 		WHERE id = #{recomID};
+	</update>
+	
+	<update id="updateRecommend" parameterType="hashmap">
+		UPDATE recommend SET title=#{title}, difficulty=#{difficulty}, content=#{content} where id = #{id}
 	</update>
 </mapper>

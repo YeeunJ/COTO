@@ -3,6 +3,7 @@ package com.walab.coding.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,13 +11,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.GoalDTO;
+import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.service.GoalService;
 import com.walab.coding.service.GoalServiceImpl;
 import com.walab.coding.service.UserProblemService;
 import com.walab.coding.service.UserProblemServiceImpl;
+import com.walab.coding.service.UserService;
 
 /**
  * Handles requests for the application Mypage-problems page.
@@ -32,10 +36,23 @@ public class MyproblemsController {
 	@Autowired
 	GoalService goalService;	
 	
+	@Autowired
+	UserService userService;
+	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ModelAndView viewProblems(ModelAndView mv, Model model) {
+	public ModelAndView viewProblems(HttpServletRequest request, ModelAndView mv, Model model) {
 		
-		int userID = 1;
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("mypage/problems",true));
+		}	
 		
 		List<UserProblemDTO> problems = userProblemService.read(userID);
 		List<GoalDTO> goal = goalService.readGoal(userID);
@@ -45,21 +62,32 @@ public class MyproblemsController {
 		GoalDTO g = goal.get(0);
 		int goalNum = g.getGoalNum();
 		
-		mv.addObject("goal", goal);
-		mv.addObject("problems", problems);
+		ModelAndView mvNew = new ModelAndView();
+		mvNew.addObject("goal", goal);
+		mvNew.addObject("problems", problems);
 		model.addAttribute("userSolvedP", userSolvedP);
 		model.addAttribute("goalNum", goalNum);
-		mv.addObject("countSolvedProblemEachDay", countSolvedProblemEachDay);
+		mvNew.addObject("countSolvedProblemEachDay", countSolvedProblemEachDay);
 
-		mv.setViewName("mypage/problems");
+		mvNew.setViewName("mypage/problems");
 
-		return mv;
+		return mvNew;
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ModelAndView updateProblem(HttpServletRequest httpServletRequest) {
+	public ModelAndView updateProblem(HttpServletRequest request, ModelAndView mv, HttpServletRequest httpServletRequest) {
 		
-		int userID = 1;
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("ajaxContent/problemsContent",true));
+		}	
 		
 		UserProblemDTO upd = new UserProblemDTO();
 		upd.setDifficulty(httpServletRequest.getParameter("difficulty"));
@@ -73,18 +101,28 @@ public class MyproblemsController {
 		}
 		
 		List<UserProblemDTO> problems = userProblemService.read(userID);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("problems", problems);
-		mv.setViewName("ajaxContent/problemsContent");
+		ModelAndView mvNew = new ModelAndView();
+		mvNew.addObject("problems", problems);
+		mvNew.setViewName("ajaxContent/problemsContent");
 		
-		return mv;
+		return mvNew;
 
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public ModelAndView deleteProblem(HttpServletRequest httpServletRequest) {		
+	public ModelAndView deleteProblem(HttpServletRequest request, ModelAndView mv, HttpServletRequest httpServletRequest) {		
 		
-		int userID = 1;
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("ajaxContent/problemsContent",true));
+		}
 		int userProblemID = Integer.parseInt(httpServletRequest.getParameter("id"));
 		
 		System.out.println(userProblemID);
@@ -102,9 +140,20 @@ public class MyproblemsController {
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView searchProblem(HttpServletRequest httpServletRequest) {		
+	public ModelAndView searchProblem(HttpServletRequest request, ModelAndView mv, HttpServletRequest httpServletRequest) {		
 		
-		int userID = 1;
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("ajaxContent/problemsContent",true));
+		}
+		
 		String searchValue= httpServletRequest.getParameter("searchValue");
 		
 		List<UserProblemDTO> problems = userProblemService.search(userID, searchValue);
@@ -112,9 +161,10 @@ public class MyproblemsController {
 		for(UserProblemDTO upd: problems) {
 			System.out.println(upd.toString());
 		}
-		ModelAndView mv = new ModelAndView();
+		
+		ModelAndView mvNew = new ModelAndView();
 		mv.addObject("problems", problems);
 		mv.setViewName("ajaxContent/problemsContent");
-		return mv;
+		return mvNew;
 	}
 }

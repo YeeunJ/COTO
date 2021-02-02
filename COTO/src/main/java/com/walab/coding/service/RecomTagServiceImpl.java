@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.walab.coding.model.RecomTagDTO;
+import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.repository.RecomTagDAO;
 
 @Service
@@ -34,5 +35,16 @@ public class RecomTagServiceImpl implements RecomTagService {
 	@Override
 	public int deleteRecomTag(int recomID) {
 		return tagDAO.deleteRecomTag(recomID);
+	}
+	
+	@Override
+	public int updateTag(List<RecomTagDTO> rt) {
+		for(RecomTagDTO t : rt) {
+			int sh = tagDAO.updateTag(t);
+			
+			if(sh == 0) return 0;
+		}
+		
+		return 1;
 	}
 }

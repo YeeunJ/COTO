@@ -7174,7 +7174,7 @@ select {
 }
 
 .select-wrapper input.select-dropdown {
-  position: relative;
+  /* position: relative; */
   cursor: pointer;
   background-color: transparent;
   border: none;

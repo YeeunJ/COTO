@@ -8,6 +8,7 @@ public class RecomProblemDTO {
 	private int problemID;
 	private String name;
 	private String siteName;
+	private String link;
 	
 	public int getId() {
 		return id;
@@ -44,5 +45,11 @@ public class RecomProblemDTO {
 	}
 	public void setSiteName(String siteName) {
 		this.siteName = siteName;
+	}
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
 	}
 }

@@ -103,8 +103,9 @@ $(document).ready(function() {
 	}
 	
 	function deleteOk(id) {            
-		if (confirm("정말로 삭제하겠습니까?"))
+		if (confirm("정말로 삭제하겠습니까?")){
 			location.href = './manageCodingsite/deleteok/' + id;
+		}
 	}
 	
 	$(document).on("click", ".editSite", function(){
@@ -142,10 +143,11 @@ $(document).ready(function() {
 	
 	$(document).on("click", ".deleteBtn", function(){
 		var id = $(this).val();
+
 		if (confirm("정말로 삭제하겠습니까?")){
 			location.href = './manageCodingsite/deleteok/' + id;
 		}
-	});
+	}); 
 
 	function setForm(id, sitename, url){
 		var form = document.form1;
@@ -188,7 +190,6 @@ $(document).ready(function() {
 	width: 100%;
 	bottom: 100px;
 	color: #666666;
-	font-weight: 800;
 }
 </style>
 
@@ -218,11 +219,12 @@ $(document).ready(function() {
 			</div>
 			<c:forEach items="${CodingSite}" var="u">
 			<div class="tableRow">
+				
 		 		<span class="tableCell td3 sub ">${u.getSiteName()}</span> 
 				<span class="tableCell td7 sub "><a href="${u.getSiteUrl()}">${u.getSiteUrl()}</a>
 				 <span class='btns'>
                        <button type="button" id="change" class="editSite edit whitebtn">수정</button>
-                       <button class="deleteBtn edit whitebtn" type="button">삭제</button>
+                       <button type="button" class="deleteBtn edit whitebtn" value="${u.getId()}">삭제</button>
                     </span>
                    </span>
 			</div>

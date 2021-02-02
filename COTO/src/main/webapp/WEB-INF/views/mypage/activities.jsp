@@ -6,6 +6,7 @@
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
 
 <%@ include file="../inc/header2.jsp"%>
+<link href="../resources/css/activities.css" rel="stylesheet">
 <script src="../resources/js/activities.js"></script>
 
 <style>
@@ -26,27 +27,6 @@
 	position: absolute;
 	opacity: 0.4;
 	z-index: -1;
-}
-
-#SiteContainer {
-	min-height: 100% !important;
-}
-
-.prog {
-	background: #e3e3e3;
-	border-radius: 10px;
-}
-
-.progs {
-	background: #e69138ff;
-	border-radius: 10px;
-	line-height: 100%;
-}
-.rate{
-	/* margin: auto; */
-	margin-left: 102%;
-	font-size: 14px;
-	color: black;
 }
 </style>
 
@@ -77,7 +57,7 @@
 				<span class="tableCell td3">
 					<div class="prog">
 						<div class="progs" style="width: ${goals.rate}%;">
-							<span class="rate readRate"> ${goals.rate}% </span>
+							<span class="rate readRate"> ${goals.rate}%</span>	
 						</div>
 					</div>
 				</span>

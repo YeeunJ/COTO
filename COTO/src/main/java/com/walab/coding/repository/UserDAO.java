@@ -13,6 +13,7 @@ public interface UserDAO {
 	public List<UserDTO> readUserAll(int userID);
 //	public List<UserDTO> updateUser(int userID);
 	public int updateUser(UserDTO updateUser);
+	public int readUserCountByNickname(String nickname);
 
 
 }

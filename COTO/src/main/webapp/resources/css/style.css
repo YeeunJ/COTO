@@ -20,6 +20,22 @@
 .sweet-modal-close a.sweet-modal-close-link:hover {
 	background-color: #e3a96d;
 }
+#confirmSite .problem:hover {
+	box-shadow: 2px 2px 7px #8080804a;
+    cursor: pointer;
+}
+ #confirmSite.problem:hover+.delete-span {
+	display: inline-block;
+}
+#confirmSite .problem {
+	position: relative;
+}
+.delete-span {
+	display:none;
+	position: absolute;
+    top: 51px;
+    right: 32px;
+}
 /* 페이지 문구 공통 */
 .content {
 	top: 15%;

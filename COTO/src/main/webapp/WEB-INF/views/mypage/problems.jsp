@@ -11,7 +11,7 @@
 <script>
 window.onload = function() {
 <!-- Bar cahrt -->
-var ctx = document.getElementById("myBarChart"); 
+var ctx1 = document.getElementById("myBarChart"); 
 var labels = new Array();
 var data = new Array();
 <c:forEach items="${countSolvedProblemEachDay}" var="countList" >
@@ -20,7 +20,7 @@ var data = new Array();
 	data.push("${countList.countSolvedP}");
 </c:forEach>
 
-var myBarChart = new Chart(ctx , {
+var myBarChart = new Chart(ctx1 , {
     type: 'bar',
     data: {
         labels: labels,
@@ -52,6 +52,7 @@ var myBarChart = new Chart(ctx , {
                 display: true,
                 ticks: {
                     suggestedMin: 0,
+                    stepSize: 1,
                 },
                 scaleLabel: {
                     display: true,
@@ -63,12 +64,12 @@ var myBarChart = new Chart(ctx , {
 
 <!-- Doughnut cahrt -->
 data = { datasets: [{
-	backgroundColor: ['lightgrey','rgba(255, 201, 14, 0.5)'], 
+	backgroundColor: ['#e8e8e8','rgba(255, 201, 14, 0.5)'], 
 	data: [ ${goalNum}, ${userSolvedP} ] }],
 	labels: ['총 문제수','푼 문제수']};
 	
-var ctx1 = document.getElementById("myDoughnutChart"); 
-var myDoughnutChart = new Chart(ctx1, { 
+var ctx = document.getElementById("myDoughnutChart"); 
+var myDoughnutChart = new Chart(ctx, { 
     type: 'doughnut', 
     data: data, 
     
@@ -76,11 +77,31 @@ var myDoughnutChart = new Chart(ctx1, {
        legend: {
          display: true
        },
+       cutoutPercentage: 65
     },
  });
+ 
+/* Chart.pluginService.register({
+	  beforeDraw: function(chart) {
+	    var width = chart.chart.width,
+	        height = chart.chart.height,
+	        ctx = chart.chart.ctx;
+
+	    ctx.restore();
+	    var fontSize = (height / 160).toFixed(2);
+	    ctx.font = fontSize + "em sans-serif";
+	    ctx.textBaseline = "middle";
+
+	    var text =  ${userSolvedP}/${goalNum}*100+"%" ,
+	        textX = Math.round((width - ctx.measureText(text).width) / 2),
+	        textY = height / 1.7;
+
+	    ctx.fillText(text, textX, textY);
+	    ctx.save();
+	  }
+	}); */
 }
 </script>
-
 <style>
 #problem {
 	position: relative;
@@ -99,52 +120,6 @@ var myDoughnutChart = new Chart(ctx1, {
 	position: absolute;
 	opacity: 0.4;
 	z-index: -1;
-}
-
-.font-color {
-	color: #e69138ff;
-}
-
-.search {
-	border: none;
-	padding: 0px !important;
-}
-
-.card-wrap {
-	display: flex;
-}
-
-.card-content1, .card-content2, .card-content3 {
-	flex: 1;
-}
-
-.card-content1, .card-content2 {
-	margin-right: 15px;
-}
-
-.card-body {
-	border-radius: 10%;
-	height: 250px;
-	padding: 10px;
-}
-
-.card-title {
-	font-size: 20px !important;
-	padding: 2% 2% 4% 2%;
-	
-}
-
-.radioMrg {
-	margin-left: 3%;
-}
-input[type='radio']:checked {
-  background-color: #e69238 !important;
-}
-.diffCont {
-	margin-left: 5%;
-	color: #e69238;
-    font-size: 16px;
-    font-weight: 500;
 }
 </style>
 
@@ -195,11 +170,8 @@ input[type='radio']:checked {
 		<div class="card-content3">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">현재 상황</div>
-				<canvas id="myDoughnutChart" width="200" height="110"></canvas>
-				<!-- <div class="" style="margin-left:25%; margin-top:5%;">
-					<span><i class="fas fa-circle" style="color: lightblue;"></i>총 문제수</span> 
-					<span><i class="fas fa-circle" style="color: rgba(255, 201, 14, 0.5);"></i>푼 문제수</span>
-				</div> -->
+				<canvas id="myDoughnutChart" width="200" height="110">
+				</canvas>
 			</div>
 		</div>
 	</div>
@@ -296,7 +268,7 @@ input[type='radio']:checked {
 		</div>
 		<div id="updateSolvedProblem" hidden>
 			<form >
-				<span id="UuserProblemID" style=""></span>
+				<!-- <span id="UuserProblemID" style=""></span> -->
 				<div class="row mrg">
 					<p class="title">문제 제목</p>
 					<span id="UproblemName" class="box"></span>

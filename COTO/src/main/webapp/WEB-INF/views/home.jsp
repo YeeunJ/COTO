@@ -42,19 +42,20 @@ function addajax(){
 		var s_id = 0;
 		var l = "";
 		var p;
-		var valueSplit = $(this).val().split(' ');
+		
+		var valueSplit = $(this).val().split(' (');
 		
 		if($(this).attr('name') == 0){ // link로 설정하는 경우
-			l = valueSplit[0];
+			l = valueSplit[0].trim();
 			console.log("link: "+l);
 			
 			var split = l.split('/');
-			p = split[split.length-1];
-			console.log("problem: "+split[split.length-1]);
+			p = split[split.length-1].trim();
+			console.log("problem: "+split[split.length-1].trim());
 
 		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
-			p = valueSplit[0];
+			p = valueSplit[0].trim();
 		}
 		
 		siteId.push(s_id);
@@ -62,25 +63,28 @@ function addajax(){
 		link.push(l);
 		
 	});
+		
 	console.log(problem);
 	console.log(siteId);
 	console.log(link);
 	
-
-
    $.ajax({
         url : './createProblem',
         type: 'POST',
         data: {
         	"siteId":siteId, "problem":problem, "link":link
         },
-        success: function(data) {
-            alert('리스트에 추가하였습니다.');
+        success: function(data){
+        	resetContent();
+        	console.log("success");
         },
         error:function(request,status,error){
+        	resetContent();
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
     });
+   
+   
 
 }
 
@@ -101,7 +105,7 @@ function insertProblems(){
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #confirmSite').html();
 	for(var i in valueSplit){
-		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
+		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
 		count++;
 	}
 	$('.sweet-modal-content #confirmSite').html(data);
@@ -188,7 +192,7 @@ function resetContent() {
 
 
 
-<div id="createProblem" class="container" style="display:none;">
+<div id="createProblem" class="container" style="">
 	<form class="col s12">
 		<div class="row">
 			<div id="selectHtml" class="input-field col s4">
@@ -213,7 +217,8 @@ function resetContent() {
 				onClick="insertProblems()">추가</button>
 		</div>
 		<div class="input-field col s10">
-			<label for="last_name">입력한 Problems</label> <br> <br>
+			<label for="last_name">입력한 Problems</label><br>
+			<label class="helper-text">문제를 누르면 삭제할 수 있습니다.</label><br><br>
 			<div id="confirmSite"></div>
 		</div>
 	</form>

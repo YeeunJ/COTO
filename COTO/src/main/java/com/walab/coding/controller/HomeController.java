@@ -4,6 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.RecomTagDTO;
+import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.service.CodingSiteService;
@@ -31,7 +37,7 @@ public class HomeController {
 	CodingSiteService codingSiteService;
 	
 	@Autowired
-	UserService UserService;
+	UserService userService;
 
 	@Autowired
 	UserProblemService userProblemService;
@@ -39,11 +45,26 @@ public class HomeController {
 	@Autowired
 	RecomTagService recomTagService;
 	
-	
+//	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+//			ModelAndView modelAndView) throws Exception {
+//		
+//		//System.out.println("===================        login interceptor test        ===================");
+//		HttpSession session = request.getSession();
+//		UserDTO ud = (UserDTO) session.getAttribute("user");
+//		int id = 0;
+//		id = UserService.readUserIDByEmail(ud.getEmail());
+//		session.setAttribute("user", ud);
+//		//System.out.println(id);
+//		if(id > 0) {
+//			ud.setId(id);
+//			session.setAttribute("user", ud);
+//			modelAndView.setView(new RedirectView("/",true));
+//		}
+//	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView viewHome(ModelAndView mv) {
-			
-		int userID = 1;
+		
+
 		int probs = 0;
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		mv.addObject("CodingSite", codingSite);
@@ -65,16 +86,27 @@ public class HomeController {
 	
 	// 문제 등록 모달로부터 UserProblemsDTO LiST를 반환받아야 함. 
 	@RequestMapping(value = "/createProblem", method=RequestMethod.POST)
-
-	public @ResponseBody String createProblem(@RequestParam(value="siteId[]") List<String> siteId, 
+	@ResponseBody
+	public String createProblem(HttpServletRequest request, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, 
 											  @RequestParam(value="problem[]") List<String> problem, 
-											  @RequestParam(value="link[]") List<String> link) 
-													throws UnsupportedEncodingException {
+											  @RequestParam(value="link[]") List<String> link) {
+		System.out.println("siteId: "+siteId);
+		System.out.println(siteId.size());
+		System.out.println("problem: "+problem);
+		System.out.println("link: "+link);
 		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
 	
-		int userID = 1;
-		System.out.println("size: "+link.size());
-		System.out.println("link[0]"+link.get(0));
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("home",true));
+		}
 		
 		for(int i=0 ; i<siteId.size() ; i++) {
 			System.out.println(siteId.get(i));
@@ -86,9 +118,9 @@ public class HomeController {
 			
 			p.setProblem(problem.get(i));
 			
-			if(link.get(i) == null)
-				p.setLink(null);
-			else	p.setLink(link.get(i));
+			if(link.size()>0) {
+				p.setLink(link.get(i));
+			}
 			p.setDifficulty(null);
 			p.setMemo(null);
 			

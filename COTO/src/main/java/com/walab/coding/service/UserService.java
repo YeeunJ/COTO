@@ -17,6 +17,7 @@ public interface UserService {
 	int createUsergoal(GoalDTO g);
 	
 	public int updateUser(UserDTO updateUser);
-
+	
+	public int readUserCountByNickname(String Nickname);
 
 }

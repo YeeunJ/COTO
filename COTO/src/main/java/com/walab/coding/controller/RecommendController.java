@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecommendDTO;
+import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.RecomTagDTO;
 import com.walab.coding.service.CodingSiteService;
@@ -35,6 +38,7 @@ import com.walab.coding.service.RecommendService;
 import com.walab.coding.service.RecomCommentServiceImpl;
 import com.walab.coding.service.RecomProblemService;
 import com.walab.coding.service.RecommendServiceImpl;
+import com.walab.coding.service.UserService;
 import com.walab.coding.service.RecomTagService;
 import com.walab.coding.service.RecomTagServiceImpl;
 /**
@@ -55,6 +59,8 @@ public class RecommendController {
 	RecomProblemService recomProblemsService;
 	@Autowired
 	RecomTagService recomTagService;
+	@Autowired
+	UserService userService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView recommendProblem(ModelAndView mv) {
@@ -65,6 +71,7 @@ public class RecommendController {
 		List<RecommendDTO> recoms = recommendService.readRecom();
 //		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();		
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite2 = codingSiteService.read();
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
 		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
 		
@@ -78,6 +85,7 @@ public class RecommendController {
 		
 		mv.addObject("recoms", recoms);
 		mv.addObject("codingSite", codingSite);
+		mv.addObject("codingSite2", codingSite2);
 //		mv.addObject("recomComment", recomComment);
 //		mv.addObject("commentCount", commentCount);
 		mv.addObject("recomProblem", recomProblem);
@@ -92,14 +100,24 @@ public class RecommendController {
 	
 	@RequestMapping(value = "/addComment", method = RequestMethod.POST)
 	@ResponseBody
-	public String addComment(HttpServletRequest request) {
+	public ModelAndView addComment(HttpServletRequest request, ModelAndView mv) {
 		int recomID = Integer.parseInt(request.getParameter("recomID"));
-		int userId = 2;
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("ajaxContent/recomCommentContent",true));
+		}
 		String content = request.getParameter("content");
 		
 		RecomCommentDTO dto = new RecomCommentDTO();
 		
-		dto.setUserId(userId);
+		dto.setUserId(userID);
 		dto.setRecomID(recomID);
 		dto.setContent(content);
 		
@@ -108,66 +126,78 @@ public class RecommendController {
 		
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		
-		int userid=2;
-		String html="<input type=\"text\" name=\"writer\" value=\""+userid+"\" hidden>\n"
-				+ "  <input type=\"text\" name=\"recomID\" value=\""+recomID+"\" hidden>";
 		
+		mv.addObject("userid", userID);
+		mv.addObject("recomID", recomID);
+		mv.addObject("recomComment", recomComment);
+		mv.setViewName("ajaxContent/recomCommentContent");
 		
-		for(int i=0 ; i<recomComment.size();i++) {
-			System.out.println( recomComment.get(i).get("regDate"));
-//			Date from = recomComment.get(i).get("regDate");
-//			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//			String to = transFormat.format(from);
-
-			html+="<div class=\'comment-wrapper\'>\n"
-				+ "		<span class=\'username\'>"+recomComment.get(i).get("name")+"</span><span class=\"commentdate\">"+recomComment.get(i).get("regDate")+"</span>\n"
-				+ "		<p class=\"comment\">"+recomComment.get(i).get("content")+"</p>\n"
-				+ "	</div>";
-		}
+		return mv;
 		
-		return html;
+//		String html="<input type=\"text\" name=\"writer\" value=\""+userid+"\" hidden>\n"
+//				+ "  <input type=\"text\" name=\"recomID\" value=\""+recomID+"\" hidden>";
+//		
+//		
+//		for(int i=0 ; i<recomComment.size();i++) {
+//			System.out.println( recomComment.get(i).get("regDate"));
+//
+//			html+="<div class=\'comment-wrapper\'>\n"
+//				+ "		<span class=\'username\'>"+recomComment.get(i).get("name")+"</span><span class=\"commentdate\">"+recomComment.get(i).get("regDate")+"</span>\n"
+//				+ "		<p class=\"comment\">"+recomComment.get(i).get("content")+"</p>\n"
+//				+ "	</div>";
+//		}
+//		
+//		return html;
 	}
 	
 	@RequestMapping(value = "/readComment", method = RequestMethod.POST)
 	@ResponseBody
-	public String readComment(HttpServletRequest request) {
+	public ModelAndView readComment(HttpServletRequest request, ModelAndView mv) {
 		
 		int recomID = Integer.parseInt(request.getParameter("recomID"));		
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("ajaxContent/recomCommentContent",true));
+		}		
+		
+		ModelAndView mvNew = new ModelAndView();
+		
 
-		System.out.println(recomComment.isEmpty());
-		System.out.println(recomComment.size());
+		mvNew.addObject("userid", userID);
+		mvNew.addObject("recomID", recomID);
+		mvNew.addObject("recomComment", recomComment);
+		mvNew.setViewName("ajaxContent/recomCommentContent");
 		
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		Date startDate = transFormat.parse(httpServeletRequest.getParameter("startDate"));
-		
-		
-		int userid=2;
-		String html="<input type=\"text\" name=\"writer\" value=\""+userid+"\" hidden>\n"
-				+ "  <input type=\"text\" name=\"recomID\" value=\""+recomID+"\" hidden>";
-		
-		for(int i=0 ; i<recomComment.size();i++) {
-			String regDate = transFormat.format(recomComment.get(i).get("regDate"));
-			
-			html+="<div class=\'comment-wrapper\'>\n"
-				+ "		<span class=\'username\'>"+recomComment.get(i).get("name")+"</span><span class=\"commentdate\">"+regDate+"</span>\n"
-				+ "		<p class=\"comment\">"+recomComment.get(i).get("content")+"</p>\n"
-				+ "	</div>";
-		}
-		System.out.println(html);
-		
-		return html;
+		return mvNew;
 	}
 
 	@RequestMapping(value = "/createRecomProblem", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView createProblem(@RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="title") String title, @RequestParam(value="difficulty") String difficulty, @RequestParam(value="tag[]") List<String> tag, @RequestParam(value="content") String content) throws UnsupportedEncodingException {
+	public ModelAndView createProblem(HttpServletRequest request, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="title") String title, @RequestParam(value="difficulty") String difficulty, @RequestParam(value="tag[]") List<String> tag, @RequestParam(value="content") String content) throws UnsupportedEncodingException {
 		RecommendDTO recom = new RecommendDTO();
 		List<RecomProblemDTO> recomProbs = new ArrayList<RecomProblemDTO>();
 		List<RecomTagDTO> recomTags = new ArrayList<RecomTagDTO>();
 
-		int userID = 3;
-		
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("ajaxContent/recommendContent",true));
+		}			
 		recom.setUserID(userID);
 		recom.setTitle(title);
 		recom.setDifficulty(Integer.parseInt(difficulty));
@@ -183,9 +213,17 @@ public class RecommendController {
 			if(Integer.parseInt(siteId.get(i)) != 0)
 				p.setSiteID(Integer.parseInt(siteId.get(i)));
 			
-			int problemID = recomProblemsService.readProblemID(Integer.parseInt(siteId.get(i)), problem.get(i));
+			p.setName(problem.get(i));
+//			int problemID = 0;
+//			problemID = recomProblemsService.readProblemID(Integer.parseInt(siteId.get(i)), problem.get(i));
+//			
+//			if(problemID == 0) {
+//				
+//			}
+//			else p.setProblemID(problemID);
 			
-			p.setProblemID(problemID);
+			if(link.get(i) == null) p.setLink(null);
+			else p.setLink(link.get(i));
 			
 			recomProbs.add(p);
 		}
@@ -216,32 +254,57 @@ public class RecommendController {
 			}
 		}
 		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("recoms", recoms);
-		mv.addObject("commentCount", commentCount);
-		mv.addObject("recomProblem", recomProblem);
-		mv.addObject("recomProblemTag", recomProblemTag);
-		mv.setViewName("ajaxContent/recommendContent");
+		ModelAndView mvNew = new ModelAndView();
+		mvNew.addObject("recoms", recoms);
+		mvNew.addObject("commentCount", commentCount);
+		mvNew.addObject("recomProblem", recomProblem);
+		mvNew.addObject("recomProblemTag", recomProblemTag);
+		mvNew.setViewName("ajaxContent/recommendContent");
 		
-		return mv;
+		return mvNew;
 	}
 	
 	@RequestMapping(value = "/updateRecomProblem", method = RequestMethod.POST)
-	public ModelAndView updateRecomProblem(HttpServletRequest httpServletRequest) {
+	public ModelAndView updateRecomProblem(HttpServletRequest httpServletRequest, @RequestParam(value="tag[]") List<String> tag) {
 		
 //		int userID = 3;
-//		
-//		UserProblemDTO upd = new UserProblemDTO();
-//		upd.setDifficulty(httpServletRequest.getParameter("difficulty"));
-//		upd.setMemo(httpServletRequest.getParameter("memo"));
-//		upd.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
-//		
-//		if(userProblemService.update(upd) > 0) {
+//		List<RecomProblemDTO> recomProbs = new ArrayList<RecomProblemDTO>();
+		
+		RecommendDTO recom = new RecommendDTO();
+		List<RecomTagDTO> recomTags = new ArrayList<RecomTagDTO>();
+		
+		recom.setId(Integer.parseInt(httpServletRequest.getParameter("recomID")));
+		recom.setTitle(httpServletRequest.getParameter("title"));
+		recom.setDifficulty(Integer.parseInt(httpServletRequest.getParameter("difficulty")));
+		recom.setContent(httpServletRequest.getParameter("content"));
+		
+		if(recommendService.updateRecommend(recom) > 0) {
+			System.out.println("success");
+		}else {
+			System.out.println("fail");
+		}
+		
+		recomTagService.deleteRecomTag(Integer.parseInt(httpServletRequest.getParameter("recomID")));
+		
+		
+		for(int i=0;i<tag.size();i++) {
+			RecomTagDTO t = new RecomTagDTO();
+			
+			t.setRecomID(Integer.parseInt(httpServletRequest.getParameter("recomID")));
+			t.setTag(tag.get(i));
+			
+			recomTags.add(t);
+		}
+		
+		recomTagService.createTag(recomTags);
+		//recomTagService.updateTag(recomTags);
+		
+//		if(recomTagService.updateTag(recomTags) > 0) {
 //			System.out.println("success");
 //		}else {
 //			System.out.println("fail");
 //		}
-//		
+
 		List<RecommendDTO> recoms = recommendService.readRecom();
 		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
