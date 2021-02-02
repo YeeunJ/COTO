@@ -174,7 +174,7 @@ function resetContent() {
 					</h5>
 					<ul class="fs-18 textList">
 						<c:forEach items="${problems}" var="problem" varStatus="status">
-							<li class="ranking"><span class="bold">${status.count}.</span>${problem.site} ${problem.problem}</li>
+							<li class="ranking"><span class="bold">${status.count}.</span>${problem.problem} [${problem.site}]</li>
 						</c:forEach>
 					</ul>
 				</div>
