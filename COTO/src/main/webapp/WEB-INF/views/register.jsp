@@ -21,7 +21,7 @@
 				</div>
 				<div class="row">
 					<span class="cell td3">닉네임</span> <span class="cell td3"><input
-						type="text" name="nickName" placeholder="닉네임을 입력하세요. " required /></span>
+						type="text" name="nickName" placeholder="닉네임을 입력하세요. " required style="display:inline-block;"/></span><p class = "red-text" style="display:inline-block; padding-bottom: 10px;">&nbsp;*</p>
 				</div>
 				<div class="row">
 					<span class="cell td4">자기소개 </span> <span class="cell td4"><input

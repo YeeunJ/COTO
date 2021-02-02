@@ -94,8 +94,8 @@
 <!-- 문제집 등록 모달 -->
 <div id="createProblems" class="container" style="display:none;">
 	<form class="col s12">
-		<p class="title">추천 문제집 제목</p>
-		<input id="createTitle" type="text" placeholder="제목을 입력해주세요."></input>
+		<p class="title" style="display:inline-block">추천 문제집 제목</p><p class = "red-text" style="display:inline-block; padding-bottom: 10px;">&nbsp;*</p>
+		<input id="createTitle" type="text" placeholder="제목을 입력해주세요." required></input>
 
 		<p class="title">추천 문제 등록</p>
 		<div class="row">
