@@ -59,14 +59,13 @@
 	
 	<div class="table center" id="problemContent">
 		<%@ include file="./ajaxContent/problemListContent.jsp"%>
-		<h2>test</h2>
-		<%@ include file="./ajaxContent/problemListByPageContent.jsp"%>
+		<%-- <%@ include file="./ajaxContent/problemListByPageContent.jsp"%> --%>
 	</div>
 	<br> <br>
 	
 	<!-- pagination{s} -->
 	
-	<ul class="pagination">
+	<%-- <ul class="pagination">
 		<c:if test="${pagination.prev}">
 			<li class="waves-effect"><a href="#!" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')"><i class="material-icons">chevron_left</i></a></li>
 		</c:if>
@@ -78,18 +77,20 @@
 		<c:if test="${pagination.next}">
 			<li class="waves-effect"><a href="#" onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')" ><i class="material-icons">chevron_right</i></a></li>
 		</c:if>
-	</ul>
+	</ul> --%>
 	
-	 <ul class="pagination">
-	    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-	    <li class="active"><a href="#!">1</a></li>
-	    <li class="waves-effect"><a href="#!">2</a></li>
-	    <li class="waves-effect"><a href="#!">3</a></li>
-	    <li class="waves-effect"><a href="#!">4</a></li>
-	    <li class="waves-effect"><a href="#!">5</a></li>
-	    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-	  </ul>
-          
+	<div class="table" style="text-align: center">
+		<ul class="pagination ">
+			<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+			<li class="active orange"><a href="#!">1</a></li>
+			<li class="waves-effect"><a href="#!">2</a></li>
+			<li class="waves-effect"><a href="#!">3</a></li>
+			<li class="waves-effect"><a href="#!">4</a></li>
+			<li class="waves-effect"><a href="#!">5</a></li>
+			<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+		</ul>
+	</div> 
+	
 
 	<!-- pagination{e} -->
 
