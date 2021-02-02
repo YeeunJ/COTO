@@ -42,20 +42,18 @@ public class MyactivitiesController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewProblems(HttpServletRequest request, ModelAndView mv, Model model) {
 		
-		int userID = 1; //지금 session 처리와 로그인을 안해서 넣어놓은 예시 데이터!! 나중에 session 처리 할께요!!
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("mypage/activities",true));
+		}
 		
-//		HttpSession session = request.getSession();
-//		UserDTO ud = (UserDTO) session.getAttribute("user");
-//		int id = 0;
-//		id = userService.readUserIDByEmail(ud.getEmail());
-//		session.setAttribute("user", ud);
-//		//System.out.println(id);
-//		if(id > 0) {
-//			ud.setId(id);
-//			session.setAttribute("user", ud);
-//			mv.setView(new RedirectView("/",true));
-//		}
-//		
 		List<GoalDTO> goalList = goalService.readGoalAll(userID);
 	
 		mv.addObject("goalList", goalList);
@@ -66,17 +64,28 @@ public class MyactivitiesController {
 	}
 	
 	@RequestMapping(value = "/readProblemActivities", method = RequestMethod.POST)
-	public ModelAndView readProblemActivities(HttpServletRequest httpServletRequest) {
+	public ModelAndView readProblemActivities(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServletRequest) {
 		
-		int userID = 1;
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("mypage/activities",true));
+		}
+		
 		int goalID = Integer.parseInt(httpServletRequest.getParameter("id"));
 		
 		List<UserProblemDTO> readProblemActivities = userProblemService.readProblemActivities(userID, goalID);
 		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("readProblemActivities", readProblemActivities);
-		mv.setViewName("ajaxContent/activitiesContent");
+		ModelAndView mvNew = new ModelAndView();
+		mvNew.addObject("readProblemActivities", readProblemActivities);
+		mvNew.setViewName("ajaxContent/activitiesContent");
 		
-		return mv;
+		return mvNew;
 	}
 }

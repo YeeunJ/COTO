@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecommendDTO;
+import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.RecomTagDTO;
 import com.walab.coding.service.CodingSiteService;
@@ -35,6 +38,7 @@ import com.walab.coding.service.RecommendService;
 import com.walab.coding.service.RecomCommentServiceImpl;
 import com.walab.coding.service.RecomProblemService;
 import com.walab.coding.service.RecommendServiceImpl;
+import com.walab.coding.service.UserService;
 import com.walab.coding.service.RecomTagService;
 import com.walab.coding.service.RecomTagServiceImpl;
 /**
@@ -55,6 +59,8 @@ public class RecommendController {
 	RecomProblemService recomProblemsService;
 	@Autowired
 	RecomTagService recomTagService;
+	@Autowired
+	UserService userService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView recommendProblem(ModelAndView mv) {
@@ -94,12 +100,22 @@ public class RecommendController {
 	@ResponseBody
 	public ModelAndView addComment(HttpServletRequest request, ModelAndView mv) {
 		int recomID = Integer.parseInt(request.getParameter("recomID"));
-		int userId = 2;
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("ajaxContent/recomCommentContent",true));
+		}
 		String content = request.getParameter("content");
 		
 		RecomCommentDTO dto = new RecomCommentDTO();
 		
-		dto.setUserId(userId);
+		dto.setUserId(userID);
 		dto.setRecomID(recomID);
 		dto.setContent(content);
 		
@@ -108,9 +124,8 @@ public class RecommendController {
 		
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		
-		int userid=2;
 		
-		mv.addObject("userid", userid);
+		mv.addObject("userid", userID);
 		mv.addObject("recomID", recomID);
 		mv.addObject("recomComment", recomComment);
 		mv.setViewName("ajaxContent/recomCommentContent");
@@ -140,25 +155,46 @@ public class RecommendController {
 		int recomID = Integer.parseInt(request.getParameter("recomID"));		
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		
-		int userid=2;
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("ajaxContent/recomCommentContent",true));
+		}		
 		
-		mv.addObject("userid", userid);
-		mv.addObject("recomID", recomID);
-		mv.addObject("recomComment", recomComment);
-		mv.setViewName("ajaxContent/recomCommentContent");
+		ModelAndView mvNew = new ModelAndView();
+
+		mvNew.addObject("userid", userID);
+		mvNew.addObject("recomID", recomID);
+		mvNew.addObject("recomComment", recomComment);
+		mvNew.setViewName("ajaxContent/recomCommentContent");
 		
-		return mv;
+		return mvNew;
 	}
 
 	@RequestMapping(value = "/createRecomProblem", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView createProblem(@RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="title") String title, @RequestParam(value="difficulty") String difficulty, @RequestParam(value="tag[]") List<String> tag, @RequestParam(value="content") String content) throws UnsupportedEncodingException {
+	public ModelAndView createProblem(HttpServletRequest request, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="title") String title, @RequestParam(value="difficulty") String difficulty, @RequestParam(value="tag[]") List<String> tag, @RequestParam(value="content") String content) throws UnsupportedEncodingException {
 		RecommendDTO recom = new RecommendDTO();
 		List<RecomProblemDTO> recomProbs = new ArrayList<RecomProblemDTO>();
 		List<RecomTagDTO> recomTags = new ArrayList<RecomTagDTO>();
 
-		int userID = 3;
-		
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("ajaxContent/recommendContent",true));
+		}			
 		recom.setUserID(userID);
 		recom.setTitle(title);
 		recom.setDifficulty(Integer.parseInt(difficulty));
@@ -215,14 +251,14 @@ public class RecommendController {
 			}
 		}
 		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("recoms", recoms);
-		mv.addObject("commentCount", commentCount);
-		mv.addObject("recomProblem", recomProblem);
-		mv.addObject("recomProblemTag", recomProblemTag);
-		mv.setViewName("ajaxContent/recommendContent");
+		ModelAndView mvNew = new ModelAndView();
+		mvNew.addObject("recoms", recoms);
+		mvNew.addObject("commentCount", commentCount);
+		mvNew.addObject("recomProblem", recomProblem);
+		mvNew.addObject("recomProblemTag", recomProblemTag);
+		mvNew.setViewName("ajaxContent/recommendContent");
 		
-		return mv;
+		return mvNew;
 	}
 	
 	@RequestMapping(value = "/updateRecomProblem", method = RequestMethod.POST)

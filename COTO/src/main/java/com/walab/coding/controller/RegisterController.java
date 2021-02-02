@@ -5,12 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.GoalDTO;
 import com.walab.coding.model.UserDTO;
@@ -24,7 +26,7 @@ import com.walab.coding.service.UserService;
 public class RegisterController {
 	
 	@Autowired
-	UserService UserService;
+	UserService userService;
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {
@@ -45,15 +47,27 @@ public class RegisterController {
 		u.setNickName(nickName);
 		u.setIntro(intro);
 		
-		int result = UserService.createUserinfo(u);
+		int result = userService.createUserinfo(u);
 		
 		mv.setViewName("home");
 		return mv;
 	}
 	
 	@RequestMapping(value = "/registerUsergoal", method = RequestMethod.POST)
-	public ModelAndView registerUsergoal(ModelAndView mv, HttpServletRequest httpServeletRequest) throws ParseException {
-		int userID = 1;
+	public ModelAndView registerUsergoal(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServeletRequest) throws ParseException {
+		
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("home",true));
+		}
+		
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		String goal = httpServeletRequest.getParameter("goal");
@@ -70,8 +84,7 @@ public class RegisterController {
 		g.setStartDate(startDate);
 		g.setEndDate(endDate);
 
-		int result = UserService.createUsergoal(g);
-		
+		int result = userService.createUsergoal(g);
 		mv.setViewName("home");
 		return mv;
 		
