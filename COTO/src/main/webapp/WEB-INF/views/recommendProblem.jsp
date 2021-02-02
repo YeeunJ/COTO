@@ -60,7 +60,7 @@
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
-		<button class="input-field custom-button" onclick="callModal()">문제 추천집 만들기</button>
+		<button class="input-field custom-button" onclick="callModal()">글쓰기</button>
 		<div class="col order">
 			<select id="orderValue">
 				<option value="recom.regdate" disabled selected>정렬</option>
@@ -226,7 +226,7 @@
 <!-- 세부 정보 모달 update -->
 <div id="updateRecommendProblem" style="display:none;">
 	<form>
-			<span id="updateRecomID" style="display:none;"></span>
+			<textarea id="updateRecomID" class="validate" style="display:none;"></textarea>
 			
 			<div>
 				<p class="title">추천 문제집 제목</p>
