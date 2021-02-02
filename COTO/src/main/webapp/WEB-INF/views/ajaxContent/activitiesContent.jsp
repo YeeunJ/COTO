@@ -7,25 +7,20 @@
 <div>
 	<div class="table">
 		<div class="tableRow">
-			<span class="tableCell th2_">목표</span><span class="tableCell td5"
-				id="goal"></span>
+			<span class="tableCell th2_">목표</span>
+			<span class="tableCell td5"	id="goal"></span>
 		</div>
 		<div class="tableRow">
-			<span class="tableCell th2_">기간</span><span class="tableCell td5"
-				id="term"></span>
+			<span class="tableCell th2_">기간</span>
+			<span class="tableCell td5" id="term"></span>
 		</div>
 		<div class="tableRow">
-			<span class="tableCell th2_">총 문제수</span><span class="tableCell td5"
-				id="goalNum"></span>
+			<span class="tableCell th2_">총 문제수</span>
+			<span class="tableCell td5" id="goalNum"></span>
 		</div>
 		<div class="tableRow">
-			<span class="tableCell th2_">달성률</span> <span class="tableCell td5"
-				id="rate"> <%-- 			<div class="prog">
-				<div class="progs" style="width: ${goals.rate}%;">
-					<span id="rate" class="rate readRate"> ${goals.rate}% </span>
-				</div>
-			</div> --%>
-			</span>
+			<span class="tableCell th2_">달성률</span>
+			<span class="tableCell td5" id="rate"></span>
 		</div>
 	</div>
 

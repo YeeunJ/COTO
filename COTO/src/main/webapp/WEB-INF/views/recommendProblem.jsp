@@ -72,7 +72,6 @@
 		</div>
 	</div>
 
-
 	<div class="table" id="recommendContent">
 		<%@ include file="./ajaxContent/recommendContent.jsp"%>
 	</div>
