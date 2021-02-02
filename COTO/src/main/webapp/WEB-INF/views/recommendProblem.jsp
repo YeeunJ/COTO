@@ -128,7 +128,7 @@
 		<div class="row">
 			<div class="input-field col s2">
 				<p>
-					<input type="radio" name="difficulty" id="d1" value="1" checked/>
+					<input type="radio" name="difficulty" id="d1" value="1"/>
 					<label for="d1" class="diffCont">1</label>
 				</p>
 			</div>
@@ -229,7 +229,7 @@
 			
 			<div>
 				<p class="title">추천 문제집 제목</p>
-				<input id="updateTitle" type="text" class="validate"/>
+				<input id="updateTitle" name="updateTitle" type="text" class="validate" value=""/>
 				<br><br>
 			</div>
 			
@@ -244,7 +244,7 @@
 				<div class="row">
 					<div class="input-field col s2">
 						<p>
-							<input type="radio" name="updateDifficulty" id="ud1" value="1" checked/>
+							<input type="radio" name="updateDifficulty" id="ud1" value="1"/>
 							<label for="ud1" class="diffCont">1</label>
 						</p>
 					</div>
@@ -279,7 +279,6 @@
 			<div>
 				<p class="title">추천 문제 태그</p>
 				<textarea id="updateTags" class="validate" style="display:none;"></textarea>
-				<!-- <div id="updateTags" style="display:none;"></div> -->
 				<div id="updateProblemTag" class="chips chips-initial" onclick="updateChipTag()"></div>
 				<br><br>
 			</div>
@@ -291,9 +290,9 @@
 						<select id="updateSiteName" required>
 							<optgroup label="코딩사이트 선택">
 								<option value="11">입력</option>
-								<c:forEach items="${codingSite2}" var="s">
+								<%-- <c:forEach items="${codingSite2}" var="s">
 									<option value="${s.id}">${s.siteName}</option>
-								</c:forEach>
+								</c:forEach> --%>
 							</optgroup>
 							<optgroup label="링크로 입력">
 								<option value="0">링크로 입력</option>
