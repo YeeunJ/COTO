@@ -15,11 +15,15 @@ button, input, optgroup, select, textarea {
   	transition:all .3s ease;
 	color: gray !important;
 	font-size: 13px !important;
-	padding: 0px 31px !important;
+	padding: 0px 25px !important;
 	cursor: pointer;
  }
  
-#list:hover {transition:all .3s ease !important; }
+#list:hover {
+	transition:all .3s ease !important;
+	box-shadow: 0px -2.3px 0px 0px orange inset;
+}
+
 #list > #listspan { position:relative; display: inline-block;}
 
 #list:hover > #listspan::after{
@@ -29,7 +33,6 @@ button, input, optgroup, select, textarea {
   display: block;
   position: absolute;
   margin-top: 0px;
-  border-bottom: 4px solid orange;
   transition:all .3s ease ;
 } 
 
