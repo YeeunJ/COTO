@@ -2,34 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="problem">
+
 	<insert id="createProblem" parameterType="com.walab.coding.model.ProblemDTO">
  		INSERT INTO problem (siteID, name, link) VALUES (#{siteID}, #{name}, #{link})
 	</insert>
-
+	
+	<select id="readProblem" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
+		SELECT problem.id, userProblem.problemID, COUNT(*) as count, problem.name, problem.link, problem.siteID, codingSite.siteName, codingSite.siteUrl, problem.regdate 
+		FROM ((problem
+		INNER JOIN codingSite ON problem.siteID = codingSite.id)
+		INNER JOIN userProblem ON problem.id = userProblem.problemID) GROUP BY problem.id;
+	</select>
+	
 	<select id="readProblemByUser" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
 		SELECT * FROM problem WHERE siteID=#{siteID} AND name=#{name} AND link=#{link}
 	</select>
 	
-	<select id="readMaxID" resultType="int">
-		SELECT MAX(id) FROM problem;
+	<select id="readProblemByPage" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
+		SELECT * FROM problem LIMIT #{startList}, #{listSize}
+	</select>	
+		
+	<select id="readProblemCnt" resultType="int">
+		SELECT COUNT(*) as listCnt FROM problem
 	</select>
 	
 	<select id="readProblemID" resultType="int" parameterType="hashmap">
 		SELECT id FROM problem WHERE name=#{name} AND siteID=#{siteID}
 	</select>
 	
-	<select id="readProblem" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT problem.id, userProblem.problemID, COUNT(*) as count, problem.name, problem.link, problem.siteID as siteID, codingSite.siteName as siteName, codingSite.siteUrl as siteUrl, problem.regdate 
-		FROM ((problem
-		INNER JOIN codingSite ON problem.siteID = codingSite.id)
-		INNER JOIN userProblem ON problem.id = userProblem.problemID) GROUP BY problem.id;
+	<select id="readProblemMaxID" resultType="int">
+		SELECT MAX(id) FROM problem;
 	</select>
 	
-	<select id="readProblemByPage" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT * FROM problem LIMIT #{startList}, #{listSize}
-	</select>
-	
-	<select id="readProblemCnt" resultType="int">
-		SELECT COUNT(*) as listCnt FROM problem
-	</select>
 </mapper>
