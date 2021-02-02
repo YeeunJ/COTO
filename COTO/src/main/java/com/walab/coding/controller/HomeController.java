@@ -90,7 +90,10 @@ public class HomeController {
 	public String createProblem(HttpServletRequest request, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, 
 											  @RequestParam(value="problem[]") List<String> problem, 
 											  @RequestParam(value="link[]") List<String> link) {
-		
+		System.out.println("siteId: "+siteId);
+		System.out.println(siteId.size());
+		System.out.println("problem: "+problem);
+		System.out.println("link: "+link);
 		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
 	
 		HttpSession session = request.getSession();
@@ -105,29 +108,26 @@ public class HomeController {
 			mv.setView(new RedirectView("home",true));
 		}
 		
-		System.out.println("size: "+link.size());
-		System.out.println("link[0]"+link.get(0));
+		for(int i=0 ; i<siteId.size() ; i++) {
+			System.out.println(siteId.get(i));
+			UserProblemDTO p = new UserProblemDTO();
+			
+			p.setUserID(userID);
+			if(Integer.parseInt(siteId.get(i)) != 0)
+				p.setSiteID(Integer.parseInt(siteId.get(i)));
+			
+			p.setProblem(problem.get(i));
+			
+			if(link.size()>0) {
+				p.setLink(link.get(i));
+			}
+			p.setDifficulty(null);
+			p.setMemo(null);
+			
+			probs.add(p);
+		}
 		
-//		for(int i=0 ; i<siteId.size() ; i++) {
-//			System.out.println(siteId.get(i));
-//			UserProblemDTO p = new UserProblemDTO();
-//			
-//			p.setUserID(userID);
-//			if(Integer.parseInt(siteId.get(i)) != 0)
-//				p.setSiteID(Integer.parseInt(siteId.get(i)));
-//			
-//			p.setProblem(problem.get(i));
-//			
-//			if(link.get(i) == null)
-//				p.setLink(null);
-//			else	p.setLink(link.get(i));
-//			p.setDifficulty(null);
-//			p.setMemo(null);
-//			
-//			probs.add(p);
-//		}
-//		
-//		userProblemService.createUserProblem(probs);
+		userProblemService.createUserProblem(probs);
 		
 		return "success";
 	}

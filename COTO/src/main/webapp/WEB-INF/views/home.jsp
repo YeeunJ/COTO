@@ -79,6 +79,7 @@ function addajax(){
         	console.log("success");
         },
         error:function(request,status,error){
+        	resetContent();
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
     });
