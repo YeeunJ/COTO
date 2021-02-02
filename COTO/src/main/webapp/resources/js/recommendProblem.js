@@ -52,15 +52,58 @@ function printAllContent(id, recomId, count){
 	$("#commentCount").text(count);
 	
 	$('#updateRecomID').html(recomId);
-	$('.sweet-modal-content #updateTitle').val($(id+' .readTitle').html());
+	$('input[name=updateTitle]').attr('value',$(id+' .readTitle').text());
+	//$('.sweet-modal-content #updateTitle').val($(id+' .readTitle').text());
 	$('#updateContents').html($(id+' .readContent').html());
 	$('#updateTags').text($(id+' .readTag').text());
 	$('#updateProblems').html($(id+' .readProblem').html());
-	selectHtml2 = $('#selectHtml2').html();
+	
+	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
+	if(d != 0) {
+		//jQuery버전 1.6 이하 일때 아래코드로, 아니라면 $("#ud"+d).prop("checked", true);
+		$("#ud"+d).attr('checked', 'checked');
+		//$("input:radio[name='updateDifficulty']:radio[value=\'" + d + "\']").prop('checked', true); 
+		//document.getElementsByName("updateDifficulty")[d-1].checked;
+	}
+	
+	//updateConfirmSite
+	updateInsertProblems($(id+' .readProblem').text());
 	
 	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), $(id+' .readTitle').html(), updateAjax, deleteAjax);
 	$('select').formSelect();
 }
+
+function updateInsertProblems(data){
+	
+	var dataSplit = data.split('\n');
+	var cnt=0;
+	var result = "";
+	var data2 = [];
+	var pName = [];
+	var sName = [];
+	
+	for(var i in dataSplit){
+		dataSplit[i] = dataSplit[i].trim();
+		dataSplit[i] = dataSplit[i].replaceAll(' ', ''); 
+		
+		if(dataSplit[i] === '') continue;
+		else data2.push(dataSplit[i]);
+	}
+	
+	for(var i in data2){
+		if(i%2==0) sName.push(data2[i]);
+		else pName.push(data2[i]);
+	}
+	
+	for(var i in pName){
+		//input name에 site id필요!!!
+		result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="1" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+		count++;
+	}
+	
+	$('.sweet-modal-content #updateConfirmSite').html(result);
+	$('#updateConfirmSite').html(result);
+};
 
 
 function addComment() {	
@@ -317,7 +360,7 @@ function updateProblems(){
 	var value = $(".sweet-modal-content #updateConfirmProblems").val();
 	console.log(value);
 	var valueSplit = value.split(',');
-	var data = $('.sweet-modal-content #"updateConfirmSite"').html();
+	var data = $('.sweet-modal-content #updateConfirmSite').html();
 	for(var i in valueSplit){
 		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
 		count++;
