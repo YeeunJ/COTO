@@ -279,7 +279,7 @@
 			<div>
 				<p class="title">추천 문제 태그</p>
 				<textarea id="updateTags" class="validate" style="display:none;"></textarea>
-				<div id="updateProblemTag" class="chips chips-initial" onclick="updateChipTag()"></div>
+				<div id="updateProblemTag" class="chips chips-initial"></div>
 				<br><br>
 			</div>
 	
@@ -289,7 +289,7 @@
 					<div id="selectHtml2" class="input-field col s4">
 						<select id="updateSiteName" required>
 							<optgroup label="코딩사이트 선택">
-								<option value="11">입력</option>
+								<option value="100">입력</option>
 								<%-- <c:forEach items="${codingSite2}" var="s">
 									<option value="${s.id}">${s.siteName}</option>
 								</c:forEach> --%>
@@ -335,10 +335,10 @@ function chipTag(){
 	});
 }
 
-// 수정 필요 ! -> update 창이 뜨면 보이도록
-function updateChipTag() {
-	var tagData = $('.sweet-modal-content #updateTags').val();
-	var tdSplit = tagData.split('\n');
+//수정 필요 ! -> update 창이 뜨면 보이도록
+function updateChipTag(data) {
+	//var tagData = data;
+	var tdSplit = data.split('\n');
 	var cnt=0;
 	var td = "";
 	

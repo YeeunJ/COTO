@@ -55,7 +55,7 @@ function printAllContent(id, recomId, count){
 	$('input[name=updateTitle]').attr('value',$(id+' .readTitle').text());
 	//$('.sweet-modal-content #updateTitle').val($(id+' .readTitle').text());
 	$('#updateContents').html($(id+' .readContent').html());
-	$('#updateTags').text($(id+' .readTag').text());
+	//$('#updateTags').text($(id+' .readTag').text());
 	$('#updateProblems').html($(id+' .readProblem').html());
 	
 	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
@@ -69,8 +69,51 @@ function printAllContent(id, recomId, count){
 	//updateConfirmSite
 	updateInsertProblems($(id+' .readProblem').text());
 	
+	updateChipTag($(id+' .readTag').text());
+	
 	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), $(id+' .readTitle').html(), updateAjax, deleteAjax);
 	$('select').formSelect();
+}
+
+// 수정 필요 ! -> update 창이 뜨면 보이도록
+function updateChipTag(data) {
+	//var tagData = data;
+	var tdSplit = data.split('\n');
+	var cnt=0;
+	var td = "";
+	
+	for(var i in tdSplit){
+		tdSplit[i] = tdSplit[i].trim();
+		tdSplit[i] = tdSplit[i].replaceAll(' ', ''); 
+		if(tdSplit[i] === '') continue;
+		else {
+			//console.log(tdSplit[i]);
+			if(cnt == 0) td += "[{\ntag: \'"+tdSplit[i]+"\',\n}"
+			else td += ", {\ntag: \'"+tdSplit[i]+"\',\n}"
+
+			console.log(td);
+			//tag[cnt].push()
+			cnt++;
+		}
+
+		//td = "";
+	}
+
+	td += "]";
+	
+	$('.sweet-modal-content .chips').material_chip();
+	$('.sweet-modal-content .chips-initial').material_chip({
+	    //data: td,
+		data: [{
+		      tag: 'Apple',
+		    }, {
+		      tag: 'Microsoft',
+		    }, {
+		      tag: 'Google',
+		    }],
+	});
+
+	td="";
 }
 
 function updateInsertProblems(data){
@@ -182,19 +225,19 @@ function addajax(){
 		var s_id = 0;
 		var l = "";
 		var p;
-		var valueSplit = $(this).val().split(' ');
+		var valueSplit = $(this).val().split(' (');
 		
 		if($(this).attr('name') == 0){ // link로 설정하는 경우
-			l = valueSplit[0];
+			l = valueSplit[0].trim();
 			console.log("link: "+l);
 			
 			var split = l.split('/');
-			p = split[split.length-1];
-			console.log("problem: "+split[split.length-1]);
+			p = split[split.length-1].trim();
+			console.log("problem: "+split[split.length-1].trim());
 
 		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
-			p = valueSplit[0];
+			p = valueSplit[0].trim();
 		}
 		
 		siteId.push(s_id);
@@ -258,19 +301,19 @@ function updateAjax (){
 		var s_id = 0;
 		var l = "";
 		var p;
-		var valueSplit = $(this).val().split(' ');
+		var valueSplit = $(this).val().split(' (');
 		
 		if($(this).attr('name') == 0){ // link로 설정하는 경우
-			l = valueSplit[0];
+			l = valueSplit[0].trim();
 			console.log("link: "+l);
 			
 			var split = l.split('/');
-			p = split[split.length-1];
-			console.log("problem: "+split[split.length-1]);
+			p = split[split.length-1].trim();
+			console.log("problem: "+split[split.length-1].trim());
 
 		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
-			p = valueSplit[0];
+			p = valueSplit[0].trim();
 		}
 		
 		siteId.push(s_id);
