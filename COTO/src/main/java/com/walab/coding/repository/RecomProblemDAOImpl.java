@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.model.RecomProblemDTO;
 
 
@@ -21,6 +22,31 @@ public class RecomProblemDAOImpl implements RecomProblemDAO {
 	
 	@Override
 	public void createRecomProblem(RecomProblemDTO rp) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("siteID", rp.getSiteID());
+		param.put("name", rp.getName());
+		param.put("link", rp.getLink());
+		
+		List<ProblemDTO> result = sqlSession.selectList("problem.readProblemByUser", param);
+		
+		int problemID;
+		if(result.size() == 0) {
+			
+			ProblemDTO newProb = new ProblemDTO();
+			newProb.setSiteID(rp.getSiteID());
+			newProb.setName(rp.getName());
+			newProb.setLink(rp.getLink());
+			
+			sqlSession.insert("problem.createProblem", newProb);
+			problemID = sqlSession.selectOne("problem.readMaxID");
+			
+			System.out.println("problem에 없음! 새로운 problem 만들었음");
+		}else {
+			problemID = result.get(0).getId();
+			System.out.println("problem에 있음 : "+problemID);
+		}
+		
+		rp.setProblemID(problemID);
 		sqlSession.insert(namespace + ".createRecomProblem", rp);
 	}
 	
