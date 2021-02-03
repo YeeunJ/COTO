@@ -216,11 +216,10 @@ public class RecommendController {
 	}
 	
 	@RequestMapping(value = "/updateRecomProblem", method = RequestMethod.POST)
-	public ModelAndView updateRecomProblem(HttpServletRequest httpServletRequest, @RequestParam(value="tag[]") List<String> tag) {
+	public ModelAndView updateRecomProblem(HttpServletRequest httpServletRequest, @RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="tag[]", required=false) List<String> tag) {
 		
 		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
-//		List<RecomProblemDTO> recomProbs = new ArrayList<RecomProblemDTO>();
-		
+		List<RecomProblemDTO> recomProbs = new ArrayList<RecomProblemDTO>();
 		RecommendDTO recom = new RecommendDTO();
 		List<RecomTagDTO> recomTags = new ArrayList<RecomTagDTO>();
 		
@@ -237,17 +236,18 @@ public class RecommendController {
 		
 		recomTagService.deleteRecomTag(Integer.parseInt(httpServletRequest.getParameter("recomID")));
 		
-		
-		for(int i=0;i<tag.size();i++) {
-			RecomTagDTO t = new RecomTagDTO();
+		if(tag != null) {
+			for(int i=0;i<tag.size();i++) {
+				RecomTagDTO t = new RecomTagDTO();
+				
+				t.setRecomID(Integer.parseInt(httpServletRequest.getParameter("recomID")));
+				t.setTag(tag.get(i));
+				
+				recomTags.add(t);
+			}
 			
-			t.setRecomID(Integer.parseInt(httpServletRequest.getParameter("recomID")));
-			t.setTag(tag.get(i));
-			
-			recomTags.add(t);
+			recomTagService.createTag(recomTags);
 		}
-		
-		recomTagService.createTag(recomTags);
 		//recomTagService.updateTag(recomTags);
 		
 //		if(recomTagService.updateTag(recomTags) > 0) {
@@ -255,6 +255,27 @@ public class RecommendController {
 //		}else {
 //			System.out.println("fail");
 //		}
+		
+		recomProblemsService.deleteRecomProblem(Integer.parseInt(httpServletRequest.getParameter("recomID")));
+		
+		for(int i=0 ; i<siteId.size() ; i++) {
+			System.out.println(siteId.get(i));
+			RecomProblemDTO p = new RecomProblemDTO();
+			
+			p.setRecomID(Integer.parseInt(httpServletRequest.getParameter("recomID")));
+			
+			if(Integer.parseInt(siteId.get(i)) != 0)
+				p.setSiteID(Integer.parseInt(siteId.get(i)));
+			
+			p.setName(problem.get(i));
+			
+			if(link.get(i) == null) p.setLink(null);
+			else p.setLink(link.get(i));
+			
+			recomProbs.add(p);
+		}
+		
+		recomProblemsService.createRecomProblem(recomProbs);
 
 		List<RecommendDTO> recoms = recommendService.readRecom();
 		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();

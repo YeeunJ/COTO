@@ -28,6 +28,7 @@
 		<span class="readContent" style="display: none;">${recoms.content}</span>
 		<span class="readDifficulty" style="display: none;">
 			<c:choose>
+				<c:when test="${recoms.difficulty eq 0}"><img style="width: 60px;" alt="0" src="./resources/img/difficulty0.png"></c:when>
 				<c:when test="${recoms.difficulty eq 1}"><img style="width: 60px;" alt="1" src="./resources/img/difficulty1.png"></c:when>
 				<c:when test="${recoms.difficulty eq 2}"><img style="width: 60px;" alt="2" src="./resources/img/difficulty2.png"></c:when>
 				<c:when test="${recoms.difficulty eq 3}"><img style="width: 60px;" alt="3" src="./resources/img/difficulty3.png"></c:when>
