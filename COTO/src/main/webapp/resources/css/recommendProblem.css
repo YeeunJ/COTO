@@ -26,6 +26,11 @@ fieldset {
 	color: white;
 	border: 1px solid #e69138ff;
 }
+.custom-button:focus{
+	background-color: white !important;
+	color: black;
+	border: 2px solid #666666;
+}
 .order {
 	width: 13%;
 	float: right;
