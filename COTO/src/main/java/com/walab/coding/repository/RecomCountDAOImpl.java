@@ -23,4 +23,12 @@ public class RecomCountDAOImpl implements RecomCountDAO {
 		
 		return sqlSession.selectOne("recomCount.readRecommendCount", recommendCountListParam);
 	}
+	
+	@Override
+	public int deleteRecomCount(int recomID) {
+		Map<String, Object> recomCountListParam = new HashMap<String, Object>();
+		recomCountListParam.put("recomID", recomID);
+		
+		return sqlSession.delete("recomCount.deleteRecomCount", recomCountListParam);
+	}
 }

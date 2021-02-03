@@ -11,6 +11,5 @@ public interface RecomCommentDAO {
 	public List<Map<Integer, Integer>> readCommentCount();
 	public void createComment(RecomCommentDTO r);
 	public int deleteRecomComment(int recomID);
-	public int deleteRecomCount(int recomID);
 	public int readRecomCommentCount(int recomID);
 }

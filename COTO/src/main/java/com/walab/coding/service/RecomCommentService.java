@@ -10,5 +10,4 @@ public interface RecomCommentService {
 	List<Map<Integer,Integer>> readCount();
 	void createComment(RecomCommentDTO r);
 	public int deleteRecomComment(int recomID);
-	public int deleteRecomCount(int recomID);
 }
