@@ -79,10 +79,11 @@ public class RegisterController {
 				
 		GoalDTO g = new GoalDTO();
 		g.setUserID(userID);
-		g.setGoalNum(goalNum);
 		g.setGoal(goal);
 		g.setStartDate(startDate);
 		g.setEndDate(endDate);
+		g.setGoalNum(goalNum);
+
 
 		int result = userService.createUsergoal(g);
 				

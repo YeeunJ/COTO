@@ -24,6 +24,6 @@
 	</select>
 	
 	<update id="updateGoal" parameterType="hashmap">
-		UPDATE goal SET goal='${goal}', startDate='${startDate}', endDate='${endDate}' WHERE id = #{id}
+		UPDATE goal SET goal='${goal}', startDate='${startDate}', endDate='${endDate}', goalNum='${goalNum}' WHERE id = #{id}
 	</update>
 </mapper>

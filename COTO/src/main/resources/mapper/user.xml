@@ -26,7 +26,7 @@
 		SELECT * FROM user WHERE id=#{userID}	</select>
 		
  	<update id="updateUser" parameterType="hashmap">
-		UPDATE user SET name='${name}', nickName='${nickName}', userNumber='${userNumber}', intro='${intro}' WHERE id = #{id}
+		UPDATE user SET name='${name}', nickName='${nickName}', email='${email}', intro='${intro}' WHERE id = #{id}
 	</update>  
 	
 	<select id="readUserCountByNickname" resultType="int" parameterType="hashmap">

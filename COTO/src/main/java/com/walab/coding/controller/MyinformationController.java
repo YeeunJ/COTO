@@ -83,6 +83,7 @@ public class MyinformationController {
 		String goal = httpServletRequest.getParameter("goal");
 		Date startDate = transFormat.parse(httpServletRequest.getParameter("startDate"));
 		Date endDate = transFormat.parse(httpServletRequest.getParameter("endDate"));
+		int goalNum = Integer.parseInt(httpServletRequest.getParameter("goalNum"));
 				
 		java.sql.Date sdate = new java.sql.Date(startDate.getTime());
 		java.sql.Date edate = new java.sql.Date(endDate.getTime());
@@ -91,6 +92,7 @@ public class MyinformationController {
 		updateGoal.setGoal(goal);
 		updateGoal.setStartDate(sdate);
 		updateGoal.setEndDate(edate);
+		updateGoal.setGoalNum(goalNum);
 		updateGoal.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
 
 		List<GoalDTO> goals = goalService.readGoal(userID);
@@ -98,11 +100,11 @@ public class MyinformationController {
 
 		if(goalService.updateGoal(updateGoal) > 0) {
 		System.out.println("success");
-		//System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate());
+		System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate() + updateGoal.getGoalNum());
 
 	}else {
 		System.out.println("fail");
-		//System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate());
+		System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate());
 	}
 		
 		mv.setViewName("redirect:/mypage/information");
@@ -127,7 +129,6 @@ public class MyinformationController {
 		UserDTO updateUser = new UserDTO();
 		updateUser.setName(httpServletRequest.getParameter("name"));
 		updateUser.setNickName(httpServletRequest.getParameter("nickName"));
-		updateUser.setUserNumber(httpServletRequest.getParameter("userNumber"));
 		updateUser.setIntro(httpServletRequest.getParameter("intro"));
 		updateUser.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
 
