@@ -35,8 +35,9 @@ function printAllContent(id){
 	$('#UproblemName').html($(id+' .pTitle').html());
 	$('#Umemo').html($(id+' .pMemo').html());
 	$('#Uregdate').html($(id+' .pRegdate').html());
-	$('#Udifficulty').attr('value', $(id+' .pDifficulty').attr('alt'));
-	console.log($(id+' .pDifficulty').attr('alt'));
+	
+	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
+	$("#ud"+d).attr('checked', 'checked');
 	
 	rudModel("#readSolvedProblem", "#updateSolvedProblem", "문제 상세보기", "문제 수정하기", updateAjax, deleteAjax);
 	//$('select').formSelect();
