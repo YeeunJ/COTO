@@ -127,21 +127,6 @@ public class RecommendController {
 		mv.setViewName("ajaxContent/recomCommentContent");
 		
 		return mv;
-		
-//		String html="<input type=\"text\" name=\"writer\" value=\""+userid+"\" hidden>\n"
-//				+ "  <input type=\"text\" name=\"recomID\" value=\""+recomID+"\" hidden>";
-//		
-//		
-//		for(int i=0 ; i<recomComment.size();i++) {
-//			System.out.println( recomComment.get(i).get("regDate"));
-//
-//			html+="<div class=\'comment-wrapper\'>\n"
-//				+ "		<span class=\'username\'>"+recomComment.get(i).get("name")+"</span><span class=\"commentdate\">"+recomComment.get(i).get("regDate")+"</span>\n"
-//				+ "		<p class=\"comment\">"+recomComment.get(i).get("content")+"</p>\n"
-//				+ "	</div>";
-//		}
-//		
-//		return html;
 	}
 	
 	@RequestMapping(value = "/readComment", method = RequestMethod.POST)
@@ -187,13 +172,6 @@ public class RecommendController {
 				p.setSiteID(Integer.parseInt(siteId.get(i)));
 			
 			p.setName(problem.get(i));
-//			int problemID = 0;
-//			problemID = recomProblemsService.readProblemID(Integer.parseInt(siteId.get(i)), problem.get(i));
-//			
-//			if(problemID == 0) {
-//				
-//			}
-//			else p.setProblemID(problemID);
 			
 			if(link.get(i) == null) p.setLink(null);
 			else p.setLink(link.get(i));
