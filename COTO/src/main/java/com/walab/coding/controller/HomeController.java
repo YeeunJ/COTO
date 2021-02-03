@@ -87,7 +87,7 @@ public class HomeController {
 	// 문제 등록 모달로부터 UserProblemsDTO LiST를 반환받아야 함. 
 	@RequestMapping(value = "/createProblem", method=RequestMethod.POST)
 	@ResponseBody
-	public String createProblem(HttpServletRequest request, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, 
+	public String createProblem(HttpServletRequest httpServletRequest, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, 
 											  @RequestParam(value="problem[]") List<String> problem, 
 											  @RequestParam(value="link[]") List<String> link) {
 		System.out.println("siteId: "+siteId);
@@ -96,17 +96,8 @@ public class HomeController {
 		System.out.println("link: "+link);
 		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
 	
-		HttpSession session = request.getSession();
-		UserDTO ud = (UserDTO) session.getAttribute("user");
-		int userID = 0;
-		userID = userService.readUserIDByEmail(ud.getEmail());
-		session.setAttribute("user", ud);
-		System.out.println(userID);
-		if(userID > 0) {
-			ud.setId(userID);
-			session.setAttribute("user", ud);
-			mv.setView(new RedirectView("home",true));
-		}
+		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+
 		
 		for(int i=0 ; i<siteId.size() ; i++) {
 			System.out.println(siteId.get(i));

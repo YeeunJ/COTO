@@ -56,19 +56,9 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/registerUsergoal", method = RequestMethod.POST)
 	@ResponseBody
-	public void registerUsergoal(HttpServletRequest request, HttpServletRequest httpServeletRequest) throws ParseException {
+	public void registerUsergoal(HttpServletRequest httpServeletRequest) throws ParseException {
 		
-		HttpSession session = request.getSession();
-		UserDTO ud = (UserDTO) session.getAttribute("user");
-		int userID = 0;
-		userID = userService.readUserIDByEmail(ud.getEmail());
-		session.setAttribute("user", ud);
-		System.out.println(userID);
-		if(userID > 0) {
-			ud.setId(userID);
-			session.setAttribute("user", ud);
-//			mv.setView(new RedirectView("home",true));
-		}
+		int userID = ((UserDTO)httpServeletRequest.getSession().getAttribute("user")).getId();
 		
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
