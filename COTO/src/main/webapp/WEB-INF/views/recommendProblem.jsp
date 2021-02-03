@@ -15,7 +15,7 @@
 <jsp:include page= "<%=fullHeader%>" />
 
 <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+<!-- <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css"> -->
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
 <link href="./resources/css/recommendProblem.css?qwe" rel="stylesheet">
 <script src="./resources/js/recommendProblem.js"></script>
@@ -168,7 +168,12 @@
 					<label for="d5" class="diffCont">5</label>
 				</p>
 			</div>
-			
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d0" value="0" class="radioMrg" /> 
+					<label for="d0" class="diffCont">설정 안함</label>
+				</p>
+			</div>
 			
 		</div>
 		
@@ -285,6 +290,12 @@
 							<label for="ud5" class="diffCont">5</label>
 						</p>
 					</div>
+					<div class="input-field col s2">
+						<p>
+							<input type="radio" name="difficulty" id="d0" value="0" class="radioMrg" /> 
+							<label for="d0" class="diffCont">설정 안함</label>
+						</p>
+					</div>
 				</div>
 				<br><br>
 			</div>
@@ -299,13 +310,12 @@
 			<div>
 				<p class="title desc">추천 문제</p>
 				<div class="row">
-					<div id="selectHtml2" class="input-field col s4">
-						<select id="updateSiteName" required>
+					<div id="selectHtml" class="input-field col s4">
+						<select id="siteName" required>
 							<optgroup label="코딩사이트 선택">
-								<option value="100">입력</option>
-								<%-- <c:forEach items="${codingSite2}" var="s">
-									<option value="${s.id}">${s.siteName}</option>
-								</c:forEach> --%>
+								<c:forEach items="${codingSite}" var="site">
+									<option value="${site.id}">${site.siteName}</option>
+								</c:forEach>
 							</optgroup>
 							<optgroup label="링크로 입력">
 								<option value="0">링크로 입력</option>

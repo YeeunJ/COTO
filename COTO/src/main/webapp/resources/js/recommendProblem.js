@@ -247,9 +247,13 @@ function addajax(){
 	
 	probs = {"siteId":siteId, "problem":problem, "link":link};
 	
-	var tag_data= $('.sweet-modal-content #problemTag').material_chip('data');
-	for(var i=0; i<tag_data.length; i++) {
-		tag.push(tag_data[i].tag);
+	var tag_data= $('.sweet-modal-content #problemTag').text(); //$('.sweet-modal-content #problemTag').material_chip('data');
+	var tagSplit = tag_data.split("close");
+	for(var i in tagSplit) {
+		tagSplit[i] = tagSplit[i].trim();
+		
+		if(tagSplit[i] === '') continue;
+		else tag.push(tagSplit[i]);
 	}
 	console.log(tag);
 	
