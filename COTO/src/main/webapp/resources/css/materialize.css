@@ -7191,7 +7191,7 @@ select {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .select-wrapper input.select-dropdown:focus {

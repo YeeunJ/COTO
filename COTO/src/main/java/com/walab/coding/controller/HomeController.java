@@ -118,9 +118,9 @@ public class HomeController {
 			
 			p.setProblem(problem.get(i));
 			
-			if(link.size()>0) {
-				p.setLink(link.get(i));
-			}
+			if(link.get(i) == null)
+				p.setLink(null);
+			else	p.setLink(link.get(i));
 			p.setDifficulty(null);
 			p.setMemo(null);
 			
@@ -131,7 +131,4 @@ public class HomeController {
 		
 		return "success";
 	}
-
-
-	
 }

@@ -42,8 +42,4 @@
 	<delete id="deleteRecomComment" parameterType="hashmap">
 		delete from recomComment where recomID = #{recomID}
 	</delete>
-	
-	<delete id="deleteRecomCount" parameterType="hashmap">
-		delete from recomCount where recomID = #{recomID}
-	</delete>
 </mapper>

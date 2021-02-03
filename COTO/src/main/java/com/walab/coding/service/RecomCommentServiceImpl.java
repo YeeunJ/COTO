@@ -49,10 +49,5 @@ public class RecomCommentServiceImpl implements RecomCommentService {
 	public int deleteRecomComment(int recomID) {
 		return recomCommentDAO.deleteRecomComment(recomID);
 	}
-	
-	@Override
-	public int deleteRecomCount(int recomID) {
-		return recomCommentDAO.deleteRecomCount(recomID);
-	}
 
 }

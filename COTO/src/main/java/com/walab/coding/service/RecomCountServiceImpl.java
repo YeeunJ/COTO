@@ -2,6 +2,7 @@ package com.walab.coding.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.walab.coding.repository.RecomCountDAO;
 
 import com.walab.coding.model.RecomCountDTO;
 import com.walab.coding.model.RecommendDTO;
@@ -27,5 +28,10 @@ public class RecomCountServiceImpl implements RecomCountService {
 		}
 		
 		return rcd;
+	}
+	
+	@Override
+	public int deleteRecomCount(int recomID) {
+		return recomCountDAO.deleteRecomCount(recomID);
 	}
 }

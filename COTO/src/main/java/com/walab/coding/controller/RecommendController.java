@@ -360,7 +360,7 @@ public class RecommendController {
 //		}else {
 //			System.out.println("recomTag fail");
 //		}
-//		if(recomCommentService.deleteRecomCount(recomID) > 0) {
+//		if(recomCountService.deleteRecomCount(recomID) > 0) {
 //			System.out.println("recomCount success");
 //		}else {
 //			System.out.println("recomCount fail");
@@ -411,7 +411,7 @@ public class RecommendController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView searchProblem(HttpServletRequest httpServletRequest) {		
 		
-		int userID = 1;
+		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 		String searchValue= httpServletRequest.getParameter("searchValue");
 		String orderValue= httpServletRequest.getParameter("orderValue");
 		

@@ -50,14 +50,6 @@ public class RecomCommentDAOImpl implements RecomCommentDAO{
 	}
 	
 	@Override
-	public int deleteRecomCount(int recomID) {
-		Map<String, Object> recomCountListParam = new HashMap<String, Object>();
-		recomCountListParam.put("recomID", recomID);
-		
-		return sqlSession.delete("recomComment.deleteRecomCount", recomCountListParam);
-	}
-	
-	@Override
 	public int readRecomCommentCount(int recomID) {
 		return sqlSession.selectOne("recomComment.readRecomCommentCount", recomID);
 	}
