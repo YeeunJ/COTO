@@ -118,25 +118,6 @@ public class HomeController {
 			
 			p.setProblem(problem.get(i));
 			
-			if(link.size()>0) {
-				p.setLink(link.get(i));
-			}
-			p.setDifficulty(null);
-			p.setMemo(null);
-			
-			probs.add(p);
-		}
-		
-		for(int i=0 ; i<siteId.size() ; i++) {
-			System.out.println(siteId.get(i));
-			UserProblemDTO p = new UserProblemDTO();
-			
-			p.setUserID(userID);
-			if(Integer.parseInt(siteId.get(i)) != 0)
-				p.setSiteID(Integer.parseInt(siteId.get(i)));
-			
-			p.setProblem(problem.get(i));
-			
 			if(link.get(i) == null)
 				p.setLink(null);
 			else	p.setLink(link.get(i));
@@ -150,7 +131,4 @@ public class HomeController {
 		
 		return "success";
 	}
-
-
-	
 }
