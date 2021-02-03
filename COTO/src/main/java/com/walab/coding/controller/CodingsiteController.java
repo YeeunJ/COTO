@@ -88,7 +88,7 @@ public class CodingsiteController {
 		
 		String html="<li>"+" | ";
 		for(CodingSiteDTO i : codingSite) {
-			html += "<a href='" + i.getSiteUrl() + "'>"+i.getSiteName()+"</a>"+"   |   ";
+			html += "<a href='" + i.getSiteUrl() + "' target=”_blank” >"+i.getSiteName()+"</a>"+"   |   ";
 		}
 		html+="</li>";
 		return html;
