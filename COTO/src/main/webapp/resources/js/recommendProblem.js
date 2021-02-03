@@ -138,6 +138,9 @@ function updateInsertProblems(data){
 	var data2 = [];
 	var pName = [];
 	var sName = [];
+	var siteData = $('#siteName').text();
+	var siteSplit = siteData.split('\n');
+	var site = [];
 	
 	for(var i in dataSplit){
 		dataSplit[i] = dataSplit[i].trim();
@@ -147,6 +150,14 @@ function updateInsertProblems(data){
 		else data2.push(dataSplit[i]);
 	}
 	
+	for(var i in siteSplit){
+		siteSplit[i] = siteSplit[i].trim();
+		siteSplit[i] = siteSplit[i].replaceAll(' ', ''); 
+		
+		if(siteSplit[i] === '') continue;
+		else site.push(siteSplit[i]);
+	}
+	
 	for(var i in data2){
 		if(i%2==0) sName.push(data2[i]);
 		else pName.push(data2[i]);
@@ -154,7 +165,17 @@ function updateInsertProblems(data){
 	
 	for(var i in pName){
 		//input name에 site id필요!!!
-		result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="1" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+		
+		if(sName[i] == "링크로 입력") result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="0" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+		else {
+			for(var j=1;j<site.length;j++) {
+				if(sName[i] == site[j]) {
+					result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+j+'" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+					break;
+				}
+			}
+		}
+		
 		count++;
 	}
 	
