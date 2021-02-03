@@ -39,17 +39,7 @@ public class MyinformationController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewUsers(HttpServletRequest request, ModelAndView mv) {
 		
-		HttpSession session = request.getSession();
-		UserDTO ud = (UserDTO) session.getAttribute("user");
-		int userID = 0;
-		userID = userService.readUserIDByEmail(ud.getEmail());
-		session.setAttribute("user", ud);
-		System.out.println(userID);
-		if(userID > 0) {
-			ud.setId(userID);
-			session.setAttribute("user", ud);
-			mv.setView(new RedirectView("mypage/information",true));
-		}
+		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
 		
 		List<UserDTO> users = userService.readUser(userID);
 		System.out.println(users.toString());
@@ -67,17 +57,8 @@ public class MyinformationController {
 	@RequestMapping(value = "/updateGoal", method = RequestMethod.POST)
 	public ModelAndView updateGoal(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServletRequest) throws ParseException {
 		
-		HttpSession session = request.getSession();
-		UserDTO ud = (UserDTO) session.getAttribute("user");
-		int userID = 0;
-		userID = userService.readUserIDByEmail(ud.getEmail());
-		session.setAttribute("user", ud);
-		System.out.println(userID);
-		if(userID > 0) {
-			ud.setId(userID);
-			session.setAttribute("user", ud);
-			mv.setView(new RedirectView("redirect:/mypage/information",true));
-		}		
+		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
+	
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		String goal = httpServletRequest.getParameter("goal");
@@ -114,17 +95,7 @@ public class MyinformationController {
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
 	public ModelAndView updateInfo(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServletRequest) {
 		
-		HttpSession session = request.getSession();
-		UserDTO ud = (UserDTO) session.getAttribute("user");
-		int userID = 0;
-		userID = userService.readUserIDByEmail(ud.getEmail());
-		session.setAttribute("user", ud);
-		System.out.println(userID);
-		if(userID > 0) {
-			ud.setId(userID);
-			session.setAttribute("user", ud);
-			mv.setView(new RedirectView("redirect:/mypage/information",true));
-		}	
+		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
 		
 		UserDTO updateUser = new UserDTO();
 		updateUser.setName(httpServletRequest.getParameter("name"));
