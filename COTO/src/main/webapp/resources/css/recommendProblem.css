@@ -135,6 +135,10 @@ fieldset {
 	background: url("../img/clickheart.png");
 	cursor: pointer;
 }
+.clicked-icon {
+	background: url("../img/clickheart.png");
+	cursor: pointer;
+}
 .wrapper {
 	height: 305px;
     overflow-y: scroll;

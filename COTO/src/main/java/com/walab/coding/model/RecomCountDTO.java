@@ -5,7 +5,8 @@ public class RecomCountDTO {
 	private int id;
 	private int userID;
 	private int recomID;
-	private int recommend;
+	private boolean recommendYN;
+	private int recommendCount;
 	
 	public int getId() {
 		return id;
@@ -25,10 +26,17 @@ public class RecomCountDTO {
 	public void setRecomID(int recomID) {
 		this.recomID = recomID;
 	}
-	public int getRecommend() {
-		return recommend;
+	public boolean getRecommendYN() {
+		return recommendYN;
 	}
-	public void setRecommend(int recommend) {
-		this.recommend = recommend;
+	public void setRecommendYN(boolean recommendYN) {
+		this.recommendYN = recommendYN;
 	}
+	public int getRecommendCount() {
+		return recommendCount;
+	}
+	public void setRecommendCount(int recommendCount) {
+		this.recommendCount = recommendCount;
+	}
+	
 }

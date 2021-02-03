@@ -26,6 +26,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomCommentDTO;
+import com.walab.coding.model.RecomCountDTO;
 import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.UserProblemDTO;
@@ -36,6 +37,7 @@ import com.walab.coding.service.RecomCommentService;
 import com.walab.coding.service.RecomProblemServiceImpl;
 import com.walab.coding.service.RecommendService;
 import com.walab.coding.service.RecomCommentServiceImpl;
+import com.walab.coding.service.RecomCountService;
 import com.walab.coding.service.RecomProblemService;
 import com.walab.coding.service.RecommendServiceImpl;
 import com.walab.coding.service.UserService;
@@ -61,6 +63,8 @@ public class RecommendController {
 	RecomTagService recomTagService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	RecomCountService recomCountService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView recommendProblem(ModelAndView mv) {
@@ -381,6 +385,25 @@ public class RecommendController {
 		mv.addObject("recomProblem", recomProblem);
 		mv.addObject("recomProblemTag", recomProblemTag);
 		mv.setViewName("ajaxContent/recommendContent");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/recomCount", method = RequestMethod.POST)
+	public ModelAndView createRecomCount(HttpServletRequest httpServletRequest) {		
+		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("searchValue"));
+		
+		RecomCountDTO rcd = new RecomCountDTO();
+		rcd.setRecomID(recomID);
+		rcd.setUserID(userID);
+		
+		recomCountService.createRecomCount(rcd);
+		rcd = recomCountService.readRecomCount(recomID, userID);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("countInfo", rcd);
+		mv.setViewName("ajaxContent/recomCountContent");
 		
 		return mv;
 	}
