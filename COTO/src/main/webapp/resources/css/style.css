@@ -186,7 +186,9 @@
     margin: 0px;
 }
 
-
+.codingSites a:hover{
+	color: white;
+}
 /* materialize.css 파일에 있는 것 덮어씌우기 */
 input:not([type]):focus:not([readonly]),
 input[type=text]:not(.browser-default):focus:not([readonly]),
