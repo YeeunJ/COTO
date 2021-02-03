@@ -189,8 +189,6 @@ function resetContent() {
 </div>
 <!-- second finish -->
 
-
-
 <div id="createProblem" class="container" style="">
 	<form class="col s12">
 		<div class="row">

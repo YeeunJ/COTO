@@ -1,5 +1,6 @@
 package com.walab.coding.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -133,7 +136,7 @@ public class MyproblemsController {
 		}
 		
 		List<UserProblemDTO> problems = userProblemService.read(userID);
-		ModelAndView mv = new ModelAndView();
+		//ModelAndView mv = new ModelAndView();
 		mv.addObject("problems", problems);
 		mv.setViewName("ajaxContent/problemsContent");
 		return mv;
@@ -166,5 +169,53 @@ public class MyproblemsController {
 		mv.addObject("problems", problems);
 		mv.setViewName("ajaxContent/problemsContent");
 		return mvNew;
+	}
+	
+	// 문제 등록 모달로부터 UserProblemsDTO LiST를 반환받아야 함. 
+	@RequestMapping(value = "/createProblem", method=RequestMethod.POST)
+	@ResponseBody
+	public String createProblem(HttpServletRequest request, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, 
+											  @RequestParam(value="problem[]") List<String> problem, 
+											  @RequestParam(value="link[]") List<String> link) {
+		
+		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
+	
+		HttpSession session = request.getSession();
+		UserDTO ud = (UserDTO) session.getAttribute("user");
+		int userID = 0;
+		userID = userService.readUserIDByEmail(ud.getEmail());
+		session.setAttribute("user", ud);
+		System.out.println(userID);
+		if(userID > 0) {
+			ud.setId(userID);
+			session.setAttribute("user", ud);
+			mv.setView(new RedirectView("mypage/problems",true));
+		}
+		
+		System.out.println("size: "+link.size());
+		System.out.println("link[0]"+link.get(0));
+		
+		for(int i=0 ; i<siteId.size() ; i++) {
+			System.out.println(siteId.get(i));
+			UserProblemDTO p = new UserProblemDTO();
+			
+			p.setUserID(userID);
+			if(Integer.parseInt(siteId.get(i)) != 0)
+				p.setSiteID(Integer.parseInt(siteId.get(i)));
+			
+			p.setProblem(problem.get(i));
+			
+			if(link.get(i) == null)
+				p.setLink(null);
+			else	p.setLink(link.get(i));
+			p.setDifficulty(null);
+			p.setMemo(null);
+			
+			probs.add(p);
+		}
+		
+		userProblemService.createUserProblem(probs);
+		
+		return "success";
 	}
 }

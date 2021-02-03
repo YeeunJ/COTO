@@ -1,11 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	language="java"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="../inc/header2.jsp"%>
 
 <link href="../resources/css/problems.css" rel="stylesheet">
+<link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
 <script src="../resources/js/problems.js"></script>
 
 <script>
@@ -101,6 +103,101 @@ var myDoughnutChart = new Chart(ctx, {
 	  }
 	}); */
 }
+
+var selectHtml="";
+
+function callModal() {
+	selectHtml = $('#selectHtml').html();
+	
+	createModel("#createProblem", "푼 문제 등록", addajax);
+ 	$('select').formSelect();
+}
+
+function addajax(){
+	
+	var siteId = [];
+	var problem = [];
+	var link = [];
+	
+	$('.sweet-modal-content .problem').each(function(){
+		
+		var s_id = 0;
+		var l = "";
+		var p;
+		
+		var valueSplit = $(this).val().split(' (');
+		
+		if($(this).attr('name') == 0){ // link로 설정하는 경우
+			l = valueSplit[0].trim();
+			console.log("link: "+l);
+			
+			var split = l.split('/');
+			p = split[split.length-1].trim();
+			console.log("problem: "+split[split.length-1].trim());
+
+		} else { // siteId 존재하는 경우
+			s_id = $(this).attr('name');
+			p = valueSplit[0].trim();
+		}
+		
+		siteId.push(s_id);
+		problem.push(p);
+		link.push(l);
+		
+	});
+		
+	console.log(problem);
+	console.log(siteId);
+	console.log(link);
+	
+   $.ajax({
+        url : './createProblem',
+        type: 'POST',
+        data: {
+        	"siteId":siteId, "problem":problem, "link":link
+        },
+        success: function(data){
+        	resetContent();
+        	console.log("success");
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+
+}
+
+function deleteThis(id){
+	var allid = "#"+id;
+	$(allid).remove();
+}
+
+var count=0;
+function insertProblems(){
+	
+	var siteName = $(".sweet-modal-content #siteName option:selected").text();
+	var siteId = $('.sweet-modal-content #siteName').val();
+	console.log("siteId: "+siteId);
+	var site = $(".sweet-modal-content #siteName option:selected").val();
+	var value = $(".sweet-modal-content #problems").val();
+	console.log(value);
+	var valueSplit = value.split(',');
+	var data = $('.sweet-modal-content #confirmSite').html();
+	for(var i in valueSplit){
+		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
+		count++;
+	}
+	$('.sweet-modal-content #confirmSite').html(data);
+	$('#confirmSite').html(data);
+	$(".sweet-modal-content #problems").val("");
+};
+
+function resetContent() {
+	
+	$('#createProblem #confirmSite').html("");
+	$('#selectHtml').html(selectHtml);
+	
+}
 </script>
 <style>
 #problem {
@@ -140,19 +237,19 @@ var myDoughnutChart = new Chart(ctx, {
 					<div id="table">
 						<c:forEach items="${goal}" var="goal" varStatus="status">
 							<div class="tableRow box">
-								<span class="tableCell td1">목표</span>
-								<span class="tableCell td4">${goal.goal}</span>
+								<span class="tableCell td1">목표</span> <span
+									class="tableCell td4">${goal.goal}</span>
 							</div>
 							<div class="tableRow box">
-								<span class="tableCell td1">기간</span>
-								<span class="tableCell td4">
-								<fmt:formatDate pattern="yyyy-MM-dd" value="${goal.startDate}" /> 
-								~ <fmt:formatDate pattern="yyyy-MM-dd" value="${goal.endDate}" />
+								<span class="tableCell td1">기간</span> <span
+									class="tableCell td4"> <fmt:formatDate
+										pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
+										pattern="yyyy-MM-dd" value="${goal.endDate}" />
 								</span>
 							</div>
 							<div class="tableRow box">
-								<span class="tableCell td2">총 문제수</span>
-								<span class="tableCell td4">${goal.goalNum}개</span>
+								<span class="tableCell td2">총 문제수</span> <span
+									class="tableCell td4">${goal.goalNum}개</span>
 							</div>
 						</c:forEach>
 					</div>
@@ -180,7 +277,7 @@ var myDoughnutChart = new Chart(ctx, {
 	<div>
 		<br>
 		<h5 class="font-color">내가 푼 문제들</h5>
-		
+
 		<fieldset class="search" style="float: right;">
 			<input id="searchValue" class="search_problem" type="search"
 				placeholder="검색어를 입력해주세요." />
@@ -188,24 +285,26 @@ var myDoughnutChart = new Chart(ctx, {
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
-		<button id="register-button" class="mybtn" style="margin-top: 2%; float: left;">문제 등록하기</button>
+		<button onclick="callModal()" id="register-button" class="mybtn"
+			style="margin-top: 2%; float: left;">문제 등록하기</button>
 
 		<div class="table" id="problemsContent">
 			<%@ include file="../ajaxContent/problemsContent.jsp"%>
 		</div>
 		<div class="table" style="text-align: center">
-				<ul class="pagination ">
-					<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-					<li class="active orange"><a href="#!">1</a></li>
-					<li class="waves-effect"><a href="#!">2</a></li>
-					<li class="waves-effect"><a href="#!">3</a></li>
-					<li class="waves-effect"><a href="#!">4</a></li>
-					<li class="waves-effect"><a href="#!">5</a></li>
-					<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-				</ul>
-			</div> 
-		
-		<div id="registerSolvedProblem" hidden>
+			<ul class="pagination ">
+				<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+				<li class="active orange"><a href="#!">1</a></li>
+				<li class="waves-effect"><a href="#!">2</a></li>
+				<li class="waves-effect"><a href="#!">3</a></li>
+				<li class="waves-effect"><a href="#!">4</a></li>
+				<li class="waves-effect"><a href="#!">5</a></li>
+				<li class="waves-effect"><a href="#!"><i
+						class="material-icons">chevron_right</i></a></li>
+			</ul>
+		</div>
+
+		<%-- <div id="registerSolvedProblem" hidden>
 			<div class="container">
 				<form class="col s12">
 					<div class="row">
@@ -242,32 +341,65 @@ var myDoughnutChart = new Chart(ctx, {
 				</form>
 				
 			</div>
+		</div> --%>
+
+		<div id="createProblem" class="container" hidden>
+			<form class="col s12">
+				<div class="row">
+					<div id="selectHtml" class="input-field col s4">
+						<select id="siteName" required>
+							<optgroup label="코딩사이트 선택">
+								<c:forEach items="${CodingSite}" var="site">
+									<option value="${ site.id }">${ site.siteName }</option>
+								</c:forEach>
+							</optgroup>
+							<optgroup label="링크로 입력">
+								<option value="0">링크로 입력</option>
+							</optgroup>
+						</select> <label>코딩사이트 선택</label> <span class="helper-text">코딩 사이트를
+							선택해서 입력하거나 링크로 입력할 수 있습니다.</span>
+					</div>
+					<div class="input-field col s6">
+						<input id="problems" type="text" class="validate"> <label
+							for="problems">Problems</label> <span class="helper-text">문제들을
+							입력할 때 ,로 구분해주세요!!</span>
+					</div>
+					<button type="button" id="add" class="modal_button lighten-1"
+						onClick="insertProblems()">추가</button>
+				</div>
+				<div class="input-field col s10">
+					<label for="last_name">입력한 Problems</label><br> <label
+						class="helper-text">문제를 누르면 삭제할 수 있습니다.</label><br>
+					<br>
+					<div id="confirmSite"></div>
+				</div>
+			</form>
 		</div>
 
 
 		<!-- 모달 -->
 		<div id="readSolvedProblem" hidden>
-				<div class="row mrg">
-					<p class="title">문제 제목</p>
-					<span id="problemName" class="box"></span>
-				</div>
-				<div class="row mrg">
-					<p class="title">사이트 이름</p>
-					<span id="site" class="box"></span>
-				</div>
-				<div class="row mrg">
-					<p class="title">날짜</p>
-					<span id="regdate" class="box"></span>
-				</div>
-				<div class="row mrg">
-					<p class="title">난이도</p>
-					<span id="difficulty" class="box"></span>
-				</div>
-				<p class="title">메모</p>
-				<span id="memo" class="box"></span> 
+			<div class="row mrg">
+				<p class="title">문제 제목</p>
+				<span id="problemName" class="box"></span>
+			</div>
+			<div class="row mrg">
+				<p class="title">사이트 이름</p>
+				<span id="site" class="box"></span>
+			</div>
+			<div class="row mrg">
+				<p class="title">날짜</p>
+				<span id="regdate" class="box"></span>
+			</div>
+			<div class="row mrg">
+				<p class="title">난이도</p>
+				<span id="difficulty" class="box"></span>
+			</div>
+			<p class="title">메모</p>
+			<span id="memo" class="box"></span>
 		</div>
 		<div id="updateSolvedProblem" hidden>
-			<form >
+			<form>
 				<!-- <span id="UuserProblemID" style=""></span> -->
 				<div class="row mrg">
 					<p class="title">문제 제목</p>
@@ -286,39 +418,40 @@ var myDoughnutChart = new Chart(ctx, {
 					<div class="row">
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d1" value="1" checked/>
+								<input type="radio" name="difficulty" id="d1" value="1" checked />
 								<label for="d1" class="diffCont">1</label>
 							</p>
 						</div>
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d2" value="2" class="radioMrg"/>
-								<label for="d2" class="diffCont">2</label>
+								<input type="radio" name="difficulty" id="d2" value="2"
+									class="radioMrg" /> <label for="d2" class="diffCont">2</label>
 							</p>
 						</div>
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d3" value="3" class="radioMrg"/>
-								<label for="d3" class="diffCont">3</label>
+								<input type="radio" name="difficulty" id="d3" value="3"
+									class="radioMrg" /> <label for="d3" class="diffCont">3</label>
 							</p>
 						</div>
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d4" value="4" class="radioMrg"/>
-								<label for="d4" class="diffCont">4</label>
+								<input type="radio" name="difficulty" id="d4" value="4"
+									class="radioMrg" /> <label for="d4" class="diffCont">4</label>
 							</p>
 						</div>
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d5" value="5" class="radioMrg"/>
-								<label for="d5" class="diffCont">5</label>
+								<input type="radio" name="difficulty" id="d5" value="5"
+									class="radioMrg" /> <label for="d5" class="diffCont">5</label>
 							</p>
 						</div>
 
 					</div>
 				</div>
 				<p class="title">메모</p>
-				<textarea id="Umemo" type="text" class="validate" placeholder="이 문제에 메모하고 싶은 내용을 적어주세요!!"></textarea>
+				<textarea id="Umemo" type="text" class="validate"
+					placeholder="이 문제에 메모하고 싶은 내용을 적어주세요!!"></textarea>
 			</form>
 		</div>
 

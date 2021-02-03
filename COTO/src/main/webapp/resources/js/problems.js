@@ -1,9 +1,9 @@
 $(document).ready(function() {
-	$('#register-button').on('click', function() {
+	/*$('#register-button').on('click', function() {
 		 createModel("#registerSolvedProblem", "문제 등록", addAjax);
 		 $('select').formSelect();
-	});
-	
+	});*/
+
 	$('#searchButton').on('click', function() {
 		console.log("click");
 		$.ajax({
