@@ -374,7 +374,7 @@ function resetContent() {
 		</div>
 		<div id="updateSolvedProblem" hidden>
 			<form>
-				<!-- <span id="UuserProblemID" style=""></span> -->
+				<span id="UuserProblemID" hidden></span>
 				<div class="row mrg">
 					<p class="title">문제 제목</p>
 					<span id="UproblemName" class="box"></span>

@@ -43,7 +43,7 @@
 <div id="SiteContainer" class="container">
 	<div id="information">
 		<div class="content">
-			<h4>내 정보 및 목표</h4>
+			<h4>내 정보</h4>
 			<p>내 정보와 목표를 확인하고 수정할 수 있습니다.</p>
 		</div>
 	</div>
