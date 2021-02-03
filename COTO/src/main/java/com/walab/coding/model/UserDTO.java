@@ -3,12 +3,14 @@ package com.walab.coding.model;
 import java.sql.Date;
 
 public class UserDTO {
+	private int id;
 	private String name;
 	private String email;
 	private String userNumber;
 	private String nickName;
 	private String intro;
 	private Date regDate;
+	private int isAdmin;
 
 	
 	public Date getRegDate() {
@@ -53,6 +55,12 @@ public class UserDTO {
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
-	private int id;
+	public int getIsAdmin() {
+		return isAdmin;
+	}
+	public void setIsAdmin(int isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
 
 }

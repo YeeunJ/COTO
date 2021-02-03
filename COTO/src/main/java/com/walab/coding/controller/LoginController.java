@@ -53,6 +53,14 @@ public class LoginController {
 		return new ModelAndView(redirectUrl);
 	}
 	
+	@GetMapping(value = "/cancel")
+	public ModelAndView logout(HttpServletRequest request) {
+		request.getSession().removeAttribute("user");
+		request.getSession().removeAttribute("token");
+		String redirectUrl = "http://localhost:8080/coding";
+		return new ModelAndView(redirectUrl);
+	}
+	
 	/**
 	 * Authentication Code를 전달 받는 엔드포인트
 	 **/

@@ -4,4 +4,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
-<span class="<c:choose><c:when test = "${countInfo.recommendYN ==true}">clicked-icon</c:when><c:when test = "${countInfo.recommendYN ==false}">like-icon</c:when></c:choose> icon" onclick="addRecomCount()"></span><span id="readRecommends" class="bold">${countInfo.recommendCount}</span><span></span>
+<span class="<c:choose><c:when test = "${countInfo.recommendYN ==true}">clicked-icon</c:when><c:otherwise>like-icon</c:otherwise></c:choose> icon" onclick="addRecomCount()"></span><span id="readRecommends" class="bold">${countInfo.recommendCount}</span><span></span>

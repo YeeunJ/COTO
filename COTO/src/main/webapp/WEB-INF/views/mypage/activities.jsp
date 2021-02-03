@@ -1,11 +1,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	language="java"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java"%>
+<%@ page import = "com.walab.coding.model.UserDTO" %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
 
-<%@ include file="../inc/header2.jsp"%>
+<%
+	String fullHeader ="";
+	if(((UserDTO)request.getSession().getAttribute("user")) == null){
+		fullHeader = "../inc/mylogoutHeader.jsp";
+	}else if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0){
+		fullHeader = "../inc/myadminHeader.jsp";
+	}else {
+		fullHeader = "../inc/myloginHeader.jsp";
+	}
+%>
+<jsp:include page= "<%=fullHeader%>" />
+
 <link href="../resources/css/activities.css" rel="stylesheet">
 <script src="../resources/js/activities.js"></script>
 
