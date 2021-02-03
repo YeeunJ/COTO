@@ -58,12 +58,8 @@ function printAllContent(id, recomId, count){
 	$('#updateProblems').html($(id+' .readProblem').html());
 	
 	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
-	if(d != 0) {
-		//jQuery버전 1.6 이하 일때 아래코드로, 아니라면 $("#ud"+d).prop("checked", true);
-		$("#ud"+d).attr('checked', 'checked');
-		//$("input:radio[name='updateDifficulty']:radio[value=\'" + d + "\']").prop('checked', true); 
-		//document.getElementsByName("updateDifficulty")[d-1].checked;
-	}
+	//jQuery버전 1.6 이하 일때 아래코드로, 아니라면 $("#ud"+d).prop("checked", true);
+	$("#ud"+d).attr('checked', 'checked');
 	
 	//updateConfirmSite
 	updateInsertProblems($(id+' .readProblem').text());
@@ -321,9 +317,17 @@ function updateAjax (){
 		
 	});
 	
-	var tag_data= $('.sweet-modal-content #updateProblemTag').material_chip('data');
-	for(var i=0; i<tag_data.length; i++) {
-		tag.push(tag_data[i].tag);
+	console.log(problem);
+	console.log(siteId);
+	console.log(link);
+	
+	var tag_data= $('.sweet-modal-content #updateProblemTag').text(); //$('.sweet-modal-content #problemTag').material_chip('data');
+	var tagSplit = tag_data.split("close");
+	for(var i in tagSplit) {
+		tagSplit[i] = tagSplit[i].trim();
+		
+		if(tagSplit[i] === '') continue;
+		else tag.push(tagSplit[i]);
 	}
 	
 	for(var i=0;i<difficulty_cnt;i++) {
@@ -336,8 +340,7 @@ function updateAjax (){
 		type: "POST",
 		async: false,
 		data: {
-			"recomID": recomID, "title":title, "difficulty":difficulty, "tag":tag, "content":content
-			/*"siteId":siteId, "problem":problem, "link":link, */
+			"recomID": recomID, "siteId":siteId, "problem":problem, "link":link, "title":title, "difficulty":difficulty, "tag":tag, "content":content
 		},
 		success: function(data){
 			console.log(data);
@@ -395,10 +398,10 @@ function insertProblems(){
 count=0;
 function updateProblems(){
 	
-	var siteName = $(".sweet-modal-content #updateSiteName option:selected").text();
-	var siteId = $('.sweet-modal-content #updateSiteName').val();
+	var siteName = $(".sweet-modal-content #siteName option:selected").text();
+	var siteId = $('.sweet-modal-content #siteName').val();
 	console.log("siteId: "+siteId);
-	var site = $(".sweet-modal-content #updateSiteName option:selected").val();
+	var site = $(".sweet-modal-content #siteName option:selected").val();
 	var value = $(".sweet-modal-content #updateConfirmProblems").val();
 	console.log(value);
 	var valueSplit = value.split(',');
