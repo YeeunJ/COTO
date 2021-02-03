@@ -206,7 +206,7 @@ $(document).ready(function() {
 }
 </style>
 
-<div id="codingSiteContainer" class="container">
+<div id="SiteContainer" class="container">
 	<div id="manage">
 		<div class="content">
 			<h4>코딩 사이트 관리</h4>
@@ -255,7 +255,6 @@ $(document).ready(function() {
 		</div>
 	</form>
 </div>
-	<br><br><br>
 
 
 

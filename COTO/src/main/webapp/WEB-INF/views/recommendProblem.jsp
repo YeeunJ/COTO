@@ -14,11 +14,8 @@
 %>
 <jsp:include page= "<%=fullHeader%>" />
 
-<link rel = "stylesheet"
-         href = "https://fonts.googleapis.com/icon?family=Material+Icons">
-      <link rel = "stylesheet"
-         href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-<script src = "./resources/js/recommendProblem.js"></script>
+<link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
 <link href="./resources/css/recommendProblem.css?qwe" rel="stylesheet">
 <script src="./resources/js/recommendProblem.js"></script>
@@ -59,7 +56,7 @@
 }
 </style>
 
-<div class="container">
+<div id="SiteContainer" class="container">
 	<div id="recommend">
 		<div class="content">
 			<h4>문제 추천</h4>

@@ -36,6 +36,10 @@
     top: 51px;
     right: 32px;
 }
+
+#SiteContainer{
+	min-height: 600px !important;
+} 
 /* 페이지 문구 공통 */
 .content {
 	top: 15%;

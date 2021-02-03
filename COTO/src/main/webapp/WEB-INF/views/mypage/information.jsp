@@ -40,7 +40,7 @@
 }
 </style>
 
-<div class="container">
+<div id="SiteContainer" class="container">
 	<div id="information">
 		<div class="content">
 			<h4>내 정보 및 목표</h4>

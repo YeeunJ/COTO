@@ -127,7 +127,7 @@ $(document).ready(function() {
 </script>
 
 
-<div class="container">
+<div id="SiteContainer" class="container">
 	<div>
 		<h4 class="header green-text">코딩 사이트 관리</h4>
 		<br>

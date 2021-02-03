@@ -232,7 +232,7 @@ function resetContent() {
 }
 </style>
 
-<div class="container">
+<div id="SiteContainer" class="container">
 	<div id="problem">
 		<div class="content">
 			<h4>내가 푼 문제</h4>

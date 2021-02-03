@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="./resources/css/register.css?aa" />
 <script src="./resources/js/register.js"></script>
 
-<div class="container">
+<div id="SiteContainer" class="container">
 	<div class="register" id=userInfo>
 		<h5 class="header center gray-text">초기 정보 등록</h5>
 		<br>
