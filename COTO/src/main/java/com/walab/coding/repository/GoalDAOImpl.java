@@ -47,6 +47,7 @@ public class GoalDAOImpl implements GoalDAO{
 		goalParam.put("goal", updatdGoal.getGoal());
 		goalParam.put("startDate", updatdGoal.getStartDate());
 		goalParam.put("endDate", updatdGoal.getEndDate());
+		goalParam.put("goalNum", updatdGoal.getGoalNum());		
 		goalParam.put("id", updatdGoal.getId());
 		
 		return sqlSession.update(namespace+".updateGoal", goalParam);

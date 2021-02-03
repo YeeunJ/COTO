@@ -23,5 +23,10 @@
 			<fmt:formatDate pattern="yyyy-MM-dd" var="eDate"
 				value="${goal.endDate}" />
 		</div>
+		<div class="tableRow">
+			<span class="tableCell th3">목표 개수</span> <span
+				class="tableCell td8">${goal.goalNum}
+			</span>
+		</div>
 	</c:forEach>
 </div>

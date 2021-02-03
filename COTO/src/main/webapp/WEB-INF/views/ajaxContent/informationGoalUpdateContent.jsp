@@ -23,5 +23,10 @@
 				class="tableCell td8"><input type="date" name="endDate"
 				value="${eDate}" /> </span>
 		</div>
+		<div class="tableRow">
+			<span class="tableCell th3">목표 개수</span> <span
+				class="tableCell td8"><input type="number" name="goalNum"
+				value="${goal.goalNum}"/> </span>				
+		</div>
 	</c:forEach>
 </div>
