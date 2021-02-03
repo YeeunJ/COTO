@@ -61,6 +61,7 @@
 			<exclude-mapping path="/login/**"/>
 			<exclude-mapping path="/register/**"/>
 			<exclude-mapping path="/coding/manageCodingsite/sitelist"/>
+			<exclude-mapping path="/coding/manageCodingsite/sitelist/**"/>
 			<beans:ref bean="commonInterceptor"/>
 		</interceptor>
 	</interceptors>

@@ -248,3 +248,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
 	margin-top: 100px !important;
 	
 }
+.sweet-modal-overlay.dark-overlay {
+    background: rgba(28, 30, 35, 0.7);
+}

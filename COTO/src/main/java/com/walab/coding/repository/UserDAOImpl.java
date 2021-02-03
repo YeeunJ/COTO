@@ -79,6 +79,14 @@ public class UserDAOImpl implements UserDAO{
 		
 		return sqlSession.update("user.updateUser", userParam);
 	}
+
+	@Override
+	public int readUserCountByNickname(String nickname) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("nickName", nickname);
+	
+		return sqlSession.selectOne("user.readUserCountByNickname", param);
+	}
 	
 	
 }

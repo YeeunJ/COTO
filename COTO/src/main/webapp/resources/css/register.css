@@ -11,3 +11,13 @@
 .th1 .th2 .th3 .th4{
 	color: #e69138ff ;
 }
+#dupCheck{
+	margin-left: 8px;
+    position: absolute;
+    right: 0;
+    top: 28px;
+    background: #e69138ff;
+}
+.nicknameRow{
+	position:relative;
+}

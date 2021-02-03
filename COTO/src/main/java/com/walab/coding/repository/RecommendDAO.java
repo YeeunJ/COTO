@@ -16,4 +16,6 @@ public interface RecommendDAO {
 	public List<RecommendDTO> searchProblemByContents(String searchValue, String orderValue);
 
 	public int deleteRecom(int recomID);
+	
+	public int updateRecommend(RecommendDTO r);
 }

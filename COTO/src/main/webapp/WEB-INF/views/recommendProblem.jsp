@@ -3,7 +3,11 @@
 
 <%@ include file="./inc/header.jsp"%>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<link rel = "stylesheet"
+         href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel = "stylesheet"
+         href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+<script src = "./resources/js/recommendProblem.js"></script>
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
 <link href="./resources/css/recommendProblem.css?qwe" rel="stylesheet">
 <script src="./resources/js/recommendProblem.js"></script>
@@ -60,7 +64,7 @@
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
-		<button class="input-field custom-button" onclick="callModal()">문제 추천집 만들기</button>
+		<button class="input-field custom-button" onclick="callModal()">글쓰기</button>
 		<div class="col order">
 			<select id="orderValue">
 				<option value="recom.regdate" disabled selected>정렬</option>
@@ -128,7 +132,7 @@
 		<div class="row">
 			<div class="input-field col s2">
 				<p>
-					<input type="radio" name="difficulty" id="d1" value="1" checked/>
+					<input type="radio" name="difficulty" id="d1" value="1"/>
 					<label for="d1" class="diffCont">1</label>
 				</p>
 			</div>
@@ -161,7 +165,8 @@
 		</div>
 		
 		<p class="title">추천 문제집 태그</p>
-		<div id="problemTag" class="chips chips-placeholder" onclick="chipTag()"></div>
+		<div id="problemTag" class="chips chips-placeholder input-field">
+		</div>
 		
 		<p class="title">추천 문제집 설명</p>
 		<textarea id="createContent" rows="5"></textarea>
@@ -225,11 +230,11 @@
 <!-- 세부 정보 모달 update -->
 <div id="updateRecommendProblem" style="display:none;">
 	<form>
-			<span id="updateRecomID" style="display:none;"></span>
+			<textarea id="updateRecomID" class="validate" style="display:none;"></textarea>
 			
 			<div>
 				<p class="title">추천 문제집 제목</p>
-				<input id="updateTitle" type="text" class="validate"/>
+				<input id="updateTitle" name="updateTitle" type="text" class="validate" value=""/>
 				<br><br>
 			</div>
 			
@@ -244,7 +249,7 @@
 				<div class="row">
 					<div class="input-field col s2">
 						<p>
-							<input type="radio" name="updateDifficulty" id="ud1" value="1" checked/>
+							<input type="radio" name="updateDifficulty" id="ud1" value="1"/>
 							<label for="ud1" class="diffCont">1</label>
 						</p>
 					</div>
@@ -278,20 +283,21 @@
 			
 			<div>
 				<p class="title">추천 문제 태그</p>
-				<div id="updateTags" style="display:none;"></div>
-				<div id="updateProblemTag" class="chips chips-placeholder" onclick="chipTag()"></div>
+				<textarea id="updateTags" class="validate" style="display:none;"></textarea>
+				<div id="updateProblemTag" class="chips chips-initial"></div>
 				<br><br>
 			</div>
 	
 			<div>
 				<p class="title desc">추천 문제</p>
 				<div class="row">
-					<div id="selectHtml" class="input-field col s4">
+					<div id="selectHtml2" class="input-field col s4">
 						<select id="updateSiteName" required>
 							<optgroup label="코딩사이트 선택">
-								<c:forEach items="${codingSite}" var="site">
-									<option value="${site.id}">${site.siteName}</option>
-								</c:forEach>
+								<option value="100">입력</option>
+								<%-- <c:forEach items="${codingSite2}" var="s">
+									<option value="${s.id}">${s.siteName}</option>
+								</c:forEach> --%>
 							</optgroup>
 							<optgroup label="링크로 입력">
 								<option value="0">링크로 입력</option>
@@ -308,8 +314,8 @@
 					<button type="button" id="updateAdd" class="modal_button lighten-1" onClick="updateProblems()">추가</button>
 				</div>
 				<div class="input-field col s10">
-					<label for="last_name">입력한 Problems</label> <br> <br>
-					<div class="recom-confirmSite" id="confirmSite updateConfirmSite"></div>
+					<label for="updateLast_name">입력한 Problems</label> <br> <br>
+					<div class="recom-confirmSite" id="updateConfirmSite"></div>
 				</div>
 			</div>
 	</form>		
@@ -327,18 +333,60 @@ $("#problemTag").click(function(){
 });
 
 function chipTag(){
+	/*
 	$('.sweet-modal-content .chips').material_chip();
 	$('.sweet-modal-content .chips-placeholder').material_chip({
 	    placeholder: '+tag',
 	    secondaryPlaceholder: '+Tag',
-	});
+	});*/
 }
 
+//수정 필요 ! -> update 창이 뜨면 보이도록
+function updateChipTag(data) {
+	//var tagData = data;
+	var tdSplit = data.split('\n');
+	var cnt=0;
+	var td = "";
+	
+	for(var i in tdSplit){
+		tdSplit[i] = tdSplit[i].trim();
+		tdSplit[i] = tdSplit[i].replaceAll(' ', ''); 
+		if(tdSplit[i] === '') continue;
+		else {
+			//console.log(tdSplit[i]);
+			if(cnt == 0) td += "[{\ntag: \'"+tdSplit[i]+"\',\n}"
+			else td += ", {\ntag: \'"+tdSplit[i]+"\',\n}"
+
+			console.log(td);
+			//tag[cnt].push()
+			cnt++;
+		}
+
+		//td = "";
+	}
+
+	td += "]";
+	/*
+	$('.sweet-modal-content .chips').material_chip();
+	$('.sweet-modal-content .chips-initial').material_chip({
+	    //data: td,
+		data: [{
+		      tag: 'Apple',
+		    }, {
+		      tag: 'Microsoft',
+		    }, {
+		      tag: 'Google',
+		    }],
+	});*/
+
+	td="";
+}
+/* 
 $('.chips').material_chip();
 $('.chips-placeholder').material_chip({
     placeholder: '+tag',
     secondaryPlaceholder: '+Tag',
-});
+}); */
 
 $('#tagAdd').click(function(){
 	var data= $('#problemTag').material_chip('data');

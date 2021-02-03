@@ -1,3 +1,7 @@
+var count = 0;
+$('.chip').on('click', function() {
+							console.log("change");
+						});
 function createModel(content, titleValue, actionFunction){
 		var variant = {
 			args: [
@@ -5,7 +9,26 @@ function createModel(content, titleValue, actionFunction){
 					content: $(content).html(),
 					title: titleValue,
 					showCloseButton: true,
-
+					onOpen: function(){
+						$('.sweet-modal-box select').formSelect();
+						//$('.sweet-modal-content .chips').chips();
+						$('.sweet-modal-content .chips-placeholder').chips({
+							placeholder: 'Enter a tag',
+							secondaryPlaceholder: '+Tag',
+							onChipAdd: function(){
+								var text = $('.sweet-modal-content .chips input').val();
+								$('.sweet-modal-content .chips .chip:last').remove();
+								$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close">close</i></div>');
+								count++;
+							},
+							onChipSelect: function(){
+							},
+							onChipDelete: function(){
+								//console.log($(this));
+							}
+						});
+					},
+					theme: $.sweetModal.THEME_MIXED,
 					buttons: [
 						{
 							label: '등록',
@@ -13,7 +36,8 @@ function createModel(content, titleValue, actionFunction){
 							action: function() {
 								actionFunction();
 								return $.sweetModal({
-									content: '<p style = "font-weight:800; font-size:15px; padding-top: 15px;">데이터가 등록 되었습니다~:)</p>',
+									content: '<p style = "font-weight:800;font-size:15px;padding-top: 15px;text-align: center;">데이터가 등록 되었습니다~:)</p>',
+									theme: $.sweetModal.THEME_MIXED,
 									icon: $.sweetModal.ICON_SUCCESS
 								});
 							}
@@ -25,7 +49,6 @@ function createModel(content, titleValue, actionFunction){
 		
 		variant.fn = variant.fn || $.sweetModal;
 		variant.fn.apply(this, variant.args);
-		$('select').formSelect();
 }
 
 
@@ -60,7 +83,9 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 					content: $(readContent).html(),
 					title: titleValue,
 					showCloseButton: true,
-
+					onOpen: function(){
+					},
+					theme: $.sweetModal.THEME_MIXED,
 					buttons: [
 						{
 							label: '수정',
@@ -69,6 +94,11 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 								return $.sweetModal({
 									title: titleValue2,
 									content: $(updateContent).html(),
+									onOpen: function(){
+										$('.sweet-modal-box select').formSelect();
+										
+									},
+									theme: $.sweetModal.THEME_MIXED,
 									buttons: [
 										{
 											label: '등록',
@@ -76,7 +106,8 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 											action: function() {
 												updateFunction();
 												return $.sweetModal({
-													content: '<p style = "font-weight:800; font-size:15px; padding-top: 15px;">데이터가 수정 되었습니다~:)</p>',
+													theme: $.sweetModal.THEME_MIXED,
+													content: '<p style = "font-weight:800;font-size:15px;padding-top: 15px;text-align: center;">데이터가 수정 되었습니다~:)</p>',
 													icon: $.sweetModal.ICON_SUCCESS
 												});
 											}
@@ -91,7 +122,8 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 							action: function() {
 								deleteFunction();
 								return $.sweetModal({
-									content: '<p style = "font-weight:800; font-size:15px; padding-top: 15px;">데이터가 삭제 되었습니다~:)</p>',
+									content: '<p style = "font-weight:800;font-size:15px;padding-top: 15px;text-align: center;">데이터가 삭제 되었습니다~:)</p>',
+									theme: $.sweetModal.THEME_MIXED,
 									icon: $.sweetModal.ICON_SUCCESS
 								});
 							}
@@ -112,6 +144,7 @@ function readModel(readContent, titleValue){
 				{
 					content: $(readContent).html(),
 					title: titleValue,
+					theme: $.sweetModal.THEME_MIXED,
 					showCloseButton: true
 				}
 			]

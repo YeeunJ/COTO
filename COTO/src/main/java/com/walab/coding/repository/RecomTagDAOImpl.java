@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.RecomTagDTO;
+import com.walab.coding.model.UserProblemDTO;
 
 @Repository
 public class RecomTagDAOImpl implements RecomTagDAO {
@@ -39,5 +40,14 @@ public class RecomTagDAOImpl implements RecomTagDAO {
 		recomTagListParam.put("recomID", recomID);
 		
 		return sqlSession.delete(namespace+".deleteRecomTag", recomTagListParam);
+	}
+	
+	@Override
+	public int updateTag(RecomTagDTO rt) {
+		Map<String, Object> recomTagParam = new HashMap<String, Object>();
+		recomTagParam.put("recomID", rt.getRecomID());
+		recomTagParam.put("tag", rt.getTag());
+		
+		return sqlSession.update(namespace+".updateRecomTag", recomTagParam);
 	}
 }

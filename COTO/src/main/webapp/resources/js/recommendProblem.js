@@ -35,7 +35,6 @@ function search(){
 function callModal() {
 	selectHtml = $('#selectHtml').html();
 	createModel("#createProblems", "문제집 등록", addajax);
- 	$('select').formSelect();
 }
 
 function printAllContent(id, recomId, count){
@@ -52,14 +51,101 @@ function printAllContent(id, recomId, count){
 	$("#commentCount").text(count);
 	
 	$('#updateRecomID').html(recomId);
-	$('.sweet-modal-content #updateTitle').val($(id+' .readTitle').html());
+	$('input[name=updateTitle]').attr('value',$(id+' .readTitle').text());
+	//$('.sweet-modal-content #updateTitle').val($(id+' .readTitle').text());
 	$('#updateContents').html($(id+' .readContent').html());
-	$('#updateTags').html($(id+' .readTag').html());
+	//$('#updateTags').text($(id+' .readTag').text());
 	$('#updateProblems').html($(id+' .readProblem').html());
+	
+	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
+	if(d != 0) {
+		//jQuery버전 1.6 이하 일때 아래코드로, 아니라면 $("#ud"+d).prop("checked", true);
+		$("#ud"+d).attr('checked', 'checked');
+		//$("input:radio[name='updateDifficulty']:radio[value=\'" + d + "\']").prop('checked', true); 
+		//document.getElementsByName("updateDifficulty")[d-1].checked;
+	}
+	
+	//updateConfirmSite
+	updateInsertProblems($(id+' .readProblem').text());
+	
+	updateChipTag($(id+' .readTag').text());
 	
 	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), $(id+' .readTitle').html(), updateAjax, deleteAjax);
 	$('select').formSelect();
 }
+
+// 수정 필요 ! -> update 창이 뜨면 보이도록
+function updateChipTag(data) {
+	//var tagData = data;
+	var tdSplit = data.split('\n');
+	var cnt=0;
+	var td = "";
+	
+	for(var i in tdSplit){
+		tdSplit[i] = tdSplit[i].trim();
+		tdSplit[i] = tdSplit[i].replaceAll(' ', ''); 
+		if(tdSplit[i] === '') continue;
+		else {
+			//console.log(tdSplit[i]);
+			if(cnt == 0) td += "[{\ntag: \'"+tdSplit[i]+"\',\n}"
+			else td += ", {\ntag: \'"+tdSplit[i]+"\',\n}"
+
+			console.log(td);
+			//tag[cnt].push()
+			cnt++;
+		}
+
+		//td = "";
+	}
+
+	td += "]";
+	
+	$('.sweet-modal-content .chips').material_chip();
+	$('.sweet-modal-content .chips-initial').material_chip({
+	    //data: td,
+		data: [{
+		      tag: 'Apple',
+		    }, {
+		      tag: 'Microsoft',
+		    }, {
+		      tag: 'Google',
+		    }],
+	});
+
+	td="";
+}
+
+function updateInsertProblems(data){
+	
+	var dataSplit = data.split('\n');
+	var cnt=0;
+	var result = "";
+	var data2 = [];
+	var pName = [];
+	var sName = [];
+	
+	for(var i in dataSplit){
+		dataSplit[i] = dataSplit[i].trim();
+		dataSplit[i] = dataSplit[i].replaceAll(' ', ''); 
+		
+		if(dataSplit[i] === '') continue;
+		else data2.push(dataSplit[i]);
+	}
+	
+	for(var i in data2){
+		if(i%2==0) sName.push(data2[i]);
+		else pName.push(data2[i]);
+	}
+	
+	for(var i in pName){
+		//input name에 site id필요!!!
+		result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="1" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+		count++;
+	}
+	
+	$('.sweet-modal-content #updateConfirmSite').html(result);
+	$('#updateConfirmSite').html(result);
+};
 
 
 function addComment() {	
@@ -89,11 +175,7 @@ function addComment() {
 	}
 }
 
-$('.sweet-modal-content .chips').material_chip();
-$('.sweet-modal-content .chips-placeholder').material_chip({
-    placeholder: '+tag',
-    secondaryPlaceholder: '+Tag',
-});
+
 
 function readComment(recomID) {
 	$.ajax({
@@ -138,19 +220,19 @@ function addajax(){
 		var s_id = 0;
 		var l = "";
 		var p;
-		var valueSplit = $(this).val().split(' ');
+		var valueSplit = $(this).val().split(' (');
 		
 		if($(this).attr('name') == 0){ // link로 설정하는 경우
-			l = valueSplit[0];
+			l = valueSplit[0].trim();
 			console.log("link: "+l);
 			
 			var split = l.split('/');
-			p = split[split.length-1];
-			console.log("problem: "+split[split.length-1]);
+			p = split[split.length-1].trim();
+			console.log("problem: "+split[split.length-1].trim());
 
 		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
-			p = valueSplit[0];
+			p = valueSplit[0].trim();
 		}
 		
 		siteId.push(s_id);
@@ -198,6 +280,7 @@ function addajax(){
 }
 
 function updateAjax (){
+	var recomID = $('.sweet-modal-content #updateRecomID').val(); 
 	var title = $('.sweet-modal-content #updateTitle').val(); 
 	var content = $('.sweet-modal-content #updateContents').val();
 	var tag = [];
@@ -206,24 +289,26 @@ function updateAjax (){
 	var problem = [];
 	var link = [];
 	
+	console.log(recomID);
+	
 	$('.sweet-modal-content .updateConfirmProblem').each(function(){
 		
 		var s_id = 0;
 		var l = "";
 		var p;
-		var valueSplit = $(this).val().split(' ');
+		var valueSplit = $(this).val().split(' (');
 		
 		if($(this).attr('name') == 0){ // link로 설정하는 경우
-			l = valueSplit[0];
+			l = valueSplit[0].trim();
 			console.log("link: "+l);
 			
 			var split = l.split('/');
-			p = split[split.length-1];
-			console.log("problem: "+split[split.length-1]);
+			p = split[split.length-1].trim();
+			console.log("problem: "+split[split.length-1].trim());
 
 		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
-			p = valueSplit[0];
+			p = valueSplit[0].trim();
 		}
 		
 		siteId.push(s_id);
@@ -247,8 +332,8 @@ function updateAjax (){
 		type: "POST",
 		async: false,
 		data: {
-			id:$('#updateRecomID').html(),
-			"siteId":siteId, "problem":problem, "link":link, "title":title, "difficulty":difficulty, "tag":tag, "content":content
+			"recomID": recomID, "title":title, "difficulty":difficulty, "tag":tag, "content":content
+			/*"siteId":siteId, "problem":problem, "link":link, */
 		},
 		success: function(data){
 			console.log(data);
@@ -313,9 +398,9 @@ function updateProblems(){
 	var value = $(".sweet-modal-content #updateConfirmProblems").val();
 	console.log(value);
 	var valueSplit = value.split(',');
-	var data = $('.sweet-modal-content #"updateConfirmSite"').html();
+	var data = $('.sweet-modal-content #updateConfirmSite').html();
 	for(var i in valueSplit){
-		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
 		count++;
 	}
 	$('.sweet-modal-content #updateConfirmSite').html(data);

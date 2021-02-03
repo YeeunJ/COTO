@@ -47,4 +47,9 @@ public class UserServiceImpl implements UserService{
 	public int updateUser(UserDTO updateUser) {
 		return userDAO.updateUser(updateUser);
 	}
+
+	@Override
+	public int readUserCountByNickname(String Nickname) {
+		return userDAO.readUserCountByNickname(Nickname);
+	}
 }
