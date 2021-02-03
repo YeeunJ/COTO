@@ -86,7 +86,6 @@ public class RecommendController {
 			}
 		}
 		
-		
 		mv.addObject("recoms", recoms);
 		mv.addObject("codingSite", codingSite);
 		mv.addObject("codingSite2", codingSite2);
@@ -94,6 +93,7 @@ public class RecommendController {
 //		mv.addObject("commentCount", commentCount);
 		mv.addObject("recomProblem", recomProblem);
 		mv.addObject("recomProblemTag", recomProblemTag);
+		mv.addObject("loginID", userID);
 				
 		mv.setViewName("recommendProblem");
 

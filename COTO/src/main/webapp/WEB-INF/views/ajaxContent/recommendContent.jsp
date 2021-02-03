@@ -25,6 +25,8 @@
 		<span class="tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
 		<span class="tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
 		
+		<span class="readLoginID" style="display: none;">${loginID}</span>
+		<span class="readUserID" style="display: none;">${recoms.userID}</span>
 		<span class="readContent" style="display: none;">${recoms.content}</span>
 		<span class="readDifficulty" style="display: none;">
 			<c:choose>

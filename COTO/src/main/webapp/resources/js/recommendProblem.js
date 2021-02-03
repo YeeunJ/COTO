@@ -58,15 +58,28 @@ function printAllContent(id, recomId, count){
 	$('#updateProblems').html($(id+' .readProblem').html());
 	
 	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
+	console.log(d);
 	//jQuery버전 1.6 이하 일때 아래코드로, 아니라면 $("#ud"+d).prop("checked", true);
 	$("#ud"+d).attr('checked', 'checked');
+	/*for(var i=0;i<6;i++) {
+		if(i == d) {
+			$("#ud"+d).attr('checked', 'checked');
+			console.log("checked");
+			}
+		else $("#ud"+d).removeAttr('checked');
+	}*/
 	
 	//updateConfirmSite
 	updateInsertProblems($(id+' .readProblem').text());
 	
 	updateChipTag($(id+' .readTag').text());
 	
-	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), $(id+' .readTitle').html(), updateAjax, deleteAjax);
+	var logID = $(id+' .readLoginID').text();
+	var uID = $(id+' .readUserID').text();
+	//console.log(logID + " = " + uID);
+	
+	if(logID == uID)rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), $(id+' .readTitle').html(), updateAjax, deleteAjax);
+	else readModel("#readRecommendProblem", $(id+' .readTitle').html());
 	$('select').formSelect();
 }
 
@@ -88,15 +101,23 @@ function updateChipTag(data) {
 
 			console.log(td);
 			//tag[cnt].push()
+			
+			
+			$('#updateProblemTag').html('<div class="chip" id="tabindex"'+cnt+'>'+tdSplit[i]+'<i class="material-icons close">close</i></div>');
 			cnt++;
 		}
 
 		//td = "";
 	}
+	
+	$('#updateProblemTag').html('<input class="input" id="8b9cc387-e450-ef54-bd7b-64f87cf19ba0" placeholder="+Tag">');
 
 	td += "]";
 	
-	$('.sweet-modal-content .chips').material_chip();
+	//$('.sweet-modal-content #updateProblemTag').material_chip(td);
+	
+	
+	/*$('.sweet-modal-content .chips').material_chip();
 	$('.sweet-modal-content .chips-initial').material_chip({
 	    //data: td,
 		data: [{
@@ -106,9 +127,7 @@ function updateChipTag(data) {
 		    }, {
 		      tag: 'Google',
 		    }],
-	});
-
-	td="";
+	});*/
 }
 
 function updateInsertProblems(data){
