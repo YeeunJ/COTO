@@ -36,6 +36,7 @@ import com.walab.coding.service.RecomCommentService;
 import com.walab.coding.service.RecomProblemServiceImpl;
 import com.walab.coding.service.RecommendService;
 import com.walab.coding.service.RecomCommentServiceImpl;
+import com.walab.coding.service.RecomCountService;
 import com.walab.coding.service.RecomProblemService;
 import com.walab.coding.service.RecommendServiceImpl;
 import com.walab.coding.service.UserService;
@@ -61,6 +62,8 @@ public class RecommendController {
 	RecomTagService recomTagService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	RecomCountService recomCountService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView recommendProblem(ModelAndView mv) {
@@ -356,7 +359,7 @@ public class RecommendController {
 //		}else {
 //			System.out.println("recomTag fail");
 //		}
-//		if(recomCommentService.deleteRecomCount(recomID) > 0) {
+//		if(recomCountService.deleteRecomCount(recomID) > 0) {
 //			System.out.println("recomCount success");
 //		}else {
 //			System.out.println("recomCount fail");
