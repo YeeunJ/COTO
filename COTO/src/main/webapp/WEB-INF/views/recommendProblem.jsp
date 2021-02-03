@@ -293,7 +293,7 @@
 					<div class="input-field col s2">
 						<p>
 							<input type="radio" name="updateDifficulty" id="ud0" value="0" class="radioMrg" /> 
-							<label for="d0" class="diffCont">설정 안함</label>
+							<label for="ud0" class="diffCont">설정 안함</label>
 						</p>
 					</div>
 				</div>
@@ -303,7 +303,7 @@
 			<div>
 				<p class="title">추천 문제 태그</p>
 				<textarea id="updateTags" class="validate" style="display:none;"></textarea>
-				<div id="updateProblemTag" class="chips chips-initial"></div>
+				<div id="updateProblemTag" class="chips chips-placeholder input-field"></div>
 				<br><br>
 			</div>
 	
@@ -359,52 +359,7 @@ function chipTag(){
 	});*/
 }
 
-//수정 필요 ! -> update 창이 뜨면 보이도록
-function updateChipTag(data) {
-	//var tagData = data;
-	var tdSplit = data.split('\n');
-	var cnt=0;
-	var td = "";
-	
-	for(var i in tdSplit){
-		tdSplit[i] = tdSplit[i].trim();
-		tdSplit[i] = tdSplit[i].replaceAll(' ', ''); 
-		if(tdSplit[i] === '') continue;
-		else {
-			//console.log(tdSplit[i]);
-			if(cnt == 0) td += "[{\ntag: \'"+tdSplit[i]+"\',\n}"
-			else td += ", {\ntag: \'"+tdSplit[i]+"\',\n}"
 
-			console.log(td);
-			//tag[cnt].push()
-			cnt++;
-		}
-
-		//td = "";
-	}
-
-	td += "]";
-	/*
-	$('.sweet-modal-content .chips').material_chip();
-	$('.sweet-modal-content .chips-initial').material_chip({
-	    //data: td,
-		data: [{
-		      tag: 'Apple',
-		    }, {
-		      tag: 'Microsoft',
-		    }, {
-		      tag: 'Google',
-		    }],
-	});*/
-
-	td="";
-}
-/* 
-$('.chips').material_chip();
-$('.chips-placeholder').material_chip({
-    placeholder: '+tag',
-    secondaryPlaceholder: '+Tag',
-}); */
 
 $('#tagAdd').click(function(){
 	var data= $('#problemTag').material_chip('data');
