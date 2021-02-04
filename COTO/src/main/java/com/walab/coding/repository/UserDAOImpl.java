@@ -86,6 +86,22 @@ public class UserDAOImpl implements UserDAO{
 	
 		return sqlSession.selectOne("user.readUserCountByNickname", param);
 	}
+
+	@Override
+	public List<UserDTO> read() {
+		List<UserDTO> users = sqlSession.selectList("user.readAllUser");
+		
+		return users;
+	}
+
+	@Override
+	public void updateUserAdmin(int isAdmin, int userID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("isAdmin", isAdmin);
+		param.put("userID", userID);
+	
+		sqlSession.update("user.updateUserAdmin", param);
+	}
 	
 	
 }

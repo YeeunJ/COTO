@@ -32,6 +32,14 @@
 	<select id="readUserCountByNickname" resultType="int" parameterType="hashmap">
 		SELECT COUNT(*) FROM user WHERE nickName=#{nickName}
 	</select>
+	
+	<select id="readAllUser" resultType="com.walab.coding.model.UserDTO">
+		SELECT * FROM user	
+	</select>
+	
+	<update id="updateUserAdmin" parameterType="hashmap">
+		UPDATE user SET isAdmin=#{isAdmin} WHERE id=#{userID}
+	</update>  
 <!-- 	<update id="updateUser">
 		UPDATE user
 		SET name=#{name},
