@@ -92,11 +92,11 @@ function updateChipTag(data) {
 		tdSplit[i] = tdSplit[i].replaceAll(' ', ''); 
 		if(tdSplit[i] === '') continue;
 		else {
-			//console.log(tdSplit[i]);
+			console.log(tdSplit[i]);
 			if(cnt == 0) td += "[{\ntag: \'"+tdSplit[i]+"\',\n}"
 			else td += ", {\ntag: \'"+tdSplit[i]+"\',\n}"
 
-			console.log(td);
+			//console.log(td);
 			//tag[cnt].push()
 			
 			
@@ -163,9 +163,9 @@ function updateInsertProblems(data){
 	for(var i in pName){
 		//input name에 site id필요!!!
 		
-		if(sName[i] == "링크로 입력") result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="0" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+		if(sName[i] == site[site.length-1]) result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="0" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
 		else {
-			for(var j=1;j<site.length;j++) {
+			for(var j=0;j<site.length-1;j++) {
 				if(sName[i] == site[j]) {
 					result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+j+'" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
 					break;
