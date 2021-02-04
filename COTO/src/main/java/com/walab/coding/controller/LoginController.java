@@ -54,12 +54,14 @@ public class LoginController {
 		return new ModelAndView(redirectUrl);
 	}
 	
-	@GetMapping(value = "/cancel")
+	@GetMapping(value = "cancel")
 	public ModelAndView logout(HttpServletRequest request) {
 		request.getSession().removeAttribute("user");
 		request.getSession().removeAttribute("token");
-		String redirectUrl = REDIRECTION_URL;
-		return new ModelAndView(redirectUrl);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setView(new RedirectView("/",true));
+		return mv;
 	}
 	
 	/**
