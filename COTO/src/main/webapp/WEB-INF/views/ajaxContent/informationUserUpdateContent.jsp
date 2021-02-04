@@ -15,7 +15,7 @@
 					placeholder="${user.name}" /> </span>
 		</div>
 		<div class="tableRow">
-			<span class="tableCell th3">학번</span> <span class="tableCell td8"><input
+			<span class="tableCell th3">이메일</span> <span class="tableCell td8"><input
 				type="text" name="email" value="${user.email}"
 				placeholder="${user.email}" /> </span>
 		</div>
