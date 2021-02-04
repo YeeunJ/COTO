@@ -58,8 +58,10 @@ public class RegisterController {
 	@ResponseBody
 	public void registerUsergoal(HttpServletRequest httpServeletRequest) throws ParseException {
 		
-		int userID = ((UserDTO)httpServeletRequest.getSession().getAttribute("user")).getId();
-		
+//		int userID = ((UserDTO)httpServeletRequest.getSession().getAttribute("user")).getId();
+		String email = httpServeletRequest.getParameter("email");
+		int userID = userService.readUserIDByEmail(email);
+		System.out.println(userID);
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		String goal = httpServeletRequest.getParameter("goal");

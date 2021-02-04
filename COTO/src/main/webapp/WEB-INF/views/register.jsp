@@ -150,6 +150,7 @@ $("#userInfoBtn").click(function(){
 });
 
 $("#userGoalBtn").click(function(){
+	
  	if($('input[name="goal"]').val()=="") {
 		alert("일별 계획을 입력하세요.");
 		return;
@@ -176,7 +177,8 @@ $("#userGoalBtn").click(function(){
 				goal: $('input[name="goal"]').val(),
 				startDate: $('input[name="startDate"]').val(),
 				endDate:$('input[name="endDate"]').val(),
-				goalNum: $('input[name="goalNum"]').val()
+				goalNum: $('input[name="goalNum"]').val(),
+				email: $('input[name="email"]').val(),
 			},
 			success: function(data){
 				alert("성공적으로 정보가 등록되었습니다.");

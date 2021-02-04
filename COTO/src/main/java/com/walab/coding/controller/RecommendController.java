@@ -69,8 +69,7 @@ public class RecommendController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView recommendProblem(HttpServletRequest request, ModelAndView mv) {
 		//임의 값
-		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
-				
+		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();		
 //		List<RecomCommentDTO> recomComment = recomCommentService.read();
 		List<RecommendDTO> recoms = recommendService.readRecom();
 //		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();		
@@ -137,7 +136,7 @@ public class RecommendController {
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		
 		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
-		
+		System.out.println("in readCommend: "+userID);
 
 		mv.addObject("userid", userID);
 		mv.addObject("recomID", recomID);
