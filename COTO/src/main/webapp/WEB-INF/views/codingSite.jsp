@@ -127,7 +127,7 @@ $(document).ready(function() {
 </script>
 
 
-<div class="container">
+<div id="SiteContainer" class="container">
 	<div>
 		<h4 class="header green-text">코딩 사이트 관리</h4>
 		<br>
@@ -145,7 +145,7 @@ $(document).ready(function() {
 			<c:forEach items="${CodingSite}" var="u">
 				<div class="tableRow content">
 			 		<span class="tableCell td3 sub">${u.getSiteName()}</span> 
-					<span class="tableCell td5 sub"><a href="${u.getSiteUrl()}">${u.getSiteUrl()}</a></span> 
+					<span class="tableCell td5 sub"><a href="${u.getSiteUrl()}" target="_blank" >${u.getSiteUrl()}</a></span> 
 					<span class="tableCell td1 sub"><button type="button" id="change" style="display:none;" class="editSite edit waves-effect waves-light btn-small green">수정</button></span> 
 					<span class="tableCell td1 sub"><button style="display:none;" value="${u.getId()}" class="deleteBtn edit waves-effect waves-light btn-small green" type="button">삭제</button></span>
 				</div>

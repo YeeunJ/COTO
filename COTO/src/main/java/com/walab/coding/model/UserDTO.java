@@ -13,12 +13,6 @@ public class UserDTO {
 	private int isAdmin;
 
 	
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
 	public int getId() {
 		return id;
 	}
@@ -55,11 +49,23 @@ public class UserDTO {
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
 	public int getIsAdmin() {
 		return isAdmin;
 	}
 	public void setIsAdmin(int isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+	
+	@Override
+	public String toString() {
+		return "UserDTO [id=" + id + ", name=" + name + ", email=" + email + ", userNumber=" + userNumber
+				+ ", nickName=" + nickName + ", intro=" + intro + ", regDate=" + regDate + ", isAdmin=" + isAdmin + "]";
 	}
 	
 

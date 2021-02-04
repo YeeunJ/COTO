@@ -150,7 +150,7 @@ function resetContent() {
 
 
 <!-- second section start- 랭킹, 태그, 순위 -->
-<div class="container">
+<div  class="container">
 	<div class="section second">
 		<div class="row center">
 			<div class="col s12 m4">

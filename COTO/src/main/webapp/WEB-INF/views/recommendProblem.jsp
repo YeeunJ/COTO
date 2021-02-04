@@ -14,11 +14,8 @@
 %>
 <jsp:include page= "<%=fullHeader%>" />
 
-<link rel = "stylesheet"
-         href = "https://fonts.googleapis.com/icon?family=Material+Icons">
-      <link rel = "stylesheet"
-         href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-<script src = "./resources/js/recommendProblem.js"></script>
+<link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css"> -->
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
 <link href="./resources/css/recommendProblem.css?qwe" rel="stylesheet">
 <script src="./resources/js/recommendProblem.js"></script>
@@ -59,7 +56,7 @@
 }
 </style>
 
-<div class="container">
+<div id="SiteContainer" class="container">
 	<div id="recommend">
 		<div class="content">
 			<h4>문제 추천</h4>
@@ -171,7 +168,12 @@
 					<label for="d5" class="diffCont">5</label>
 				</p>
 			</div>
-			
+			<div class="input-field col s2">
+				<p>
+					<input type="radio" name="difficulty" id="d0" value="0" class="radioMrg" /> 
+					<label for="d0" class="diffCont">설정 안함</label>
+				</p>
+			</div>
 			
 		</div>
 		
@@ -288,6 +290,12 @@
 							<label for="ud5" class="diffCont">5</label>
 						</p>
 					</div>
+					<div class="input-field col s2">
+						<p>
+							<input type="radio" name="updateDifficulty" id="ud0" value="0" class="radioMrg" /> 
+							<label for="ud0" class="diffCont">설정 안함</label>
+						</p>
+					</div>
 				</div>
 				<br><br>
 			</div>
@@ -295,19 +303,18 @@
 			<div>
 				<p class="title">추천 문제 태그</p>
 				<textarea id="updateTags" class="validate" style="display:none;"></textarea>
-				<div id="updateProblemTag" class="chips chips-initial"></div>
+				<div id="updateProblemTag" class="chips chips-placeholder input-field"></div>
 				<br><br>
 			</div>
 	
 			<div>
 				<p class="title desc">추천 문제</p>
 				<div class="row">
-					<div id="selectHtml2" class="input-field col s4">
-						<select id="updateSiteName" required>
+					<div id="selectHtml" class="input-field col s4">
+						<select id="siteName" required>
 							<optgroup label="코딩사이트 선택">
-								<option value="100">입력</option>
-								<c:forEach items="${codingSite}" var="s">
-									<option value="${s.id}">${s.siteName}</option>
+								<c:forEach items="${codingSite}" var="site">
+									<option value="${site.id}">${site.siteName}</option>
 								</c:forEach>
 							</optgroup>
 							<optgroup label="링크로 입력">
@@ -352,52 +359,7 @@ function chipTag(){
 	});*/
 }
 
-//수정 필요 ! -> update 창이 뜨면 보이도록
-function updateChipTag(data) {
-	//var tagData = data;
-	var tdSplit = data.split('\n');
-	var cnt=0;
-	var td = "";
-	
-	for(var i in tdSplit){
-		tdSplit[i] = tdSplit[i].trim();
-		tdSplit[i] = tdSplit[i].replaceAll(' ', ''); 
-		if(tdSplit[i] === '') continue;
-		else {
-			//console.log(tdSplit[i]);
-			if(cnt == 0) td += "[{\ntag: \'"+tdSplit[i]+"\',\n}"
-			else td += ", {\ntag: \'"+tdSplit[i]+"\',\n}"
 
-			console.log(td);
-			//tag[cnt].push()
-			cnt++;
-		}
-
-		//td = "";
-	}
-
-	td += "]";
-	/*
-	$('.sweet-modal-content .chips').material_chip();
-	$('.sweet-modal-content .chips-initial').material_chip({
-	    //data: td,
-		data: [{
-		      tag: 'Apple',
-		    }, {
-		      tag: 'Microsoft',
-		    }, {
-		      tag: 'Google',
-		    }],
-	});*/
-
-	td="";
-}
-/* 
-$('.chips').material_chip();
-$('.chips-placeholder').material_chip({
-    placeholder: '+tag',
-    secondaryPlaceholder: '+Tag',
-}); */
 
 $('#tagAdd').click(function(){
 	var data= $('#problemTag').material_chip('data');

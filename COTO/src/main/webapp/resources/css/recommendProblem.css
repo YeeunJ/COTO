@@ -1,4 +1,10 @@
 /* 문제 추천 - 전체 페이지 css */
+.row {
+	margin-bottom: 0px !important;
+}
+footer.page-footer {
+	padding-top: 0px !important;
+}
 .custom-button {
 	background-color: white;
 	margin-top: 15%; ! important;

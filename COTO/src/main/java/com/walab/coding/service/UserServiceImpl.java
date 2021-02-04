@@ -38,7 +38,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int createUserinfo(UserDTO u) {
-		// TODO Auto-generated method stub
 		int result = userDAO.createUserInfo(u);
 		return result;
 	}
@@ -51,5 +50,15 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int readUserCountByNickname(String Nickname) {
 		return userDAO.readUserCountByNickname(Nickname);
+	}
+
+	@Override
+	public List<UserDTO> read() {
+		return userDAO.read();
+	}
+
+	@Override
+	public void updateUserAdmin(int isAdmin, int userID) {
+		userDAO.updateUserAdmin(isAdmin, userID);
 	}
 }

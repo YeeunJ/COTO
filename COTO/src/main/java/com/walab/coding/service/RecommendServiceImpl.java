@@ -28,7 +28,7 @@ public class RecommendServiceImpl implements RecommendService {
 		List<RecommendDTO> recoms = recommendDAO.readRecom();
 		
 		for(int i=0;i<recoms.size();i++) {
-			recoms.get(i).setRecomCount(recomCountDAO.readRecomCount(recoms.get(i), i));
+			recoms.get(i).setRecomCount(recomCountDAO.readRecomCount(recoms.get(i).getId()));
 			
 			int recomID = recoms.get(i).getId();
 			recoms.get(i).setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));

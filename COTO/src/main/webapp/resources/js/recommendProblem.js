@@ -58,11 +58,12 @@ function printAllContent(id, recomId, count){
 	$('#updateProblems').html($(id+' .readProblem').html());
 	
 	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
-	if(d != 0) {
-		//jQuery버전 1.6 이하 일때 아래코드로, 아니라면 $("#ud"+d).prop("checked", true);
-		$("#ud"+d).attr('checked', 'checked');
-		//$("input:radio[name='updateDifficulty']:radio[value=\'" + d + "\']").prop('checked', true); 
-		//document.getElementsByName("updateDifficulty")[d-1].checked;
+	console.log(d);
+	//jQuery버전 1.6 이하 일때 아래코드로, 아니라면 $("#ud"+d).prop("checked", true);
+	//$("#ud"+d).attr('checked', 'checked');
+	for(var i=0;i<6;i++) {
+		if(i == d) $("#ud"+i).attr('checked', 'checked');
+		else $("#ud"+i).removeAttr('checked');
 	}
 	
 	//updateConfirmSite
@@ -70,7 +71,12 @@ function printAllContent(id, recomId, count){
 	
 	updateChipTag($(id+' .readTag').text());
 	
-	rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), $(id+' .readTitle').html(), updateAjax, deleteAjax);
+	var logID = $(id+' .readLoginID').text();
+	var uID = $(id+' .readUserID').text();
+	//console.log(logID + " = " + uID);
+	
+	if(logID == uID)rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), $(id+' .readTitle').html(), updateAjax, deleteAjax);
+	else readModel("#readRecommendProblem", $(id+' .readTitle').html());
 	$('select').formSelect();
 }
 
@@ -86,21 +92,29 @@ function updateChipTag(data) {
 		tdSplit[i] = tdSplit[i].replaceAll(' ', ''); 
 		if(tdSplit[i] === '') continue;
 		else {
-			//console.log(tdSplit[i]);
+			console.log(tdSplit[i]);
 			if(cnt == 0) td += "[{\ntag: \'"+tdSplit[i]+"\',\n}"
 			else td += ", {\ntag: \'"+tdSplit[i]+"\',\n}"
 
-			console.log(td);
+			//console.log(td);
 			//tag[cnt].push()
+			
+			
+			$('#updateProblemTag').html('<div class="chip" id="tabindex"'+cnt+'>'+tdSplit[i]+'<i class="material-icons close">close</i></div>');
 			cnt++;
 		}
 
 		//td = "";
 	}
+	
+	$('#updateProblemTag').html('<input class="input" id="8b9cc387-e450-ef54-bd7b-64f87cf19ba0" placeholder="+Tag">');
 
 	td += "]";
 	
-	$('.sweet-modal-content .chips').material_chip();
+	//$('.sweet-modal-content #updateProblemTag').material_chip(td);
+	
+	
+	/*$('.sweet-modal-content .chips').material_chip();
 	$('.sweet-modal-content .chips-initial').material_chip({
 	    //data: td,
 		data: [{
@@ -110,9 +124,7 @@ function updateChipTag(data) {
 		    }, {
 		      tag: 'Google',
 		    }],
-	});
-
-	td="";
+	});*/
 }
 
 function updateInsertProblems(data){
@@ -123,6 +135,9 @@ function updateInsertProblems(data){
 	var data2 = [];
 	var pName = [];
 	var sName = [];
+	var siteData = $('#siteName').text();
+	var siteSplit = siteData.split('\n');
+	var site = [];
 	
 	for(var i in dataSplit){
 		dataSplit[i] = dataSplit[i].trim();
@@ -132,6 +147,14 @@ function updateInsertProblems(data){
 		else data2.push(dataSplit[i]);
 	}
 	
+	for(var i in siteSplit){
+		siteSplit[i] = siteSplit[i].trim();
+		siteSplit[i] = siteSplit[i].replaceAll(' ', ''); 
+		
+		if(siteSplit[i] === '') continue;
+		else site.push(siteSplit[i]);
+	}
+	
 	for(var i in data2){
 		if(i%2==0) sName.push(data2[i]);
 		else pName.push(data2[i]);
@@ -139,7 +162,17 @@ function updateInsertProblems(data){
 	
 	for(var i in pName){
 		//input name에 site id필요!!!
-		result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="1" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+		
+		if(sName[i] == site[site.length-1]) result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="0" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+		else {
+			for(var j=0;j<site.length-1;j++) {
+				if(sName[i] == site[j]) {
+					result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+j+'" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+					break;
+				}
+			}
+		}
+		
 		count++;
 	}
 	
@@ -247,9 +280,13 @@ function addajax(){
 	
 	probs = {"siteId":siteId, "problem":problem, "link":link};
 	
-	var tag_data= $('.sweet-modal-content #problemTag').material_chip('data');
-	for(var i=0; i<tag_data.length; i++) {
-		tag.push(tag_data[i].tag);
+	var tag_data= $('.sweet-modal-content #problemTag').text(); //$('.sweet-modal-content #problemTag').material_chip('data');
+	var tagSplit = tag_data.split("close");
+	for(var i in tagSplit) {
+		tagSplit[i] = tagSplit[i].trim();
+		
+		if(tagSplit[i] === '') continue;
+		else tag.push(tagSplit[i]);
 	}
 	console.log(tag);
 	
@@ -317,9 +354,17 @@ function updateAjax (){
 		
 	});
 	
-	var tag_data= $('.sweet-modal-content #updateProblemTag').material_chip('data');
-	for(var i=0; i<tag_data.length; i++) {
-		tag.push(tag_data[i].tag);
+	console.log(problem);
+	console.log(siteId);
+	console.log(link);
+	
+	var tag_data= $('.sweet-modal-content #updateProblemTag').text(); //$('.sweet-modal-content #problemTag').material_chip('data');
+	var tagSplit = tag_data.split("close");
+	for(var i in tagSplit) {
+		tagSplit[i] = tagSplit[i].trim();
+		
+		if(tagSplit[i] === '') continue;
+		else tag.push(tagSplit[i]);
 	}
 	
 	for(var i=0;i<difficulty_cnt;i++) {
@@ -332,8 +377,7 @@ function updateAjax (){
 		type: "POST",
 		async: false,
 		data: {
-			"recomID": recomID, "title":title, "difficulty":difficulty, "tag":tag, "content":content
-			/*"siteId":siteId, "problem":problem, "link":link, */
+			"recomID": recomID, "siteId":siteId, "problem":problem, "link":link, "title":title, "difficulty":difficulty, "tag":tag, "content":content
 		},
 		success: function(data){
 			console.log(data);
@@ -391,10 +435,10 @@ function insertProblems(){
 count=0;
 function updateProblems(){
 	
-	var siteName = $(".sweet-modal-content #updateSiteName option:selected").text();
-	var siteId = $('.sweet-modal-content #updateSiteName').val();
+	var siteName = $(".sweet-modal-content #siteName option:selected").text();
+	var siteId = $('.sweet-modal-content #siteName').val();
 	console.log("siteId: "+siteId);
-	var site = $(".sweet-modal-content #updateSiteName option:selected").val();
+	var site = $(".sweet-modal-content #siteName option:selected").val();
 	var value = $(".sweet-modal-content #updateConfirmProblems").val();
 	console.log(value);
 	var valueSplit = value.split(',');

@@ -72,7 +72,7 @@ public class UserDAOImpl implements UserDAO{
 		
 		Map<String, Object> userParam = new HashMap<String, Object>();
 		userParam.put("name", updateUser.getName());
-		userParam.put("nickName", updateUser.getNickName());
+		userParam.put("email", updateUser.getEmail());
 		userParam.put("intro", updateUser.getIntro());
 		userParam.put("id", updateUser.getId());
 		
@@ -85,6 +85,22 @@ public class UserDAOImpl implements UserDAO{
 		param.put("nickName", nickname);
 	
 		return sqlSession.selectOne("user.readUserCountByNickname", param);
+	}
+
+	@Override
+	public List<UserDTO> read() {
+		List<UserDTO> users = sqlSession.selectList("user.readAllUser");
+		
+		return users;
+	}
+
+	@Override
+	public void updateUserAdmin(int isAdmin, int userID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("isAdmin", isAdmin);
+		param.put("userID", userID);
+	
+		sqlSession.update("user.updateUserAdmin", param);
 	}
 	
 	

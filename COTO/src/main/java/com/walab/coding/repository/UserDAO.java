@@ -14,6 +14,7 @@ public interface UserDAO {
 //	public List<UserDTO> updateUser(int userID);
 	public int updateUser(UserDTO updateUser);
 	public int readUserCountByNickname(String nickname);
-
+	public List<UserDTO> read();
+	public void updateUserAdmin(int isAdmin, int userID);
 
 }

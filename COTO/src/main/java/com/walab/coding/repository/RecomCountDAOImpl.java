@@ -16,15 +16,6 @@ public class RecomCountDAOImpl implements RecomCountDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	@Override
-	public int readRecomCount(RecommendDTO recommend, int index) {
-		
-		Map<String, Object> recommendCountListParam = new HashMap<String, Object>();
-		recommendCountListParam.put("recomID", recommend.getId());
-		
-		return sqlSession.selectOne("recomCount.readRecommendCount", recommendCountListParam);
-	}
-	
 	public int createRecomCount(RecomCountDTO rcd) {
 		Map<String, Object> recommendCountParam = new HashMap<String, Object>();
 		recommendCountParam.put("recomID", rcd.getRecomID());

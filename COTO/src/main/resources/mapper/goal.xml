@@ -18,7 +18,6 @@
 		B.id, B.goalNum, B.goal, B.startdate as startDate, B.enddate as endDate
 		FROM YeeunJ.userProblem as A, 
 		(SELECT * FROM YeeunJ.goal WHERE userID=#{userID}) as B 
-		WHERE A.userID=#{userID}
 		GROUP BY B.startdate, B.enddate
 		ORDER BY DATE(startdate) desc;
 	</select>

@@ -7,7 +7,7 @@
 	<span class="tableCell th1">No.</span>
 	<span class="tableCell th3">문제 제목</span>
 	<span class="tableCell th2">사이트</span>
-	<span class="tableCell th1">푼사람 수</span>
+	<span class="tableCell th1">참여자</span>
 </div>
 
 <c:forEach items="${problems}" var="problem" varStatus="status">

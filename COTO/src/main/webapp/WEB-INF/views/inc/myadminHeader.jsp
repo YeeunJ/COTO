@@ -40,9 +40,9 @@
 				<li id = "list"><span id = "listspan" onclick="location.href='../manageCodingsite'">코딩 사이트 관리</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='../mypage/problems'">마이 페이지<i class="material-icons right">arrow_drop_down</i></span>
 					<ul class = "submenu">
-						<li id = "list" onclick="location.href='../mypage/problems'"><span id = "listspan"> my problems</span></li>
-						<li id = "list" onclick="location.href='../mypage/information'"><span id = "listspan">내 정보 수정</span></li>
-						<li id = "list" onclick="location.href='../mypage/activities'"><span id = "listspan">my activities</span></li>
+						<li id = "list" onclick="location.href='../mypage/problems'"><span id = "listspan">내가 푼 문제</span></li>
+						<li id = "list" onclick="location.href='../mypage/information'"><span id = "listspan">내 정보</span></li>
+						<li id = "list" onclick="location.href='../mypage/activities'"><span id = "listspan">내 기록</span></li>
 					</ul>
 				</li>
 				<li class = "right"><span class = "center" style = "display: inline-block;"><span id = "listspan">안녕하세요, ${user.name}님</span><a href="../login/cancel" class="registerA"><button class = "mybtn">로그아웃</button></a></span></li>
@@ -51,9 +51,9 @@
 				<li><a href="../login">로그인</a></li>
 				<li><a href="../recommendProblem">문제 추천</a></li>
 				<li><a href="../manageCodingsite">코딩 사이트 관리</a></li>
-				<li><a href="../mypage/problems">마이 페이지 - my problems</a></li>
-				<li><a href="../mypage/information">마이 페이지 - 내 정보 수정</a></li>
-				<li><a href="../mypage/activities">마이 페이지 - my activities</a></li>
+				<li><a href="../mypage/problems">마이 페이지 - 내가 푼 문제</a></li>
+				<li><a href="../mypage/information">마이 페이지 - 내 정보</a></li>
+				<li><a href="../mypage/activities">마이 페이지 - 내 기록</a></li>
 			</ul>
 	    </div>
 	</div>

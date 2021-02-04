@@ -90,17 +90,13 @@ public class HomeController {
 	public String createProblem(HttpServletRequest httpServletRequest, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, 
 											  @RequestParam(value="problem[]") List<String> problem, 
 											  @RequestParam(value="link[]") List<String> link) {
-		System.out.println("siteId: "+siteId);
-		System.out.println(siteId.size());
-		System.out.println("problem: "+problem);
-		System.out.println("link: "+link);
-		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
 	
+		
+		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
 		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 
 		
 		for(int i=0 ; i<siteId.size() ; i++) {
-			System.out.println(siteId.get(i));
 			UserProblemDTO p = new UserProblemDTO();
 			
 			p.setUserID(userID);
