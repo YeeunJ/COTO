@@ -232,7 +232,7 @@ function resetContent() {
 }
 </style>
 
-<div class="container">
+<div id="SiteContainer" class="container">
 	<div id="problem">
 		<div class="content">
 			<h4>내가 푼 문제</h4>
@@ -374,7 +374,7 @@ function resetContent() {
 		</div>
 		<div id="updateSolvedProblem" hidden>
 			<form>
-				<!-- <span id="UuserProblemID" style=""></span> -->
+				<span id="UuserProblemID" hidden></span>
 				<div class="row mrg">
 					<p class="title">문제 제목</p>
 					<span id="UproblemName" class="box"></span>
@@ -418,6 +418,12 @@ function resetContent() {
 							<p>
 								<input type="radio" name="difficulty" id="d5" value="5"
 									class="radioMrg" /> <label for="d5" class="diffCont">5</label>
+							</p>
+						</div>
+						<div class="input-field col s2">
+							<p>
+								<input type="radio" name="difficulty" id="d0" value="0"
+									class="radioMrg" /> <label for="d0" class="diffCont">설정 안함</label>
 							</p>
 						</div>
 

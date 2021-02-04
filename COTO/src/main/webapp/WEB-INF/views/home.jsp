@@ -150,7 +150,7 @@ function resetContent() {
 
 
 <!-- second section start- 랭킹, 태그, 순위 -->
-<div class="container">
+<div  class="container">
 	<div class="section second">
 		<div class="row center">
 			<div class="col s12 m4">
@@ -200,7 +200,11 @@ function resetContent() {
 </div>
 <!-- second finish -->
 
+<<<<<<< HEAD
 <div id="createProblem" class="container" style="display:none;">
+=======
+<div id="createProblem" class="container" hidden>
+>>>>>>> branch 'master' of https://github.com/YeeunJ/COTO.git
 	<form class="col s12">
 		<div class="row">
 			<div id="selectHtml" class="input-field col s4">
