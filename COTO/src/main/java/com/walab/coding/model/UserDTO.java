@@ -62,5 +62,11 @@ public class UserDTO {
 		this.isAdmin = isAdmin;
 	}
 	
+	@Override
+	public String toString() {
+		return "UserDTO [id=" + id + ", name=" + name + ", email=" + email + ", userNumber=" + userNumber
+				+ ", nickName=" + nickName + ", intro=" + intro + ", regDate=" + regDate + ", isAdmin=" + isAdmin + "]";
+	}
+	
 
 }
