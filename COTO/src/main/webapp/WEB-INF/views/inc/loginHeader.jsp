@@ -24,18 +24,7 @@
 <script src="./resources/js/init.js"></script>
 <script src="./resources/js/jquery.sweet-modal.min.js"></script>
 <script src="./resources/js/createModal.js"></script>
-<script>
-/*
-$(document).ready(function(){
-	$(".dropdown-trigger").dropdown();
-	$('.sub-menu ul').hide();
-	$(".sub-menu").hover(function () {
-	  $(this).children("ul").slideToggle("200");      
-	  //$(this).children("a").find("i.fa").toggleClass("fa-angle-up fa-angle-down");
-	});
-});*/
 
-</script>
 </head>
 <body>
 <nav role="navigation">
@@ -46,7 +35,6 @@ $(document).ready(function(){
 			<ul class = "hide-on-med-and-down mymenu">
 				<li id = "list"><span id = "listspan" onclick="location.href='./recommendProblem'">문제 추천</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='./problemList'">문제 리스트</span></li>
-				<li id = "list"><span id = "listspan" onclick="location.href='./manageCodingsite'">코딩 사이트 관리</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='./mypage/problems'">마이 페이지<i class="material-icons right">arrow_drop_down</i></span>
 					<ul class = "submenu">
 						<li id = "list" onclick="location.href='./mypage/problems'"><span id = "listspan" onclick="location.href='./mypage/problems'"> my problems</span></li>
@@ -54,12 +42,12 @@ $(document).ready(function(){
 						<li id = "list" onclick="location.href='./mypage/activities'"><span id = "listspan">my activities</span></li>
 					</ul>
 				</li>
-				<li class = "right"><span class = "center" style = "display: inline-block;"><a href="./login" class="registerA"><button class = "mybtn">로그인</button></a></span></li>
+				<li class = "right"><span class = "center" style = "display: inline-block;"><span id = "listspan">안녕하세요, ${user.name}님</span><a href="./login/cancel" class="registerA"><button class = "mybtn">로그아웃</button></a></span></li>
 		  	</ul>
 			<ul id="nav-mobile" class="sidenav">
 				<li><a href="./login">로그인</a></li>
 				<li><a href="./recommendProblem">문제 추천</a></li>
-				<li><a href="./manageCodingsite">코딩 사이트 관리</a></li>
+				<li><a href="./problemList">문제 리스트</a></li>
 				<li><a href="./mypage/problems">마이 페이지 - my problems</a></li>
 				<li><a href="./mypage/information">마이 페이지 - 내 정보 수정</a></li>
 				<li><a href="./mypage/activities">마이 페이지 - my activities</a></li>

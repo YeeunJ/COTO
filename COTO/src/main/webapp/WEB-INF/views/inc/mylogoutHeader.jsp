@@ -27,7 +27,6 @@
 <script src="../resources/js/createModal.js"></script>
 
 </head>
-
 <body>
 <nav role="navigation">
 	<div class = "container" >
@@ -37,23 +36,12 @@
 			<ul class = "hide-on-med-and-down mymenu">
 				<li id = "list"><span id = "listspan" onclick="location.href='../recommendProblem'">문제 추천</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='../problemList'">문제 리스트</span></li>
-				<li id = "list"><span id = "listspan" onclick="location.href='../manageCodingsite'">코딩 사이트 관리</span></li>
-				<li id = "list"><span id = "listspan" onclick="location.href='../mypage/problems'">마이 페이지<i class="material-icons right">arrow_drop_down</i></span>
-					<ul class = "submenu">
-						<li id = "list" onclick="location.href='../mypage/problems'"><span id = "listspan"> my problems</span></li>
-						<li id = "list" onclick="location.href='../mypage/information'"><span id = "listspan">내 정보 수정</span></li>
-						<li id = "list" onclick="location.href='../mypage/activities'"><span id = "listspan">my activities</span></li>
-					</ul>
-				</li>
-				<li class = "right"><span class = "center" style = "display: inline-block;"><a href="../login" class="registerA"><button class = "mybtn">로그인</button></a></span></li>
+				<li class = "right"><span class = "center" style = "display: inline-block;"><a href=."./login" class="registerA"><button class = "mybtn">로그인</button></a></span></li>
 		  	</ul>
 			<ul id="nav-mobile" class="sidenav">
 				<li><a href="../login">로그인</a></li>
 				<li><a href="../recommendProblem">문제 추천</a></li>
-				<li><a href="../manageCodingsite">코딩 사이트 관리</a></li>
-				<li><a href="../mypage/problems">마이 페이지 - my problems</a></li>
-				<li><a href="../mypage/information">마이 페이지 - 내 정보 수정</a></li>
-				<li><a href="../mypage/activities">마이 페이지 - my activities</a></li>
+				<li><a href="../problemList">문제 리스트</a></li>
 			</ul>
 	    </div>
 	</div>

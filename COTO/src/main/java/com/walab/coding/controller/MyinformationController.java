@@ -39,17 +39,7 @@ public class MyinformationController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewUsers(HttpServletRequest request, ModelAndView mv) {
 		
-		HttpSession session = request.getSession();
-		UserDTO ud = (UserDTO) session.getAttribute("user");
-		int userID = 0;
-		userID = userService.readUserIDByEmail(ud.getEmail());
-		session.setAttribute("user", ud);
-		System.out.println(userID);
-		if(userID > 0) {
-			ud.setId(userID);
-			session.setAttribute("user", ud);
-			mv.setView(new RedirectView("mypage/information",true));
-		}
+		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
 		
 		List<UserDTO> users = userService.readUser(userID);
 		System.out.println(users.toString());
@@ -67,22 +57,14 @@ public class MyinformationController {
 	@RequestMapping(value = "/updateGoal", method = RequestMethod.POST)
 	public ModelAndView updateGoal(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServletRequest) throws ParseException {
 		
-		HttpSession session = request.getSession();
-		UserDTO ud = (UserDTO) session.getAttribute("user");
-		int userID = 0;
-		userID = userService.readUserIDByEmail(ud.getEmail());
-		session.setAttribute("user", ud);
-		System.out.println(userID);
-		if(userID > 0) {
-			ud.setId(userID);
-			session.setAttribute("user", ud);
-			mv.setView(new RedirectView("redirect:/mypage/information",true));
-		}		
+		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
+	
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		String goal = httpServletRequest.getParameter("goal");
 		Date startDate = transFormat.parse(httpServletRequest.getParameter("startDate"));
 		Date endDate = transFormat.parse(httpServletRequest.getParameter("endDate"));
+		int goalNum = Integer.parseInt(httpServletRequest.getParameter("goalNum"));
 				
 		java.sql.Date sdate = new java.sql.Date(startDate.getTime());
 		java.sql.Date edate = new java.sql.Date(endDate.getTime());
@@ -91,6 +73,7 @@ public class MyinformationController {
 		updateGoal.setGoal(goal);
 		updateGoal.setStartDate(sdate);
 		updateGoal.setEndDate(edate);
+		updateGoal.setGoalNum(goalNum);
 		updateGoal.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
 
 		List<GoalDTO> goals = goalService.readGoal(userID);
@@ -98,11 +81,11 @@ public class MyinformationController {
 
 		if(goalService.updateGoal(updateGoal) > 0) {
 		System.out.println("success");
-		//System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate());
+		System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate() + updateGoal.getGoalNum());
 
 	}else {
 		System.out.println("fail");
-		//System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate());
+		System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate());
 	}
 		
 		mv.setViewName("redirect:/mypage/information");
@@ -112,22 +95,11 @@ public class MyinformationController {
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
 	public ModelAndView updateInfo(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServletRequest) {
 		
-		HttpSession session = request.getSession();
-		UserDTO ud = (UserDTO) session.getAttribute("user");
-		int userID = 0;
-		userID = userService.readUserIDByEmail(ud.getEmail());
-		session.setAttribute("user", ud);
-		System.out.println(userID);
-		if(userID > 0) {
-			ud.setId(userID);
-			session.setAttribute("user", ud);
-			mv.setView(new RedirectView("redirect:/mypage/information",true));
-		}	
+		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
 		
 		UserDTO updateUser = new UserDTO();
 		updateUser.setName(httpServletRequest.getParameter("name"));
 		updateUser.setNickName(httpServletRequest.getParameter("nickName"));
-		updateUser.setUserNumber(httpServletRequest.getParameter("userNumber"));
 		updateUser.setIntro(httpServletRequest.getParameter("intro"));
 		updateUser.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
 

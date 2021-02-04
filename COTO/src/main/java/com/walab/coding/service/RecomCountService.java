@@ -1,5 +1,12 @@
 package com.walab.coding.service;
 
-public interface RecomCountService {
+import com.walab.coding.model.RecomCountDTO;
 
+public interface RecomCountService {
+	
+	public int createRecomCount(RecomCountDTO rcd);
+	
+	public RecomCountDTO readRecomCount(int recomID, int userID);
+	
+	public int deleteRecomCount(int recomID);
 }

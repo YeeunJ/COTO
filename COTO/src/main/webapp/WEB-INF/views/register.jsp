@@ -1,7 +1,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import = "com.walab.coding.model.UserDTO" %>
 
-<%@ include file="./inc/header.jsp"%>
+<%
+	String fullHeader ="";
+	if(((UserDTO)request.getSession().getAttribute("user")) == null){
+		fullHeader = "./inc/logoutHeader.jsp";
+	}else if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0){
+		fullHeader = "./inc/adminHeader.jsp";
+	}else {
+		fullHeader = "./inc/loginHeader.jsp";
+	}
+%>
+<jsp:include page= "<%=fullHeader%>" />
+
 <link rel="stylesheet" href="./resources/css/register.css?aa" />
 <script src="./resources/js/register.js"></script>
 

@@ -11,12 +11,12 @@
 			<span class="tableCell td8">${user.name}</span>
 		</div>
 		<div class="tableRow">
+			<span class="tableCell th3">이메일</span> 
+			<span class="tableCell td8">${user.email}</span>
+		</div>		
+		<div class="tableRow">
 			<span class="tableCell th3">닉네임</span> 
 			<span class="tableCell td8">${user.nickName}</span>
-		</div>
-		<div class="tableRow">
-			<span class="tableCell th3">학번</span> 
-			<span class="tableCell td8">${user.userNumber}</span>
 		</div>
 		<div class="tableRow">
 			<span class="tableCell th3">자기소개</span> 

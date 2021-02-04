@@ -40,19 +40,9 @@ public class MyactivitiesController {
 	
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ModelAndView viewProblems(HttpServletRequest request, ModelAndView mv, Model model) {
+	public ModelAndView viewProblems(HttpServletRequest httpServletRequest, ModelAndView mv, Model model) {
 		
-		HttpSession session = request.getSession();
-		UserDTO ud = (UserDTO) session.getAttribute("user");
-		int userID = 0;
-		userID = userService.readUserIDByEmail(ud.getEmail());
-		session.setAttribute("user", ud);
-		System.out.println(userID);
-		if(userID > 0) {
-			ud.setId(userID);
-			session.setAttribute("user", ud);
-			mv.setView(new RedirectView("mypage/activities",true));
-		}
+		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 		
 		List<GoalDTO> goalList = goalService.readGoalAll(userID);
 	
@@ -64,28 +54,17 @@ public class MyactivitiesController {
 	}
 	
 	@RequestMapping(value = "/readProblemActivities", method = RequestMethod.POST)
-	public ModelAndView readProblemActivities(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServletRequest) {
+	public ModelAndView readProblemActivities(ModelAndView mv, HttpServletRequest httpServletRequest) {
 		
-		HttpSession session = request.getSession();
-		UserDTO ud = (UserDTO) session.getAttribute("user");
-		int userID = 0;
-		userID = userService.readUserIDByEmail(ud.getEmail());
-		session.setAttribute("user", ud);
-		System.out.println(userID);
-		if(userID > 0) {
-			ud.setId(userID);
-			session.setAttribute("user", ud);
-			mv.setView(new RedirectView("mypage/activities",true));
-		}
+		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 		
 		int goalID = Integer.parseInt(httpServletRequest.getParameter("id"));
 		
 		List<UserProblemDTO> readProblemActivities = userProblemService.readProblemActivities(userID, goalID);
 		
-		ModelAndView mvNew = new ModelAndView();
-		mvNew.addObject("readProblemActivities", readProblemActivities);
-		mvNew.setViewName("ajaxContent/activitiesContent");
+		mv.addObject("readProblemActivities", readProblemActivities);
+		mv.setViewName("ajaxContent/activitiesContent");
 		
-		return mvNew;
+		return mv;
 	}
 }

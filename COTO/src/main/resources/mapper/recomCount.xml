@@ -3,8 +3,20 @@
 
 <mapper namespace="recomCount">
 	<select id="readRecommendCount" resultType="int" parameterType="hashmap">
-		SELECT COALESCE(count(*), 0) 
+		SELECT COALESCE(count(*), 0) as count
 		FROM recomCount
 		WHERE recomID = #{recomID}
 	</select>
+	<select id="readRecommendCountYNbyUserID" resultType="int" parameterType="hashmap">
+		SELECT COALESCE(count(*), 0) as count
+		FROM recomCount
+		WHERE recomID = #{recomID} and userID = #{userID}
+	</select>
+	<insert id="createRecommendCount" parameterType="com.walab.coding.model.RecomCountDTO">
+		INSERT INTO recomCount (recomID, userID) VALUES (#{recomID}, #{userID})
+	</insert>
+
+	<delete id="deleteRecomCount" parameterType="hashmap">
+		delete from recomCount where recomID = #{recomID}
+	</delete>
 </mapper>
