@@ -60,14 +60,11 @@ function printAllContent(id, recomId, count){
 	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
 	console.log(d);
 	//jQuery버전 1.6 이하 일때 아래코드로, 아니라면 $("#ud"+d).prop("checked", true);
-	$("#ud"+d).attr('checked', 'checked');
-	/*for(var i=0;i<6;i++) {
-		if(i == d) {
-			$("#ud"+d).attr('checked', 'checked');
-			console.log("checked");
-			}
-		else $("#ud"+d).removeAttr('checked');
-	}*/
+	//$("#ud"+d).attr('checked', 'checked');
+	for(var i=0;i<6;i++) {
+		if(i == d) $("#ud"+i).attr('checked', 'checked');
+		else $("#ud"+i).removeAttr('checked');
+	}
 	
 	//updateConfirmSite
 	updateInsertProblems($(id+' .readProblem').text());
