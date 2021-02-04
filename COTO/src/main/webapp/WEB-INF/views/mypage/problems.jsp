@@ -1,120 +1,136 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java"%>
-<%@ page import = "com.walab.coding.model.UserDTO" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	language="java"%>
+<%@ page import="com.walab.coding.model.UserDTO"%>
 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%
-	String fullHeader ="";
-	if(((UserDTO)request.getSession().getAttribute("user")) == null){
-		fullHeader = "../inc/mylogoutHeader.jsp";
-	}else if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0){
-		fullHeader = "../inc/myadminHeader.jsp";
-	}else {
-		fullHeader = "../inc/myloginHeader.jsp";
-	}
+	String fullHeader = "";
+if (((UserDTO) request.getSession().getAttribute("user")) == null) {
+	fullHeader = "../inc/mylogoutHeader.jsp";
+} else if (((UserDTO) request.getSession().getAttribute("user")).getIsAdmin() > 0) {
+	fullHeader = "../inc/myadminHeader.jsp";
+} else {
+	fullHeader = "../inc/myloginHeader.jsp";
+}
 %>
-<jsp:include page= "<%=fullHeader%>" />
+<jsp:include page="<%=fullHeader%>" />
 
 <link href="../resources/css/problems.css" rel="stylesheet">
 <link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
 <script src="../resources/js/problems.js"></script>
 
 <script>
-window.onload = function() {
-<!-- Bar cahrt -->
-var ctx1 = document.getElementById("myBarChart"); 
-var labels = new Array();
-var data = new Array();
-<c:forEach items="${countSolvedProblemEachDay}" var="countList" >
-	var json = new Object();
-	labels.push("${countList.regDate}");
-	data.push("${countList.countSolvedP}");
-</c:forEach>
 
-var myBarChart = new Chart(ctx1 , {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: '푼 문제수',
-            data: data,
-            borderColor: "rgba(255, 201, 14, 1)",
-            backgroundColor: "rgba(255, 201, 14, 0.5)",
-            fill: false,
-        }]
-    },
-    options: {
-        //responsive: true,
-        hover: {
-            mode: 'nearest',
-            intersect: true
-        },
-        scales: {
-            xAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                },
-                ticks: {
-                    autoSkip: false
-                }
-            }],
-            yAxes: [{
-                display: true,
-                ticks: {
-                    suggestedMin: 0,
-                    stepSize: 1,
-                },
-                scaleLabel: {
-                    display: true,
-                }
-            }]
-        }
-    }
+$(document).ready(function(){
+drawChart1();
+drawChart2();
 });
+function drawChart1() {
+	<!-- Bar cahrt -->
+	var ctx1 = document.getElementById("myBarChart"); 
+	var labels = new Array();
+	var data = new Array();
+	<c:forEach items="${countSolvedProblemEachDay}" var="countList" >
+		var json = new Object();
+		labels.push("${countList.regDate}");
+		data.push("${countList.countSolvedP}");
+	</c:forEach>
 
-<!-- Doughnut cahrt -->
-data = { datasets: [{
-	backgroundColor: ['#e8e8e8','rgba(255, 201, 14, 0.5)'], 
-	data: [ ${goalNum}, ${userSolvedP} ] }],
-	labels: ['총 문제수','푼 문제수']};
+	var myBarChart = new Chart(ctx1 , {
+	    type: 'bar',
+	    data: {
+	        labels: labels,
+	        datasets: [{
+	            label: '푼 문제수',
+	            data: data,
+	            borderColor: "rgba(255, 201, 14, 1)",
+	            backgroundColor: "rgba(255, 201, 14, 0.5)",
+	            fill: false,
+	        }]
+	    },
+	    options: {
+	        responsive: true,
+	        hover: {
+	            mode: 'nearest',
+	            intersect: true
+	        },
+	        scales: {
+	            xAxes: [{
+	                display: true,
+	                scaleLabel: {
+	                    display: true,
+	                },
+	                ticks: {
+	                    autoSkip: false,
+	                    maxTicksLimit:4
+	                }
+	            }],
+	            yAxes: [{
+	                display: true,
+	                ticks: {
+	                    suggestedMin: 0,
+	                    stepSize: 1,
+	                },
+	                scaleLabel: {
+	                    display: true,
+	                }
+	            }]
+	        }
+	    }
+	});
+	}
 	
-var ctx = document.getElementById("myDoughnutChart"); 
-var myDoughnutChart = new Chart(ctx, { 
-    type: 'doughnut', 
-    data: data, 
-    
-    options: {
-       legend: {
-         display: true
-       },
-       cutoutPercentage: 65
-    },
- });
- 
-/* Chart.pluginService.register({
-	  beforeDraw: function(chart) {
-	    var width = chart.chart.width,
-	        height = chart.chart.height,
-	        ctx = chart.chart.ctx;
+function drawChart2() {
 
-	    ctx.restore();
-	    var fontSize = (height / 160).toFixed(2);
-	    ctx.font = fontSize + "em sans-serif";
-	    ctx.textBaseline = "middle";
+	<!-- Doughnut cahrt -->
+	data = { datasets: [{
+		backgroundColor: ['#e8e8e8','rgba(255, 201, 14, 0.5)'], 
+		data: [ ${goalNum}, ${userSolvedP} ] }],
+		labels: ['총 문제수','푼 문제수']};
+		
+	var ctx = document.getElementById("myDoughnutChart"); 
+	var myDoughnutChart = new Chart(ctx, { 
+	    type: 'doughnut', 
+	    data: data, 
+	    
+	    options: {
+	       legend: {
+	         display: true
+	       },
+	       cutoutPercentage: 65
+	    },
+	 });
+	 
+var readrate = {
+		  beforeDraw: function(chart) {
+		    var width = chart.chart.width,
+		        height = chart.chart.height,
+		        ctx = chart.chart.ctx;
 
-	    var text =  ${userSolvedP}/${goalNum}*100+"%" ,
-	        textX = Math.round((width - ctx.measureText(text).width) / 2),
-	        textY = height / 1.7;
+		    ctx.restore();
+		    var fontSize = (height / 210).toFixed(2);
+		    ctx.font = fontSize + "em sans-serif";
+		    ctx.textBaseline = "middle";
 
-	    ctx.fillText(text, textX, textY);
-	    ctx.save();
-	  }
-	}); */
+		    var text =  ${userSolvedP}+"문제"+"/"+${goalNum}+"문제",
+		        textX = Math.round((width - ctx.measureText(text).width) / 2),
+		        textY = height / 1.7;
+
+		    ctx.fillText(text, textX, textY);
+		    ctx.save();
+		  }
+		}
+Chart.pluginService.register(readrate );
 }
+
+
+	
+
+
 
 var selectHtml="";
 
@@ -230,6 +246,22 @@ function resetContent() {
 	opacity: 0.4;
 	z-index: -1;
 }
+
+/* .chartWrapper {
+  position: relative;
+}
+
+.chartWrapper > canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.chartAreaWrapper {
+  width: 200;
+  overflow-x: scroll;
+} */
 </style>
 
 <div id="SiteContainer" class="container">
@@ -272,14 +304,18 @@ function resetContent() {
 		<div class="card-content2">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">하루의 기록</div>
-				<canvas id="myBarChart" width="200" height="130"></canvas>
+				<div class="chartWrapper">
+					<div class="chartAreaWrapper">
+						<canvas id="myBarChart" width="200" height="130"></canvas>
+					</div>
+				</div>
 			</div>
 		</div>
 
 		<div class="card-content3">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">현재 상황</div>
-				<canvas id="myDoughnutChart" width="200" height="110">
+				<canvas id="myDoughnutChart" width="180" height="110">
 				</canvas>
 			</div>
 		</div>
@@ -315,7 +351,7 @@ function resetContent() {
 						class="material-icons">chevron_right</i></a></li>
 			</ul>
 		</div>
-		
+
 		<!-- 문제등록 모달 -->
 		<div id="createProblem" class="container" hidden>
 			<form class="col s12">
@@ -343,8 +379,7 @@ function resetContent() {
 				</div>
 				<div class="input-field col s10">
 					<label for="last_name">입력한 Problems</label><br> <label
-						class="helper-text">문제를 누르면 삭제할 수 있습니다.</label><br>
-					<br>
+						class="helper-text">문제를 누르면 삭제할 수 있습니다.</label><br> <br>
 					<div id="confirmSite"></div>
 				</div>
 			</form>
@@ -423,7 +458,8 @@ function resetContent() {
 						<div class="input-field col s2">
 							<p>
 								<input type="radio" name="difficulty" id="d0" value="0"
-									class="radioMrg" /> <label for="d0" class="diffCont">설정 안함</label>
+									class="radioMrg" /> <label for="d0" class="diffCont">설정
+									안함</label>
 							</p>
 						</div>
 
