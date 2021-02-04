@@ -200,7 +200,7 @@ function resetContent() {
 </div>
 <!-- second finish -->
 
-<div id="createProblem" class="container" style="">
+<div id="createProblem" class="container" style="display:none">
 	<form class="col s12">
 		<div class="row">
 			<div id="selectHtml" class="input-field col s4">

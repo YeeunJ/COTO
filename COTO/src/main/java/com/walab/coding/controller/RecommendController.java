@@ -71,9 +71,7 @@ public class RecommendController {
 		//임의 값
 		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
 				
-//		List<RecomCommentDTO> recomComment = recomCommentService.read();
-		List<RecommendDTO> recoms = recommendService.readRecom();
-//		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();		
+		List<RecommendDTO> recoms = recommendService.readRecom();	
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		List<CodingSiteDTO> codingSite2 = codingSiteService.read();
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();

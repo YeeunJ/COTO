@@ -36,6 +36,7 @@ public class LoginController {
 	final static String GOOGLE_AUTH_BASE_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 	final static String GOOGLE_TOKEN_BASE_URL = "https://oauth2.googleapis.com/token";
 	final static String GOOGLE_REVOKE_TOKEN_BASE_URL = "https://oauth2.googleapis.com/revoke";
+	final static String REDIRECTION_URL = "http://localhost:8080/coding/login/google/auth";
 
 	@Value("${api.client_id}")
 	String clientId;
@@ -46,7 +47,7 @@ public class LoginController {
 	public ModelAndView login() {
 		String redirectUrl = "redirect:https://accounts.google.com/o/oauth2/v2/auth?"
 				+ "client_id=525299869648-ditsvp6v9d31jd8pm9311j4c4g9d325e.apps.googleusercontent.com"
-				+ "&redirect_uri=http://localhost:8080/coding/login/google/auth"
+				+ "&redirect_uri="+REDIRECTION_URL
 				+ "&response_type=code"
 				+ "&scope=email%20profile%20openid"
 				+ "&access_type=offline";
@@ -57,7 +58,7 @@ public class LoginController {
 	public ModelAndView logout(HttpServletRequest request) {
 		request.getSession().removeAttribute("user");
 		request.getSession().removeAttribute("token");
-		String redirectUrl = "http://localhost:8080/coding";
+		String redirectUrl = REDIRECTION_URL;
 		return new ModelAndView(redirectUrl);
 	}
 	
@@ -71,7 +72,7 @@ public class LoginController {
 		RestTemplate restTemplate = new RestTemplate();
 
 		//Google OAuth Access Token 요청을 위한 파라미터 세팅
-		GoogleOAuthRequestDTO googleOAuthRequestParam = new GoogleOAuthRequestDTO(clientId, clientSecret, authCode, "http://localhost:8080/coding/login/google/auth", "authorization_code");
+		GoogleOAuthRequestDTO googleOAuthRequestParam = new GoogleOAuthRequestDTO(clientId, clientSecret, authCode, REDIRECTION_URL, "authorization_code");
 
 		
 		//JSON 파싱을 위한 기본값 세팅

@@ -306,9 +306,9 @@
 						<select id="updateSiteName" required>
 							<optgroup label="코딩사이트 선택">
 								<option value="100">입력</option>
-								<%-- <c:forEach items="${codingSite2}" var="s">
+								<c:forEach items="${codingSite}" var="s">
 									<option value="${s.id}">${s.siteName}</option>
-								</c:forEach> --%>
+								</c:forEach>
 							</optgroup>
 							<optgroup label="링크로 입력">
 								<option value="0">링크로 입력</option>
