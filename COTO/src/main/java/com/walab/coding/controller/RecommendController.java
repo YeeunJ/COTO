@@ -88,7 +88,7 @@ public class RecommendController {
 		mv.addObject("recomProblemTag", recomProblemTag);
 		mv.addObject("loginID", userID);
 				
-		mv.setViewName("ajaxContent/recomProblemContent");
+		mv.setViewName("recommendProblem");
 
 		return mv;
 	}
@@ -402,19 +402,11 @@ public class RecommendController {
 		String orderValue= httpServletRequest.getParameter("orderValue");
 		
 		List<RecommendDTO> recoms = recommendService.search(searchValue, orderValue);
-		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
 		System.out.println(searchValue);
 		System.out.println(orderValue);
 		
 		ModelAndView mv = new ModelAndView();
-		
 		mv.addObject("recoms", recoms);
-		mv.addObject("commentCount", commentCount);
-		System.out.println("hello");
-		for(RecommendDTO recom: recoms) {
-			System.out.println(recom.getTitle());
-		}
-		
 		mv.setViewName("ajaxContent/recommendContent");
 		
 		return mv;

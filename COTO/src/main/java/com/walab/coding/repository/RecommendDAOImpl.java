@@ -38,6 +38,13 @@ public class RecommendDAOImpl implements RecommendDAO {
 		return recommendProblemsList = sqlSession.selectList(namespace+".readRecommendProblemList", recommendProblemsListParam);
 	}
 	
+	public RecommendDTO readRecommend(int recomID) {
+		Map<String, Object> recommendProblemParam = new HashMap<String, Object>();
+		recommendProblemParam.put("recomID", recomID);
+		
+		return sqlSession.selectOne(namespace+".readRecommendProblem", recommendProblemParam);
+		
+	}
 	@Override
 	public int createRecomProblem(RecommendDTO recommend) {	
 		sqlSession.insert(namespace+".createRecomProblem", recommend);
@@ -50,6 +57,7 @@ public class RecommendDAOImpl implements RecommendDAO {
 		Map<String, Object> recomProblemListParam = new HashMap<String, Object>();
 		recomProblemListParam.put("searchValue", searchValue);
 		recomProblemListParam.put("orderValue", orderValue);
+		System.out.println("haha");
 		System.out.println(searchValue);
 		System.out.println(orderValue);
 		

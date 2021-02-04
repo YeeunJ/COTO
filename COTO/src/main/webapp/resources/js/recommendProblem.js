@@ -25,7 +25,7 @@ function search(){
 			},
 			success: function(data){
 				console.log(data);
-				$('#problemsContent').html(data);
+				$('#recommendContent').html(data);
 			}, 
 			error:function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
