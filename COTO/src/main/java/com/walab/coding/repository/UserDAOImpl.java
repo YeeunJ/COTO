@@ -72,7 +72,7 @@ public class UserDAOImpl implements UserDAO{
 		
 		Map<String, Object> userParam = new HashMap<String, Object>();
 		userParam.put("name", updateUser.getName());
-		userParam.put("nickName", updateUser.getNickName());
+		userParam.put("email", updateUser.getEmail());
 		userParam.put("intro", updateUser.getIntro());
 		userParam.put("id", updateUser.getId());
 		

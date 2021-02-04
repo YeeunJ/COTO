@@ -13,12 +13,6 @@ public class UserDTO {
 	private int isAdmin;
 
 	
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
 	public int getId() {
 		return id;
 	}
@@ -54,6 +48,12 @@ public class UserDTO {
 	}
 	public void setIntro(String intro) {
 		this.intro = intro;
+	}
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
 	}
 	public int getIsAdmin() {
 		return isAdmin;

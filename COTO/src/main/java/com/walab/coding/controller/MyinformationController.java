@@ -55,9 +55,9 @@ public class MyinformationController {
 	}
 
 	@RequestMapping(value = "/updateGoal", method = RequestMethod.POST)
-	public ModelAndView updateGoal(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServletRequest) throws ParseException {
+	public ModelAndView updateGoal(ModelAndView mv, HttpServletRequest httpServletRequest) throws ParseException {
 		
-		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
+		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 	
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -93,9 +93,9 @@ public class MyinformationController {
 
 	}
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-	public ModelAndView updateInfo(ModelAndView mv, HttpServletRequest request, HttpServletRequest httpServletRequest) {
+	public ModelAndView updateInfo(ModelAndView mv, HttpServletRequest httpServletRequest) {
 		
-		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
+		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 		
 		UserDTO updateUser = new UserDTO();
 		updateUser.setName(httpServletRequest.getParameter("name"));
