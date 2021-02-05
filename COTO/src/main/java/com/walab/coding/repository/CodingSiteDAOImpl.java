@@ -1,7 +1,9 @@
 package com.walab.coding.repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,12 @@ public class CodingSiteDAOImpl implements CodingSiteDAO {
 		codingSitelist = sqlSession.selectList("CodingSite.readCodingSite");
 
 		return codingSitelist;
+	}
+	
+	public CodingSiteDTO readCodingSiteById(int siteID) {
+		Map<String, Object> codingSiteParam = new HashMap<String, Object>();
+		codingSiteParam.put("siteID", siteID);
+		return sqlSession.selectOne("CodingSite.readCodingSiteById", codingSiteParam);
 	}
 
 }

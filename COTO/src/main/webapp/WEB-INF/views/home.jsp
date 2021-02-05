@@ -105,6 +105,22 @@ function insertProblems(){
 	console.log(value);
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #confirmSite').html();
+	
+	$.ajax({
+        url : './crawling/'+siteName,
+        type: 'POST',
+        data: {
+        	"problem": valueSplit,
+        	"siteID": siteId
+        },
+        success: function(data){
+	        console.log(data);
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+    
 	for(var i in valueSplit){
 		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
 		count++;
