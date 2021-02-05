@@ -69,48 +69,58 @@ public class RecommendController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
 		//임의 값	
-		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();		
+//		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();		
 		List<RecommendDTO> recoms = recommendService.readRecom();	
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
-		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
-		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
+//		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
+//		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
 		
-		for(int i=0;i<recomProblem.size();i++) {
-			for(int j=0;j<codingSite.size();j++) {
-				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
-					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
-			}
-		}
+//		for(int i=0;i<recomProblem.size();i++) {
+//			for(int j=0;j<codingSite.size();j++) {
+//				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
+//					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
+//			}
+//		}
 		
 		mv.addObject("recoms", recoms);
 		mv.addObject("codingSite", codingSite);
-		mv.addObject("recomProblem", recomProblem);
-		mv.addObject("recomProblemTag", recomProblemTag);
-		mv.addObject("loginID", userID);
+//		mv.addObject("recomProblem", recomProblem);
+//		mv.addObject("recomProblemTag", recomProblemTag);
+//		mv.addObject("loginID", userID);
 				
 		mv.setViewName("recommendProblem");
 
 		return mv;
 	}
 	
-	@RequestMapping(value = "/readModalInfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/readModalInfo", method = RequestMethod.POST)
+	@ResponseBody
 	public ModelAndView readRecommendProblem(HttpServletRequest request, ModelAndView mv) {
 		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();	
 		
 		int recomID = Integer.parseInt(request.getParameter("recomID"));
-		int commentCount = Integer.parseInt(request.getParameter("commentCount"));
+		System.out.println("userID:"+userID);
+		System.out.println("recomID:"+request.getParameter("recomID"));
 		
-		List<RecommendDTO> recoms = recommendService.readRecom();	
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
-		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
-		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
+		RecommendDTO recom = recommendService.readRecommend(recomID);	
+		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemByID(recomID);
+		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
-		
+		int commentCount = recomComment.size();
 		RecomCountDTO rcd = new RecomCountDTO();
+		
+		System.out.println("recom: "+recom.toString());
+		for(int i=0 ; i<recomProblem.size(); i++) {
+			System.out.println("recomProblem: "+ recomProblem.get(i).toString());
+		}
+		for(int i=0 ; i<recomComment.size(); i++) {
+			System.out.println("recomComment: "+ recomComment.get(i).toString());
+		}
+		
 		rcd.setRecomID(recomID);
 		rcd.setUserID(userID);
 		
-		recomCountService.createRecomCount(rcd);
 		rcd = recomCountService.readRecomCount(recomID, userID);
 		
 		for(int i=0;i<recomProblem.size();i++) {
@@ -121,7 +131,7 @@ public class RecommendController {
 		}
 		
 		mv.addObject("recomID", recomID);
-		mv.addObject("recoms", recoms);
+		mv.addObject("recom", recom);
 		mv.addObject("codingSite", codingSite);
 		mv.addObject("recomProblem", recomProblem);
 		mv.addObject("recomProblemTag", recomProblemTag);
@@ -190,7 +200,7 @@ public class RecommendController {
 		
 		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
 		System.out.println("in readCommend: "+userID);
-
+		
 		mv.addObject("userid", userID);
 		mv.addObject("recomID", recomID);
 		mv.addObject("recomComment", recomComment);

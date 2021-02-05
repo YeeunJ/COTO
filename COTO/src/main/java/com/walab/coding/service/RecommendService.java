@@ -18,4 +18,6 @@ public interface RecommendService {
 	public int deleteRecom(int recomID);
 	
 	public int updateRecommend(RecommendDTO r);
+	
+	public RecommendDTO readRecommend(int recomID);
 }

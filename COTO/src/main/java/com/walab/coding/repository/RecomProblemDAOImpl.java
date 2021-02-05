@@ -77,4 +77,12 @@ public class RecomProblemDAOImpl implements RecomProblemDAO {
 		
 		return sqlSession.delete(namespace+".deleteRecomProblem", recomProblemListParam);
 	}
+
+	@Override
+	public List<RecomProblemDTO> readProblemByID(int recomID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("recomID", recomID);
+		
+		return sqlSession.selectList(namespace+".readProblemByID", param);
+	}
 }

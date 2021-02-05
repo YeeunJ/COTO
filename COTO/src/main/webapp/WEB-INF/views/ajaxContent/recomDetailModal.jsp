@@ -10,7 +10,7 @@
 		<div>
 			<p class="title">추천 문제 설명</p>
 			<div class="readBox">
-				<span id="readContents" >${recoms.content}</span>
+				<span id="readContents" >${recom.content}</span>
 			</div>
 			<br><br>
 		</div>
@@ -20,12 +20,12 @@
 			<div class="readBox">
 				<span id="readDifficulties">
 				<c:choose>
-					<c:when test="${recoms.difficulty eq 0}"><img style="width: 60px;" alt="0" src="./resources/img/difficulty0.png"></c:when>
-					<c:when test="${recoms.difficulty eq 1}"><img style="width: 60px;" alt="1" src="./resources/img/difficulty1.png"></c:when>
-					<c:when test="${recoms.difficulty eq 2}"><img style="width: 60px;" alt="2" src="./resources/img/difficulty2.png"></c:when>
-					<c:when test="${recoms.difficulty eq 3}"><img style="width: 60px;" alt="3" src="./resources/img/difficulty3.png"></c:when>
-					<c:when test="${recoms.difficulty eq 4}"><img style="width: 60px;" alt="4" src="./resources/img/difficulty4.png"></c:when>
-					<c:when test="${recoms.difficulty eq 5}"><img style="width: 60px;" alt="5" src="./resources/img/difficulty5.png"></c:when>
+					<c:when test="${recom.difficulty eq 0}"><img style="width: 60px;" alt="0" src="./resources/img/difficulty0.png"></c:when>
+					<c:when test="${recom.difficulty eq 1}"><img style="width: 60px;" alt="1" src="./resources/img/difficulty1.png"></c:when>
+					<c:when test="${recom.difficulty eq 2}"><img style="width: 60px;" alt="2" src="./resources/img/difficulty2.png"></c:when>
+					<c:when test="${recom.difficulty eq 3}"><img style="width: 60px;" alt="3" src="./resources/img/difficulty3.png"></c:when>
+					<c:when test="${recom.difficulty eq 4}"><img style="width: 60px;" alt="4" src="./resources/img/difficulty4.png"></c:when>
+					<c:when test="${recom.difficulty eq 5}"><img style="width: 60px;" alt="5" src="./resources/img/difficulty5.png"></c:when>
 					<c:otherwise></c:otherwise>
 				</c:choose>
 				</span>
@@ -49,16 +49,14 @@
 			<p class="title desc">추천 문제</p>
 			<div id="readProblems" class="readBox"></div>
 			<c:forEach items="${recomProblem}" var="rp">
-				<c:if test="${rp.recomID eq recoms.id}">
-					<div class="sitetitle">${rp.siteName}</div>
-					<div><p>${rp.name}</p></div>
-				</c:if>
+				<div class="sitetitle">${rp.siteName}</div>
+				<div><p>${rp.name}</p></div>
 			</c:forEach>
 		</div>
 	</div>
 	
 	<div>
-		<div class="details">
+	 <div class="details">
 			<span class="<c:choose><c:when test = "${countInfo.recommendYN ==true}">clicked-icon</c:when><c:otherwise>like-icon</c:otherwise></c:choose> icon" onclick="addRecomCount()"></span><span id="readRecommends" class="bold">${countInfo.recommendCount}</span><span></span>		
 			<span class="comment-icon icon"></span><span id="commentCount" class="bold">${ commentCount }</span><span></span>
 		</div>
@@ -78,7 +76,7 @@
 				</c:forEach>
 			</div>
 	
-		</div> 
+		</div>
 	
 	</div>
 </div>

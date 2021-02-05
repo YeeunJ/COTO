@@ -47,4 +47,9 @@ public class RecomTagServiceImpl implements RecomTagService {
 		
 		return 1;
 	}
+
+	@Override
+	public List<RecomTagDTO> readTagByID(int recomID) {
+		return tagDAO.readTagByID(recomID);
+	}
 }

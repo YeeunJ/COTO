@@ -21,4 +21,8 @@
 	<update id="updateRecomTag" parameterType="hashmap">
 		UPDATE recomTag SET tag=#{tag} WHERE recomID = #{recomID}
 	</update>
+	
+	<select id="readTagByID" resultType="com.walab.coding.model.RecomTagDTO" parameterType="hashmap">
+		SELECT * FROM recomTag WHERE recomID=#{recomID}
+	</select>
 </mapper>

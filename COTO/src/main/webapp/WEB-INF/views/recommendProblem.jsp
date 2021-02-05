@@ -188,59 +188,10 @@
 	</form>
 </div>
 
-
 <!-- 세부 정보 모달 -->
-<div id="readRecommendProblem" style="display:none;">
+<div id="readRecommendProblem" style="">
 	<span id="readRecomID" style="display:none;"></span>
-	<div id="detailRecom">
-		<div>
-			<div>
-				<p class="title">추천 문제 설명</p>
-				<div class="readBox">
-					<span id="readContents" ></span>
-				</div>
-				<br><br>
-			</div>
-			
-			<div>
-				<p class="title">추천 문제 난이도</p>
-				<div class="readBox">
-					<span id="readDifficulties"></span>
-				</div>
-				<br><br>
-			</div>
-			
-			<div>
-				<p class="title">추천 문제 태그</p>
-				<div id="readTags"></div>
-				<br><br>
-			</div>
-
-			<div>
-				<p class="title desc">추천 문제</p>
-				<div id="readProblems" class="readBox"></div>
-			</div>
-		</div>		
-		<div>
-			<div class="details">
-				<%@ include file="./ajaxContent/recomCountContent.jsp"%>
-				<span class="comment-icon icon"></span><span id="commentCount" class="bold"></span><span></span>
-			</div>
-			<div id="commentDetail">
-				<div class="comment-add">
-					<textarea id="comment-textarea" placeholder="댓글을 달아주세요."></textarea>
-					<button id="addComment" class="modal_button add-btn" onclick="addComment()">등록</button>
-				</div>
-				<div id="modal-comment" class="wrapper">
-					<%@ include file="./ajaxContent/recomCommentContent.jsp"%>
-				</div>
-
-			</div> 
-
-		</div>
-		
- 		<%@ include file="./ajaxContent/recomDetailModal.jsp"%>
-	</div>
+	<%@ include file="./ajaxContent/recomDetailModal.jsp"%>
 </div>
 
 <!-- 세부 정보 모달 update -->

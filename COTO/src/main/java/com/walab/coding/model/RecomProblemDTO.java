@@ -52,4 +52,9 @@ public class RecomProblemDTO {
 	public void setLink(String link) {
 		this.link = link;
 	}
+	@Override
+	public String toString() {
+		return "RecomProblemDTO [id=" + id + ", recomID=" + recomID + ", siteID=" + siteID + ", problemID=" + problemID
+				+ ", name=" + name + ", siteName=" + siteName + ", link=" + link + "]";
+	}
 }

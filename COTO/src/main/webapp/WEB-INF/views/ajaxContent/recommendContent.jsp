@@ -27,7 +27,7 @@
 		
 		<span class="readLoginID" style="display: none;">${loginID}</span>
 		<span class="readUserID" style="display: none;">${recoms.userID}</span>
-		<span class="readContent" style="display: none;">${recoms.content}</span>
+		<%-- <span class="readContent" style="display: none;">${recoms.content}</span> --%>
 		<span class="readDifficulty" style="display: none;">
 			<c:choose>
 				<c:when test="${recoms.difficulty eq 0}"><img style="width: 60px;" alt="0" src="./resources/img/difficulty0.png"></c:when>
@@ -39,7 +39,7 @@
 				<c:otherwise></c:otherwise>
 			</c:choose>
 		</span>
-		<span class="readTag" style="display: none;">
+		<%-- <span class="readTag" style="display: none;">
 			<c:forEach items="${recomProblemTag}" var="rpt">
 				<c:if test="${rpt.recomID eq recoms.id}">
 					<span class="readTagChips">${rpt.tag}</span>
@@ -53,6 +53,6 @@
 					<div><p>${rp.name}</p></div>
 				</c:if>
 			</c:forEach>
-		</div>
+		</div> --%>
 	</div>
 </c:forEach>

@@ -40,16 +40,16 @@ function callModal() {
 function printAllContent(id, recomId, count){
 	selectHtml = $('#selectHtml').html();
 	
-//	readDetailModalContent(recomID, count);
+	readDetailModalContent(recomId);
 	
-	$('#readRecomID').html(recomId);
-	$('#readProblems').html($(id+' .readProblem').html());
-	$('#readTags').html($(id+' .readTag').html());
-	$('#readContents').html($(id+' .readContent').html());
-	$('#readRecommends').html($(id+' .readRecommend').html());
-	$('#readDifficulties').html($(id+' .readDifficulty').html());
-	$('#commentCount').html($(id+' .readCommentCount').html());
-	$("#commentCount").text(count);
+//	$('#readRecomID').html(recomId);
+//	$('#readProblems').html($(id+' .readProblem').html());
+//	$('#readTags').html($(id+' .readTag').html());
+//	$('#readContents').html($(id+' .readContent').html());
+//	$('#readRecommends').html($(id+' .readRecommend').html());
+//	$('#readDifficulties').html($(id+' .readDifficulty').html());
+//	$('#commentCount').html($(id+' .readCommentCount').html());
+//	$("#commentCount").text(count);
 	
 	$('#updateRecomID').html(recomId);
 	$('input[name=updateTitle]').attr('value',$(id+' .readTitle').text());
@@ -216,7 +216,6 @@ function readDetailModalContent(recomID, count) {
 		async : false,
 		data : {
 			recomID : recomID,
-			commentCount : count
 		},
 		success : function(data) {
 			console.log("success");

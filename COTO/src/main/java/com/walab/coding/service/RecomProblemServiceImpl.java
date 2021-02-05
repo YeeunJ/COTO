@@ -38,4 +38,12 @@ public class RecomProblemServiceImpl implements RecomProblemService {
 	public int deleteRecomProblem(int recomID) {
 		return recomProblemsDAO.deleteRecomProblem(recomID);
 	}
+
+	@Override
+	public List<RecomProblemDTO> readProblemByID(int recomID) {
+
+		return recomProblemsDAO.readProblemByID(recomID);
+	}
+	
+	
 }
