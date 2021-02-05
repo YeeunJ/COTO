@@ -190,7 +190,6 @@
 
 <!-- 세부 정보 모달 -->
 <div id="readRecommendProblem" style="">
-	<span id="readRecomID" style="display:none;"></span>
 	<%@ include file="./ajaxContent/recomDetailModal.jsp"%>
 </div>
 

@@ -69,7 +69,6 @@ public class RecommendController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
 		//임의 값	
-//		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();		
 		List<RecommendDTO> recoms = recommendService.readRecom();	
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 //		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
