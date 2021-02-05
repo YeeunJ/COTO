@@ -93,8 +93,7 @@ public class RecommendController {
 	}
 	
 	@RequestMapping(value = "/readModalInfo", method = RequestMethod.POST)
-	@ResponseBody
-	public ModelAndView readRecommendProblem(HttpServletRequest request, ModelAndView mv) {
+	public ModelAndView readModalInfo(HttpServletRequest request, ModelAndView mv) {
 		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();	
 		
 		int recomID = Integer.parseInt(request.getParameter("recomID"));

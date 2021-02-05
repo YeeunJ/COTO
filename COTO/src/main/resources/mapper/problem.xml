@@ -26,4 +26,12 @@
 		SELECT COUNT(*) as listCnt FROM problem
 	</select>
 	
+	<resultMap type="HashMap" id="ratioBySite">
+		<id column="siteID" property="siteID"/>
+		<id column="ratio" property="ratio"/>
+	</resultMap>
+	
+	<select id="readRatioBySiteid" parameterType="hashmap" resultMap="ratioBySite">
+		SELECT siteID, COUNT(*)/#{ count } AS ratio FROM problem GROUP BY siteID
+	</select>
 </mapper>

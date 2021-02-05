@@ -1,7 +1,10 @@
 package com.walab.coding.controller;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.PaginationDTO;
 import com.walab.coding.model.ProblemDTO;
+import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.ProblemService;
 
 /**
@@ -25,12 +30,26 @@ public class ProblemlistController {
 
 	@Autowired
 	ProblemService problemService;
+	@Autowired
+	CodingSiteService codingSiteService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewProblems(ModelAndView mv) {
 		
-		List<ProblemDTO> problemList = problemService.readProblems();		
+		List<ProblemDTO> problemList = problemService.readProblems();
+		List<Map<String,Object>> ratioBySite = problemService.readRatioBySiteid();
+		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<Map<String,Object>> ratio = problemService.makeRatioBySiteid(ratioBySite, codingSite);
+		
+	
+		for(int i=0 ; i<ratio.size() ; i++) {
+			System.out.println("ratio: "+ratio.get(i));
+		}
+	
+		mv.addObject("codingSite", codingSite);
 		mv.addObject("problems", problemList);
+		mv.addObject("ratio", ratio);
+		
 		mv.setViewName("problemList");
 		
 		return mv;
