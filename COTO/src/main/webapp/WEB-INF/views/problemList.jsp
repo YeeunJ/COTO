@@ -2,17 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "com.walab.coding.model.UserDTO" %>
 
-<%
-	String fullHeader ="";
-	if(((UserDTO)request.getSession().getAttribute("user")) == null){
-		fullHeader = "./inc/logoutHeader.jsp";
-	}else if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0){
-		fullHeader = "./inc/adminHeader.jsp";
-	}else {
-		fullHeader = "./inc/loginHeader.jsp";
-	}
-%>
-<jsp:include page= "<%=fullHeader%>" />
+<jsp:include page= "<%=\"./inc/\".concat(((String)request.getAttribute(\"header\")))%>" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />

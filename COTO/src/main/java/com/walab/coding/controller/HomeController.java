@@ -45,35 +45,15 @@ public class HomeController {
 	@Autowired
 	RecomTagService recomTagService;
 	
-//	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-//			ModelAndView modelAndView) throws Exception {
-//		
-//		//System.out.println("===================        login interceptor test        ===================");
-//		HttpSession session = request.getSession();
-//		UserDTO ud = (UserDTO) session.getAttribute("user");
-//		int id = 0;
-//		id = UserService.readUserIDByEmail(ud.getEmail());
-//		session.setAttribute("user", ud);
-//		//System.out.println(id);
-//		if(id > 0) {
-//			ud.setId(id);
-//			session.setAttribute("user", ud);
-//			modelAndView.setView(new RedirectView("/",true));
-//		}
-//	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView viewHome(ModelAndView mv) {
-		
-
+	public ModelAndView viewHome(HttpServletRequest httpServletRequest, ModelAndView mv) {
 		int probs = 0;
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		mv.addObject("CodingSite", codingSite);
-		//mv.addObject("userID", userID);
 					
 		List<RankDTO> ranks = userProblemService.readRankList();
 		List<UserProblemDTO> upd = userProblemService.readProblemList();
 		List<RecomTagDTO> rtd = recomTagService.readTagList();
-		//System.out.println(ranks.toString());
 	
 		mv.addObject("ranks", ranks);
 		mv.addObject("problems", upd);
@@ -93,13 +73,12 @@ public class HomeController {
 	
 		
 		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
-		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 
 		
 		for(int i=0 ; i<siteId.size() ; i++) {
 			UserProblemDTO p = new UserProblemDTO();
 			
-			p.setUserID(userID);
+			p.setUserID((int)httpServletRequest.getAttribute("userID"));
 			if(Integer.parseInt(siteId.get(i)) != 0)
 				p.setSiteID(Integer.parseInt(siteId.get(i)));
 			
