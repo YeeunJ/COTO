@@ -167,10 +167,10 @@ $('.carousel.carousel-slider').carousel({
 				<div class="col s12 m4">
 					<div class="icon-block">
 						<span class="icon icon-award"></span>
-						<h5 class="small-title">오늘의 랭킹</h5>
+						<h5 class="small-title">누적 랭킹</h5>
 						<ul class="fs-18 textList">
 							<c:forEach items="${ranks}" var="rank" varStatus="status">
-								<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName} (${rank.cnt}문제)</li>
+								<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName} [${rank.cnt}문제]</li>
 							</c:forEach>
 						</ul>
 					</div>
