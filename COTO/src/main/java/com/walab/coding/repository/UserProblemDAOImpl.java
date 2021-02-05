@@ -127,4 +127,9 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		
 		return sqlSession.selectList(namespace+".readProblemActivities", readProblemListParam);
 	}
+
+	@Override
+	public List<Map<String, Object>> readAvgForaWeek() {
+		return sqlSession.selectList(namespace+".avgForaWeek");
+	}
 }
