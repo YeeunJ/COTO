@@ -12,10 +12,13 @@ public interface ProblemDAO {
 	
 	public List<ProblemDTO> readProblem();
 	
+	public List<ProblemDTO> readRecentProblem();
+	
 	public int readProblemListCnt();
 	
 	public List<ProblemDTO> readProblemByPage(PaginationDTO page);
 
 	public List<Map<String, Object>> readRatioBySiteid();
+
 
 }

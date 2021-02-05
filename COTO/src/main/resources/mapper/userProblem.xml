@@ -41,10 +41,19 @@
 		WHERE A.regDate >= subquery.startDate and A.userID = #{userID}
 	</select>
 	
-	<select id = "readRank" resultType="com.walab.coding.model.RankDTO">
-		SELECT (select nickName from user where A.userID = id) as nickName, count(userID) as cnt FROM `userProblem` as A group by userID order by count(userID) desc limit 0,4	
+	<select id = "readTotalRank" resultType="com.walab.coding.model.RankDTO">
+		SELECT (SELECT nickName FROM user WHERE A.userID = id) AS nickName, count(userID) AS cnt FROM `userProblem` AS A GROUP BY userID ORDER BY count(userID) DESC LIMIT 0,4	
  	</select>
  
+ 	<select id = "readTodayRank" resultType="com.walab.coding.model.RankDTO">
+ 		SELECT (SELECT nickName FROM user WHERE A.userID = id) AS nickName, count(userID) AS cnt 
+		FROM userProblem
+		AS A 
+		WHERE DATE_FORMAT(regdate, "%Y-%m-%d") = CURDATE()
+		GROUP BY userID 
+		ORDER BY count(userID) DESC LIMIT 0,4
+ 	</select>
+ 	
  	<insert id="createUserProblem" parameterType="com.walab.coding.model.UserProblemDTO">
  		INSERT INTO userProblem (userID, problemID) VALUES (#{userID}, #{problemID})
 <!-- 		INSERT INTO userProblem  (userID, siteID, problem, link, difficulty, memo) VALUES (#{userID}, #{siteID}, #{problem}, #{link}, #{difficulty}, #{memo})-->	

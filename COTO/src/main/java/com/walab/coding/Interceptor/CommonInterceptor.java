@@ -1,5 +1,6 @@
 package com.walab.coding.Interceptor;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,9 +19,12 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		System.out.println(request.getRequestURI());
 		if(request.getSession().getAttribute("user") == null) {
 			System.out.println("notLogin");
-			request.getSession().setAttribute("header", "logoutHeader");
+			//request.getSession().setAttribute("header", "logoutHeader");
 			//request.setAttribute("header", "logoutHeader");
 			//modelAndView.addObject("header", "logoutHeader");
+			request.setAttribute("userID", 1);
+		}else {
+			request.setAttribute("userID", ((UserDTO)request.getSession().getAttribute("user")).getId());
 		}
 		return super.preHandle(request, response, handler);
 	}
@@ -28,19 +32,19 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub    
+
 		if(request.getSession().getAttribute("user") == null) {
 			System.out.println("notLogin");
-			//request.getSession().setAttribute("header", "logoutHeader");
-			//request.setAttribute("header", "logoutHeader");
-			//modelAndView.addObject("header", "logoutHeader");
+			request.setAttribute("header", "logoutHeader.jsp");
 		}else if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0) {
 			System.out.println("admin");
-			modelAndView.addObject("header", "adminHeader");
+			request.setAttribute("header", "adminHeader.jsp");
 		}else {
 			System.out.println("user");
-			modelAndView.addObject("header", "loginHeader");
+			request.setAttribute("header", "loginHeader.jsp");
 		}
+		
 		System.out.println("===================        common interceptor test end        ===================");
 		super.postHandle(request, response, handler, modelAndView);
 	}

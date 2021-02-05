@@ -20,6 +20,10 @@
 		WHERE recom.deletedate IS NULL and recom.id = ${recomID}
 	</select>
 	
+	<select id ="readRecentRecommendList" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">
+		SELECT recommend.title FROM recommend ORDER BY regdate DESC LIMIT 0, 4;
+	</select>
+	
 	<select id="searchRecommendList" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">
 		SELECT recom.id as id, recom.title as title, recom.content as content, us.nickname as nickname, recom.difficulty as difficulty
 		FROM recommend as recom left join user as us on recom.userID = us.id

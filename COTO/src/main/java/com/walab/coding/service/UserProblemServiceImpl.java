@@ -68,8 +68,14 @@ public class UserProblemServiceImpl implements UserProblemService{
 	}
 	
 	@Override
-	public List<RankDTO> readRankList() {
-		List<RankDTO> result = userProblemDAO.readRankList();
+	public List<RankDTO> readTotalRankList() {
+		List<RankDTO> result = userProblemDAO.readTotalRankList();
+		return result;
+	}
+	
+	@Override
+	public List<RankDTO> readTodayRankList() {
+		List<RankDTO> result = userProblemDAO.readTodayRankList();
 		return result;
 	}
 

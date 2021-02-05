@@ -11,6 +11,8 @@ public interface RecommendService {
 	
 	List<RecomProblemDTO> readRecomProblems(int recomID);
 	
+	public List<RecommendDTO> readRecentRecommendList();
+	
 	int createRecomProblem(RecommendDTO recommend);
 	
 	public List<RecommendDTO> search(String searchValue, String orderValue);

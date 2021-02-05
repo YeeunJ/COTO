@@ -41,6 +41,12 @@ public class ProblemDAOImpl implements ProblemDAO {
 		return problemList;
 	}
 
+	public List<ProblemDTO> readRecentProblem(){
+		List<ProblemDTO> recentProblemList = new ArrayList<ProblemDTO>();
+		recentProblemList  = sqlSession.selectList(namespace+".readRecentProblem");
+		return recentProblemList;
+	}
+
 	@Override
 	public int readProblemListCnt() {
 		// 총 게시글 개수 확인

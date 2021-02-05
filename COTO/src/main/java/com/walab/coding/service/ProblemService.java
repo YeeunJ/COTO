@@ -14,7 +14,11 @@ public interface ProblemService {
 	
 	public List<ProblemDTO> readProblemByPage(PaginationDTO page);
 	
+	List<ProblemDTO> readRecentProblem();
+	
 	public List<Map<String, Object>> readRatioBySiteid();
 
 	public List<Map<String, Object>> makeRatioBySiteid(List<Map<String, Object>> ratioBySite, List<CodingSiteDTO> codingSite);
+
+
 }

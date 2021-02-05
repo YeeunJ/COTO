@@ -39,6 +39,11 @@ public class ProblemServiceImpl implements ProblemService {
 	}
 
 	@Override
+	public List<ProblemDTO> readRecentProblem() {
+		return problemDAO.readRecentProblem();
+	}
+	
+	@Override
 	public List<Map<String, Object>> readRatioBySiteid() {
 		return problemDAO.readRatioBySiteid();
 	}
