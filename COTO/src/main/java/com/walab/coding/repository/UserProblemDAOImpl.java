@@ -55,9 +55,16 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		return sqlSession.selectOne(namespace+".readSovledUserProblem", userSolvedProblemParam);
 	}
 	
-	public List<RankDTO> readRankList() {
+	public List<RankDTO> readTotalRankList() {
 		List<RankDTO> rankList = new ArrayList<RankDTO>();
 		rankList = sqlSession.selectList(namespace+".readTotalRank");
+
+		return rankList;
+	}
+	
+	public List<RankDTO> readTodayRankList() {
+		List<RankDTO> rankList = new ArrayList<RankDTO>();
+		rankList = sqlSession.selectList(namespace+".readTodayRank");
 
 		return rankList;
 	}

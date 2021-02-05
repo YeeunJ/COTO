@@ -21,8 +21,7 @@
 	</select>
 	
 	<select id ="readRecentRecommendList" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">
-		SELECT recommend.title, recommend.regdate
-		ROM recommend ORDER BY regdate DESC LIMIT 0, 4;
+		SELECT recommend.title FROM recommend ORDER BY regdate DESC LIMIT 0, 4;
 	</select>
 	
 	<select id="searchRecommendList" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">

@@ -10,8 +10,10 @@ public interface UserProblemService {
 	
 	int readSolvedP(int userID);
 	
-	public List<RankDTO> readRankList();
+	public List<RankDTO> readTotalRankList();
 	
+	public List<RankDTO> readTodayRankList();
+
 	public int update(UserProblemDTO upd);
 	
 	public int delete(int userProblemID);

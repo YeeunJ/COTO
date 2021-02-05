@@ -11,7 +11,8 @@ public interface UserProblemDAO {
 	public int updateProblem(UserProblemDTO upd);
 	public int deleteProblem(int userProblemID);
 	public int readSolvedP(int userID);
-	public List<RankDTO> readRankList();
+	public List<RankDTO> readTotalRankList();
+	public List<RankDTO> readTodayRankList();
 	public void createUserProblem(UserProblemDTO p);
 	public List<UserProblemDTO> searchProblemByContent(int userID, String searchValue);
 	public List<UserProblemDTO> readProblemOrderByCount();

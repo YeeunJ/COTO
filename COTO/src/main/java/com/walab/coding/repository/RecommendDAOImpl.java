@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.RecomCountDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomTagDTO;
@@ -45,6 +46,14 @@ public class RecommendDAOImpl implements RecommendDAO {
 		return sqlSession.selectOne(namespace+".readRecommendProblem", recommendProblemParam);
 		
 	}
+	
+	public List<RecommendDTO> readRecentRecommendList() {
+		List<RecommendDTO> rankList = new ArrayList<RecommendDTO>();
+		rankList = sqlSession.selectList(namespace+".readRecentRecommendList");
+
+		return rankList;
+	}
+	
 	@Override
 	public int createRecomProblem(RecommendDTO recommend) {	
 		sqlSession.insert(namespace+".createRecomProblem", recommend);

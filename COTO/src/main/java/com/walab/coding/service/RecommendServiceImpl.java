@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.model.UserProblemDTO;
@@ -44,6 +45,12 @@ public class RecommendServiceImpl implements RecommendService {
 		recommend.setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));
 		
 		return recommend;
+	}
+	
+	@Override
+	public List<RecommendDTO> readRecentRecommendList() {
+		List<RecommendDTO> result = recommendDAO.readRecentRecommendList();
+		return result;
 	}
 	
 	@Override
