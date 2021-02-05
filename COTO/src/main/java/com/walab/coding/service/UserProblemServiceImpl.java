@@ -1,10 +1,16 @@
 package com.walab.coding.service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.repository.UserProblemDAO;
@@ -124,5 +130,42 @@ public class UserProblemServiceImpl implements UserProblemService{
 			}
 		}
 		return problems;
+	}
+
+
+	@Override
+	public List<Map<String, Object>> readAvgForaWeek() {
+		
+		List<Map<String,Object>> average = userProblemDAO.readAvgForaWeek();
+		List<Map<String,Object>> avgWeek = new ArrayList<Map<String,Object>>();
+		
+		Date time = new Date();
+		time = new Date(time.getTime()+(1000*60*60*24*-6));
+		
+		for(int i=0 ; i<7 ; i++) {
+			Map<String,Object> map = new HashMap<String,Object>();
+			SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy/MM/dd");
+		
+			String time1 = format1.format(time);
+			Object date = (Object)time1;
+			
+			map.put("date", date);
+			map.put("average", 0);
+			
+			for(int j=0 ; j<average.size(); j++) {
+
+				if(time1.equals(average.get(j).get("date"))) {
+					map.put("average", average.get(j).get("average"));
+				}
+			
+			}
+			
+			time = new Date(time.getTime()+(1000*60*60*24*+1));
+
+			avgWeek.add(map);
+		}
+		
+		return avgWeek;
+		
 	}
 }

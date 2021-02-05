@@ -18,6 +18,7 @@ import com.walab.coding.model.PaginationDTO;
 import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.ProblemService;
+import com.walab.coding.service.UserProblemService;
 
 /**
  * Handles requests for the application RecommendProblems page.
@@ -32,7 +33,9 @@ public class ProblemlistController {
 	ProblemService problemService;
 	@Autowired
 	CodingSiteService codingSiteService;
-
+	@Autowired
+	UserProblemService userProblemService;
+	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewProblems(ModelAndView mv) {
 		
@@ -40,15 +43,13 @@ public class ProblemlistController {
 		List<Map<String,Object>> ratioBySite = problemService.readRatioBySiteid();
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		List<Map<String,Object>> ratio = problemService.makeRatioBySiteid(ratioBySite, codingSite);
+		List<Map<String,Object>> average = userProblemService.readAvgForaWeek();
+	
 		
-	
-		for(int i=0 ; i<ratio.size() ; i++) {
-			System.out.println("ratio: "+ratio.get(i));
-		}
-	
 		mv.addObject("codingSite", codingSite);
 		mv.addObject("problems", problemList);
 		mv.addObject("ratio", ratio);
+		mv.addObject("averageForWeek", average);
 		
 		mv.setViewName("problemList");
 		

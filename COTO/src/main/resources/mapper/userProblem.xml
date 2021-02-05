@@ -79,4 +79,18 @@
 		join YeeunJ.problem as p on subquery.problemID=p.id
 		join YeeunJ.codingSite as c on p.siteID=c.id;
 	</select>
+	
+	<resultMap type="HashMap" id="avgForaWeek">
+		<id column="date" property="date"/>
+		<id column="average" property="average"/>
+	</resultMap>
+	
+	<select id = "avgForaWeek" resultMap="avgForaWeek">
+		SELECT date, AVG(SP) AS average
+		FROM(SELECT id,userID, COUNT(userID) AS SP,DATE_FORMAT(regdate, '%Y/%m/%d') as date 
+			FROM userProblem 
+			WHERE regdate BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
+			GROUP BY date, userID) countByDate
+		GROUP BY date
+ 	</select>
 </mapper>
