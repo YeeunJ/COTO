@@ -129,8 +129,13 @@ function resetContent() {
 	$('#selectHtml').html(selectHtml);
 	
 }
-
-
+$(document).ready(function(){
+    $('.carousel').carousel();
+  });
+$('.carousel.carousel-slider').carousel({
+    fullWidth: true,
+    indicators: true
+  });
 </script>
 
 <!-- first section start- 문제 등록, 내 정보 -->
@@ -153,22 +158,73 @@ function resetContent() {
 <div  class="container">
 	<div class="section second">
 		<div class="row center">
-			<div class="col s12 m4">
+		  
+		  <div class="carousel carousel-slider center">
+		    <div class="carousel-fixed-item center">
+<!-- 		      <a class="btn waves-effect white grey-text darken-text-2">button</a>
+ -->		    </div>
+		    <div class="carousel-item gray-text" href="#one!">
+				<div class="col s12 m4">
+					<div class="icon-block">
+						<span class="icon icon-award"></span>
+						<h5 class="small-title">오늘의 랭킹</h5>
+						<ul class="fs-18 textList">
+							<c:forEach items="${ranks}" var="rank" varStatus="status">
+								<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName} (${rank.cnt}문제)</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+				<div class="col s12 m4">
+					<div class="icon-block">
+						<span class="icon icon-tag"></span>
+						<h5 class="small-title">인기 태그</h5>
+						<ul class="fs-18 list">
+							<c:forEach items="${tags}" var="tag">
+								<li class="tag"><span class="bold">#</span>${tag.tag}</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+				<div class="col s12 m4">
+					<div class="icon-block">
+						<span class="icon icon-problem"></span>
+						<h5 class="position-r small-title">
+							문제 순위<a href="./recommendProblem" class="more">더보기 ></a>
+						</h5>
+						<ul class="fs-18 textList">
+							<c:forEach items="${problems}" var="problem" varStatus="status">
+								<li class="ranking"><span class="bold">${status.count}.</span>${problem.problem} [${problem.site}]</li>
+							</c:forEach>
+						</ul>
+					</div>
+			</div>
+
+		    </div>
+
+		    <div class="carousel-item gray-text" href="#two!">
+		      <h2>Second Panel</h2>
+		      <p class="white-text">This is your second panel</p>
+		    </div>
+		    <ul class="indicators">
+		    	<li class="indicator-item gray"></li>
+		    	<li class="indicator-item  gray active"></li>
+		    </ul>
+		  </div>
+		  
+			<div class="col s12 m4 carousel-item">
 				<div class="icon-block">
 					<span class="icon icon-award"></span>
 					<h5 class="small-title">오늘의 랭킹</h5>
 					<ul class="fs-18 textList">
 						<c:forEach items="${ranks}" var="rank" varStatus="status">
 							<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName}</li>
-						<%-- 	<li class="ranking"><span class="bold">2.</span> ${user.name}</li>
-						<li class="ranking"><span class="bold">3.</span> ${user.name}</li>
-						<li class="ranking"><span class="bold">4.</span> ${user.name}</li> --%>
 						</c:forEach>
 					</ul>
 				</div>
 			</div>
 
-			<div class="col s12 m4">
+			<div class="col s12 m4 carousel-item">
 				<div class="icon-block">
 					<span class="icon icon-tag"></span>
 					<h5 class="small-title">인기 태그</h5>
@@ -180,7 +236,7 @@ function resetContent() {
 				</div>
 			</div>
 
-			<div class="col s12 m4">
+			<div class="col s12 m4 carousel-item">
 				<div class="icon-block">
 					<span class="icon icon-problem"></span>
 					<h5 class="position-r small-title">
