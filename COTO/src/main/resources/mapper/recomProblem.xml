@@ -14,4 +14,10 @@
 	<delete id="deleteRecomProblem" parameterType="hashmap">
 		delete from recomProblem where recomID = #{recomID}
 	</delete>
+	
+	<select id="readProblemByID" resultType="com.walab.coding.model.RecomProblemDTO" parameterType="hashmap">
+		SELECT rp.id as id, rp.recomID as recomID, p.name as name, p.siteID as siteID
+		FROM recomProblem as rp left join problem as p on rp.problemID = p.id
+		WHERE rp.recomID=#{recomID};
+	</select>
 </mapper>

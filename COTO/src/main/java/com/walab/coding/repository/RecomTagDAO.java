@@ -16,4 +16,6 @@ public interface RecomTagDAO {
 	public int deleteRecomTag(int recomID);
 	
 	public int updateTag(RecomTagDTO rt);
+
+	List<RecomTagDTO> readTagByID(int recomID);
 }

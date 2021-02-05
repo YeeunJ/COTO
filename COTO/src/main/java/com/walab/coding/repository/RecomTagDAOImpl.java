@@ -50,4 +50,12 @@ public class RecomTagDAOImpl implements RecomTagDAO {
 		
 		return sqlSession.update(namespace+".updateRecomTag", recomTagParam);
 	}
+
+	@Override
+	public List<RecomTagDTO> readTagByID(int recomID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("recomID", recomID);
+		
+		return sqlSession.selectList(namespace+".readTagByID", param);
+	}
 }

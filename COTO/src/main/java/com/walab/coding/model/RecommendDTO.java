@@ -75,4 +75,11 @@ public class RecommendDTO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	@Override
+	public String toString() {
+		return "RecommendDTO [id=" + id + ", userID=" + userID + ", nickname=" + nickname + ", title=" + title
+				+ ", difficulty=" + difficulty + ", content=" + content + ", recomCount=" + recomCount
+				+ ", recomCommentCount=" + recomCommentCount + ", deleteDate=" + deleteDate + ", regDate=" + regDate
+				+ "]";
+	}
 }

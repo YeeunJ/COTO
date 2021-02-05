@@ -13,4 +13,8 @@ public interface RecomProblemService {
 	public List<RecomProblemDTO> readProblem();
 	
 	public int deleteRecomProblem(int recomID);
+	
+	public List<RecomProblemDTO> readProblemByID(int recomID);
+	
+	
 }

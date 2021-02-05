@@ -39,16 +39,17 @@ function callModal() {
 
 function printAllContent(id, recomId, count){
 	selectHtml = $('#selectHtml').html();
-	readComment(recomId);
 	
-	$('#readRecomID').html(recomId);
-	$('#readProblems').html($(id+' .readProblem').html());
-	$('#readTags').html($(id+' .readTag').html());
-	$('#readContents').html($(id+' .readContent').html());
-	$('#readRecommends').html($(id+' .readRecommend').html());
-	$('#readDifficulties').html($(id+' .readDifficulty').html());
-	//$('#commentCount').html($(id+' .readCommentCount').html());
-	$("#commentCount").text(count);
+	readDetailModalContent(recomId);
+	
+//	$('#readRecomID').html(recomId);
+//	$('#readProblems').html($(id+' .readProblem').html());
+//	$('#readTags').html($(id+' .readTag').html());
+//	$('#readContents').html($(id+' .readContent').html());
+//	$('#readRecommends').html($(id+' .readRecommend').html());
+//	$('#readDifficulties').html($(id+' .readDifficulty').html());
+//	$('#commentCount').html($(id+' .readCommentCount').html());
+//	$("#commentCount").text(count);
 	
 	$('#updateRecomID').html(recomId);
 	$('input[name=updateTitle]').attr('value',$(id+' .readTitle').text());
@@ -208,7 +209,24 @@ function addComment() {
 	}
 }
 
-
+function readDetailModalContent(recomID, count) {
+	$.ajax({
+		url : "recommendProblem/readModalInfo",
+		type : "POST",
+		async : false,
+		data : {
+			recomID : recomID,
+		},
+		success : function(data) {
+			console.log("success");
+		},
+		error : function(request, status, error) {
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}
 
 function readComment(recomID) {
 	$.ajax({

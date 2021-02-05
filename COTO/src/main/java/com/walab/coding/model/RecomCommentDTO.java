@@ -11,8 +11,8 @@ public class RecomCommentDTO {
 	
 	@Override
 	public String toString() {
-		return "RecomComment [id=" + id + ", recomID=" + recomID + ", content=" + content + ", regDate=" + regDate
-				+ "]";
+		return "RecomCommentDTO [id=" + id + ", recomID=" + recomID + ", userId=" + userId + ", content=" + content
+				+ ", regDate=" + regDate + "]";
 	}
 	
 	public int getId() {

@@ -1,5 +1,6 @@
 package com.walab.coding.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +39,23 @@ public class UsermanageController {
 	
 	@RequestMapping(value = "/updateAdmin", method = RequestMethod.POST)
 	@ResponseBody
-	public void updateUserAdmin(HttpServletRequest httpServletRequest, ModelAndView mv) {
+	public void updateUserAdmin(HttpServletRequest httpServletRequest) {
+		int isAdmin = Integer.parseInt(httpServletRequest.getParameter("isAdmin"));
+		int userID = Integer.parseInt(httpServletRequest.getParameter("userID"));
+		System.out.println(isAdmin+"//"+userID);
+		userService.updateUserAdmin(isAdmin, userID);
+	}
+	
+	@RequestMapping(value = "/searchUser", method = RequestMethod.POST)
+	@ResponseBody
+	public void searchUser(HttpServletRequest httpServletRequest, ModelAndView mv) {
+		String category = httpServletRequest.getParameter("category");
+		
+		List<UserDTO> users = new ArrayList<UserDTO>();
+		if(category=="regdate") {
+			
+		}
+		
 		int isAdmin = Integer.parseInt(httpServletRequest.getParameter("isAdmin"));
 		int userID = Integer.parseInt(httpServletRequest.getParameter("userID"));
 		System.out.println(isAdmin+"//"+userID);
