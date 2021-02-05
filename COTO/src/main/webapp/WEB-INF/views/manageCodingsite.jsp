@@ -234,7 +234,7 @@ $(document).ready(function() {
 			<div class="tableRow">
 				
 		 		<span class="tableCell td3 sub ">${u.getSiteName()}</span> 
-				<span class="tableCell td7 sub "><a href="${u.getSiteUrl()}">${u.getSiteUrl()}</a>
+				<span class="tableCell td7 sub "><a href="${u.getSiteUrl()}" target="_blank">${u.getSiteUrl()}</a>
 				 <span class='btns'>
                        <button type="button" id="change" class="editSite edit whitebtn">수정</button>
                        <button type="button" class="deleteBtn edit whitebtn" value="${u.getId()}">삭제</button>

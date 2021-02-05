@@ -51,6 +51,8 @@ public class RegisterController {
 		u.setIntro(intro);
 		
 		int result = userService.createUserinfo(u);
+		u.setId(userService.readUserIDByEmail(email));
+		httpServeletRequest.getSession().setAttribute("user", u);
 
 	}
 	

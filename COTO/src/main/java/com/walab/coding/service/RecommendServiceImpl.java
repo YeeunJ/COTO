@@ -37,6 +37,15 @@ public class RecommendServiceImpl implements RecommendService {
 		return recoms;
 	}
 	
+	public RecommendDTO readRecommend(int recomID) {
+		RecommendDTO recommend = recommendDAO.readRecommend(recomID);
+		
+		recommend.setRecomCount(recomCountDAO.readRecomCount(recommend.getId()));
+		recommend.setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));
+		
+		return recommend;
+	}
+	
 	@Override
 	public List<RecomProblemDTO> readRecomProblems(int recomID) {
 		List<RecomProblemDTO> recomProblems = recommendDAO.readRecomProblems(recomID);
@@ -55,8 +64,22 @@ public class RecommendServiceImpl implements RecommendService {
 	public List<RecommendDTO> search(String searchValue, String orderValue) {
 		searchValue = "%".concat(searchValue).concat("%");
 		if(orderValue == null)
-			orderValue ="regdate";
-		return recommendDAO.searchProblemByContents(searchValue, orderValue);
+			orderValue ="recom.regdate desc";
+		else if(orderValue.compareTo("difficulty") == 0) {
+			orderValue = "recom.".concat(orderValue).concat("desc");
+		}
+		
+		List<RecommendDTO> recoms = recommendDAO.searchProblemByContents(searchValue, orderValue);
+		
+		for(int i=0;i<recoms.size();i++) {
+			System.out.println(recoms.get(i).getNickname());
+			recoms.get(i).setRecomCount(recomCountDAO.readRecomCount(recoms.get(i).getId()));
+			
+			int recomID = recoms.get(i).getId();
+			recoms.get(i).setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));
+		}
+		
+		return recoms;
 	}
 	
 	@Override
