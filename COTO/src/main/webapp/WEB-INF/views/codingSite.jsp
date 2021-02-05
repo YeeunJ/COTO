@@ -6,17 +6,7 @@
 <script src="./resources/js/manageCodingsite.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<%
-	String fullHeader ="";
-	if(((UserDTO)request.getSession().getAttribute("user")) == null){
-		fullHeader = "./inc/logoutHeader.jsp";
-	}else if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0){
-		fullHeader = "./inc/adminHeader.jsp";
-	}else {
-		fullHeader = "./inc/loginHeader.jsp";
-	}
-%>
-<jsp:include page= "<%=fullHeader%>" />
+<jsp:include page= "<%=\"./inc/\".concat(((String)request.getAttribute(\"header\")))%>" />
 
 <script>
 $(document).ready(function() {

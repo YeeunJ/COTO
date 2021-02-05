@@ -1,6 +1,7 @@
 package com.walab.coding.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import com.walab.coding.model.PaginationDTO;
 import com.walab.coding.model.ProblemDTO;
@@ -14,5 +15,7 @@ public interface ProblemDAO {
 	public int readProblemListCnt();
 	
 	public List<ProblemDTO> readProblemByPage(PaginationDTO page);
+
+	public List<Map<String, Object>> readRatioBySiteid();
 
 }

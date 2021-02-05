@@ -1,20 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "com.walab.coding.model.UserDTO" %>
+
+<jsp:include page= "<%=\"./inc/\".concat(((String)request.getAttribute(\"header\")))%>" />
+
 <link rel="stylesheet" href="./resources/css/home.css?asd" />
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?asd" />
-
-<%
-	String fullHeader ="";
-	if(((UserDTO)request.getSession().getAttribute("user")) == null){
-		fullHeader = "./inc/logoutHeader.jsp";
-	}else if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0){
-		fullHeader = "./inc/adminHeader.jsp";
-	}else {
-		fullHeader = "./inc/loginHeader.jsp";
-	}
-%>
-<jsp:include page= "<%=fullHeader%>" />
 
 <script>
 //정렬
@@ -137,7 +128,6 @@ $('.carousel.carousel-slider').carousel({
     indicators: true
   });
 </script>
-
 <!-- first section start- 문제 등록, 내 정보 -->
 <div class="section no-pad-bot">
 	<div id="myInfo" class="container center">
@@ -152,7 +142,6 @@ $('.carousel.carousel-slider').carousel({
 		<br> <br>
 	</div>
 </div>
-
 
 <!-- second section start- 랭킹, 태그, 순위 -->
 <div  class="container">

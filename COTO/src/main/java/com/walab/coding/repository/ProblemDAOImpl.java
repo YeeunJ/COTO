@@ -53,7 +53,18 @@ public class ProblemDAOImpl implements ProblemDAO {
 		param.put("startList", page.getStartList());
 		param.put("listSize", page.getListSize());
 		
-		return sqlSession.selectList(namespace+"readProblemByPage", param);
+		return sqlSession.selectList(namespace+".readProblemByPage", param);
+	}
+
+	@Override
+	public List<Map<String, Object>> readRatioBySiteid() {
+		
+		int count = sqlSession.selectOne(namespace+".readProblemCnt");
+		System.out.println(">>>>>>>>>>>  in ProblemDAOImpl: "+count);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("count", count);
+		
+		return sqlSession.selectList(namespace+".readRatioBySiteid", param);
 	}
 	
 }
