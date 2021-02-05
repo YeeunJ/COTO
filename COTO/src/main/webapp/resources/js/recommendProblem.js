@@ -39,7 +39,8 @@ function callModal() {
 
 function printAllContent(id, recomId, count){
 	selectHtml = $('#selectHtml').html();
-	readComment(recomId);
+	
+//	readDetailModalContent(recomID, count);
 	
 	$('#readRecomID').html(recomId);
 	$('#readProblems').html($(id+' .readProblem').html());
@@ -47,7 +48,7 @@ function printAllContent(id, recomId, count){
 	$('#readContents').html($(id+' .readContent').html());
 	$('#readRecommends').html($(id+' .readRecommend').html());
 	$('#readDifficulties').html($(id+' .readDifficulty').html());
-	//$('#commentCount').html($(id+' .readCommentCount').html());
+	$('#commentCount').html($(id+' .readCommentCount').html());
 	$("#commentCount").text(count);
 	
 	$('#updateRecomID').html(recomId);
@@ -208,7 +209,25 @@ function addComment() {
 	}
 }
 
-
+function readDetailModalContent(recomID, count) {
+	$.ajax({
+		url : "recommendProblem/readModalInfo",
+		type : "POST",
+		async : false,
+		data : {
+			recomID : recomID,
+			commentCount : count
+		},
+		success : function(data) {
+			console.log("success");
+		},
+		error : function(request, status, error) {
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}
 
 function readComment(recomID) {
 	$.ajax({

@@ -59,10 +59,10 @@
 		</fieldset>
 		<div class="col order">
 			<select id="orderValue">
-				<option value="regdate" disabled selected>정렬</option>
-				<option value="title">이름순</option>
-				<option value="site">관리자만</option>
-				<option value="regdate">사용자만</option>
+				<option value="regdate" selected>등록순</option>
+				<option value="name">이름순</option>
+				<option value="admin">관리자만</option>
+				<option value="user">사용자만</option>
 			</select>
 		</div>
 	</div>

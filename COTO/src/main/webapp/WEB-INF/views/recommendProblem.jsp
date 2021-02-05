@@ -12,6 +12,7 @@
 		fullHeader = "./inc/loginHeader.jsp";
 	}
 %>
+
 <jsp:include page= "<%=fullHeader%>" />
 
 <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -219,7 +220,7 @@
 				<p class="title desc">추천 문제</p>
 				<div id="readProblems" class="readBox"></div>
 			</div>
-		</div>
+		</div>		
 		<div>
 			<div class="details">
 				<%@ include file="./ajaxContent/recomCountContent.jsp"%>
@@ -237,6 +238,8 @@
 			</div> 
 
 		</div>
+		
+ 		<%@ include file="./ajaxContent/recomDetailModal.jsp"%>
 	</div>
 </div>
 
@@ -340,102 +343,3 @@
 </div>
 
 <%@ include file="./inc/footer.jsp"%>
-
-<script>
-$("#problemTag").click(function(){
-	/* var v = document.getElementsByClassName("chips");
-	
-	var att = document.createAttribute("onclick");
-	att.value="btnClick()";
-	v.setAttributeNode(att); */
-});
-
-function chipTag(){
-	/*
-	$('.sweet-modal-content .chips').material_chip();
-	$('.sweet-modal-content .chips-placeholder').material_chip({
-	    placeholder: '+tag',
-	    secondaryPlaceholder: '+Tag',
-	});*/
-}
-
-
-
-$('#tagAdd').click(function(){
-	var data= $('#problemTag').material_chip('data');
-	var tag = new Array();
-	for(var i=0 ; i<data.length ; i++) {
-		tag.push(data[i].tag);
-	}
-	$.ajax({
-        url : './recommendProblem/addTag',
-        type: 'POST',
-        data: {
-        	"tag":tag
-        },
-        success: function(data) {
-            alert('리스트에 추가하였습니다.');
-        },
-        error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        },
-    });
-	
-});
-	
-
-	$("#addComment").click(function() {
-		var userID = $("input[name='writer']").val();
-		var recomID = $("input[name='recomID']").val();
-		alert(userID + "/" + recomID);
-		
-		if (confirm("댓글을 추가하시겠습니까?")) {
-			$.ajax({
-				url : "recommendProblem/addComment",
-				type : "POST",
-				async : false,
-				data : {
-					userID : userID,
-					recomID : recomID,
-					content : $('#comment-textarea').val()
-				},
-				success : function(data) {
-					$('#modal-comment').html(data);
-				},
-				error : function(request, status, error) {
-					console.log("code:" + request.status + "\n"
-							+ "message:" + request.responseText + "\n"
-							+ "error:" + error);
-				}
-			});
-		}
-	});
-	
-	$(".sweet-modal-content #addComment").click(function() {
-		var userID = $("input[name='writer']").val();
-		var recomID = $("input[name='recomID']").val();
-		alert(userID + "/" + recomID);
-		
-		if (confirm("댓글을 추가하시겠습니까?")) {
-			$.ajax({
-				url : "recommendProblem/addComment",
-				type : "POST",
-				async : false,
-				data : {
-					userID : userID,
-					recomID : recomID,
-					content : $('#comment-textarea').val()
-				},
-				success : function(data) {
-					$('#modal-comment').html(data);
-				},
-				error : function(request, status, error) {
-					console.log("code:" + request.status + "\n"
-							+ "message:" + request.responseText + "\n"
-							+ "error:" + error);
-				}
-			});
-		}
-	});
-
-</script>
