@@ -1,6 +1,7 @@
 package com.walab.coding.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.UserProblemDTO;
@@ -10,8 +11,10 @@ public interface UserProblemService {
 	
 	int readSolvedP(int userID);
 	
-	public List<RankDTO> readRankList();
+	public List<RankDTO> readTotalRankList();
 	
+	public List<RankDTO> readTodayRankList();
+
 	public int update(UserProblemDTO upd);
 	
 	public int delete(int userProblemID);
@@ -25,4 +28,6 @@ public interface UserProblemService {
 	public List<UserProblemDTO> countSolvedProblemEachDay(int userID);
 	
 	public List<UserProblemDTO> readProblemActivities(int userID, int goalID);
+
+	public List<Map<String, Object>> readAvgForaWeek();
 }

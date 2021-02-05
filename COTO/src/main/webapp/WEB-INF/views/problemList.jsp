@@ -37,6 +37,9 @@ canvas {
 	opacity: 0.4;
 	z-index: -1;
 }
+.chart-div {
+	display:inline-block;
+}
 </style>
 
 <div id="SiteContainer" class="container">
@@ -47,8 +50,12 @@ canvas {
 		</div>
 	</div>
 	
-	<div id="canvas-holder" style="width:40%">
-		<canvas id="chart-area"></canvas>
+	<div id="canvas-holder" class="chart-div" style="width:40%">
+		<canvas id="chartBySite"></canvas>
+	</div>
+	
+	<div id="container" class="chart-div" style="width: 40%;">
+		<canvas id="averageForWeek"></canvas>
 	</div>
 
 	<div class="top-bar">
@@ -113,6 +120,7 @@ canvas {
 <script>
 
 var ratioBySite = new Array();
+var averageWeek = new Array();
 
 <c:forEach items="${ratio}" var="r">
 	var list = new Object();
@@ -123,11 +131,16 @@ var ratioBySite = new Array();
 	ratioBySite.push(list);
 </c:forEach>
 
-var randomScalingFactor = function() {
-	return Math.round(Math.random() * 100);
-};
+<c:forEach items="${averageForWeek}" var="avg">
+	var list = new Object();
+	
+	list.date = "${avg.date}";
+	list.average = ${avg.average};
+	
+	averageWeek.push(list);
+</c:forEach>
 
-var newLabels = [];
+/* var newLabels = [];
 var newData = [];
 var newColor=[];
 var chartColors=[window.chartColors.red,
@@ -138,22 +151,15 @@ var chartColors=[window.chartColors.red,
 				window.chartColors.purple,
 				window.chartColors.grey,
 				];
-// newDataset에 데이터 삽입
+
 for (var i=0 ; i< ratioBySite.length ; i++){
 	newData.push(ratioBySite[i].ratio);
 	newLabels.push(ratioBySite[i].siteName);
 	newColor.push(chartColors[i]);
 }
 
-function randomColor() {
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
-    return "rgba(" + r + "," + g + "," + b + ",0.8)";
-}
 
-
-var config = {
+var chartBySite = {
 	type: 'doughnut',
 	data: {
 		datasets: [{
@@ -180,93 +186,10 @@ var config = {
 };
 
 window.onload = function() {
-	var ctx = document.getElementById('chart-area').getContext('2d');
-	window.myDoughnut = new Chart(ctx, config);
-};
+	var ctx = document.getElementById('chartBySite').getContext('2d');
+	window.myDoughnut = new Chart(ctx, chartBySite);
+}; */
 
-
-/* var colorNames = Object.keys(window.chartColors);
-document.getElementById('addDataset').addEventListener('click', function() {
-	var newDataset = {
-		backgroundColor: [],
-		data: [],
-		label: 'New dataset ' + config.data.datasets.length,
-	};
-
-	for (var index = 0; index < config.data.labels.length; ++index) {
-		newDataset.data.push(randomScalingFactor());
-
-		var colorName = colorNames[index % colorNames.length];
-		var newColor = window.chartColors[colorName];
-		newDataset.backgroundColor.push(newColor);
-	}
-
-	config.data.datasets.push(newDataset);
-	window.myDoughnut.update();
-});
- */
-
-
-
-console.log(${pagination.range});
-console.log(${pagination.page});
-console.log(${pagination.rangeSize});
-console.log(${pagination.startPage});
-console.log(${pagination.endPage});
-function readProblemByPage(){
-	$.ajax({
-        url : './recommendProblem/addTag',
-        type: 'POST',
-        data: {
-        	"tag":tag
-        },
-        success: function(data) {
-            alert('리스트에 추가하였습니다.');
-        },
-        error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        },
-    });
-}
-
-//이전 버튼 이벤트
-function fn_prev(page, range, rangeSize) {
-
-		var page = ((range - 2) * rangeSize) + 1;
-		var range = range - 1;
-		var url = "${pageContext.request.contextPath}/board/getBoardList";
-
-		url = url + "?page=" + page;
-		url = url + "&range=" + range;
-
-		location.href = url;
-}
-
-
-
-//페이지 번호 클릭
-function fn_pagination(page, range, rangeSize, searchType, keyword) {
-	var url = "${pageContext.request.contextPath}/board/getBoardList";
-
-	url = url + "?page=" + page;
-	url = url + "&range=" + range;
-	location.href = url;	
-
-}
-
-//다음 버튼 이벤트
-function fn_next(page, range, rangeSize) {
-
-	var page = parseInt((range * rangeSize)) + 1;
-	var range = parseInt(range) + 1;
-	var url = "${pageContext.request.contextPath}/board/getBoardList";
-
-	url = url + "?page=" + page;
-	url = url + "&range=" + range;
-
-	location.href = url;
-
-}
 
 </script>
 

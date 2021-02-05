@@ -6,15 +6,19 @@
 <div class="tableRow">
 	<span class="tableCell th1">No.</span>
 	<span class="tableCell th3">문제 제목</span>
-	<span class="tableCell th2">사이트</span>
+	<span class="tableCell th1">사이트</span>
 	<span class="tableCell th1">참여자</span>
+	<span class="tableCell th1">등록일</span>
 </div>
 
 <c:forEach items="${problems}" var="problem" varStatus="status">
+<fmt:formatDate value="${problem.regdate}" var="formattedDate" 
+                type="date" pattern="yyyy-MM-dd" />
 	<div class="tableRow" id="problem${problem.id}">
 		<span class="tableCell td1">${status.count}</span> 
 		<span class="tableCell td3"> <a href="${problem.link}">${problem.name}</a></span> 
-		<span class="tableCell td2"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
+		<span class="tableCell td1"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
 		<span class="tableCell td1">${problem.count}</span> 
+		<span class="tableCell td1">${formattedDate}</span> 
 	</div>
 </c:forEach>

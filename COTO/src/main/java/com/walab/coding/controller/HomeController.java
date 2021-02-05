@@ -14,10 +14,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.RecomTagDTO;
+
+import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.CodingSiteDTO;
+import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.service.CodingSiteService;
+import com.walab.coding.service.ProblemService;
 import com.walab.coding.service.RecomTagService;
+import com.walab.coding.service.RecommendService;
 import com.walab.coding.service.UserProblemService;
 import com.walab.coding.service.UserService;
 
@@ -39,19 +44,32 @@ public class HomeController {
 	@Autowired
 	RecomTagService recomTagService;
 	
+	@Autowired
+	RecommendService recommendService;
+	
+	@Autowired
+	ProblemService problemService;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView viewHome(HttpServletRequest httpServletRequest, ModelAndView mv) {
 		int probs = 0;
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		mv.addObject("CodingSite", codingSite);
 					
-		List<RankDTO> ranks = userProblemService.readRankList();
+		List<RankDTO> totalRankList = userProblemService.readTotalRankList();
+		List<RankDTO> todayRankList = userProblemService.readTodayRankList();
 		List<UserProblemDTO> upd = userProblemService.readProblemList();
 		List<RecomTagDTO> rtd = recomTagService.readTagList();
+		List<RecommendDTO> recentRecomList = recommendService.readRecentRecommendList();
+		List<ProblemDTO> recentProblemList = problemService.readRecentProblem();
+
 	
-		mv.addObject("ranks", ranks);
+		mv.addObject("ranks", totalRankList);
+		mv.addObject("ranksToday", todayRankList);
 		mv.addObject("problems", upd);
 		mv.addObject("tags", rtd);
+		mv.addObject("recoms", recentRecomList);
+		mv.addObject("recentProblems", recentProblemList);
 		mv.setViewName("home");
 	
 		

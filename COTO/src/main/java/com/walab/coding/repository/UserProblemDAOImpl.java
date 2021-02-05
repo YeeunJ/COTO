@@ -55,9 +55,16 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		return sqlSession.selectOne(namespace+".readSovledUserProblem", userSolvedProblemParam);
 	}
 	
-	public List<RankDTO> readRankList() {
+	public List<RankDTO> readTotalRankList() {
 		List<RankDTO> rankList = new ArrayList<RankDTO>();
-		rankList = sqlSession.selectList(namespace+".readRank");
+		rankList = sqlSession.selectList(namespace+".readTotalRank");
+
+		return rankList;
+	}
+	
+	public List<RankDTO> readTodayRankList() {
+		List<RankDTO> rankList = new ArrayList<RankDTO>();
+		rankList = sqlSession.selectList(namespace+".readTodayRank");
 
 		return rankList;
 	}
@@ -126,5 +133,10 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		readProblemListParam.put("goalID", goalID);
 		
 		return sqlSession.selectList(namespace+".readProblemActivities", readProblemListParam);
+	}
+
+	@Override
+	public List<Map<String, Object>> readAvgForaWeek() {
+		return sqlSession.selectList(namespace+".avgForaWeek");
 	}
 }
