@@ -43,9 +43,15 @@ $(document).ready(function(){
 			labels: newLabels
 		},
 		options: {
-			responsive: true,
+			responsive: false,
 			legend: {
-				display:false
+				display:true,
+				position:'bottom',
+				labels: {
+	                fontSize: 8,
+	                padding:5
+	                
+	            }
 			},
 			title: {
 				display: true,
@@ -96,7 +102,7 @@ $(document).ready(function(){
 			type: 'bar',
 			data: barChartData,
 			options: {
-				responsive: true,
+				responsive: false,
 				legend: {
 					display:false
 				},
