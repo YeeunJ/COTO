@@ -5,7 +5,7 @@
 <jsp:include page= "<%=\"./inc/\".concat(((String)request.getAttribute(\"header\")))%>" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-<link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
+<link rel="stylesheet" href="./resources/css/solvedProblem.css?asd" />
 <link href="./resources/css/problemList.css?qwe" rel="stylesheet">
 <script src="./resources/js/problemList.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
@@ -50,13 +50,16 @@ canvas {
 		</div>
 	</div>
 	
-	<div id="canvas-holder" class="chart-div" style="width:40%">
-		<canvas id="chartBySite"></canvas>
+	<div id="chart-wrapper">
+		<div id="canvas-holder" class="card shadow card-body chart-div">
+			<canvas id="chartBySite" class="chart-canvas" height="185px"></canvas>
+		</div>
+		
+		<div id="container" class="card shadow card-body chart-div right">
+			<canvas id="averageForWeek" class="chart-canvas" style="margin-top:23px"></canvas>
+		</div>
 	</div>
-	
-	<div id="container" class="chart-div" style="width: 40%;">
-		<canvas id="averageForWeek"></canvas>
-	</div>
+
 
 	<div class="top-bar">
 		<fieldset class="search">
@@ -139,56 +142,6 @@ var averageWeek = new Array();
 	
 	averageWeek.push(list);
 </c:forEach>
-
-/* var newLabels = [];
-var newData = [];
-var newColor=[];
-var chartColors=[window.chartColors.red,
-				window.chartColors.orange,
-				window.chartColors.yellow,
-				window.chartColors.green,
-				window.chartColors.blue,
-				window.chartColors.purple,
-				window.chartColors.grey,
-				];
-
-for (var i=0 ; i< ratioBySite.length ; i++){
-	newData.push(ratioBySite[i].ratio);
-	newLabels.push(ratioBySite[i].siteName);
-	newColor.push(chartColors[i]);
-}
-
-
-var chartBySite = {
-	type: 'doughnut',
-	data: {
-		datasets: [{
-			data: newData,
-			backgroundColor: newColor,
-			label: 'Dataset 1'
-		}],
-		labels: newLabels
-	},
-	options: {
-		responsive: true,
-		legend: {
-			display:false
-		},
-		title: {
-			display: true,
-			text: '코딩 사이트별 이용률'
-		},
-		animation: {
-			animateScale: true,
-			animateRotate: true
-		}
-	}
-};
-
-window.onload = function() {
-	var ctx = document.getElementById('chartBySite').getContext('2d');
-	window.myDoughnut = new Chart(ctx, chartBySite);
-}; */
 
 
 </script>

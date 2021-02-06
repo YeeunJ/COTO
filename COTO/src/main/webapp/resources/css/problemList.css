@@ -31,3 +31,19 @@ fieldset {
 .comment {
 	border-bottom: 1px solid #bdbdbd;
 }
+#chart-wrapper {
+	padding: 0 10px;
+}
+.chart-div{
+	width: 48%;
+    height: 220px;
+    border-radius: 15px!important;
+    padding: 5px 10px;
+}
+.chart-canvas{
+    margin: 15px auto 0 auto;
+}
+
+.right{
+	float: right;
+}
