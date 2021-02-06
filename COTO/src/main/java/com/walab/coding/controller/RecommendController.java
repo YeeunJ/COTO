@@ -1,18 +1,11 @@
 package com.walab.coding.controller;
 
-import java.security.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.RecomProblemDTO;
@@ -29,20 +21,14 @@ import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecomCountDTO;
 import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.model.UserDTO;
-import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.RecomTagDTO;
 import com.walab.coding.service.CodingSiteService;
-import com.walab.coding.service.CodingSiteServiceImpl;
 import com.walab.coding.service.RecomCommentService;
-import com.walab.coding.service.RecomProblemServiceImpl;
 import com.walab.coding.service.RecommendService;
-import com.walab.coding.service.RecomCommentServiceImpl;
 import com.walab.coding.service.RecomCountService;
 import com.walab.coding.service.RecomProblemService;
-import com.walab.coding.service.RecommendServiceImpl;
 import com.walab.coding.service.UserService;
 import com.walab.coding.service.RecomTagService;
-import com.walab.coding.service.RecomTagServiceImpl;
 /**
  * Handles requests for the application RecommendProblems page.
  */
