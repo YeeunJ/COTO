@@ -51,11 +51,16 @@
 		
 			<div>
 				<p class="title desc">추천 문제</p>
-				<div id="readProblems" class="readBox"></div>
-				<c:forEach items="${recomProblem}" var="rp">
-					<div class="sitetitle">${rp.siteName}</div>
-					<div><p>${rp.name}</p></div>
-				</c:forEach>
+				<div id="readProblems" class="readBox">
+					<c:forEach items="${recomProblem}" var="rp">
+						<c:choose>
+							<c:when test="${rp.date eq null}"><c:set var="color" value="color:lightgray !important;"/></c:when> 
+							<c:otherwise><c:set var="color" value="color:green;"/></c:otherwise>
+						</c:choose>
+						<div class="sitetitle">${rp.siteName}</div>
+						<div><p style="display: inline-block;">${rp.name}</p> <i class="small smaller material-icons" style="${color} height: 30px; float: right; cursor: pointer;">done</i></div>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 		
