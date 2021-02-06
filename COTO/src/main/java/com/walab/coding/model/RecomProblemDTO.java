@@ -1,11 +1,14 @@
 package com.walab.coding.model;
 
+import java.sql.Date;
+
 public class RecomProblemDTO {
 
 	private int id;
 	private int recomID;
 	private int siteID;
 	private int problemID;
+	private Date date;
 	private String name;
 	private String siteName;
 	private String link;
@@ -52,6 +55,13 @@ public class RecomProblemDTO {
 	public void setLink(String link) {
 		this.link = link;
 	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
 	@Override
 	public String toString() {
 		return "RecomProblemDTO [id=" + id + ", recomID=" + recomID + ", siteID=" + siteID + ", problemID=" + problemID

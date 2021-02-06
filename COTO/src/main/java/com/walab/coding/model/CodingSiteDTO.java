@@ -7,6 +7,7 @@ public class CodingSiteDTO {
 	String siteName;
 	String siteUrl;
 	Date regDate;
+	String mappingUrl;
 	
 	@Override
 	public String toString() {
@@ -38,4 +39,13 @@ public class CodingSiteDTO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+
+	public String getMappingUrl() {
+		return mappingUrl;
+	}
+
+	public void setMappingUrl(String mappingUrl) {
+		this.mappingUrl = mappingUrl;
+	}
+	
 }

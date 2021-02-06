@@ -19,4 +19,7 @@
 		resultType="com.walab.coding.model.CodingSiteDTO">
 		select id, siteName, siteUrl, regDate FROM codingSite
 	</select>
+	<select id="readCodingSiteById" resultType="com.walab.coding.model.CodingSiteDTO">
+		select id, siteName, siteUrl, mappingUrl, regDate FROM codingSite where id = ${siteID}
+	</select>
 </mapper>

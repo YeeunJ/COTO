@@ -1,18 +1,11 @@
 package com.walab.coding.controller;
 
-import java.security.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.RecomProblemDTO;
@@ -29,20 +21,14 @@ import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecomCountDTO;
 import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.model.UserDTO;
-import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.RecomTagDTO;
 import com.walab.coding.service.CodingSiteService;
-import com.walab.coding.service.CodingSiteServiceImpl;
 import com.walab.coding.service.RecomCommentService;
-import com.walab.coding.service.RecomProblemServiceImpl;
 import com.walab.coding.service.RecommendService;
-import com.walab.coding.service.RecomCommentServiceImpl;
 import com.walab.coding.service.RecomCountService;
 import com.walab.coding.service.RecomProblemService;
-import com.walab.coding.service.RecommendServiceImpl;
 import com.walab.coding.service.UserService;
 import com.walab.coding.service.RecomTagService;
-import com.walab.coding.service.RecomTagServiceImpl;
 /**
  * Handles requests for the application RecommendProblems page.
  */
@@ -68,25 +54,12 @@ public class RecommendController {
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
-		//임의 값	
+		
 		List<RecommendDTO> recoms = recommendService.readRecom();	
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
-//		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
-//		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
-		
-//		for(int i=0;i<recomProblem.size();i++) {
-//			for(int j=0;j<codingSite.size();j++) {
-//				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
-//					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
-//			}
-//		}
-		
 		mv.addObject("recoms", recoms);
 		mv.addObject("codingSite", codingSite);
-//		mv.addObject("recomProblem", recomProblem);
-//		mv.addObject("recomProblemTag", recomProblemTag);
-//		mv.addObject("loginID", userID);
-				
+		
 		mv.setViewName("recommendProblem");
 
 		return mv;
@@ -94,11 +67,8 @@ public class RecommendController {
 	
 	@RequestMapping(value = "/readModalInfo", method = RequestMethod.POST)
 	public ModelAndView readModalInfo(HttpServletRequest request, ModelAndView mv) {
-		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();	
 		
 		int recomID = Integer.parseInt(request.getParameter("recomID"));
-		System.out.println("userID:"+userID);
-		System.out.println("recomID:"+request.getParameter("recomID"));
 		
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		RecommendDTO recom = recommendService.readRecommend(recomID);	
@@ -108,18 +78,8 @@ public class RecommendController {
 		int commentCount = recomComment.size();
 		RecomCountDTO rcd = new RecomCountDTO();
 		
-		System.out.println("recom: "+recom.toString());
-		for(int i=0 ; i<recomProblem.size(); i++) {
-			System.out.println("recomProblem: "+ recomProblem.get(i).toString());
-		}
-		for(int i=0 ; i<recomComment.size(); i++) {
-			System.out.println("recomComment: "+ recomComment.get(i).toString());
-		}
 		
 		rcd.setRecomID(recomID);
-		rcd.setUserID(userID);
-		
-		rcd = recomCountService.readRecomCount(recomID, userID);
 		
 		for(int i=0;i<recomProblem.size();i++) {
 			for(int j=0;j<codingSite.size();j++) {
@@ -133,7 +93,6 @@ public class RecommendController {
 		mv.addObject("codingSite", codingSite);
 		mv.addObject("recomProblem", recomProblem);
 		mv.addObject("recomProblemTag", recomProblemTag);
-		mv.addObject("loginID", userID);
 		mv.addObject("countInfo", rcd);
 		mv.addObject("recomComment", recomComment);
 		mv.addObject("commentCount", commentCount);

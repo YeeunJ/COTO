@@ -11,5 +11,6 @@ public interface CodingSiteDAO {
 	public int updateCodingSite(CodingSiteDTO dto);
 	public int deleteCodingSite(int seq);
 	public List<CodingSiteDTO> readCodingSite();
+	public CodingSiteDTO readCodingSiteById(int siteId);
 	
 }

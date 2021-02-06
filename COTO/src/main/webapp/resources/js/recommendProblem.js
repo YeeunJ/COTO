@@ -41,16 +41,7 @@ function printAllContent(id, recomId, count){
 	selectHtml = $('#selectHtml').html();
 	
 	readDetailModalContent(recomId);
-	
-//	$('#readRecomID').html(recomId);
-//	$('#readProblems').html($(id+' .readProblem').html());
-//	$('#readTags').html($(id+' .readTag').html());
-//	$('#readContents').html($(id+' .readContent').html());
-//	$('#readRecommends').html($(id+' .readRecommend').html());
-//	$('#readDifficulties').html($(id+' .readDifficulty').html());
-//	$('#commentCount').html($(id+' .readCommentCount').html());
-//	$("#commentCount").text(count);
-	
+
 	$('#updateRecomID').html(recomId);
 	$('input[name=updateTitle]').attr('value',$(id+' .readTitle').text());
 	//$('.sweet-modal-content #updateTitle').val($(id+' .readTitle').text());
@@ -75,10 +66,10 @@ function printAllContent(id, recomId, count){
 	var logID = $(id+' .readLoginID').text();
 	var uID = $(id+' .readUserID').text();
 	//console.log(logID + " = " + uID);
-	
+	/*
 	if(logID == uID)rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), $(id+' .readTitle').html(), updateAjax, deleteAjax);
 	else readModel("#readRecommendProblem", $(id+' .readTitle').html());
-	$('select').formSelect();
+	$('select').formSelect();*/
 }
 
 // 수정 필요 ! -> update 창이 뜨면 보이도록
@@ -111,21 +102,7 @@ function updateChipTag(data) {
 	$('#updateProblemTag').html('<input class="input" id="8b9cc387-e450-ef54-bd7b-64f87cf19ba0" placeholder="+Tag">');
 
 	td += "]";
-	
-	//$('.sweet-modal-content #updateProblemTag').material_chip(td);
-	
-	
-	/*$('.sweet-modal-content .chips').material_chip();
-	$('.sweet-modal-content .chips-initial').material_chip({
-	    //data: td,
-		data: [{
-		      tag: 'Apple',
-		    }, {
-		      tag: 'Microsoft',
-		    }, {
-		      tag: 'Google',
-		    }],
-	});*/
+
 }
 
 function updateInsertProblems(data){
@@ -218,26 +195,10 @@ function readDetailModalContent(recomID, count) {
 			recomID : recomID,
 		},
 		success : function(data) {
-			console.log("success");
-		},
-		error : function(request, status, error) {
-			console.log("code:" + request.status + "\n"
-					+ "message:" + request.responseText + "\n"
-					+ "error:" + error);
-		}
-	});
-}
-
-function readComment(recomID) {
-	$.ajax({
-		url : "recommendProblem/readComment",
-		type : "POST",
-		async : false,
-		data : {
-			recomID : recomID,
-		},
-		success : function(data) {
-			$("#modal-comment").html(data);
+			//console.log(data);
+			$("#modalContent").html(data);
+			rudModel("#readRecommendProblem", "#updateRecommendProblem", "hello", "hello", updateAjax, deleteAjax);
+			
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n"
@@ -450,7 +411,6 @@ function insertProblems(){
 	$(".sweet-modal-content #problems").val("");
 };
 
-count=0;
 function updateProblems(){
 	
 	var siteName = $(".sweet-modal-content #siteName option:selected").text();
@@ -469,10 +429,3 @@ function updateProblems(){
 	$('#updateConfirmSite').html(data);
 	$(".sweet-modal-content #updateConfirmProblems").val("");
 };
-
-function addRecomCount(){
-	var recomID = $('#readRecomID').html();
-	
-	console.log(recomID);
-
-}

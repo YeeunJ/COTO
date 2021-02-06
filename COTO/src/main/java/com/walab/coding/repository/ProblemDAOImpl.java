@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.walab.coding.model.PaginationDTO;
 import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.model.RecomProblemDTO;
+import com.walab.coding.model.RecommendDTO;
 
 
 @Repository
@@ -34,6 +35,17 @@ public class ProblemDAOImpl implements ProblemDAO {
 		return problemID;
 	}
 	
+	@Override
+	public ProblemDTO readProblembyID(int siteID, String problem) {
+		Map<String, Object> ProblemIDParam = new HashMap<String, Object>();
+		ProblemIDParam.put("siteID", siteID);
+		ProblemIDParam.put("problem", problem);
+		System.out.println(problem);
+		
+		
+		return sqlSession.selectOne(namespace+".readProblembyID", ProblemIDParam);
+	}
+	
 	@Override	
 	public List<ProblemDTO> readProblem(){
 		List<ProblemDTO> problemList = new ArrayList<ProblemDTO>();
@@ -53,6 +65,17 @@ public class ProblemDAOImpl implements ProblemDAO {
 		return sqlSession.selectOne(namespace+".readProblemCnt");
 	}
 
+	public List<ProblemDTO> searchProblemByContents(String searchValue, String orderValue){
+		Map<String, Object> ProblemListParam = new HashMap<String, Object>();
+		ProblemListParam.put("searchValue", searchValue);
+		ProblemListParam.put("orderValue", orderValue);
+		System.out.println("hoho");
+		System.out.println(searchValue);
+		System.out.println(orderValue);
+		
+		return sqlSession.selectList(namespace+".searchProblemList", ProblemListParam);
+	}
+	
 	@Override
 	public List<ProblemDTO> readProblemByPage(PaginationDTO page) {
 		Map<String, Object> param = new HashMap<String, Object>();
