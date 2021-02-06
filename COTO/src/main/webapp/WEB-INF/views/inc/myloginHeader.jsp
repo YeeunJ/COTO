@@ -43,7 +43,12 @@
 						<li id = "list" onclick="location.href='../mypage/activities'"><span id = "listspan">내 기록</span></li>
 					</ul>
 				</li>
-				<li class = "right"><span class = "center" style = "display: inline-block;"><span id = "listspan">안녕하세요, ${user.name}님</span><a href="../login/cancel" class="registerA"><button class = "mybtn">로그아웃</button></a></span></li>
+				<li class = "right">
+					<span class = "center" style = "display: inline-block !important;">
+						<span id = "listspan" class="gray-text">안녕하세요, <span class="orange-text">${user.name}</span> 님
+						<a href="../login/cancel" class="registerA" style='display:inline-block !important'><button class = "mybtn">로그아웃</button></a></span>
+					</span>
+				</li>
 		  	</ul>
 			<ul id="nav-mobile" class="sidenav">
 				<li><a href="../login">로그인</a></li>
