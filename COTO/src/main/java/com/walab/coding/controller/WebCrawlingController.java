@@ -1,5 +1,6 @@
 package com.walab.coding.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,15 +23,20 @@ public class WebCrawlingController {
 	WebCrawlingService webCrawler;
 	
 	@RequestMapping(value = "/baekjoon", method = RequestMethod.POST)
-	public ModelAndView crawlingBaekjoon(HttpServletRequest httpServletRequest, ModelAndView mv, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="siteID") String siteID) {
+	public ModelAndView crawlingBaekjoon(HttpServletRequest httpServletRequest, ModelAndView mv, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="siteID") String siteID, @RequestParam(value="count") String count) {
 		
-		for(String prob: problem) {
-			System.out.println(prob);
-			
-		}
 		List<ProblemDTO> problemInfo = webCrawler.crawlingBaekjoonByName(problem, Integer.parseInt(siteID));
+		/*
+		List<String> dataSet = new ArrayList<String>();
+		for(ProblemDTO prob: problemInfo) {
+			System.out.println(prob.getName());
+			dataSet.add("<i class=\"small smaller material-icons\" style=\"color:green;\">done</i><input disabled name=\""+prob.getSiteID()+"\" value=\""+prob.getName()+" ("+prob.getSiteName()+") - "+prob.getLink()+"\" id=\"last_name disabled\" type=\"text\" class=\"problem validate\" style=\"width: 95%;\"/>");
+		}
+		*/
 		mv.addObject("problemInfo", problemInfo);
+		mv.addObject("count", count);
 		mv.setViewName("webCrawling/baekjoonCrawlingProblem");
 		return mv;
+		//return dataSet;
 	}
 }

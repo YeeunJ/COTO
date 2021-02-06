@@ -34,6 +34,17 @@ public class ProblemDAOImpl implements ProblemDAO {
 		return problemID;
 	}
 	
+	@Override
+	public ProblemDTO readProblembyID(int siteID, String problem) {
+		Map<String, Object> ProblemIDParam = new HashMap<String, Object>();
+		ProblemIDParam.put("siteID", siteID);
+		ProblemIDParam.put("problem", problem);
+		System.out.println(problem);
+		
+		
+		return sqlSession.selectOne(namespace+".readProblembyID", ProblemIDParam);
+	}
+	
 	@Override	
 	public List<ProblemDTO> readProblem(){
 		List<ProblemDTO> problemList = new ArrayList<ProblemDTO>();

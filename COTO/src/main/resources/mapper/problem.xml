@@ -14,6 +14,10 @@
 		INNER JOIN userProblem ON problem.id = userProblem.problemID) GROUP BY problem.id ORDER BY count DESC;
 	</select>
 	
+	<select id="readProblembyID" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
+		SELECT * FROM YeeunJ.problem where siteID=${siteID} and strcmp(lower(name), lower(${problem})) = 0;
+	</select>
+	
 	<select id="readProblemByUser" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
 		SELECT * FROM problem WHERE siteID=#{siteID} AND name=#{name} AND link=#{link}
 	</select>
