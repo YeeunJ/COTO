@@ -22,5 +22,5 @@ public interface ProblemDAO {
 
 	public List<Map<String, Object>> readRatioBySiteid();
 
-
+	public ProblemDTO readProblembyID(int siteID, String problem);
 }

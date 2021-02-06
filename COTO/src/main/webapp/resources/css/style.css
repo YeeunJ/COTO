@@ -16,6 +16,16 @@
 	font-size: inherit;
 }
 
+.smaller{
+	color: green;
+    font-size: 25px !important;
+    padding: 0;
+    margin: 0;
+    width: 30px;
+    vertical-align: bottom;
+    height: 45px;
+}
+
 /* 모달  */
 .sweet-modal-close a.sweet-modal-close-link:hover {
 	background-color: #e3a96d;

@@ -105,29 +105,41 @@ function insertProblems(){
 	console.log(value);
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #confirmSite').html();
+/*
+	for(var i in valueSplit){
+		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><div class="preloader-wrapper small active" style="width:20px; height:20px;"><div class="spinner-layer spinner-green-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/>';
+		count++;
+	}
+	$('.sweet-modal-content #confirmSite').html(data);
+	$('#confirmSite').html(data);*/
+	$(".sweet-modal-content #problems").val("");
 	
 	$.ajax({
         url : './crawling/'+siteName,
         type: 'POST',
         data: {
         	"problem": valueSplit,
-        	"siteID": siteId
+        	"siteID": siteId,
+        	"count": count
         },
         success: function(data){
-	        console.log(data);
+            console.log(data);
+            var data2 = $('.sweet-modal-content #confirmSite').html()+data;
+        	$('.sweet-modal-content #confirmSite').html(data2);
+            /*
+        	for(var i in valueSplit){
+            	count--;
+            	id='confirmProblemValue'+count;
+            	console.log(id);
+            	deleteThis(id);
+        	}
+        	var data2 = $('.sweet-modal-content #confirmSite').html()+data;
+        	$('.sweet-modal-content #confirmSite').html(data2);*/
         },
         error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
     });
-    
-	for(var i in valueSplit){
-		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
-		count++;
-	}
-	$('.sweet-modal-content #confirmSite').html(data);
-	$('#confirmSite').html(data);
-	$(".sweet-modal-content #problems").val("");
 };
 
 function resetContent() {
