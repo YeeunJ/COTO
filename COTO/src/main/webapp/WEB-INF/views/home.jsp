@@ -191,7 +191,7 @@ function autoplay() {
         <div class="slide_list clearfix">
         
           <div class="slide_content slide01">
-				<div class="col s12 m4">
+				<div class="col s12 m4" style = "display: inline-block; width: 33%; height: 150px; float: left;">
 					<div class="icon-block center">
 						<span class="icon icon-award"></span>
 						<h5 class="small-title">누적 랭킹</h5>
@@ -202,7 +202,7 @@ function autoplay() {
 						</ul>
 					</div>
 				</div>
-				<div class="col s12 m4">
+				<div class="col s12 m4" style = "display: inline-block; width: 33%; height: 150px; float: left;">
 					<div class="icon-block center">
 						<span class="icon icon-tag"></span>
 						<h5 class="small-title">인기 태그</h5>
@@ -213,7 +213,7 @@ function autoplay() {
 						</ul>
 					</div>
 				</div>
-				<div class="col s12 m4">
+				<div class="col s12 m4" style = "display: inline-block; width: 33%; height: 150px; float: left;">
 					<div class="icon-block center">
 						<span class="icon icon-problem"></span>
 						<h5 class="position-r small-title">
@@ -229,7 +229,7 @@ function autoplay() {
           </div>
           
           <div class="slide_content slide02">
-				<div class="col s12 m4">
+				<div class="col s12 m4" style = "display: inline-block; width: 33%; height: 150px; float: left;">
 					<div class="icon-block center">
 						<span class="icon icon-award"></span>
 						<h5 class="small-title">오늘의 랭킹</h5>
@@ -240,7 +240,7 @@ function autoplay() {
 						</ul>
 					</div>
 				</div>
-				<div class="col s12 m4">
+				<div class="col s12 m4" style = "display: inline-block; width: 33%; height: 150px; float: left;">
 					<div class="icon-block center">
 						<span class="icon icon-tag"></span>
 						<h5 class="position-r small-title">
@@ -253,7 +253,7 @@ function autoplay() {
 						</ul>
 					</div>
 				</div>
-				<div class="col s12 m4">
+				<div class="col s12 m4" style = "display: inline-block; width: 33%; height: 150px; float: left;">
 					<div class="icon-block center">
 						<span class="icon icon-problem"></span>
 						<h5 class="position-r small-title">
