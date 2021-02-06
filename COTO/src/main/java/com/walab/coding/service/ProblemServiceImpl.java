@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.walab.coding.model.RecomProblemDTO;
+import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.PaginationDTO;
 import com.walab.coding.model.ProblemDTO;
@@ -42,6 +43,29 @@ public class ProblemServiceImpl implements ProblemService {
 	public List<ProblemDTO> readRecentProblem() {
 		return problemDAO.readRecentProblem();
 	}
+	
+	@Override
+	public List<ProblemDTO> search(String searchValue, String orderValue) {
+		searchValue = "%".concat(searchValue).concat("%");
+		if(orderValue == null)
+			orderValue ="problem.regdate desc";
+//		else if(orderValue.compareTo("difficulty") == 0) {
+//			orderValue = "recom.".concat(orderValue).concat("desc");
+//		}
+		
+		List<ProblemDTO> problems = problemDAO.searchProblemByContents(searchValue, orderValue);
+		
+//		for(int i=0;i<recoms.size();i++) {
+//			System.out.println(recoms.get(i).getNickname());
+//			recoms.get(i).setRecomCount(recomCountDAO.readRecomCount(recoms.get(i).getId()));
+//			
+//			int recomID = recoms.get(i).getId();
+//			recoms.get(i).setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));
+//		}
+		
+		return problems;
+	}
+	
 	
 	@Override
 	public List<Map<String, Object>> readRatioBySiteid() {
