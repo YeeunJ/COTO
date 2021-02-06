@@ -68,25 +68,12 @@ public class RecommendController {
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
-		//임의 값	
+		
 		List<RecommendDTO> recoms = recommendService.readRecom();	
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
-//		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
-//		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
-		
-//		for(int i=0;i<recomProblem.size();i++) {
-//			for(int j=0;j<codingSite.size();j++) {
-//				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
-//					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
-//			}
-//		}
-		
 		mv.addObject("recoms", recoms);
 		mv.addObject("codingSite", codingSite);
-//		mv.addObject("recomProblem", recomProblem);
-//		mv.addObject("recomProblemTag", recomProblemTag);
-//		mv.addObject("loginID", userID);
-				
+		
 		mv.setViewName("recommendProblem");
 
 		return mv;
@@ -94,11 +81,8 @@ public class RecommendController {
 	
 	@RequestMapping(value = "/readModalInfo", method = RequestMethod.POST)
 	public ModelAndView readModalInfo(HttpServletRequest request, ModelAndView mv) {
-		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();	
 		
 		int recomID = Integer.parseInt(request.getParameter("recomID"));
-		System.out.println("userID:"+userID);
-		System.out.println("recomID:"+request.getParameter("recomID"));
 		
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		RecommendDTO recom = recommendService.readRecommend(recomID);	
@@ -108,18 +92,8 @@ public class RecommendController {
 		int commentCount = recomComment.size();
 		RecomCountDTO rcd = new RecomCountDTO();
 		
-		System.out.println("recom: "+recom.toString());
-		for(int i=0 ; i<recomProblem.size(); i++) {
-			System.out.println("recomProblem: "+ recomProblem.get(i).toString());
-		}
-		for(int i=0 ; i<recomComment.size(); i++) {
-			System.out.println("recomComment: "+ recomComment.get(i).toString());
-		}
 		
 		rcd.setRecomID(recomID);
-		rcd.setUserID(userID);
-		
-		rcd = recomCountService.readRecomCount(recomID, userID);
 		
 		for(int i=0;i<recomProblem.size();i++) {
 			for(int j=0;j<codingSite.size();j++) {
@@ -133,7 +107,6 @@ public class RecommendController {
 		mv.addObject("codingSite", codingSite);
 		mv.addObject("recomProblem", recomProblem);
 		mv.addObject("recomProblemTag", recomProblemTag);
-		mv.addObject("loginID", userID);
 		mv.addObject("countInfo", rcd);
 		mv.addObject("recomComment", recomComment);
 		mv.addObject("commentCount", commentCount);

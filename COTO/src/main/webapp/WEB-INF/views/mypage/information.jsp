@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<jsp:include page= "<%=\"./inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
+<jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
 <link href="../resources/css/information.css" rel="stylesheet">
 <script src="../resources/js/information.js"></script>
