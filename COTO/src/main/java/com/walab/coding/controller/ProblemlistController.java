@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.PaginationDTO;
 import com.walab.coding.model.ProblemDTO;
+import com.walab.coding.model.RecommendDTO;
+import com.walab.coding.model.UserDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.ProblemService;
 import com.walab.coding.service.UserProblemService;
@@ -73,6 +77,23 @@ public class ProblemlistController {
 		mv.addObject("problems", problemService.readProblemByPage(pagination));
 		
 		mv.setViewName("ajaxContent/problemListByPageContent");
+		
+		return mv;
+	}
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ModelAndView searchProblem(HttpServletRequest httpServletRequest) {		
+		
+//		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+		String searchValue= httpServletRequest.getParameter("searchValue");
+		String orderValue= httpServletRequest.getParameter("orderValue");
+		
+		List<ProblemDTO> problems = problemService.search(searchValue, orderValue);
+		System.out.println(searchValue);
+		System.out.println(orderValue);
+		System.out.println("datacnt: " + problems.size());
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("problems", problems);
+		mv.setViewName("ajaxContent/problemListContent");
 		
 		return mv;
 	}

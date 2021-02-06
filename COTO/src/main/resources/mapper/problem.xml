@@ -12,6 +12,16 @@
 		FROM ((problem
 		INNER JOIN codingSite ON problem.siteID = codingSite.id)
 		INNER JOIN userProblem ON problem.id = userProblem.problemID) GROUP BY problem.id ORDER BY count DESC;
+	</select>	
+	
+	<select id="searchProblemList" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
+		SELECT problem.id, userProblem.problemID, COUNT(*) as count, problem.name, problem.link, problem.siteID, codingSite.siteName, codingSite.siteUrl, problem.regdate 
+		FROM ((problem
+		INNER JOIN codingSite ON problem.siteID = codingSite.id)
+		INNER JOIN userProblem ON problem.id = userProblem.problemID) 
+		where problem.name like #{searchValue} 
+		GROUP BY problem.id 
+		order by #{orderValue}
 	</select>
 	
 	<select id="readProblembyID" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">

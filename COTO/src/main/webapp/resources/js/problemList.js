@@ -114,7 +114,7 @@ $(document).ready(function(){
 
 function search(){
 	$.ajax({
-			url: "recommendProblem/search",
+			url: "problemList/search",
 			type: "POST",
 			async: false,
 			data: {
@@ -123,7 +123,8 @@ function search(){
 			},
 			success: function(data){
 				//console.log(data);
-				$('#problemsContent').html(data);
+				$('#problemContent').html(data);
+				//alert(data);
 			}, 
 			error:function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
