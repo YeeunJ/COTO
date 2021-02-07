@@ -93,4 +93,16 @@ public class CodingsiteController {
 		html+="</li>";
 		return html;
 	}
+	@RequestMapping(value = "/problem", method = RequestMethod.GET,produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String problemlist(Locale locale, Model model) {
+//		ArrayList<String> data = new ArrayList<String>();
+		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		
+		String html="<option value='' disabled selected>사이트별</option>";
+		for(CodingSiteDTO i : codingSite) {
+			html += "<option value=\'" + i.getId() + "'>"+i.getSiteName()+"</option>";
+		}
+		return html;
+	}
 }

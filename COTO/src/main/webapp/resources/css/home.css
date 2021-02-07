@@ -84,8 +84,8 @@
 }
 .material-icons{
 	display: inline-block;
-	margin: 30px 0 15px 0;
-	width: 50px;
+	/* margin: 30px 0 15px 0;
+	width: 50px; */
 	height: 50px;
 	background-size: contain;
 }
@@ -187,7 +187,7 @@ html, body { box-sizing: border-box;  }
 /* container - body */
 .slide_wrap { position: relative; width: 800px; margin: auto; padding-bottom: 30px; }
 .slide_box { width: 100%; margin: auto; overflow-x: hidden; }
-.slide_content { display: table; float: left; width:800px; height: 400px; }
+.slide_content { display: table; float: left; width:800px; height: 450px; padding-top: 20px; }
 .slide_content.slide01 { background: white; }
 .slide_content.slide02 { background: white; }
 

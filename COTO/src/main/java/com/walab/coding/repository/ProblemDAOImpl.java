@@ -65,13 +65,18 @@ public class ProblemDAOImpl implements ProblemDAO {
 		return sqlSession.selectOne(namespace+".readProblemCnt");
 	}
 
-	public List<ProblemDTO> searchProblemByContents(String searchValue, String orderValue){
+	public List<ProblemDTO> searchProblemByContents(String searchValue, String orderValue, String siteValue){
 		Map<String, Object> ProblemListParam = new HashMap<String, Object>();
 		ProblemListParam.put("searchValue", searchValue);
 		ProblemListParam.put("orderValue", orderValue);
+		ProblemListParam.put("siteValue", siteValue);
 		System.out.println("hoho");
 		System.out.println(searchValue);
 		System.out.println(orderValue);
+		System.out.println("SiteValue" + siteValue);
+		
+		
+		
 		
 		return sqlSession.selectList(namespace+".searchProblemList", ProblemListParam);
 	}

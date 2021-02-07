@@ -11,6 +11,10 @@ $(document).ready(function(){
 		console.log("change");
 		search();
 	});
+	$('#siteValue').on('change', function() {
+		console.log("change");
+		search();
+	});
 	
 	// 코딩 사이트별 차트
 	var newLabels = [];
@@ -125,7 +129,8 @@ function search(){
 			async: false,
 			data: {
 				searchValue:$('#searchValue').val(),
-				orderValue:$('#orderValue option:selected').val()
+				orderValue:$('#orderValue option:selected').val(),
+				siteValue:$('#siteValue option:selected').val()
 			},
 			success: function(data){
 				//console.log(data);

@@ -11,7 +11,16 @@
 <script src="./resources/js/problemList.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-
+<script>
+$.ajax({  
+    type: 'get',  
+    url: "${pageContext.request.contextPath}/manageCodingsite/problem",  
+    
+    success: function (result) {  
+        $("#siteValue").html(result);
+    }  
+}); 
+</script>
 <style>
 canvas {
 	-moz-user-select: none;
@@ -70,6 +79,11 @@ canvas {
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
+		<div class="col order">
+			<select id="siteValue">
+			
+			</select>
+		</div>
 		<div class="col order">
 			<select id="orderValue">
 				<option value="problem.regdate" disabled selected>정렬</option>

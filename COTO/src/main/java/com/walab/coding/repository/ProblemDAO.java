@@ -16,7 +16,7 @@ public interface ProblemDAO {
 	
 	public int readProblemListCnt();
 	
-	public List<ProblemDTO> searchProblemByContents(String searchValue, String orderValue);
+	public List<ProblemDTO> searchProblemByContents(String searchValue, String orderValue, String siteValue);
 	
 	public List<ProblemDTO> readProblemByPage(int s_point, int list);
 

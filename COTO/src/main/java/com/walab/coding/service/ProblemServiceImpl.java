@@ -45,7 +45,7 @@ public class ProblemServiceImpl implements ProblemService {
 	}
 	
 	@Override
-	public List<ProblemDTO> search(String searchValue, String orderValue) {
+	public List<ProblemDTO> search(String searchValue, String orderValue, String siteValue) {
 		searchValue = "%".concat(searchValue).concat("%");
 		if(orderValue == null)
 			orderValue ="problem.regdate desc";
@@ -53,7 +53,7 @@ public class ProblemServiceImpl implements ProblemService {
 //			orderValue = "recom.".concat(orderValue).concat("desc");
 //		}
 		
-		List<ProblemDTO> problems = problemDAO.searchProblemByContents(searchValue, orderValue);
+		List<ProblemDTO> problems = problemDAO.searchProblemByContents(searchValue, orderValue, siteValue);
 		
 //		for(int i=0;i<recoms.size();i++) {
 //			System.out.println(recoms.get(i).getNickname());
