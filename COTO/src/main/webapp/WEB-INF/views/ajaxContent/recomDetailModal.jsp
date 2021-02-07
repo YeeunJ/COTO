@@ -58,7 +58,8 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 			<div>
 				<p class="title desc">추천 문제</p>
 				<div id="readProblems" class="readBox">
-					<c:forEach items="${recomProblem}" var="rp">
+					<c:forEach items="${recomProblem}" var="rp" varStatus="status">
+						<div class="recomProblemID${status.index}" style="display:none;">${rp.id}</div>
 						<c:choose>
 							<c:when test="${rp.date eq null}"><c:set var="color" value="color:lightgray !important;"/></c:when> 
 							<c:otherwise><c:set var="color" value="color:green;"/></c:otherwise>

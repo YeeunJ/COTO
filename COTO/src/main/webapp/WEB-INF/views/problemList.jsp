@@ -84,7 +84,7 @@ canvas {
 			
 			</select>
 		</div>
-		<div class="col order">
+		<div class="col order" style="margin-right: 10px;">
 			<select id="orderValue">
 				<option value="problem.regdate" disabled selected>정렬</option>
 				<option value="problem.name">제목순</option>
