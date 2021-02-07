@@ -42,26 +42,27 @@ function printAllContent(id, recomId, count){
 	
 	readDetailModalContent(recomId);
 
-	$('#updateRecomID').html(recomId);
-	$('input[name=updateTitle]').attr('value',$(id+' .readTitle').text());
+//	$('#updateRecomID').html(recomId);
+	//$('input[name=updateTitle]').attr('value',$(id+' .readTitle').text());
 	//$('.sweet-modal-content #updateTitle').val($(id+' .readTitle').text());
-	$('#updateContents').html($(id+' .readContent').html());
-	//$('#updateTags').text($(id+' .readTag').text());
-	$('#updateProblems').html($(id+' .readProblem').html());
+	//$('#updateContents').html($(id+' .readContent').html());
 	
-	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
-	console.log(d);
+	//$('#updateTags').text($(id+' .readTag').text());
+	//$('#updateProblems').html($(id+' .readProblem').html());
+	
+	//var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
+//	console.log(d);
 	//jQuery버전 1.6 이하 일때 아래코드로, 아니라면 $("#ud"+d).prop("checked", true);
 	//$("#ud"+d).attr('checked', 'checked');
-	for(var i=0;i<6;i++) {
-		if(i == d) $("#ud"+i).attr('checked', 'checked');
-		else $("#ud"+i).removeAttr('checked');
-	}
+//	for(var i=0;i<6;i++) {
+//		if(i == d) $("#ud"+i).attr('checked', 'checked');
+//		else $("#ud"+i).removeAttr('checked');
+//	}
 	
 	//updateConfirmSite
-	updateInsertProblems($(id+' .readProblem').text());
+	//updateInsertProblems($(id+' .readProblem').text());
 	
-	updateChipTag($(id+' .readTag').text());
+	//updateChipTag($(id+' .readTag').text());
 	
 	var logID = $(id+' .readLoginID').text();
 	var uID = $(id+' .readUserID').text();
@@ -198,7 +199,6 @@ function readDetailModalContent(recomID, count) {
 			//console.log(data);
 			$("#modalContent").html(data);
 			rudModel("#readRecommendProblem", "#updateRecommendProblem", "hello", "hello", updateAjax, deleteAjax);
-			
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n"

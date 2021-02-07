@@ -3,6 +3,12 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<script>
+/* console.log(${recom.difficulty});
+var difficulty = ${recom.difficulty};
+$("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('checked', true); 
+ */
+</script>
 
 
 <!-- 세부 정보 모달 -->
@@ -94,17 +100,17 @@
 <!-- 세부 정보 모달 update -->
 <div id="updateRecommendProblem" style="display:none;">
 	<form>
-			<textarea id="updateRecomID" class="validate" style="display:none;"></textarea>
+			<textarea id="updateRecomID" class="validate" style="display:none;">${ recomID }</textarea>
 			
 			<div>
 				<p class="title">추천 문제집 제목</p>
-				<input id="updateTitle" name="updateTitle" type="text" class="validate" value=""/>
+				<input id="updateTitle" name="updateTitle" type="text" class="validate" value="${recom.title}"/>
 				<br><br>
 			</div>
 			
 			<div>
 				<p class="title">추천 문제 설명</p>
-				<textarea id="updateContents" class="validate" rows="5"></textarea>
+				<textarea id="updateContents" class="validate" rows="5">${recom.content}</textarea>
 				<br><br>
 			</div>
 			
@@ -113,38 +119,44 @@
 				<div class="row">
 					<div class="input-field col s2">
 						<p>
-							<input type="radio" name="updateDifficulty" id="ud1" value="1"/>
+							<c:if test="${recom.difficulty eq 1}"><input type="radio" name="updateDifficulty" id="ud1" value="1" checked/></c:if>
+							<c:if test="${recom.difficulty != 1}"><input type="radio" name="updateDifficulty" id="ud1" value="1"/></c:if>
 							<label for="ud1" class="diffCont">1</label>
 						</p>
 					</div>
 					<div class="input-field col s2">
 						<p>
-							<input type="radio" name="updateDifficulty" id="ud2" value="2" class="radioMrg"/>
+							<c:if test="${recom.difficulty eq 2}"><input type="radio" name="updateDifficulty" id="ud2" value="2" checked/></c:if>
+							<c:if test="${recom.difficulty != 2}"><input type="radio" name="updateDifficulty" id="ud2" value="2"/></c:if>							
 							<label for="ud2" class="diffCont">2</label>
 						</p>
 					</div>
 					<div class="input-field col s2">
 						<p>
-							<input type="radio" name="updateDifficulty" id="ud3" value="3" class="radioMrg"/>
+							<c:if test="${recom.difficulty eq 3}"><input type="radio" name="updateDifficulty" id="ud3" value="3" checked/></c:if>
+							<c:if test="${recom.difficulty != 3}"><input type="radio" name="updateDifficulty" id="ud3" value="3"/></c:if>							
 							<label for="ud3" class="diffCont">3</label>
 						</p>
 					</div>
 					<div class="input-field col s2">
 						<p>
-							<input type="radio" name="updateDifficulty" id="ud4" value="4" class="radioMrg"/>
+							<c:if test="${recom.difficulty eq 4}"><input type="radio" name="updateDifficulty" id="ud4" value="4" checked/></c:if>
+							<c:if test="${recom.difficulty != 4}"><input type="radio" name="updateDifficulty" id="ud4" value="4"/></c:if>							
 							<label for="ud4" class="diffCont">4</label>
 						</p>
 					</div>
 					<div class="input-field col s2">
 						<p>
-							<input type="radio" name="updateDifficulty" id="ud5" value="5" class="radioMrg"/>
+							<c:if test="${recom.difficulty eq 5}"><input type="radio" name="updateDifficulty" id="ud5" value="5" checked/></c:if>
+							<c:if test="${recom.difficulty != 5}"><input type="radio" name="updateDifficulty" id="ud5" value="5"/></c:if>							
 							<label for="ud5" class="diffCont">5</label>
 						</p>
 					</div>
 					<div class="input-field col s2">
 						<p>
-							<input type="radio" name="updateDifficulty" id="ud0" value="0" class="radioMrg" /> 
-							<label for="ud0" class="diffCont">설정 안함</label>
+							<c:if test="${recom.difficulty eq 0}"><input type="radio" name="updateDifficulty" id="ud0" value="0" checked/></c:if>
+							<c:if test="${recom.difficulty != 0}"><input type="radio" name="updateDifficulty" id="ud0" value="0"/></c:if>							
+							<label for="ud0" class="diffCont">설정 안함</label>	
 						</p>
 					</div>
 				</div>
@@ -154,7 +166,16 @@
 			<div>
 				<p class="title">추천 문제 태그</p>
 				<textarea id="updateTags" class="validate" style="display:none;"></textarea>
-				<div id="updateProblemTag" class="chips chips-placeholder input-field"></div>
+				<div id="updateProblemTag" class="chips chips-placeholder input-field">
+				<c:set var="count" value="0"/>
+				<c:forEach items="${recomProblemTag}" var="rpt">
+					<c:if test="${rpt.recomID eq recoms.id}">
+						<div class = "chip" id="tabindex${ count }">${rpt.tag}<i class = "material-icons close">close</i></div>
+						<c:set var="count" value="${count + 1}"/>
+					</c:if>
+				</c:forEach>
+				
+				</div>
 				<br><br>
 			</div>
 	
@@ -184,7 +205,13 @@
 				</div>
 				<div class="input-field col s10">
 					<label for="updateLast_name">입력한 Problems</label> <br> <br>
-					<div class="recom-confirmSite" id="updateConfirmSite"></div>
+					<div class="recom-confirmSite" id="updateConfirmSite">
+						<c:set var="count" value="0"/>
+						<c:forEach items="${recomProblem}" var="rp">
+							<div id = "confirmProblemValue${ count }" onClick="deleteThis('confirmProblemValue${ count }')"><input disabled name="${ rp.siteID }" value="${rp.name} (${rp.siteName})" id="last_name disabled" type="text" class="problem validate"/></div>
+							<c:set var="count" value="${count + 1}"/>
+						</c:forEach>
+					</div>
 				</div>
 			</div>
 	</form>		
