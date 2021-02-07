@@ -20,8 +20,14 @@
 		INNER JOIN codingSite ON problem.siteID = codingSite.id)
 		INNER JOIN userProblem ON problem.id = userProblem.problemID) 
 		where problem.name like #{searchValue} 
+		<if test="siteValue!=null and !siteValue.equals('')">
+			and problem.siteID=#{siteValue}
+		</if>
 		GROUP BY problem.id 
 		order by #{orderValue}
+		<if test="siteValue!=null and !siteValue.equals('')">
+			, #{siteValue}
+		</if>
 	</select>
 	
 	<select id="readProblembyID" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">

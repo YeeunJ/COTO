@@ -17,7 +17,7 @@ public interface ProblemService {
 	
 	List<ProblemDTO> readRecentProblem();
 	
-	public List<ProblemDTO> search(String searchValue, String orderValue);
+	public List<ProblemDTO> search(String searchValue, String orderValue, String siteValue);
 	
 	public List<Map<String, Object>> readRatioBySiteid();
 

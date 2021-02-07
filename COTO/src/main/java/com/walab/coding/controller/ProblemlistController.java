@@ -86,10 +86,12 @@ public class ProblemlistController {
 //		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 		String searchValue= httpServletRequest.getParameter("searchValue");
 		String orderValue= httpServletRequest.getParameter("orderValue");
+		String siteValue= httpServletRequest.getParameter("siteValue");
 		
-		List<ProblemDTO> problems = problemService.search(searchValue, orderValue);
+		List<ProblemDTO> problems = problemService.search(searchValue, orderValue, siteValue);
 		System.out.println(searchValue);
 		System.out.println(orderValue);
+		System.out.println(siteValue);
 		System.out.println("datacnt: " + problems.size());
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("problems", problems);
