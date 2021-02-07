@@ -2,7 +2,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 
 <div class="details">
-				<span class="<c:choose><c:when test = "${countInfo.recommendYN ==true}">clicked-icon</c:when><c:otherwise>like-icon</c:otherwise></c:choose> icon" onclick="addRecomCount()"></span><span id="readRecommends" class="bold">${countInfo.recommendCount}</span><span></span>		
+				<c:choose>
+					<c:when test = "${countInfo.recommendYN ==true}">
+						<span class="clicked-icon icon" onclick="deleteRecomCount()"></span><span id="readRecommends" class="bold">${countInfo.recommendCount}</span><span></span>		
+					</c:when>
+					<c:otherwise>
+						<span class="like-icon icon" onclick="addRecomCount()"></span><span id="readRecommends" class="bold">${countInfo.recommendCount}</span><span></span>		
+					</c:otherwise>
+				</c:choose>
 				<span class="comment-icon icon"></span><span id="commentCount" class="bold">${ commentCount }</span><span></span>
 			</div>
 			<div id="commentDetail">
