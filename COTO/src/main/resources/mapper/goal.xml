@@ -27,8 +27,12 @@
 	</update>
 	
 	<select id="readGoalByPage" resultType="com.walab.coding.model.GoalDTO" parameterType="hashmap">
-		SELECT * FROM goal WHERE userID=#{userID} 
-		ORDER BY DATE(startDate) DESC LIMIT #{s_point}, #{list}	
+		SELECT (count(if(<![CDATA[A.regdate >= B.startdate and A.regdate <= B.enddate]]>, A.userID, null))/B.goalNum)*100 AS rate,
+			B.id AS id, B.goalNum AS goalNum, B.goal AS goal, B.startdate as startDate, B.enddate as endDate
+		FROM goal as B LEFT OUTER JOIN userProblem as A ON B.userID = A.userID
+		WHERE B.userID=#{userID}
+		GROUP BY B.startdate, B.enddate
+		ORDER BY B.startdate DESC LIMIT #{s_point}, #{list}	
 	</select>
 	
 	<select id="readGoalCnt" resultType="int" parameterType="hashmap">
