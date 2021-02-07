@@ -29,14 +29,17 @@ public class GoalDAOImpl implements GoalDAO{
 		return goal = sqlSession.selectList(namespace+".readGoal", goalParam);
 	}
 	
-	public List<GoalDTO> readGoalAll(int userID) {
+	public List<GoalDTO> readGoalAll(int userID, int s_point, int list) {
 		
 		List<GoalDTO> goalList = new ArrayList<GoalDTO>();
 		
 		Map<String, Object> goalListParam = new HashMap<String, Object>();
 		goalListParam.put("userID", userID);
+		goalListParam.put("s_point", s_point);
+		goalListParam.put("list", list);
 		
-		return goalList = sqlSession.selectList(namespace+".readGoalList", goalListParam);
+		return goalList = sqlSession.selectList(namespace+".readGoalByPage", goalListParam);
+		//return goalList = sqlSession.selectList(namespace+".readGoalList", goalListParam);
 	}
 	
 	
@@ -50,6 +53,15 @@ public class GoalDAOImpl implements GoalDAO{
 		goalParam.put("id", updatdGoal.getId());
 		
 		return sqlSession.update(namespace+".updateGoal", goalParam);
+	}
+
+	@Override
+	public int readGoalCnt(int userID) {
+		Map<String, Object> goalListParam = new HashMap<String, Object>();
+		System.out.println("goalDAOImpl>>>>>"+userID);
+		goalListParam.put("userID", userID);
+		
+		return sqlSession.selectOne(namespace+".readGoalCnt", goalListParam);
 	}
 }
 
