@@ -16,7 +16,16 @@ $(document).ready(function(){
 		search();
 	});
 	
-	// 코딩 사이트별 차트
+	DrawChart1();
+	DrawChart2();
+
+	
+});
+
+
+
+//코딩 사이트별 차트
+function DrawChart1() {
 	var newLabels = [];
 	var newData = [];
 	var newColor=[];
@@ -28,14 +37,12 @@ $(document).ready(function(){
 					window.chartColors.purple,
 					window.chartColors.grey,
 					];
-
 	for (var i=0 ; i< ratioBySite.length ; i++){
 		newData.push(ratioBySite[i].ratio);
 		newLabels.push(ratioBySite[i].siteName);
 		newColor.push(chartColors[i]);
 	}
-
-
+	
 	var chartBySite = {
 		type: 'doughnut',
 		data: {
@@ -67,12 +74,15 @@ $(document).ready(function(){
 			}
 		}
 	};
+	
+	var ctx1 = document.getElementById('chartBySite').getContext('2d');
+	window.myDoughnut = new Chart(ctx1, chartBySite);
+	
+	
+	
+};
 
-//	window.onload = function() {
-//		var ctx = document.getElementById('chartBySite').getContext('2d');
-//		window.myDoughnut = new Chart(ctx, chartBySite);
-//	};
-
+function DrawChart2() {
 	// 일간 평균 차트
 
 	var dates = [];
@@ -96,31 +106,23 @@ $(document).ready(function(){
 		labels:dates
 
 	};
-
-	window.onload = function() {
-		var ctx1 = document.getElementById('chartBySite').getContext('2d');
-		window.myDoughnut = new Chart(ctx1, chartBySite);
-		
-		var ctx2 = document.getElementById('averageForWeek').getContext('2d');
-		window.myBar = new Chart(ctx2, {
-			type: 'bar',
-			data: barChartData,
-			options: {
-				responsive: false,
-				legend: {
-					display:false
-				},
-				title: {
-					display: true,
-					text: '일주일간 평균 문제수'
-				}
-			}
-		});
-
-	};
 	
-});
-
+	var ctx2 = document.getElementById('averageForWeek').getContext('2d');
+	window.myBar = new Chart(ctx2, {
+		type: 'bar',
+		data: barChartData,
+		options: {
+			responsive: false,
+			legend: {
+				display:false
+			},
+			title: {
+				display: true,
+				text: '일주일간 평균 문제수'
+			}
+		}
+	});
+}
 
 function search(){
 	$.ajax({
