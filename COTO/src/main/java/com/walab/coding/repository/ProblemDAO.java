@@ -18,9 +18,11 @@ public interface ProblemDAO {
 	
 	public List<ProblemDTO> searchProblemByContents(String searchValue, String orderValue);
 	
-	public List<ProblemDTO> readProblemByPage(PaginationDTO page);
+	public List<ProblemDTO> readProblemByPage(int s_point, int list);
 
 	public List<Map<String, Object>> readRatioBySiteid();
 
 	public ProblemDTO readProblembyID(int siteID, String problem);
+
+	
 }

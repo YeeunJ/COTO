@@ -35,8 +35,8 @@ public class ProblemServiceImpl implements ProblemService {
 	}
 
 	@Override
-	public List<ProblemDTO> readProblemByPage(PaginationDTO page) {
-		return problemDAO.readProblemByPage(page);
+	public List<ProblemDTO> readProblemByPage(int s_point, int list) {
+		return problemDAO.readProblemByPage(s_point, list);
 	}
 
 	@Override

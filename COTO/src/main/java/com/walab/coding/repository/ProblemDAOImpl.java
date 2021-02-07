@@ -77,10 +77,10 @@ public class ProblemDAOImpl implements ProblemDAO {
 	}
 	
 	@Override
-	public List<ProblemDTO> readProblemByPage(PaginationDTO page) {
+	public List<ProblemDTO> readProblemByPage(int s_point, int list) {
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("startList", page.getStartList());
-		param.put("listSize", page.getListSize());
+		param.put("s_point", s_point);
+		param.put("list", list);
 		
 		return sqlSession.selectList(namespace+".readProblemByPage", param);
 	}

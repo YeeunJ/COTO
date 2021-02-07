@@ -139,4 +139,24 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 	public List<Map<String, Object>> readAvgForaWeek() {
 		return sqlSession.selectList(namespace+".avgForaWeek");
 	}
+
+	@Override
+	public List<UserProblemDTO> readProblemByPage(int userID, int s_point, int list) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userID", userID);
+		param.put("s_point", s_point);
+		param.put("list", list);
+		
+		return sqlSession.selectList(namespace+".readProblemByPage", param);
+
+	}
+
+	@Override
+	public int readProblemCnt(int userID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userID", userID);
+		
+		int count = sqlSession.selectOne(namespace+".readProblemCnt", param);
+		return count;
+	}
 }
