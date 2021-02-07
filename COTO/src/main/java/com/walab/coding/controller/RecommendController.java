@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.walab.coding.model.CodingSiteDTO;
+import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecomCountDTO;
@@ -53,10 +54,38 @@ public class RecommendController {
 	RecomCountService recomCountService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
+	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv, 
+			@RequestParam(value="page", defaultValue="1") int page) {
 		
-		List<RecommendDTO> recoms = recommendService.readRecom();	
+//		List<RecommendDTO> recoms_t = recommendService.readRecom();	
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		
+		// pagination
+		int listCnt = recommendService.readRecomListCnt(); // 총 문제의 개수
+		int list = 10; // 페이지 당 데이터 수
+		int block = 10; // 블록 당 페이지 수
+		
+		int pageNum = (int) Math.ceil((float)listCnt/list); // 총 페이지
+		int nowBlock = (int)Math.ceil((float)page/block); // 현재 페이지가 위치한 블록 번호
+		
+		int s_point = (page-1)*list;
+		
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
+		
+		List<RecommendDTO> recoms = recommendService.readRecomByPage(s_point, list);
+		
+		mv.addObject("pagename", "recommendProblem");
+		mv.addObject("page", page);
+		mv.addObject("s_page", s_page);
+		mv.addObject("e_page", e_page);
+		
 		mv.addObject("recoms", recoms);
 		mv.addObject("codingSite", codingSite);
 		
@@ -76,9 +105,12 @@ public class RecommendController {
 		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		int commentCount = recomComment.size();
-		RecomCountDTO rcd = new RecomCountDTO();
-		
-		
+		RecomCountDTO rcd;
+		int userID = -1;
+		if((UserDTO)request.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
+		}
+		rcd = recomCountService.readRecomCount(recomID, userID);
 		rcd.setRecomID(recomID);
 		
 		for(int i=0;i<recomProblem.size();i++) {
@@ -130,20 +162,53 @@ public class RecommendController {
 	}
 	
 	@RequestMapping(value = "/addRecomCount", method = RequestMethod.POST)
-	public ModelAndView createRecomCount(HttpServletRequest httpServletRequest) {		
-		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
-		int recomID= Integer.parseInt(httpServletRequest.getParameter("searchValue"));
-		
-		RecomCountDTO rcd = new RecomCountDTO();
-		rcd.setRecomID(recomID);
-		rcd.setUserID(userID);
-		
-		recomCountService.createRecomCount(rcd);
+	public ModelAndView createRecomCount(HttpServletRequest httpServletRequest) {
+		RecomCountDTO rcd;
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			rcd = new RecomCountDTO();
+			rcd.setRecomID(recomID);
+			rcd.setUserID(userID);
+			recomCountService.createRecomCount(rcd);
+		}
 		rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("countInfo", rcd);
-		mv.setViewName("ajaxContent/recomCountContent");
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomCount", method = RequestMethod.POST)
+	public ModelAndView deleteRecomCount(HttpServletRequest httpServletRequest) {		
+		RecomCountDTO rcd;
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			rcd = new RecomCountDTO();
+			rcd.setRecomID(recomID);
+			rcd.setUserID(userID);
+			recomCountService.deleteRecomCount(rcd);
+		}
+		rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
 		
 		return mv;
 	}

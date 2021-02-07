@@ -13,7 +13,7 @@ public interface ProblemService {
 	
 	public int readProblemListCnt();
 	
-	public List<ProblemDTO> readProblemByPage(PaginationDTO page);
+	public List<ProblemDTO> readProblemByPage(int s_point, int list);
 	
 	List<ProblemDTO> readRecentProblem();
 	

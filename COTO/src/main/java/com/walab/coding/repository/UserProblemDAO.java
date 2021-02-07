@@ -20,4 +20,7 @@ public interface UserProblemDAO {
 	public List<UserProblemDTO> countSolvedProblemEachDay(int userID);
 	public List<UserProblemDTO> readProblemActivities(int userID, int goalID);
 	public List<Map<String,Object>> readAvgForaWeek();
+	public List<UserProblemDTO> readProblemByPage(int userID, int s_point, int list);
+	public int readProblemCnt(int userID);
+
 }

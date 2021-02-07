@@ -22,4 +22,8 @@ public interface RecommendService {
 	public int updateRecommend(RecommendDTO r);
 	
 	public RecommendDTO readRecommend(int recomID);
+
+	public List<RecommendDTO> readRecomByPage(int s_point, int list);
+
+	public int readRecomListCnt();
 }

@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "com.walab.coding.model.UserDTO" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <jsp:include page= "<%=\"./inc/\".concat(((String)request.getAttribute(\"header\")))%>" />
 
@@ -96,41 +97,30 @@ canvas {
 	
 	
 	<div class="table center" id="problemContent">
-		<%@ include file="./ajaxContent/problemListContent.jsp"%>
-		<%-- <%@ include file="./ajaxContent/problemListByPageContent.jsp"%> --%>
+		<div class="tableRow">
+			<span class="tableCell th1">No.</span>
+			<span class="tableCell th3">문제 제목</span>
+			<span class="tableCell th1">사이트</span>
+			<span class="tableCell th1">참여자</span>
+			<span class="tableCell th1">등록일</span>
+		</div>
+		
+		<c:forEach items="${problems}" var="problem" varStatus="status">
+		<fmt:formatDate value="${problem.regdate}" var="formattedDate" type="date" pattern="yyyy-MM-dd" />
+		<div class="tableRow" id="problem${problem.id}">
+			<span class="tableCell td1">${status.count}</span> 
+			<span class="tableCell td3"> <a href="${problem.link}">${problem.name}</a></span> 
+			<span class="tableCell td1"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
+			<span class="tableCell td1">${problem.count}</span> 
+			<span class="tableCell td1">${formattedDate}</span> 
+		</div>
+		</c:forEach>	
+		<%-- <%@ include file="./ajaxContent/problemListContent.jsp"%> --%>
 	</div>
 	<br> <br>
 	
-	<!-- pagination{s} -->
+	<%@ include file="./inc/pagination.jsp"%>
 	
-	<%-- <ul class="pagination">
-		<c:if test="${pagination.prev}">
-			<li class="waves-effect"><a href="#!" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')"><i class="material-icons">chevron_left</i></a></li>
-		</c:if>
-
-		<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
-			<li class="<c:out value="${pagination.page == idx ? 'active' : 'waves-effect'}"/> "><a href="#!" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')"> ${idx} </a></li>
-		</c:forEach>
-
-		<c:if test="${pagination.next}">
-			<li class="waves-effect"><a href="#" onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')" ><i class="material-icons">chevron_right</i></a></li>
-		</c:if>
-	</ul> --%>
-	
-	<div class="table" style="text-align: center">
-		<ul class="pagination ">
-			<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-			<li class="active orange"><a href="#!">1</a></li>
-			<li class="waves-effect"><a href="#!">2</a></li>
-			<li class="waves-effect"><a href="#!">3</a></li>
-			<li class="waves-effect"><a href="#!">4</a></li>
-			<li class="waves-effect"><a href="#!">5</a></li>
-			<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-		</ul>
-	</div> 
-	
-
-	<!-- pagination{e} -->
 
 </div>
 
