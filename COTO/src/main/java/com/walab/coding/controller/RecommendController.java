@@ -76,9 +76,12 @@ public class RecommendController {
 		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		int commentCount = recomComment.size();
-		RecomCountDTO rcd = new RecomCountDTO();
-		
-		
+		RecomCountDTO rcd;
+		int userID = -1;
+		if((UserDTO)request.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
+		}
+		rcd = recomCountService.readRecomCount(recomID, userID);
 		rcd.setRecomID(recomID);
 		
 		for(int i=0;i<recomProblem.size();i++) {
@@ -130,20 +133,53 @@ public class RecommendController {
 	}
 	
 	@RequestMapping(value = "/addRecomCount", method = RequestMethod.POST)
-	public ModelAndView createRecomCount(HttpServletRequest httpServletRequest) {		
-		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
-		int recomID= Integer.parseInt(httpServletRequest.getParameter("searchValue"));
-		
-		RecomCountDTO rcd = new RecomCountDTO();
-		rcd.setRecomID(recomID);
-		rcd.setUserID(userID);
-		
-		recomCountService.createRecomCount(rcd);
+	public ModelAndView createRecomCount(HttpServletRequest httpServletRequest) {
+		RecomCountDTO rcd;
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			rcd = new RecomCountDTO();
+			rcd.setRecomID(recomID);
+			rcd.setUserID(userID);
+			recomCountService.createRecomCount(rcd);
+		}
 		rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("countInfo", rcd);
-		mv.setViewName("ajaxContent/recomCountContent");
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomCount", method = RequestMethod.POST)
+	public ModelAndView deleteRecomCount(HttpServletRequest httpServletRequest) {		
+		RecomCountDTO rcd;
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			rcd = new RecomCountDTO();
+			rcd.setRecomID(recomID);
+			rcd.setUserID(userID);
+			recomCountService.deleteRecomCount(rcd);
+		}
+		rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
 		
 		return mv;
 	}

@@ -21,7 +21,15 @@ public class RecomCountDAOImpl implements RecomCountDAO {
 		recommendCountParam.put("recomID", rcd.getRecomID());
 		recommendCountParam.put("userID", rcd.getUserID());
 		
-		return sqlSession.selectOne("recomCount.createRecommendCount", recommendCountParam);
+		return sqlSession.insert("recomCount.createRecommendCount", recommendCountParam);
+	}
+	
+	public int deleteRecomCount(RecomCountDTO rcd) {
+		Map<String, Object> recommendCountParam = new HashMap<String, Object>();
+		recommendCountParam.put("recomID", rcd.getRecomID());
+		recommendCountParam.put("userID", rcd.getUserID());
+		
+		return sqlSession.delete("recomCount.deleteRecommendCount", recommendCountParam);
 	}
 	
 	public int readRecomCount(int recomID) {
