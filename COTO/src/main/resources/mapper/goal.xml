@@ -10,7 +10,7 @@
 
 <mapper namespace="goal">
 	<select id="readGoal" resultType="com.walab.coding.model.GoalDTO" parameterType="hashmap">
-		SELECT * FROM goal WHERE userID=#{userID} ORDER BY DATE(startDate) DESC limit 1	
+		SELECT * FROM goal WHERE userID=#{userID} ORDER BY startDate DESC limit 1	
 	</select>
 	 
 	<select id="readGoalList" resultType="com.walab.coding.model.GoalDTO" parameterType="hashmap">
@@ -19,7 +19,7 @@
 		FROM goal as B LEFT OUTER JOIN userProblem as A ON B.userID = A.userID
 		WHERE B.userID=#{userID}
 		GROUP BY B.startdate, B.enddate
-		ORDER BY DATE(B.startdate) DESC;
+		ORDER BY B.startdate DESC;
 	</select>
 	
 	<update id="updateGoal" parameterType="hashmap">

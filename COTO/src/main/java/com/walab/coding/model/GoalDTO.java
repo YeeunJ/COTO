@@ -10,7 +10,7 @@ public class GoalDTO {
 	private Date startDate;
 	private Date endDate;
 	private Date regDate;
-	private int rate;
+	private double rate;
 	
 	public int getId() {
 		return id;
@@ -54,10 +54,10 @@ public class GoalDTO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	public int getRate() {
+	public double getRate() {
 		return rate;
 	}
-	public void setRate(int rate) {
+	public void setRate(double rate) {
 		this.rate = rate;
 	}
 
