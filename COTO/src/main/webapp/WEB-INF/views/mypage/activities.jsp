@@ -59,8 +59,9 @@
 				</span>
 				<span class="tableCell td3">
 					<div class="prog">
-						<div class="progs" style="width: ${goals.rate}%;">
-							<span class="rate readRate"> ${goals.rate}%</span>	
+						<fmt:formatNumber value="${goals.rate}" pattern=".0" var="userRate"/>
+						<div class="progs" style="width: ${userRate}%;">
+							<span class="rate readRate"> ${userRate}%</span>	
 						</div>
 					</div>
 				</span>

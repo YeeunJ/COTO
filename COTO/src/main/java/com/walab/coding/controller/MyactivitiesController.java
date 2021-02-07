@@ -45,7 +45,7 @@ public class MyactivitiesController {
 			@RequestParam(value="page", defaultValue="1") int page) {
 		
 		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
-		
+
 		// pagination
 		int listCnt = goalService.readGoalCnt(userID); // 총 문제의 개수
 		int list = 5; // 페이지 당 데이터 수
@@ -76,6 +76,10 @@ public class MyactivitiesController {
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
 		
+		
+		GoalDTO g = goalList.get(0);
+		System.out.println("goat rate = "+g.getRate());
+	
 		mv.addObject("goalList", goalList);
 		
 		mv.setViewName("mypage/activities");

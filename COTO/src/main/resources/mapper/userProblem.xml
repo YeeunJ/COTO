@@ -37,7 +37,7 @@
 	
 	<select id="readSovledUserProblem" resultType="int" parameterType="hashmap">
 		SELECT count(A.userID) as solved 
-		FROM userProblem as A, (SELECT startDate FROM goal WHERE userID=#{userID} ORDER BY DATE(startDate) DESC limit 1) subquery 
+		FROM userProblem as A, (SELECT startDate FROM goal WHERE userID=#{userID} order by startDate DESC limit 1) subquery 
 		WHERE A.regDate >= subquery.startDate and A.userID = #{userID}
 	</select>
 	
@@ -61,21 +61,21 @@
 	
 	<select id="countUserProblemEachDay" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
 		SELECT count(A.userID) as countSolvedP, date_format(A.regdate,'%Y-%m-%d') as regDate From YeeunJ.userProblem as A, 
-		(SELECT startdate, enddate FROM YeeunJ.goal WHERE userID=#{userID} order by Date(startdate) Desc limit 1) as B 
+		(SELECT startdate, enddate FROM YeeunJ.goal WHERE userID=#{userID} order by startdate Desc limit 1) as B 
 		WHERE A.userID = #{userID} and 
-		<![CDATA[date_format(A.regdate,'%Y-%m-%d') >= date_format(B.startdate,'%Y-%m-%d') and date_format(A.regdate,'%Y-%m-%d') <= date_format(B.enddate,'%Y-%m-%d')]]>
+		<![CDATA[date_format(A.regdate,'%Y-%m-%d') >= B.startdate and date_format(A.regdate,'%Y-%m-%d') <= B.enddate]]>
 		group by date_format(A.regdate,'%Y-%m-%d')
 	</select>
 	
 	<select id="readProblemActivities" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
 		select subquery.id, subquery.problemID, subquery.difficulty as difficulty, subquery.memo as memo, subquery.regdate as regdate, 
-	   		   p.name as problem, p.link as link, <!-- p.siteID, -->
+	   		   p.name as problem, p.link as link,
 	   		   c.siteName as site, c.siteUrl as siteUrl
 		from (select up.id as id, up.problemID as problemID, up.difficulty as difficulty, up.memo as memo, up.regdate as regdate 
 			  from YeeunJ.userProblem as up
 			  join YeeunJ.goal as g on up.userID=g.userID
 			  where up.userID=#{userID} and g.id=#{goalID} and
-			  <![CDATA[date_format(up.regdate,'%Y-%m-%d') >= date_format(g.startdate,'%Y-%m-%d') and date_format(up.regdate,'%Y-%m-%d') <= date_format(g.enddate,'%Y-%m-%d']]>)) as subquery 
+			  <![CDATA[date_format(up.regdate,'%Y-%m-%d') >= g.startdate and date_format(up.regdate,'%Y-%m-%d') <= g.enddate]]>) as subquery 
 		join YeeunJ.problem as p on subquery.problemID=p.id
 		join YeeunJ.codingSite as c on p.siteID=c.id;
 	</select>
