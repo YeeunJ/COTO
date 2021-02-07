@@ -93,4 +93,26 @@
 			GROUP BY date, userID) countByDate
 		GROUP BY date
  	</select>
+ 	
+ 	
+	<select id="readProblemByPage" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
+		select subquery.id, subquery.problemID, subquery.difficulty as difficulty, subquery.memo as memo, subquery.regdate as regdate,
+	   		   p.name as problem, p.link as link, p.siteID,
+	   		   c.siteName as site, c.siteUrl as siteUrl 
+		from (select up.id as id, up.problemID as problemID,
+	      		  up.difficulty as difficulty, up.memo as memo, up.regdate as regdate 
+	   		  from YeeunJ.userProblem as up where up.userID=#{userID}) as subquery 
+		join YeeunJ.problem as p on subquery.problemID=p.id 
+		join YeeunJ.codingSite as c on p.siteID=c.id
+		ORDER BY id DESC LIMIT #{s_point}, #{list}
+	</select>	
+		
+	<select id="readProblemCnt" resultType="int" parameterType="hashmap">
+		select COUNT(*) 
+		from (select up.id as id, up.problemID as problemID,
+	      		  up.difficulty as difficulty, up.memo as memo, up.regdate as regdate 
+	   		  from YeeunJ.userProblem as up where up.userID=#{userID}) as subquery 
+		join YeeunJ.problem as p on subquery.problemID=p.id 
+		join YeeunJ.codingSite as c on p.siteID=c.id
+	</select>
 </mapper>

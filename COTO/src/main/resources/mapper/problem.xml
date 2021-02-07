@@ -39,7 +39,7 @@
 	</select>
 	
 	<select id="readProblemByPage" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT * FROM problem LIMIT #{startList}, #{listSize}
+		SELECT * FROM problem ORDER BY id DESC LIMIT #{s_point}, #{list}
 	</select>	
 		
 	<select id="readProblemCnt" resultType="int">

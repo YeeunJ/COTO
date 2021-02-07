@@ -168,4 +168,14 @@ public class UserProblemServiceImpl implements UserProblemService{
 		return avgWeek;
 		
 	}
+
+	@Override
+	public List<UserProblemDTO> readProblemByPage(int userID, int s_point, int list) {
+		return userProblemDAO.readProblemByPage(userID, s_point, list);
+	}
+
+	@Override
+	public int readProblemCnt(int userID) {
+		return userProblemDAO.readProblemCnt(userID);
+	}
 }

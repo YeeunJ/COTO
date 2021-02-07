@@ -10,12 +10,6 @@
 </div>
 
 <c:forEach items="${recoms}" var="recoms" varStatus="status">
-	<%-- <c:set var="count" value="0" />
-	<c:forEach items="${commentCount}" var="c">
-		<c:if test="${ c.recomID eq recoms.id }">
-			<c:set var="count" value="${ c.count }" />
-		</c:if>
-	</c:forEach> --%>
 	
 	<div class="tableRow" id="recoms${recoms.id}" onclick="printAllContent('#recoms${recoms.id}', ${recoms.id}, ${recoms.recomCommentCount})">
 		<span class="tableCell td1 alignCenter">${status.count}</span> 

@@ -53,4 +53,15 @@
 	<update id="updateRecommend" parameterType="hashmap">
 		UPDATE recommend SET title=#{title}, difficulty=#{difficulty}, content=#{content} where id = #{id}
 	</update>
+	
+	<select id="readRecomByPage" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">
+		SELECT recom.id as id, recom.userID as userID, recom.title as title, recom.content as content, us.nickname as nickname, recom.difficulty as difficulty
+		FROM recommend as recom left join user as us on recom.userID = us.id
+		WHERE recom.deletedate IS NULL
+		ORDER BY id DESC LIMIT #{s_point}, #{list}
+	</select>	
+		
+	<select id="readRecomListCnt" resultType="int">
+		SELECT COUNT(*) as listCnt FROM recommend
+	</select>
 </mapper>
