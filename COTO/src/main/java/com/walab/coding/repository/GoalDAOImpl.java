@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.walab.coding.model.GoalDTO;
-import com.walab.coding.model.UserProblemDTO;
 
 @Repository("goalDAO")
 public class GoalDAOImpl implements GoalDAO{
