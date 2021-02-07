@@ -41,6 +41,7 @@ function drawChart1() {
 	        }]
 	    },
 	    options: {
+	    	//maintainAspectRatio: false,
 	        responsive: true,
 	        hover: {
 	            mode: 'nearest',
@@ -84,7 +85,25 @@ function drawChart2() {
 	var myDoughnutChart = new Chart(ctx, { 
 	    type: 'doughnut', 
 	    data: data, 
-	    
+	    plugins: [{
+	    	beforeDraw: function(chart) {
+			    var width = chart.chart.width,
+			        height = chart.chart.height,
+			        ctx = chart.chart.ctx;
+
+			    ctx.restore();
+			    var fontSize = (height / 210).toFixed(2);
+			    ctx.font = fontSize + "em sans-serif";
+			    ctx.textBaseline = "middle";
+
+			    var text =  ${userSolvedP}+"문제"+"/"+${goalNum}+"문제",
+			        textX = Math.round((width - ctx.measureText(text).width) / 2),
+			        textY = height / 1.7;
+
+			    ctx.fillText(text, textX, textY);
+			    ctx.save();
+			  }
+	   }],
 	    options: {
 	       legend: {
 	         display: true
@@ -92,27 +111,6 @@ function drawChart2() {
 	       cutoutPercentage: 65
 	    },
 	 });
-	 
-var readrate = {
-		  beforeDraw: function(chart) {
-		    var width = chart.chart.width,
-		        height = chart.chart.height,
-		        ctx = chart.chart.ctx;
-
-		    ctx.restore();
-		    var fontSize = (height / 210).toFixed(2);
-		    ctx.font = fontSize + "em sans-serif";
-		    ctx.textBaseline = "middle";
-
-		    var text =  ${userSolvedP}+"문제"+"/"+${goalNum}+"문제",
-		        textX = Math.round((width - ctx.measureText(text).width) / 2),
-		        textY = height / 1.7;
-
-		    ctx.fillText(text, textX, textY);
-		    ctx.save();
-		  }
-		}
-Chart.pluginService.register(readrate );
 }
 
 
@@ -281,7 +279,7 @@ function resetContent() {
 							</div>
 							<div class="tableRow box">
 								<span class="tableCell td2">총 문제수</span> <span
-									class="tableCell td4">${goal.goalNum}개</span>
+									class="tableCell td4">${goal.goalNum}문제</span>
 							</div>
 						</c:forEach>
 					</div>
