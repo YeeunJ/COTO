@@ -17,6 +17,9 @@ public class RecomCountServiceImpl implements RecomCountService {
 	public int createRecomCount(RecomCountDTO rcd) {
 		return recomCountDAO.createRecomCount(rcd);
 	}
+	public int deleteRecomCount(RecomCountDTO rcd) {
+		return recomCountDAO.deleteRecomCount(rcd);
+	}
 	
 	public RecomCountDTO readRecomCount(int recomID, int userID) {
 		RecomCountDTO rcd = new RecomCountDTO();

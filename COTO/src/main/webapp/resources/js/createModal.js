@@ -96,7 +96,21 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 									content: $(updateContent).html(),
 									onOpen: function(){
 										$('.sweet-modal-box select').formSelect();
-										
+										$('.sweet-modal-content .chips-placeholder').chips({
+											placeholder: 'Enter a tag',
+											secondaryPlaceholder: '+Tag',
+											onChipAdd: function(){
+												var text = $('.sweet-modal-content .chips input').val();
+												$('.sweet-modal-content .chips .chip:last').remove();
+												$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close">close</i></div>');
+												count++;
+											},
+											onChipSelect: function(){
+											},
+											onChipDelete: function(){
+												//console.log($(this));
+											}
+										});
 									},
 									theme: $.sweetModal.THEME_MIXED,
 									buttons: [
@@ -135,7 +149,7 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 		
 		variant.fn = variant.fn || $.sweetModal;
 		variant.fn.apply(this, variant.args);
-		$('select').formSelect();
+		//$('select').formSelect();
 }
 
 function readModel(readContent, titleValue){

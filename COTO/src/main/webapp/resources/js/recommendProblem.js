@@ -429,3 +429,39 @@ function updateProblems(){
 	$('#updateConfirmSite').html(data);
 	$(".sweet-modal-content #updateConfirmProblems").val("");
 };
+
+function addRecomCount(){
+	$.ajax({
+		url: "./recommendProblem/addRecomCount",
+		type: "POST",
+		async: false,
+		data: {
+			recomID:$('#readRecomID').html()
+		},
+		success: function(data){
+			console.log(data);
+			$('.sweet-modal-content #recomCountCommentContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
+}
+
+function deleteRecomCount(){
+	$.ajax({
+		url: "./recommendProblem/deleteRecomCount",
+		type: "POST",
+		async: false,
+		data: {
+			recomID:$('#readRecomID').html()
+		},
+		success: function(data){
+			console.log(data);
+			$('.sweet-modal-content #recomCountCommentContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
+}
