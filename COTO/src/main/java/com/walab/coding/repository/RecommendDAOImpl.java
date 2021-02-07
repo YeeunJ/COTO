@@ -91,4 +91,18 @@ public class RecommendDAOImpl implements RecommendDAO {
 		
 		return sqlSession.update(namespace+".updateRecommend", recommendParam);
 	}
+
+	@Override
+	public List<RecommendDTO> readRecomByPage(int s_point, int list) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("s_point", s_point);
+		param.put("list", list);
+		
+		return sqlSession.selectList(namespace+".readRecomByPage", param);
+	}
+
+	@Override
+	public int readRecomListCnt() {
+		return sqlSession.selectOne(namespace+".readRecomListCnt");
+	}
 }

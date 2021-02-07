@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.walab.coding.model.CodingSiteDTO;
+import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecomCountDTO;
@@ -53,10 +54,38 @@ public class RecommendController {
 	RecomCountService recomCountService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
+	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv, 
+			@RequestParam(value="page", defaultValue="1") int page) {
 		
-		List<RecommendDTO> recoms = recommendService.readRecom();	
+//		List<RecommendDTO> recoms_t = recommendService.readRecom();	
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		
+		// pagination
+		int listCnt = recommendService.readRecomListCnt(); // 총 문제의 개수
+		int list = 10; // 페이지 당 데이터 수
+		int block = 10; // 블록 당 페이지 수
+		
+		int pageNum = (int) Math.ceil((float)listCnt/list); // 총 페이지
+		int nowBlock = (int)Math.ceil((float)page/block); // 현재 페이지가 위치한 블록 번호
+		
+		int s_point = (page-1)*list;
+		
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
+		
+		List<RecommendDTO> recoms = recommendService.readRecomByPage(s_point, list);
+		
+		mv.addObject("pagename", "recommendProblem");
+		mv.addObject("page", page);
+		mv.addObject("s_page", s_page);
+		mv.addObject("e_page", e_page);
+		
 		mv.addObject("recoms", recoms);
 		mv.addObject("codingSite", codingSite);
 		

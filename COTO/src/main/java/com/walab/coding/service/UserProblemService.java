@@ -30,4 +30,8 @@ public interface UserProblemService {
 	public List<UserProblemDTO> readProblemActivities(int userID, int goalID);
 
 	public List<Map<String, Object>> readAvgForaWeek();
+	
+	List<UserProblemDTO> readProblemByPage(int userID, int s_point, int list);
+	
+	int readProblemCnt(int userID);
 }

@@ -98,4 +98,23 @@ public class RecommendServiceImpl implements RecommendService {
 	public int updateRecommend(RecommendDTO r) {
 		return recommendDAO.updateRecommend(r);
 	}
+
+	@Override
+	public List<RecommendDTO> readRecomByPage(int s_point, int list) {
+		List<RecommendDTO> recoms = recommendDAO.readRecomByPage(s_point, list);
+		
+		for(int i=0;i<recoms.size();i++) {
+			recoms.get(i).setRecomCount(recomCountDAO.readRecomCount(recoms.get(i).getId()));
+			
+			int recomID = recoms.get(i).getId();
+			recoms.get(i).setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));
+		}
+		
+		return recoms;
+	}
+
+	@Override
+	public int readRecomListCnt() {
+		return recommendDAO.readRecomListCnt();
+	}
 }
