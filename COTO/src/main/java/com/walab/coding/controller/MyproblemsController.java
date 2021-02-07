@@ -83,13 +83,6 @@ public class MyproblemsController {
 				e_page = pageNum;
 		}
 		
-		System.out.println("listCnt "+listCnt);
-		System.out.println("blockNum: "+blockNum);
-		System.out.println("nowBlock: "+nowBlock);
-		System.out.println("page: "+page);
-		System.out.println("s_page: "+s_page);
-		System.out.println("e_page: "+e_page);
-		
 		List<UserProblemDTO> problems = userProblemService.readProblemByPage(userID, s_point, list);
 		
 		mv.addObject("pagename", "problems");

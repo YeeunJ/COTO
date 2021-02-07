@@ -77,11 +77,14 @@
 			</div>
 		</c:forEach>
 	</div>
+	
 
 	<div id="readGoalList" hidden>
 		<%@ include file="../ajaxContent/activitiesContent.jsp"%>
 	</div>
 </div>
+<%@ include file="../inc/pagination.jsp"%>
+
 
 <%@ include file="../inc/footer.jsp"%>
 
