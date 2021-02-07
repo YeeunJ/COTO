@@ -45,8 +45,6 @@ public class MyactivitiesController {
 		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 		
 		List<GoalDTO> goalList = goalService.readGoalAll(userID);
-		GoalDTO g = goalList.get(0);
-		System.out.println("goat rate = "+g.getRate());
 	
 		mv.addObject("goalList", goalList);
 		

@@ -62,8 +62,7 @@ public class MyproblemsController {
 
 		GoalDTO g = goal.get(0);
 		int goalNum = g.getGoalNum();
-		
-		
+	
 		// pagination
 		int listCnt = userProblemService.readProblemCnt(userID); // 총 문제의 개수
 		int list = 10; // 페이지 당 데이터 수
