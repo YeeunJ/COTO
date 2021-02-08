@@ -16,13 +16,13 @@
 }
 
 .card-wrap {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	display:flex;
+	/* grid-template-columns: 1fr 1fr 1fr; */
 }
 
-/* .card-content1, .card-content2, .card-content3 {
+ .card-content1, .card-content2, .card-content3 {
 	flex: 1;
-} */
+} 
 
 .card-content1, .card-content2 {
 	margin-right: 15px;

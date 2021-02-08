@@ -65,21 +65,25 @@
 		<button class="input-field custom-button" onclick="callModal()">글쓰기</button>
 		<div class="col order">
 			<select id="orderValue">
-				<option value="recom.regdate" disabled selected>정렬</option>
-				<option value="difficulty ">난이도순</option>
+				<option value="recom.regdate desc" disabled selected>정렬</option>
+				<option value="recom.difficulty desc">난이도순</option>
 				<option value="recom.title">제목순</option>
-				<option value="recom.recomCount ">추천순</option>
+				<option value="recom.recomCount desc">추천순</option>
 				<option value="recom.regdate desc">최신순</option>
 			</select>
 		</div>
 	</div>
 
-	<div class="table" id="recommendContent">
+	<%-- <div class="table" id="recommendContent">
 		<%@ include file="./ajaxContent/recommendContent.jsp"%>
-	</div>
-	<br> <br>
+	</div> 
+	<br> <br>--%>
 	
-	<%@ include file="./inc/pagination.jsp"%>
+	<div id="pageajaxContent">
+	<%@ include file="./ajaxContent/recommendContent.jsp"%>
+	</div>
+	
+	<%-- <%@ include file="./inc/pagination.jsp"%> --%>
 	
 </div>
 

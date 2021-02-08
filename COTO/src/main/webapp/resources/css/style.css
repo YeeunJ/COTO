@@ -271,3 +271,8 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .sweet-modal-overlay.dark-overlay {
     background: rgba(28, 30, 35, 0.7);
 }
+.pagination-button{
+	display: inline-block;
+    padding: 5px 10px;
+    cursor: pointer;
+}

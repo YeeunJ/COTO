@@ -8,24 +8,25 @@ $(document).ready(function(){
 	});
 	$('#orderValue').on('change', function() {
 		console.log("change");
-		search();
+		search(1);
 	});
+	search();
 });
 
 var selectHtml="";
 
-function search(){
+function search(page){
 	$.ajax({
 			url: "recommendProblem/search",
 			type: "POST",
 			async: false,
 			data: {
+				page: page,
 				searchValue:$('#searchValue').val(),
 				orderValue:$('#orderValue option:selected').val()
 			},
 			success: function(data){
-				console.log(data);
-				$('#recommendContent').html(data);
+				$('#pageajaxContent').html(data);
 			}, 
 			error:function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
