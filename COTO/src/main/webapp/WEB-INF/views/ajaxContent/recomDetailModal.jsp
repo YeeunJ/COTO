@@ -10,6 +10,8 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
  */
 </script>
 
+<span id="readTitle" style="display:none;">${ recom.title }</span>
+
 
 <!-- 세부 정보 모달 -->
 <div id="readRecommendProblem" style="display:none;">

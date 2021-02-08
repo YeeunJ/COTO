@@ -187,7 +187,9 @@ function addComment() {
 	}
 }
 
-function readDetailModalContent(recomID, count) {
+function readDetailModalContent(recomID) { //, count) {
+	var title;
+	
 	$.ajax({
 		url : "recommendProblem/readModalInfo",
 		type : "POST",
@@ -196,9 +198,17 @@ function readDetailModalContent(recomID, count) {
 			recomID : recomID,
 		},
 		success : function(data) {
-			//console.log(data);
+			console.log(data);
+			var dataSplit = data.split("\n");
+			for(var i=0;i<dataSplit.length;i++) {
+				dataSplit[i] = dataSplit[i].trim();
+
+				if(dataSplit[i].indexOf("readTitle") != -1) title = $( dataSplit[i] ).text(); //console.log(dataSplit[i]);
+			}
+			//console.log(title);
+			
 			$("#modalContent").html(data);
-			rudModel("#readRecommendProblem", "#updateRecommendProblem", "hello", "hello", updateAjax, deleteAjax, search);
+			rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n"
