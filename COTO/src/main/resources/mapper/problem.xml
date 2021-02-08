@@ -47,7 +47,12 @@
 	</select>
 	
 	<select id="readProblemByPage" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT * FROM problem LIMIT #{startList}, #{listSize}
+		SELECT problem.id, userProblem.problemID, COUNT(*) as count, problem.name, problem.link, problem.siteID, codingSite.siteName, codingSite.siteUrl, problem.regdate 
+		FROM ((problem
+		INNER JOIN codingSite ON problem.siteID = codingSite.id)
+		INNER JOIN userProblem ON problem.id = userProblem.problemID) 
+		GROUP BY problem.id
+		ORDER BY count DESC LIMIT #{s_point}, #{list}
 	</select>	
 		
 	<select id="readProblemCnt" resultType="int">
