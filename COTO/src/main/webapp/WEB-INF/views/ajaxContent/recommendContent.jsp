@@ -4,20 +4,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <div class="tableRow">
-	<span class="tableCell th1">No.</span> <span class="tableCell th4">제목</span>
+	<span class="index-col tableCell th1">No.</span> <span class="tableCell th4">제목</span>
 	<span class="tableCell th2">등록자</span> <span class="tableCell th1">난이도</span>
-	<span class="tableCell th1">추천수</span> <span class="tableCell th1">댓글수</span>
+	<span class="like-col tableCell th1">추천수</span> <span class="comment-col tableCell th1">댓글수</span>
 </div>
 
 <c:forEach items="${recoms}" var="recoms" varStatus="status">
 	
 	<div class="tableRow" id="recoms${recoms.id}" onclick="printAllContent('#recoms${recoms.id}', ${recoms.id}, ${recoms.recomCommentCount})">
-		<span class="tableCell td1 alignCenter">${status.count}</span> 
+		<span class="index-col tableCell td1 alignCenter">${status.count}</span> 
 		<span class="tableCell td4 alignCenter readTitle">${recoms.title}</span> 
 		<span class="tableCell td2 alignCenter">${recoms.nickname}</span> 
 		<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
-		<span class="tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
-		<span class="tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
+		<span class="like-col tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
+		<span class="comment-col tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
 		
 		<span class="readLoginID" style="display: none;">${loginID}</span>
 		<span class="readUserID" style="display: none;">${recoms.userID}</span>
