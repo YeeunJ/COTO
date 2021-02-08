@@ -444,7 +444,7 @@ public class RecommendController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView searchProblem(HttpServletRequest httpServletRequest) {		
 		
-		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+		//int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 		String searchValue= httpServletRequest.getParameter("searchValue");
 		String orderValue= httpServletRequest.getParameter("orderValue");
 		

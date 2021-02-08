@@ -72,19 +72,14 @@ public class RecommendServiceImpl implements RecommendService {
 		searchValue = "%".concat(searchValue).concat("%");
 		if(orderValue == null)
 			orderValue ="recom.regdate desc";
-		else if(orderValue.compareTo("difficulty") == 0) {
+		else if(orderValue.compareTo("difficulty ") == 0) {
 			orderValue = "recom.".concat(orderValue).concat("desc");
+		}
+		else if(orderValue.compareTo("recom.recomCount ") == 0) {
+			orderValue = orderValue.concat("desc");
 		}
 		
 		List<RecommendDTO> recoms = recommendDAO.searchProblemByContents(searchValue, orderValue);
-		
-		for(int i=0;i<recoms.size();i++) {
-			System.out.println(recoms.get(i).getNickname());
-			recoms.get(i).setRecomCount(recomCountDAO.readRecomCount(recoms.get(i).getId()));
-			
-			int recomID = recoms.get(i).getId();
-			recoms.get(i).setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));
-		}
 		
 		return recoms;
 	}
