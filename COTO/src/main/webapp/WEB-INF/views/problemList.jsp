@@ -90,7 +90,7 @@ canvas {
 				<option value="problem.name">제목순</option>
 				<option value="problem.siteID">사이트순</option>
 				<option value="problem.regdate desc">최신순</option>
-				<option value="COUNT(*)">많이 풀어본 문제순</option>
+				<option value="COUNT(*) desc">많이 풀어본 문제순</option>
 			</select>
 		</div>
 	</div>
