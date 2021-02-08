@@ -5,24 +5,26 @@ $(document).ready(function() {
 	});*/
 
 	$('#searchButton').on('click', function() {
-		console.log("click");
-		$.ajax({
-			url: "problems/search",
-			type: "POST",
-			async: false,
-			data: {
-				searchValue:$('#searchValue').val()
-			},
-			success: function(data){
-				//console.log(data);
-				$('#problemsContent').html(data);
-			}, 
-			error:function(request, status, error){
-				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	        }
-		});
+		search();
 	});
 });
+function search(){
+	$.ajax({
+		url: "./problems/search",
+		type: "POST",
+		async: false,
+		data: {
+			searchValue:$('#searchValue').val()
+		},
+		success: function(data){
+			//console.log(data);
+			$('#problemsContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
+}
 function printAllContent(id){
 	$('#site').html($(id+' .pSite').html());
 	$('#problemName').html($(id+' .pTitle').html());
@@ -39,7 +41,7 @@ function printAllContent(id){
 	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
 	$("#ud"+d).attr('checked', 'checked');
 	
-	rudModel("#readSolvedProblem", "#updateSolvedProblem", "문제 상세보기", "문제 수정하기", updateAjax, deleteAjax);
+	rudModel("#readSolvedProblem", "#updateSolvedProblem", "문제 상세보기", "문제 수정하기", updateAjax, deleteAjax, search);
 	//$('select').formSelect();
 }
 

@@ -76,7 +76,7 @@ function insertProblems(){
 };
 
 
-function rudModel(readContent, updateContent, titleValue, titleValue2, updateFunction, deleteFunction){
+function rudModel(readContent, updateContent, titleValue, titleValue2, updateFunction, deleteFunction, closeFunction){
 		var variant = {
 			args: [
 				{
@@ -84,6 +84,9 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 					title: titleValue,
 					showCloseButton: true,
 					onOpen: function(){
+					},
+					onClose: function(){
+						closeFunction();
 					},
 					theme: $.sweetModal.THEME_MIXED,
 					buttons: [
@@ -94,6 +97,9 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 								return $.sweetModal({
 									title: titleValue2,
 									content: $(updateContent).html(),
+									onClose: function(){
+										closeFunction();
+									},
 									onOpen: function(){
 										$('.sweet-modal-box select').formSelect();
 										$('.sweet-modal-content .chips-placeholder').chips({
@@ -122,7 +128,10 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 												return $.sweetModal({
 													theme: $.sweetModal.THEME_MIXED,
 													content: '<p style = "font-weight:800;font-size:15px;padding-top: 15px;text-align: center;">데이터가 수정 되었습니다~:)</p>',
-													icon: $.sweetModal.ICON_SUCCESS
+													icon: $.sweetModal.ICON_SUCCESS,
+													onClose: function(){
+														closeFunction();
+													}
 												});
 											}
 										}
@@ -138,7 +147,10 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 								return $.sweetModal({
 									content: '<p style = "font-weight:800;font-size:15px;padding-top: 15px;text-align: center;">데이터가 삭제 되었습니다~:)</p>',
 									theme: $.sweetModal.THEME_MIXED,
-									icon: $.sweetModal.ICON_SUCCESS
+									icon: $.sweetModal.ICON_SUCCESS,
+									onClose: function(){
+										closeFunction();
+									},
 								});
 							}
 						}

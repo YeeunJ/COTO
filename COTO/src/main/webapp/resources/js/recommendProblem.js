@@ -198,7 +198,7 @@ function readDetailModalContent(recomID, count) {
 		success : function(data) {
 			//console.log(data);
 			$("#modalContent").html(data);
-			rudModel("#readRecommendProblem", "#updateRecommendProblem", "hello", "hello", updateAjax, deleteAjax);
+			rudModel("#readRecommendProblem", "#updateRecommendProblem", "hello", "hello", updateAjax, deleteAjax, search);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n"

@@ -48,7 +48,7 @@
 				</li>
 				<li class = "right">
 					<span class = "center" style = "display: inline-block !important;">
-						<span id = "listspan" class="gray-text">안녕하세요, <span class="orange-text">${user.name}</span> 님
+						<span id = "listspan" class="gray-text"><span class="w1350">안녕하세요, <span class="orange-text">${user.name}</span> 님</span>
 						<a href="../login/cancel" class="registerA" style='display:inline-block !important'><button class = "mybtn">로그아웃</button></a></span>
 					</span>
 				</li>
