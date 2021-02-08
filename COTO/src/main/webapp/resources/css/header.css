@@ -57,3 +57,22 @@ button, input, optgroup, select, textarea {
 .registerA {
 	padding: 0 0 0 15px;
 }
+@media screen and (max-width: 1350px){
+	
+	#list {
+	float:left; 
+	color: gray !important;
+	font-size: 13px !important;
+	padding: 0px 14px !important;
+	cursor: pointer;
+ 	}
+	.registerA {
+		padding: 0 0 0 10px;
+	}
+}
+@media screen and (max-width: 1260px){
+	
+	span.w1350{
+		display:none;
+	}
+}
