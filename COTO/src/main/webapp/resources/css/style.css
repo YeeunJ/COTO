@@ -111,7 +111,7 @@
 }
 
 .tableCell {
-	display: table-cell !important; 
+	display: table-cell; 
 	padding: 7px !important; 
 	border-bottom: 1px solid #DDD !important;
 }
