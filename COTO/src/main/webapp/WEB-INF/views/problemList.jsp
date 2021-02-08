@@ -50,6 +50,12 @@ canvas {
 .chart-div {
 	display:inline-block;
 }
+@media screen and (max-width: 400px){
+	span.mobile{
+		display:none !important;
+	}
+
+}
 </style>
 
 <div id="SiteContainer" class="container">
@@ -98,21 +104,21 @@ canvas {
 	
 	<div class="table center" id="problemContent">
 		<div class="tableRow">
-			<span class="tableCell th1">No.</span>
+			<span class="tableCell th1 mobile">No.</span>
 			<span class="tableCell th3">문제 제목</span>
-			<span class="tableCell th1">사이트</span>
+			<span class="tableCell th1 mobile">사이트</span>
 			<span class="tableCell th1">참여자</span>
-			<span class="tableCell th1">등록일</span>
+			<span class="tableCell th1 mobile">등록일</span>
 		</div>
 		
 		<c:forEach items="${problems}" var="problem" varStatus="status">
 		<fmt:formatDate value="${problem.regdate}" var="formattedDate" type="date" pattern="yyyy-MM-dd" />
 		<div class="tableRow" id="problem${problem.id}">
-			<span class="tableCell td1">${status.count}</span> 
+			<span class="tableCell td1 mobile">${status.count}</span> 
 			<span class="tableCell td3"> <a href="${problem.link}">${problem.name}</a></span> 
-			<span class="tableCell td1"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
+			<span class="tableCell td1 mobile"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
 			<span class="tableCell td1">${problem.count}</span> 
-			<span class="tableCell td1">${formattedDate}</span> 
+			<span class="tableCell td1 mobile">${formattedDate}</span> 
 		</div>
 		</c:forEach>	
 		<%-- <%@ include file="./ajaxContent/problemListContent.jsp"%> --%>
