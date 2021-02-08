@@ -63,7 +63,7 @@ $(document).ready(function(){
 				</li>
 		  	</ul>
 			<ul id="nav-mobile" class="sidenav">
-				<li><a href="./login">로그인</a></li>
+				<li><a href="./login/cancel">로그아웃</a></li>
 				<li><a href="./recommendProblem">문제 추천</a></li>
 				<li><a href="./problemList">문제 리스트</a></li>
 				<li><a href="./manageCodingsite">코딩 사이트 관리</a></li>

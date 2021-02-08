@@ -51,7 +51,7 @@
 				</li>
 		  	</ul>
 			<ul id="nav-mobile" class="sidenav">
-				<li><a href="../login">로그인</a></li>
+				<li><a href="../login/cancel">로그아웃</a></li>
 				<li><a href="../recommendProblem">문제 추천</a></li>
 				<li><a href="../problemList">문제 리스트</a></li>
 				<li><a href="../mypage/problems">마이 페이지 - 내가 푼 문제</a></li>
