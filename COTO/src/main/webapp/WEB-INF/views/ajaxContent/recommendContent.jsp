@@ -21,9 +21,9 @@
 			<span class="like-col tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
 			<span class="comment-col tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
 			
-			<span class="readLoginID" style="display: none;">${loginID}</span>
+			<%-- <span class="readLoginID" style="display: none;">${loginID}</span>
 			<span class="readUserID" style="display: none;">${recoms.userID}</span>
-			<%-- <span class="readContent" style="display: none;">${recoms.content}</span> --%>
+			<span class="readContent" style="display: none;">${recoms.content}</span> --%>
 			<span class="readDifficulty" style="display: none;">
 				<c:choose>
 					<c:when test="${recoms.difficulty eq 0}"><img style="width: 60px;" alt="0" src="./resources/img/difficulty0.png"></c:when>
