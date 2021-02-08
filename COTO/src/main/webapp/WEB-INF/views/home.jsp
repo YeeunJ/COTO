@@ -183,7 +183,7 @@ function autoplay() {
 </div>
 
 
-<%--    <div id="container" style = "display: none">
+ <div id="container">
   
     <div class="slide_wrap">
       <div class="slide_box">
@@ -283,9 +283,9 @@ function autoplay() {
   </div>
   <!-- // .container -->
 <!-- // .container --> 
- --%>
 
-   <div id="container">
+
+<%--    <div id="container">
   
     <div class="slide_wrap">
       <div class="slide_box">
@@ -385,10 +385,10 @@ function autoplay() {
     <!-- // .slide_wrap -->
   </div>
   <!-- // .container -->
-<!-- // .container -->  
+<!-- // .container -->   --%>
 
-<%-- 
-   <div id="container">
+
+<%--    <div id="container">
   
     <div class="slide_wrap">
       <div class="slide_box">
@@ -485,7 +485,8 @@ function autoplay() {
   <!-- // .container -->
 <!-- // .container -->  --%>
 
-<%-- <!-- second section start- 랭킹, 태그, 순위 -->
+<%-- 
+ <!-- second section start- 랭킹, 태그, 순위 -->
 <div  class="container">
 	<div class="section second">
 		<div class="row center">
@@ -582,8 +583,8 @@ function autoplay() {
 		</div>
 	</div>
 	<br>
-</div> --%>
-<!-- second finish -->
+</div> 
+<!-- second finish --> --%>
 
 <div id="createProblem" class="container" style="display:none">
 	<form class="col s12">
@@ -626,6 +627,7 @@ function autoplay() {
  
  <script>
 
+
  (function () {
      const slideList = document.querySelector('.slide_list');  // Slide parent dom
      const slideContents = document.querySelectorAll('.slide_content');  // each slide dom
@@ -633,7 +635,7 @@ function autoplay() {
      const slideBtnPrev = document.querySelector('.slide_btn_prev'); // prev button
      const pagination = document.querySelector('.slide_pagination');
      const slideLen = slideContents.length;  // slide length
-     const slideWidth = 500; // slide width
+     const slideWidth = 300; // slide width
      const slideSpeed = 500; // slide speed
      const startNum = 0; // initial slide index (0 ~ 4)
      
