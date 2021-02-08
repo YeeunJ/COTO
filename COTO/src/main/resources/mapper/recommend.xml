@@ -25,9 +25,27 @@
 	</select>
 	
 	<select id="searchRecommendList" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">
-		SELECT recom.id as id, recom.title as title, recom.content as content, us.nickname as nickname, recom.difficulty as difficulty
-		FROM recommend as recom left join user as us on recom.userID = us.id
-		where recom.title like #{searchValue} order by #{orderValue}
+		SELECT recom.id as id, recom.title as title, recom.content as content, us.nickname as nickname, recom.difficulty as difficulty, recom.recomCount as recomCount, recom.recomCommentCount as recomCommentCount
+		FROM (
+			SELECT recom.*, if(count(rcm.id)=0, 0, count(rcm.id)) as recomCommentCount
+			FROM (
+				SELECT r.*, if(count(rc.id)=0, 0, count(rc.id)) as recomCount
+				FROM recommend as r
+				left outer JOIN recomCount as rc ON r.id = rc.recomID
+				GROUP BY r.id
+			) as recom left outer join recomComment as rcm ON recom.id = rcm.recomID
+            GROUP BY recom.id
+		) as recom left outer join user as us on recom.userID = us.id
+		where recom.title like #{searchValue}
+		order by
+		<choose>
+		    <when test="orderValue eq 'recom.difficulty desc'">recom.difficulty desc</when>
+		    <when test="orderValue eq 'recom.title'">recom.title</when>
+		    <when test="orderValue eq 'recom.recomCount desc'">recom.recomCount desc</when>
+		    <when test="orderValue eq 'recom.regdate desc'">recom.regdate desc</when>
+		    <otherwise>recom.regdate</otherwise>
+		</choose> 
+		<!-- #{orderValue} -->
 	</select>
 	
 	<select id="readRecommendProblemList" resultType="com.walab.coding.model.RecomProblemDTO" parameterType="hashmap">

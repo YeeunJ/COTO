@@ -6,7 +6,8 @@ import com.walab.coding.model.GoalDTO;
 
 public interface GoalDAO {
 	public List<GoalDTO> readGoal(int userID);
-	public List<GoalDTO> readGoalAll(int userID);
+	public List<GoalDTO> readGoalAll(int userID, int s_point, int list);
 //	public List<GoalDTO> countGoal(int userID);
 	public int updateGoal(GoalDTO goalDTO);
+	public int readGoalCnt(int userID);
 }

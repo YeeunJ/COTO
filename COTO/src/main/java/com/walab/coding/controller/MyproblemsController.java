@@ -62,8 +62,7 @@ public class MyproblemsController {
 
 		GoalDTO g = goal.get(0);
 		int goalNum = g.getGoalNum();
-		
-		
+	
 		// pagination
 		int listCnt = userProblemService.readProblemCnt(userID); // 총 문제의 개수
 		int list = 10; // 페이지 당 데이터 수
@@ -82,13 +81,6 @@ public class MyproblemsController {
 			if (pageNum <= e_page) {
 				e_page = pageNum;
 		}
-		
-		System.out.println("listCnt "+listCnt);
-		System.out.println("blockNum: "+blockNum);
-		System.out.println("nowBlock: "+nowBlock);
-		System.out.println("page: "+page);
-		System.out.println("s_page: "+s_page);
-		System.out.println("e_page: "+e_page);
 		
 		List<UserProblemDTO> problems = userProblemService.readProblemByPage(userID, s_point, list);
 		
