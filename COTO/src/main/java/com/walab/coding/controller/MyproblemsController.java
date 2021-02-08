@@ -161,10 +161,9 @@ public class MyproblemsController {
 			System.out.println(upd.toString());
 		}
 
-		ModelAndView mvNew = new ModelAndView();
 		mv.addObject("problems", problems);
 		mv.setViewName("ajaxContent/problemsContent");
-		return mvNew;
+		return mv;
 	}
 
 	// 문제 등록 모달로부터 UserProblemsDTO LiST를 반환받아야 함.

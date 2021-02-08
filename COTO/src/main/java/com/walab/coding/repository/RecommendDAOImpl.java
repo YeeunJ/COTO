@@ -66,7 +66,6 @@ public class RecommendDAOImpl implements RecommendDAO {
 		Map<String, Object> recomProblemListParam = new HashMap<String, Object>();
 		recomProblemListParam.put("searchValue", searchValue);
 		recomProblemListParam.put("orderValue", orderValue);
-		System.out.println("haha");
 		System.out.println(searchValue);
 		System.out.println(orderValue);
 		
