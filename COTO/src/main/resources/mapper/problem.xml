@@ -24,10 +24,18 @@
 			and problem.siteID=#{siteValue}
 		</if>
 		GROUP BY problem.id 
-		order by #{orderValue}
-		<if test="siteValue!=null and !siteValue.equals('')">
+		ORDER BY 
+		<choose>
+			<when test="orderValue eq 'problem.name'">problem.name</when>
+		    <when test="orderValue eq 'problem.siteID'">problem.siteID</when>
+		    <when test="orderValue eq 'problem.regdate desc'">problem.regdate desc</when>
+		    <when test="orderValue eq 'COUNT(*) desc'">COUNT(*) desc</when>
+		    <otherwise>problem.regdate</otherwise>
+		</choose> 
+  		<!-- ${orderValue}; -->
+		<!-- <if test="siteValue!=null and !siteValue.equals('')">
 			, #{siteValue}
-		</if>
+		</if > -->
 	</select>
 	
 	<select id="readProblembyID" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
