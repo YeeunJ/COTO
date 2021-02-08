@@ -155,7 +155,7 @@
 			</div>
 			<div class="input-field col s2">
 				<p>
-					<input type="radio" name="difficulty" id="d0" value="0" class="radioMrg" /> 
+					<input type="radio" name="difficulty" id="d0" value="0" class="radioMrg" checked/> 
 					<label for="d0" class="diffCont">설정 안함</label>
 				</p>
 			</div>

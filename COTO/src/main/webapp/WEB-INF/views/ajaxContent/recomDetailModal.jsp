@@ -10,6 +10,8 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
  */
 </script>
 
+<span id="readTitle" style="display:none;">${ recom.title }</span>
+
 
 <!-- 세부 정보 모달 -->
 <div id="readRecommendProblem" style="display:none;">
@@ -47,9 +49,9 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 				<p class="title">추천 문제 태그</p>
 				<div id="readTags">
 				<c:forEach items="${recomProblemTag}" var="rpt">
-					<c:if test="${rpt.recomID eq recoms.id}">
+					<%-- <c:if test="${rpt.recomID eq recoms.id}"> --%>
 						<span class="readTagChips">${rpt.tag}</span>
-					</c:if>
+					<%-- </c:if> --%>
 				</c:forEach>
 				</div>
 				<br><br>
@@ -149,10 +151,10 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 				<div id="updateProblemTag" class="chips chips-placeholder input-field">
 				<c:set var="count" value="0"/>
 				<c:forEach items="${recomProblemTag}" var="rpt">
-					<c:if test="${rpt.recomID eq recoms.id}">
+					<%-- <c:if test="${rpt.recomID eq recoms.id}"> --%>
 						<div class = "chip" id="tabindex${ count }">${rpt.tag}<i class = "material-icons close">close</i></div>
 						<c:set var="count" value="${count + 1}"/>
-					</c:if>
+					<%-- </c:if> --%>
 				</c:forEach>
 				
 				</div>

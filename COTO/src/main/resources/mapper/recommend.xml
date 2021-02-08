@@ -9,7 +9,7 @@
 	</select> -->
 
 	<select id="readRecommendList" resultType="com.walab.coding.model.RecommendDTO">
-		SELECT recom.id as id, recom.userID as userID, recom.title as title, recom.content as content, us.nickname as nickname, recom.difficulty as difficulty
+		SELECT recom.id as id, recom.userID as userID, recom.title as title, recom.content as content, us.nickname as nickname, recom.difficulty as difficulty, recom.regdate as regDate
 		FROM recommend as recom left join user as us on recom.userID = us.id
 		WHERE recom.deletedate IS NULL
 	</select>
@@ -71,12 +71,9 @@
 	<update id="updateRecommend" parameterType="hashmap">
 		UPDATE recommend SET title=#{title}, difficulty=#{difficulty}, content=#{content} where id = #{id}
 	</update>
-	
+		
 	<select id="readRecomByPage" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">
-		<!-- SELECT recom.id as id, recom.userID as userID, recom.title as title, recom.content as content, us.nickname as nickname, recom.difficulty as difficulty
-		FROM recommend as recom left join user as us on recom.userID = us.id
-		WHERE recom.deletedate IS NULL
-		ORDER BY id DESC LIMIT #{s_point}, #{list} -->
+
 		SELECT recom.id as id, recom.title as title, recom.content as content, us.nickname as nickname, recom.difficulty as difficulty, recom.recomCount as recomCount, recom.recomCommentCount as recomCommentCount
 		FROM (
 			SELECT recom.*, if(count(rcm.id)=0, 0, count(rcm.id)) as recomCommentCount
@@ -99,7 +96,7 @@
 		</choose>
 		LIMIT #{s_point}, #{list}
 	</select>	
-		
+
 	<select id="readRecomListCnt" resultType="int">
 		SELECT COUNT(*) as listCnt FROM recommend
 	</select>

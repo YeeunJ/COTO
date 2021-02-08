@@ -276,3 +276,9 @@ textarea.materialize-textarea:focus:not([readonly]) {
     padding: 5px 10px;
     cursor: pointer;
 }
+.arrow-button{
+    display: inline-block;
+}
+.disable-button{
+    color:#adadad;
+}
