@@ -13,10 +13,11 @@
 
 <script>
 
-$(document).ready(function(){
-drawChart1();
-drawChart2();
+$(document).ready(function(){	
+	drawChart1();
+	drawChart2();
 });
+
 function drawChart1() {
 	<!-- Bar cahrt -->
 	var ctx1 = document.getElementById("myBarChart"); 
@@ -74,7 +75,6 @@ function drawChart1() {
 	}
 	
 function drawChart2() {
-
 	<!-- Doughnut cahrt -->
 	data = { datasets: [{
 		backgroundColor: ['#e8e8e8','rgba(255, 201, 14, 0.5)'], 
@@ -96,7 +96,7 @@ function drawChart2() {
 			    ctx.font = fontSize + "em sans-serif";
 			    ctx.textBaseline = "middle";
 
-			    var text =  ${userSolvedP}+"문제"+"/"+${goalNum}+"문제",
+			    var text =  ${userSolvedP}+"문제"+" / "+${goalNum}+"문제",
 			        textX = Math.round((width - ctx.measureText(text).width) / 2),
 			        textY = height / 1.7;
 
@@ -113,11 +113,7 @@ function drawChart2() {
 	 });
 }
 
-
-	
-
-
-
+<!-- 문제 등록 모달 -->
 var selectHtml="";
 
 function callModal() {
@@ -232,22 +228,6 @@ function resetContent() {
 	opacity: 0.4;
 	z-index: -1;
 }
-
-/* .chartWrapper {
-  position: relative;
-}
-
-.chartWrapper > canvas {
-  position: absolute;
-  left: 0;
-  top: 0;
-  pointer-events: none;
-}
-
-.chartAreaWrapper {
-  width: 200;
-  overflow-x: scroll;
-} */
 </style>
 
 <div id="SiteContainer" class="container">
@@ -288,12 +268,10 @@ function resetContent() {
 		</div>
 
 		<div class="card-content2">
-			<div class="card shadow card-body">
+			<div class="card shadow card-body" style="overflow:scroll; width: 330px; height:200;">
 				<div class="font-color card-title">하루의 기록</div>
-				<div class="chartWrapper">
-					<div class="chartAreaWrapper">
-						<canvas id="myBarChart" width="200" height="130"></canvas>
-					</div>
+				<div class="chartAreaWrapper" style="overflow:scroll; width:900px; height:200">
+					<canvas id="myBarChart" width="900px" height="200"></canvas>
 				</div>
 			</div>
 		</div>
