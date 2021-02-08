@@ -25,6 +25,10 @@ public class UserServiceImpl implements UserService{
 		
 		return userID;
 	}
+
+	public int readIsAdminByUserID(int userID) {
+		return userDAO.readIsAdminByUserID(userID);
+	}
 	
 	public void regist(UserDTO ud) {
 		

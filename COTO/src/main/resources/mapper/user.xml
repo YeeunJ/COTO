@@ -12,7 +12,9 @@
 	<select id="readUserIDByEmail" resultType="int" parameterType="hashmap">
 		SELECT id FROM user WHERE email=#{email}
 	</select>
-	
+	<select id="readIsAdminByUserID" resultType="int" parameterType="hashmap">
+		SELECT isAdmin FROM user WHERE id=${userID}
+	</select>
 	<insert id="createUserInfo" parameterType="com.walab.coding.model.UserDTO">
 		insert into user (name, email, nickname, intro, isAdmin) values (#{name}, #{email}, #{nickName}, #{intro}, 0)
 	</insert>

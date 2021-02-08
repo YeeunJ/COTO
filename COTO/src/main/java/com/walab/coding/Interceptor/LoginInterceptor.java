@@ -32,6 +32,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		//System.out.println(id);
 		if(id > 0) {
 			ud.setId(id);
+			ud.setIsAdmin(UserService.readIsAdminByUserID(id));
 			session.setAttribute("user", ud);
 			modelAndView.setView(new RedirectView("/",true));
 		}

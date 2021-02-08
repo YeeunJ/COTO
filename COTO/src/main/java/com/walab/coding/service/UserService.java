@@ -13,6 +13,8 @@ public interface UserService {
 	
 	public int readUserIDByEmail(String email);
 	
+	public int readIsAdminByUserID(int userID);
+	
 	int createUserinfo(UserDTO u);
 	
 	int createUsergoal(GoalDTO g);

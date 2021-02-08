@@ -103,6 +103,10 @@ public class UserDAOImpl implements UserDAO{
 		sqlSession.update("user.updateUserAdmin", param);
 	}
 	
-	
+	public int readIsAdminByUserID(int userID) {
+		Map<String, Object> userParam = new HashMap<String, Object>();
+		userParam.put("userID", userID);
+		return sqlSession.selectOne(namespace+".readIsAdminByUserID", userParam);
+	}
 }
 
