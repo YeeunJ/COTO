@@ -64,7 +64,7 @@ function updateAjax(){
 		type: "POST",
 		async: false,
 		data: {
-			id:$('#UuserProblemID').html(),
+			id:$('.sweet-modal-content #UuserProblemID').html(),
 			difficulty:difficulty,
 			memo: $('.sweet-modal-content #Umemo').val()
 		},
