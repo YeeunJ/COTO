@@ -19,10 +19,14 @@
 					href="https://www.oncoder.com/" class="site-block">oncoder</a> <a
 					href="https://level.goorm.io/" class="site-block">groom</a>
 			</div> -->
-			<ul id="codingSite" class="codingSites">
-			<c:forEach items="${codingSite}" var="cs" varStatus="status">
-				<li><a href='${cs.siteUrl}' target=”_blank” >${cs.siteName}</a>   |   </li>
+			
+			<ul id="codingSite" class="codingSites" style="list-style:none;text-align:center;">
+			<c:forEach items="${codingSite}" var="cs" varStatus="vs">
+			<c:if test="${vs.index eq '0'}"> | </c:if>
+				<li style="display:inline-block">
+					 <a href='${cs.siteUrl}' target=”_blank” >${cs.siteName}</a> | </li>
 			</c:forEach>
+			
 			</ul>
 			<h6 style="font-size:15px; padding-bottom : 20px; font-weight: normal;"class="gray-text">©️Copyright 김빛나리 김수현 정예은 최승아 양지후 김예진</h6> 
 		
@@ -33,6 +37,3 @@
 </footer>
 </body>
 </html>
-<script>
-	  
- </script>
