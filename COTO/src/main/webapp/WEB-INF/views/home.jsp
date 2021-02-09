@@ -13,15 +13,11 @@
  
  <script>
 
-<<<<<<< HEAD
-$(function(){
-=======
 /* var instance = M.FormSelect.getInstance(elem);
 instance.getSelectedValues();
 instance.destroy(); */
 
 function reponsive(){
->>>>>>> branch 'master' of https://github.com/YeeunJ/COTO.git
 	var windowWidth = $( window ).width();
 	if(windowWidth < 770 || windowWidth > 380) {
 		if($("#second").css("display") == "none"){
@@ -48,7 +44,7 @@ function reponsive(){
 	<div id="myInfo" class="container center">
 		<br> <br>
 		<h3 class="main-title">혼자서는 힘든 코딩 연습, 친구들과 함께 해보세요!</h3>
-		<h5 class="bold">매일 푼 문제를 등록하고 설정한 목표를 달성해보세요.</h5>
+		<h5 class="sub-title">매일 푼 문제를 등록하고 설정한 목표를 달성해보세요.</h5>
 		<br>
 		<div class="row center">
 			<button id="register-button" class="probBtn" onclick="callModal()">문제 등록하러 가기 ></button>
