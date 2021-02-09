@@ -10,6 +10,9 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
  */
 </script>
 
+<span id="readTitle" style="display:none;">${ recom.title }</span>
+<span id="readLoginID" style="display: none;">${loginID}</span>
+<span id="readUserID" style="display: none;">${recom.userID}</span>
 
 <!-- 세부 정보 모달 -->
 <div id="readRecommendProblem" style="display:none;">
@@ -47,9 +50,9 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 				<p class="title">추천 문제 태그</p>
 				<div id="readTags">
 				<c:forEach items="${recomProblemTag}" var="rpt">
-					<c:if test="${rpt.recomID eq recoms.id}">
+					<%-- <c:if test="${rpt.recomID eq recoms.id}"> --%>
 						<span class="readTagChips">${rpt.tag}</span>
-					</c:if>
+					<%-- </c:if> --%>
 				</c:forEach>
 				</div>
 				<br><br>
@@ -62,8 +65,13 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 						<div class="recomProblemID${status.index}" style="display:none;">${rp.id}</div>
 						<div class="sitetitle">${rp.siteName}</div>
 						<div id="eachProblemContent${rp.id}">
-						<%@ include file="./recomCheckContent.jsp"%>
 						</div>
+						<c:if test="${!empty rp.name}">
+							<c:if test="${!empty rp.siteName}">
+								<div class="recomProblemID${status.index}" style="display:none;">${rp.id}</div>
+								<%@ include file="./recomCheckContent.jsp"%>
+							</c:if>
+						</c:if>
 					</c:forEach>
 				</div>
 			</div>
@@ -147,10 +155,10 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 				<div id="updateProblemTag" class="chips chips-placeholder input-field">
 				<c:set var="count" value="0"/>
 				<c:forEach items="${recomProblemTag}" var="rpt">
-					<c:if test="${rpt.recomID eq recoms.id}">
+					<%-- <c:if test="${rpt.recomID eq recoms.id}"> --%>
 						<div class = "chip" id="tabindex${ count }">${rpt.tag}<i class = "material-icons close">close</i></div>
 						<c:set var="count" value="${count + 1}"/>
-					</c:if>
+					<%-- </c:if> --%>
 				</c:forEach>
 				
 				</div>
@@ -186,8 +194,12 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 					<div class="recom-confirmSite" id="updateConfirmSite">
 						<c:set var="count" value="0"/>
 						<c:forEach items="${recomProblem}" var="rp">
-							<div id = "confirmProblemValue${ count }" onClick="deleteThis('confirmProblemValue${ count }')"><input disabled name="${ rp.siteID }" value="${rp.name} (${rp.siteName})" id="last_name disabled" type="text" class="problem validate"/></div>
-							<c:set var="count" value="${count + 1}"/>
+							<c:if test="${!empty rp.name}">
+								<c:if test="${!empty rp.siteName}">
+									<div id = "confirmProblemValue${ count }" onClick="deleteThis('confirmProblemValue${ count }')"><input disabled name="${ rp.siteID }" value="${rp.name} (${rp.siteName})" id="last_name disabled" type="text" class="updateConfirmProblem validate"/></div>
+									<c:set var="count" value="${count + 1}"/>
+								</c:if>
+							</c:if>
 						</c:forEach>
 					</div>
 				</div>

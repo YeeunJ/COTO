@@ -1,15 +1,23 @@
 package com.walab.coding.Interceptor;
 
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.UserDTO;
+import com.walab.coding.service.CodingSiteService;
 
 public class CommonInterceptor extends HandlerInterceptorAdapter {
+	
+	@Autowired
+	CodingSiteService codingSiteService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -19,6 +27,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		System.out.println(request.getRequestURI());
 		if(request.getSession().getAttribute("user") == null) {
 			if(request.getRequestURI().contains("mypage") || request.getRequestURI().contains("manageCodingsite") || request.getRequestURI().contains("usermanage")) {
+				System.out.println("haha");
 				response.sendRedirect(request.getContextPath() + "/");
 		        return false;
 			}
@@ -51,6 +60,8 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 			request.setAttribute("header", "loginHeader.jsp");
 		}
 		
+		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		request.setAttribute("codingSite", codingSite);
 		System.out.println("===================        common interceptor test end        ===================");
 		super.postHandle(request, response, handler, modelAndView);
 	}

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><link href="./resources/css/style.css?as" type="text/css" rel="stylesheet" media="screen,projection" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link href="./resources/css/style.css?as" type="text/css" rel="stylesheet" media="screen,projection" />
 <link href="./resources/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
 
 
@@ -19,7 +20,9 @@
 					href="https://level.goorm.io/" class="site-block">groom</a>
 			</div> -->
 			<ul id="codingSite" class="codingSites">
-				
+			<c:forEach items="${codingSite}" var="cs" varStatus="status">
+				<li><a href='${cs.siteUrl}' target=”_blank” >${cs.siteName}</a>   |   </li>
+			</c:forEach>
 			</ul>
 			<h6 style="font-size:15px; padding-bottom : 20px; font-weight: normal;"class="gray-text">©️Copyright 김빛나리 김수현 정예은 최승아 양지후 김예진</h6> 
 		
@@ -31,12 +34,5 @@
 </body>
 </html>
 <script>
-	$.ajax({  
-	    type: 'get',  
-	    url: "${pageContext.request.contextPath}/manageCodingsite/sitelist",  
-	    
-	    success: function (result) {  
-	        $("#codingSite").html(result);
-	    }  
-	});  
+	  
  </script>

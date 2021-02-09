@@ -57,42 +57,12 @@ public class RecommendController {
 	@Autowired
 	UserProblemService userProblemService;
 	
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv, 
-			@RequestParam(value="page", defaultValue="1") int page) {
+	@RequestMapping(value = "", method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
 		
-//		List<RecommendDTO> recoms_t = recommendService.readRecom();	
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
-		
-		// pagination
-		int listCnt = recommendService.readRecomListCnt(); // 총 문제의 개수
-		int list = 10; // 페이지 당 데이터 수
-		int block = 10; // 블록 당 페이지 수
-		
-		int pageNum = (int) Math.ceil((float)listCnt/list); // 총 페이지
-		int nowBlock = (int)Math.ceil((float)page/block); // 현재 페이지가 위치한 블록 번호
-		
-		int s_point = (page-1)*list;
-		
-		int s_page = nowBlock*block - (block-1);
-		if (s_page <= 1) {
-			s_page = 1;
-		}
-		int e_page = nowBlock*block;
-			if (pageNum <= e_page) {
-				e_page = pageNum;
-		}
-		
-		List<RecommendDTO> recoms = recommendService.readRecomByPage(s_point, list);
-		
-		mv.addObject("pagename", "recommendProblem");
-		mv.addObject("page", page);
-		mv.addObject("s_page", s_page);
-		mv.addObject("e_page", e_page);
-		
-		mv.addObject("recoms", recoms);
+
 		mv.addObject("codingSite", codingSite);
-		
 		mv.setViewName("recommendProblem");
 
 		return mv;
@@ -125,6 +95,7 @@ public class RecommendController {
 		}
 		
 		mv.addObject("recomID", recomID);
+		mv.addObject("loginID", userID);
 		mv.addObject("recom", recom);
 		mv.addObject("codingSite", codingSite);
 		mv.addObject("recomProblem", recomProblem);
@@ -394,7 +365,7 @@ public class RecommendController {
 			
 			p.setName(problem.get(i));
 			
-			if(link.get(i) == null) p.setLink(null);
+			if(link.size()==0) p.setLink(null);
 			else p.setLink(link.get(i));
 			
 			recomProbs.add(p);
@@ -482,19 +453,47 @@ public class RecommendController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView searchProblem(HttpServletRequest httpServletRequest) {		
+	@RequestMapping(value = "/search", method = {RequestMethod.POST})
+	public ModelAndView searchProblem(HttpServletRequest httpServletRequest,
+			@RequestParam(value="page", defaultValue="1") int page,
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam(value="orderValue", defaultValue="") String orderValue) {		
 		
-		//int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
-		String searchValue= httpServletRequest.getParameter("searchValue");
-		String orderValue= httpServletRequest.getParameter("orderValue");
-		
-		List<RecommendDTO> recoms = recommendService.search(searchValue, orderValue);
 		System.out.println(searchValue);
 		System.out.println(orderValue);
 		
+		List<CodingSiteDTO> codingSite = codingSiteService.read();
+
+		// pagination
+		int listCnt = recommendService.readRecomListCnt(); // 총 문제의 개수
+		int list = 10; // 페이지 당 데이터 수
+		int block = 10; // 블록 당 페이지 수
+		
+		int pageNum = (int) Math.ceil((float)listCnt/list); // 총 페이지
+		int nowBlock = (int)Math.ceil((float)page/block); // 현재 페이지가 위치한 블록 번호
+		
+		int s_point = (page-1)*list;
+		
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
+		
+		List<RecommendDTO> recoms = recommendService.readRecomByPage(searchValue, orderValue, s_point, list);
+		
 		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pagename", "recommendProblem");
+		mv.addObject("page", page);
+		mv.addObject("s_page", s_page);
+		mv.addObject("e_page", e_page);
+		
 		mv.addObject("recoms", recoms);
+		mv.addObject("codingSite", codingSite);
 		mv.setViewName("ajaxContent/recommendContent");
 		
 		return mv;
