@@ -15,4 +15,6 @@ public interface RecomProblemDAO {
 	public int deleteRecomProblem(int recomID);
 
 	List<RecomProblemDTO> readProblemByID(int recomID);
+	
+	public RecomProblemDTO readEachProblem(int rpID, int userID);
 }

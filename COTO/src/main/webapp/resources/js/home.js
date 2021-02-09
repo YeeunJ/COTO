@@ -45,6 +45,9 @@ function addajax(){
 		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
 			p = valueSplit[0].trim();
+			len = $(this).val().split(' - ');
+			if(len.length != 0)
+				l = len[len.length-1].trim();
 		}
 		
 		siteId.push(s_id);
