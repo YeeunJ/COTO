@@ -45,7 +45,7 @@
 	</select>
 	
 	<select id="readProblemByUser" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT * FROM problem WHERE siteID=#{siteID} AND name=#{name} AND link=#{link}
+		SELECT * FROM problem WHERE siteID=#{siteID} AND (name=#{name} OR link=#{link})
 	</select>
 	
 	<select id="readProblemByPage" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
@@ -67,6 +67,9 @@
 			and problem.siteID=#{siteValue}
 		</if>
         GROUP BY problem.id) subquery;
+	</select>
+	<select id="readMyLastInsertProblem" resultType="int">
+		SELECT LAST_INSERT_ID()
 	</select>
 	
 	<select id="readAllProblemCnt" resultType="int">
