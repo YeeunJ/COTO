@@ -182,7 +182,7 @@ function autoplay() {
 	</div>
 </div>
 
-
+ 
  <div id="container">
   
     <div class="slide_wrap">
