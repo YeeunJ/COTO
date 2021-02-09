@@ -113,6 +113,8 @@ public class MyproblemsController {
 		upd.setDifficulty(httpServletRequest.getParameter("difficulty"));
 		upd.setMemo(httpServletRequest.getParameter("memo"));
 		upd.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
+		
+		System.out.println(upd.getDifficulty() + " = " + upd.getId() + " = " + upd.getId());
 
 		if (userProblemService.update(upd) > 0) {
 			System.out.println("success");
