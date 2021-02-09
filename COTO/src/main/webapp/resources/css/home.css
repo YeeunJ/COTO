@@ -213,6 +213,37 @@ html, body { box-sizing: border-box;  }
 	height: 150px !important;
 }  
 
+@media screen and (max-width: 1062px){
+	.main-title{
+		font-size: 29px;
+	}
+	.sub-title{
+		font-size: 20px;
+	}
+	.small-title{
+		font-size: 23px;
+	}
+	.fs-18 {
+    	font-size: 15px;
+	}
+}
+
+@media screen and (max-width: 860px){
+	.small-title{
+		font-size: 22px;
+	}
+	.fs-18 {
+    	font-size: 14px;
+	}
+	.more{
+		font-size: 11px;
+	    position: absolute;
+	    right: 20px;
+	    bottom: -4px;
+	}
+}
+
+
 @media screen and (max-width: 770px){
 
 	*{
@@ -230,7 +261,7 @@ html, body { box-sizing: border-box;  }
 	.ranking{
 		font-size: 12px !important;
 	}
-	.bold{
+	.sub-title{
 		font-size: 12px !important;
 	}
 	/* container - body */
@@ -262,24 +293,16 @@ html, body { box-sizing: border-box;  }
   	.block{
 		width: 50% !important;
 		height: 150px !important;
-	}   
+	}
+	#first{
+		display:none;
+	} 
+	#second{
+		display:block !important;
+	}  
 }
 
-@media screen and (max-width: 380px){
-	*{
- 		font-size: 12px;
-	}
-	.main-title{
-		font-size: 15px !important;
-	}
-	h5 {
-    	font-size: 13px !important;
-	}
-	.probBtn{
-		margin-top: 10px !important;
-		font-size: 12px !important;
-	}
-	/* container - body */
+@media screen and (max-width: 500px){
 	.slide_wrap_third { position: relative; width: 300px; margin: auto; padding-bottom: 30px; }
 	.slide_box_third { width: 100%; margin: auto; overflow-x: hidden; }
 	.slide_content_third { display: table; float: left; width:300px; height: 350px; padding-top: 20px; }
@@ -314,4 +337,28 @@ html, body { box-sizing: border-box;  }
 		height: 150px !important;
 		float: left !important;
 	}   */
+	#second{
+		display:none !important;
+	}  
+	#third{
+		display:block !important;
+	}  
+}
+
+
+
+@media screen and (max-width: 380px){
+	*{
+ 		font-size: 12px;
+	}
+	.main-title{
+		font-size: 15px !important;
+	}
+	h5 {
+    	font-size: 13px !important;
+	}
+	.probBtn{
+		margin-top: 10px !important;
+		font-size: 12px !important;
+	}
 }
