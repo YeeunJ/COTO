@@ -386,8 +386,8 @@ function resetContent() {
 					<div class="row">
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d1" value="1" checked />
-								<label for="d1" class="diffCont">1</label>
+								<input type="radio" name="difficulty" id="d1" value="1"
+								 class="radioMrg" /> <label for="d1" class="diffCont">1</label>
 							</p>
 						</div>
 						<div class="input-field col s2">
@@ -416,8 +416,8 @@ function resetContent() {
 						</div>
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d0" value="0"
-									class="radioMrg" /> <label for="d0" class="diffCont">설정
+								<input type="radio" name="difficulty" id="d0" value="0" checked
+									 /> <label for="d0" class="diffCont">설정
 									안함</label>
 							</p>
 						</div>
