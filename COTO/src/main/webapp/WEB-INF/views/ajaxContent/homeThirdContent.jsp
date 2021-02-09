@@ -5,11 +5,11 @@
 
  <div id="container">
   
-    <div class="slide_wrap">
-      <div class="slide_box">
-        <div class="slide_list clearfix">
+    <div class="slide_wrap_third">
+      <div class="slide_box_third">
+        <div class="slide_list_third clearfix_third">
         
-          <div class="slide_content slide01">
+          <div class="slide_content_third slide01">
 					<div class="icon-block center">
 						<span class="icon icon-award"></span>
 						<h5 class="small-title">누적 랭킹</h5>
@@ -20,7 +20,7 @@
 						</ul>
 					</div>
 		  </div>
-          <div class="slide_content slide02">
+          <div class="slide_content_third slide02">
 					<div class="icon-block center">
 						<span class="icon icon-tag"></span>
 						<h5 class="small-title">인기 태그</h5>
@@ -31,7 +31,7 @@
 						</ul>
 					</div>
 		  </div>
-          <div class="slide_content slide03">			
+          <div class="slide_content_third slide03">			
 					<div class="icon-block center">
 						<span class="icon icon-problem"></span>
 						<h5 class="position-r small-title">
@@ -45,7 +45,7 @@
 					</div>
           </div>
           
-          <div class="slide_content slide04">
+          <div class="slide_content_third slide04">
 					<div class="icon-block center">
 						<span class="icon icon-award"></span>
 						<h5 class="small-title">오늘의 랭킹</h5>
@@ -56,7 +56,7 @@
 						</ul>
 					</div>
 		  </div>
-          <div class="slide_content slide05">
+          <div class="slide_content_third slide05">
 					<div class="icon-block center">
 						<span class="icon icon-tag"></span>
 						<h5 class="position-r small-title">
@@ -69,7 +69,7 @@
 						</ul>
 					</div>
 		  </div>
-          <div class="slide_content slide06">
+          <div class="slide_content_third slide06">
 					<div class="icon-block center">
 						<span class="icon icon-problem"></span>
 						<h5 class="position-r small-title">
@@ -87,12 +87,12 @@
         <!-- // .slide_list -->
       </div>
       <!-- // .slide_box -->
-      <div class="slide_btn_box">
-        <button type="button" class="slide_btn_prev"><</button>
-        <button type="button" class="slide_btn_next">></button>
+      <div class="slide_btn_box_third">
+        <button type="button" class="slide_btn_prev_third"><</button>
+        <button type="button" class="slide_btn_next_third">></button>
       </div>
       <!-- // .slide_btn_box -->
-      <ul class="slide_pagination"></ul>
+      <ul class="slide_pagination_third"></ul>
       <!-- // .slide_pagination -->
     </div>
     <!-- // .slide_wrap -->
@@ -101,108 +101,105 @@
 <!-- // .container -->  
 
 
- <script>
 
+  <script>
+    (function () {
+      const slideList_third = document.querySelector('.slide_list_third');  // Slide parent dom
+      const slideContents_third = document.querySelectorAll('.slide_content_third');  // each slide dom
+      const slideBtnNext_third = document.querySelector('.slide_btn_next_third'); // next button
+      const slideBtnPrev_third = document.querySelector('.slide_btn_prev_third'); // prev button
+      const pagination_third = document.querySelector('.slide_pagination_third');
+      const slideLen_third = slideContents_third.length;  // slide length
+      const slideWidth_third = 300; // slide width
+      const slideSpeed_third = 300; // slide speed
+      const startNum_third = 0; // initial slide index (0 ~ 4)
+      
+      slideList_third.style.width = slideWidth_third * (slideLen_third + 2) + "px";
+      
+      // Copy first and last slide
+      let firstChild = slideList_third.firstElementChild;
+      let lastChild = slideList_third.lastElementChild;
+      let clonedFirst = firstChild.cloneNode(true);
+      let clonedLast = lastChild.cloneNode(true);
 
- (function () {
-     const slideList = document.querySelector('.slide_list');  // Slide parent dom
-     //const slideContents = document.querySelectorAll('.slide_content');  // each slide dom
-     const slideContents = document.querySelectorAll('.slide_content');  // each slide dom
-     
-     const slideBtnNext = document.querySelector('.slide_btn_next'); // next button
-     const slideBtnPrev = document.querySelector('.slide_btn_prev'); // prev button
-     const pagination = document.querySelector('.slide_pagination');
-     const slideLen = slideContents.length;  // slide length
-     const slideWidth = 800; // slide width
-     const slideSpeed = 500; // slide speed
-     const startNum = 0; // initial slide index (0 ~ 4)
-     
-     slideList.style.width = slideWidth * (slideLen + 2) + "px";
-     
-     // Copy first and last slide
-     let firstChild = slideList.firstElementChild;
-     let lastChild = slideList.lastElementChild;
-     let clonedFirst = firstChild.cloneNode(true);
-     let clonedLast = lastChild.cloneNode(true);
+      // Add copied Slides
+      slideList_third.appendChild(clonedFirst);
+      slideList_third.insertBefore(clonedLast, slideList_third.firstElementChild);
 
-     // Add copied Slides
-     slideList.appendChild(clonedFirst);
-     slideList.insertBefore(clonedLast, slideList.firstElementChild);
+      // Add pagination_third dynamically
+      let pageChild = '';
+      for (var i = 0; i < slideLen_third; i++) {
+        pageChild += '<li class="dot';
+        pageChild += (i === startNum_third) ? ' dot_active' : '';
+        pageChild += '" data-index="' + i + '"><a href="#"></a></li>';
+      }
+      pagination_third.innerHTML = pageChild;
+      const pageDots = document.querySelectorAll('.dot'); // each dot from pagination_third
 
-     // Add pagination dynamically
-     let pageChild = '';
-     for (var i = 0; i < slideLen; i++) {
-       pageChild += '<li class="dot';
-       pageChild += (i === startNum) ? ' dot_active' : '';
-       pageChild += '" data-index="' + i + '"><a href="#"></a></li>';
-     }
-     pagination.innerHTML = pageChild;
-     const pageDots = document.querySelectorAll('.dot'); // each dot from pagination
+      slideList_third.style.transform = "translate3d(-" + (slideWidth_third * (startNum_third + 1)) + "px, 0px, 0px)";
 
-     slideList.style.transform = "translate3d(-" + (slideWidth * (startNum + 1)) + "px, 0px, 0px)";
+      let curIndex = startNum_third; // current slide index (except copied slide)
+      let curSlide = slideContents_third[curIndex]; // current slide dom
+      curSlide.classList.add('slide_active');
 
-     let curIndex = startNum; // current slide index (except copied slide)
-     let curSlide = slideContents[curIndex]; // current slide dom
-     curSlide.classList.add('slide_active');
+      /** Next Button Event */
+      slideBtnNext_third.addEventListener('click', function() {
+        if (curIndex <= slideLen_third - 1) {
+          slideList_third.style.transition = slideSpeed_third + "ms";
+          slideList_third.style.transform = "translate3d(-" + (slideWidth_third * (curIndex + 2)) + "px, 0px, 0px)";
+        }
+        if (curIndex === slideLen_third - 1) {
+          setTimeout(function() {
+            slideList_third.style.transition = "0ms";
+            slideList_third.style.transform = "translate3d(-" + slideWidth_third + "px, 0px, 0px)";
+          }, slideSpeed_third);
+          curIndex = -1;
+        }
+        curSlide.classList.remove('slide_active');
+        pageDots[(curIndex === -1) ? slideLen_third - 1 : curIndex].classList.remove('dot_active');
+        curSlide = slideContents_third[++curIndex];
+        curSlide.classList.add('slide_active');
+        pageDots[curIndex].classList.add('dot_active');
+      });
 
-     /** Next Button Event */
-     slideBtnNext.addEventListener('click', function() {
-       if (curIndex <= slideLen - 1) {
-         slideList.style.transition = slideSpeed + "ms";
-         slideList.style.transform = "translate3d(-" + (slideWidth * (curIndex + 2)) + "px, 0px, 0px)";
-       }
-       if (curIndex === slideLen - 1) {
-         setTimeout(function() {
-           slideList.style.transition = "0ms";
-           slideList.style.transform = "translate3d(-" + slideWidth + "px, 0px, 0px)";
-         }, slideSpeed);
-         curIndex = -1;
-       }
-       curSlide.classList.remove('slide_active');
-       pageDots[(curIndex === -1) ? slideLen - 1 : curIndex].classList.remove('dot_active');
-       curSlide = slideContents[++curIndex];
-       curSlide.classList.add('slide_active');
-       pageDots[curIndex].classList.add('dot_active');
-     });
+      /** Prev Button Event */
+      slideBtnPrev_third.addEventListener('click', function() {
+        if (curIndex >= 0) {
+          slideList_third.style.transition = slideSpeed_third + "ms";
+          slideList_third.style.transform = "translate3d(-" + (slideWidth_third * curIndex) + "px, 0px, 0px)";
+        }
+        if (curIndex === 0) {
+          setTimeout(function() {
+            slideList_third.style.transition = "0ms";
+            slideList_third.style.transform = "translate3d(-" + (slideWidth_third * slideLen_third) + "px, 0px, 0px)";
+          }, slideSpeed_third);
+          curIndex = slideLen_third;
+        }
+        curSlide.classList.remove('slide_active');
+        pageDots[(curIndex === slideLen_third) ? 0 : curIndex].classList.remove('dot_active');
+        curSlide = slideContents_third[--curIndex];
+        curSlide.classList.add('slide_active');
+        pageDots[curIndex].classList.add('dot_active');
+      });
 
-     /** Prev Button Event */
-     slideBtnPrev.addEventListener('click', function() {
-       if (curIndex >= 0) {
-         slideList.style.transition = slideSpeed + "ms";
-         slideList.style.transform = "translate3d(-" + (slideWidth * curIndex) + "px, 0px, 0px)";
-       }
-       if (curIndex === 0) {
-         setTimeout(function() {
-           slideList.style.transition = "0ms";
-           slideList.style.transform = "translate3d(-" + (slideWidth * slideLen) + "px, 0px, 0px)";
-         }, slideSpeed);
-         curIndex = slideLen;
-       }
-       curSlide.classList.remove('slide_active');
-       pageDots[(curIndex === slideLen) ? 0 : curIndex].classList.remove('dot_active');
-       curSlide = slideContents[--curIndex];
-       curSlide.classList.add('slide_active');
-       pageDots[curIndex].classList.add('dot_active');
-     });
+      /** Pagination_third Button Event */
+      let curDot;
+      Array.prototype.forEach.call(pageDots, function (dot, i) {
+        dot.addEventListener('click', function (e) {
+          e.preventDefault();
+          curDot = document.querySelector('.dot_active');
+          curDot.classList.remove('dot_active');
+          
+          curDot = this;
+          this.classList.add('dot_active');
 
-     /** Pagination Button Event */
-     let curDot;
-     Array.prototype.forEach.call(pageDots, function (dot, i) {
-       dot.addEventListener('click', function (e) {
-         e.preventDefault();
-         curDot = document.querySelector('.dot_active');
-         curDot.classList.remove('dot_active');
-         
-         curDot = this;
-         this.classList.add('dot_active');
-
-         curSlide.classList.remove('slide_active');
-         curIndex = Number(this.getAttribute('data-index'));
-         curSlide = slideContents[curIndex];
-         curSlide.classList.add('slide_active');
-         slideList.style.transition = slideSpeed + "ms";
-         slideList.style.transform = "translate3d(-" + (slideWidth * (curIndex + 1)) + "px, 0px, 0px)";
-       });
-     });
-   })();
- </script>pt>
+          curSlide.classList.remove('slide_active');
+          curIndex = Number(this.getAttribute('data-index'));
+          curSlide = slideContents_third[curIndex];
+          curSlide.classList.add('slide_active');
+          slideList_third.style.transition = slideSpeed_third + "ms";
+          slideList_third.style.transform = "translate3d(-" + (slideWidth_third * (curIndex + 1)) + "px, 0px, 0px)";
+        });
+      });
+    })();
+  </script>
