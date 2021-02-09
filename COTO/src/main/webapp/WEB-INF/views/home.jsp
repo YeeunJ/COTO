@@ -23,7 +23,7 @@ function reponsive(){
 	} 
 }
 
-
+reponsive();
 /* if ($(window).width() < 770 ) {
 	if($("#second").css("display") == "none"){
 
@@ -45,7 +45,7 @@ function reponsive(){
 	</div>
 </div>
 
-<div id = "first" > 
+<div id = "first"> 
 <%@ include file="./ajaxContent/homeFirstContent.jsp"%> 
 </div> 
 
@@ -57,111 +57,6 @@ function reponsive(){
 <%@ include file="./ajaxContent/homeThirdContent.jsp"%> 
 </div> 
 
-
-
-
-
-
-<%-- 
- <!-- second section start- 랭킹, 태그, 순위 -->
-<div  class="container">
-	<div class="section second">
-		<div class="row center">
-		  <div class="carousel carousel-slider center">
-		  <ul>
-<!-- 			 <li><a href="#"><i class="material-icons gray-text left" style="margin-top: 20%;">chevron_left</i></a></li>
- -->			 <li><a href="#"><i class="material-icons gray-text right" style="margin-top: 20%;">chevron_right</i></a></li>
-		  </ul>
-		    <div class="carousel-item gray-text" href="#one!">
-				<div class="col s12 m4">
-					<div class="icon-block">
-						<span class="icon icon-award"></span>
-						<h5 class="small-title">누적 랭킹</h5>
-						<ul class="fs-18 textList">
-							<c:forEach items="${ranks}" var="rank" varStatus="status">
-								<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName} [${rank.cnt}문제]</li>
-							</c:forEach>
-						</ul>
-					</div>
-				</div>
-				<div class="col s12 m4">
-					<div class="icon-block">
-						<span class="icon icon-tag"></span>
-						<h5 class="small-title">인기 태그</h5>
-						<ul class="fs-18 list">
-							<c:forEach items="${tags}" var="tag">
-								<li class="tag"><span class="bold">#</span>${tag.tag}</li>
-							</c:forEach>
-						</ul>
-					</div>
-				</div>
-				<div class="col s12 m4">
-					<div class="icon-block">
-						<span class="icon icon-problem"></span>
-						<h5 class="position-r small-title">
-							문제 순위<a href="./recommendProblem" class="more">더보기 ></a>
-						</h5>
-						<ul class="fs-18 textList">
-							<c:forEach items="${problems}" var="problem" varStatus="status">
-								<li class="ranking"><span class="bold">${status.count}.</span>${problem.problem} [${problem.site}]</li>
-							</c:forEach>
-						</ul>
-					</div>
-				</div>
-		    </div>
-
-		    <div class="carousel-item gray-text" href="#two!">
-				<div class="col s12 m4">
-					<div class="icon-block">
-						<span class="icon icon-award"></span>
-						<h5 class="small-title">오늘의 랭킹</h5>
-						<ul class="fs-18 textList">
-							<c:forEach items="${ranksToday}" var="rankToday" varStatus="status">
-								<li class="ranking"><span class="bold">${status.count}.</span> ${rankToday.nickName} [${rankToday.cnt}문제]</li>
-							</c:forEach>
-						</ul>
-					</div>
-				</div>
-				<div class="col s12 m4">
-					<div class="icon-block">
-						<span class="icon icon-tag"></span>
-						<h5 class="position-r small-title">
-							새로운 추천 글<a href="./recommendProblem" class="more" style = "right: -29px;">더보기 ></a>
-						</h5>
-						<ul class="fs-18 textList">
-							<c:forEach items="${recoms}" var="recom" varStatus="status">
-								<li class="ranking"><span class="bold">${status.count}.</span>${recom.title} </li>
-							</c:forEach>
-						</ul>
-					</div>
-				</div>
-				<div class="col s12 m4">
-					<div class="icon-block">
-						<span class="icon icon-problem"></span>
-						<h5 class="position-r small-title">
-							새로운 문제<a href="./problemList" class="more" style = "right: -13px;">더보기 ></a>
-						</h5>
-						<ul class="fs-18 textList">
-							<c:forEach items="${recentProblems}" var="recentProblem" varStatus="status">
-								<li class="ranking" style = "font-size: 14px;"><span class="bold" style = "font-size: 14px;">${status.count}.</span>${recentProblem.name}<br>[${recentProblem.siteName}]</li>
-							</c:forEach>
-						</ul>
-					</div>
-				</div>
-		    </div>
-		    
-<!-- 			<ul class="indicators">
-				<li class="indicator-item gray active"><a href="#!"></a></li>
-				<li class="indicator-item gray active"><a href="#!"></a></li>
-			</ul> -->
-		    
-		  </div>
-
-		</div>
-	</div>
-	<br>
-</div> 
-<!-- second finish --> --%>
 
 <div id="createProblem" class="container" style="display:none">
 	<form class="col s12">
