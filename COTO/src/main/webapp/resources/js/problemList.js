@@ -16,6 +16,7 @@ $(document).ready(function(){
 		search();
 	});
 	
+	search(1);
 	DrawChart1();
 	DrawChart2();
 
@@ -124,19 +125,21 @@ function DrawChart2() {
 	});
 }
 
-function search(){
+function search(page){
+	console.log("siteValue: "+$('#siteValue option:selected').val());
 	$.ajax({
 			url: "problemList/search",
 			type: "POST",
 			async: false,
 			data: {
+				page: page,
 				searchValue:$('#searchValue').val(),
 				orderValue:$('#orderValue option:selected').val(),
 				siteValue:$('#siteValue option:selected').val()
 			},
 			success: function(data){
 				//console.log(data);
-				$('#problemContent').html(data);
+				$('#pageajaxContent').html(data);
 				//alert(data);
 			}, 
 			error:function(request, status, error){

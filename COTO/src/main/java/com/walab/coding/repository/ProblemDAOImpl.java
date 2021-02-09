@@ -60,22 +60,27 @@ public class ProblemDAOImpl implements ProblemDAO {
 	}
 
 	@Override
-	public int readProblemListCnt() {
+	public int readProblemListCnt(String searchValue, String orderValue, String siteValue) {
 		// 총 게시글 개수 확인
-		return sqlSession.selectOne(namespace+".readProblemCnt");
-	}
-
-	public List<ProblemDTO> searchProblemByContents(String searchValue, String orderValue, String siteValue){
 		Map<String, Object> ProblemListParam = new HashMap<String, Object>();
 		ProblemListParam.put("searchValue", searchValue);
 		ProblemListParam.put("orderValue", orderValue);
 		ProblemListParam.put("siteValue", siteValue);
+		
+		return sqlSession.selectOne(namespace+".readProblemCnt", ProblemListParam);
+	}
+
+	public List<ProblemDTO> searchProblemByContents(int s_point, int list, String searchValue, String orderValue, String siteValue){
+		Map<String, Object> ProblemListParam = new HashMap<String, Object>();
+		ProblemListParam.put("searchValue", searchValue);
+		ProblemListParam.put("orderValue", orderValue);
+		ProblemListParam.put("siteValue", siteValue);
+		ProblemListParam.put("s_point", s_point);
+		ProblemListParam.put("list", list);
 		System.out.println("hoho");
 		System.out.println(searchValue);
 		System.out.println(orderValue);
 		System.out.println("SiteValue" + siteValue);
-		
-		
 		
 		
 		return sqlSession.selectList(namespace+".searchProblemList", ProblemListParam);
@@ -93,8 +98,7 @@ public class ProblemDAOImpl implements ProblemDAO {
 	@Override
 	public List<Map<String, Object>> readRatioBySiteid() {
 		
-		int count = sqlSession.selectOne(namespace+".readProblemCnt");
-		System.out.println(">>>>>>>>>>>  in ProblemDAOImpl: "+count);
+		int count = sqlSession.selectOne(namespace+".readAllProblemCnt");
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("count", count);
 		

@@ -8,9 +8,9 @@ $(document).ready(function(){
 	});
 	$('#orderValue').on('change', function() {
 		console.log("change");
-		search(1);
+		search();
 	});
-	search();
+	search(1);
 });
 
 var selectHtml="";
@@ -26,6 +26,7 @@ function search(page){
 				orderValue:$('#orderValue option:selected').val()
 			},
 			success: function(data){
+				console.log(data);
 				$('#pageajaxContent').html(data);
 			}, 
 			error:function(request, status, error){
