@@ -35,7 +35,7 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		Map<String, Object> userProblemListParam = new HashMap<String, Object>();
 		userProblemListParam.put("memo", upd.getMemo());
 		userProblemListParam.put("difficulty", upd.getDifficulty());
-		userProblemListParam.put("problemID", upd.getId());
+		userProblemListParam.put("id", upd.getId());
 		
 		return sqlSession.update(namespace+".updateUserProblem", userProblemListParam);
 	}
