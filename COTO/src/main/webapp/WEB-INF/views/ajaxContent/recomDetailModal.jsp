@@ -60,12 +60,10 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 				<div id="readProblems" class="readBox">
 					<c:forEach items="${recomProblem}" var="rp" varStatus="status">
 						<div class="recomProblemID${status.index}" style="display:none;">${rp.id}</div>
-						<c:choose>
-							<c:when test="${rp.date eq null}"><c:set var="color" value="color:lightgray !important;"/></c:when> 
-							<c:otherwise><c:set var="color" value="color:green;"/></c:otherwise>
-						</c:choose>
 						<div class="sitetitle">${rp.siteName}</div>
-						<div><p style="display: inline-block;">${rp.name}</p> <i class="small smaller material-icons" style="${color} height: 30px; float: right; cursor: pointer;">done</i></div>
+						<div id="eachProblemContent${rp.id}">
+						<%@ include file="./recomCheckContent.jsp"%>
+						</div>
 					</c:forEach>
 				</div>
 			</div>

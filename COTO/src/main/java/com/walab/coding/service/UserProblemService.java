@@ -21,6 +21,8 @@ public interface UserProblemService {
 	
 	void createUserProblem(List<UserProblemDTO> p);
 	
+	public void createUserProblembyID(UserProblemDTO p);
+	
 	List<UserProblemDTO> search(int userID, String searchValue);
 	
 	public List<UserProblemDTO> readProblemList();

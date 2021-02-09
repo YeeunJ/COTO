@@ -101,7 +101,15 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		sqlSession.insert(namespace+".createUserProblem", p);
 	
 	}
-
+	
+	@Override
+	public void createUserProblembyID(UserProblemDTO p) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userID", p.getUserID());
+		param.put("problemID",p.getProblemID());
+		
+		sqlSession.insert(namespace + ".createUserProblem", param);
+	}
 	@Override
 	public List<UserProblemDTO> searchProblemByContent(int userID, String searchValue) {
 		Map<String, Object> userProblemListParam = new HashMap<String, Object>();

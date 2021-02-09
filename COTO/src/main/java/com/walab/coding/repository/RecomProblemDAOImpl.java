@@ -85,4 +85,11 @@ public class RecomProblemDAOImpl implements RecomProblemDAO {
 		
 		return sqlSession.selectList(namespace+".readProblemByID", param);
 	}
+	
+	public RecomProblemDTO readEachProblem(int rpID, int userID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("rpID", rpID);
+		param.put("userID", userID);
+		return sqlSession.selectOne(namespace+".readEachProblem", param);
+	}
 }

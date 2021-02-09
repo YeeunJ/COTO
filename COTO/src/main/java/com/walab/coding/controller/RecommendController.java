@@ -22,10 +22,12 @@ import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecomCountDTO;
 import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.model.UserDTO;
+import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.RecomTagDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.RecomCommentService;
 import com.walab.coding.service.RecommendService;
+import com.walab.coding.service.UserProblemService;
 import com.walab.coding.service.RecomCountService;
 import com.walab.coding.service.RecomProblemService;
 import com.walab.coding.service.UserService;
@@ -52,6 +54,8 @@ public class RecommendController {
 	UserService userService;
 	@Autowired
 	RecomCountService recomCountService;
+	@Autowired
+	UserProblemService userProblemService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv, 
@@ -187,28 +191,65 @@ public class RecommendController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/deleteRecomCount", method = RequestMethod.POST)
-	public ModelAndView deleteRecomCount(HttpServletRequest httpServletRequest) {		
+	@RequestMapping(value = "/addRecomCheck", method = RequestMethod.POST)
+	public ModelAndView createRecomCheck(HttpServletRequest httpServletRequest) {
 		RecomCountDTO rcd;
 		int userID = -1;
-		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		UserProblemDTO upd = new UserProblemDTO();
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			upd.setProblemID(rpID);
+			upd.setUserID(userID);
 			
-			rcd = new RecomCountDTO();
-			rcd.setRecomID(recomID);
-			rcd.setUserID(userID);
-			recomCountService.deleteRecomCount(rcd);
+			userProblemService.createUserProblembyID(upd);
 		}
-		rcd = recomCountService.readRecomCount(recomID, userID);
-		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
-		int commentCount = recomComment.size();
 		
+		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("countInfo", rcd);
-		mv.addObject("recomComment", recomComment);
-		mv.addObject("commentCount", commentCount);
-		mv.setViewName("ajaxContent/recomCommentCountContent");
+		mv.addObject("rp", rp);
+		mv.setViewName("ajaxContent/recomCheckContent");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomCheck", method = RequestMethod.POST)
+	public ModelAndView deleteRecomCheck(HttpServletRequest httpServletRequest) {
+		int userID = -1;
+		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		UserProblemDTO upd = new UserProblemDTO();
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			upd.setProblemID(rpID);
+			upd.setUserID(userID);
+			
+			userProblemService.delete(rpID);
+		}
+		
+		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("rp", rp);
+		mv.setViewName("ajaxContent/recomCheckContent");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomCount", method = RequestMethod.POST)
+	public ModelAndView deleteRecomCount(HttpServletRequest httpServletRequest) {		
+		int userID = -1;
+		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		UserProblemDTO upd = new UserProblemDTO();
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			upd.setProblemID(rpID);
+			upd.setUserID(userID);
+			
+			userProblemService.delete(rpID);
+		}
+		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("rp", rp);
+		mv.setViewName("ajaxContent/recomCheckContent");
 		
 		return mv;
 	}

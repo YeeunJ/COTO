@@ -18,12 +18,18 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		System.out.println("===================        common interceptor test start       ===================");
 		System.out.println(request.getRequestURI());
 		if(request.getSession().getAttribute("user") == null) {
-			System.out.println("notLogin");
-			//request.getSession().setAttribute("header", "logoutHeader");
-			//request.setAttribute("header", "logoutHeader");
-			//modelAndView.addObject("header", "logoutHeader");
-			request.setAttribute("userID", 1);
+			if(request.getRequestURI().contains("mypage") || request.getRequestURI().contains("manageCodingsite") || request.getRequestURI().contains("usermanage")) {
+				response.sendRedirect(request.getContextPath() + "/");
+		        return false;
+			}
+			//request.setAttribute("userID", 0);
 		}else {
+			if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() <= 0) {
+				if(request.getRequestURI().contains("manageCodingsite") || request.getRequestURI().contains("usermanage")) {
+					response.sendRedirect(request.getContextPath() + "/");
+			        return false;
+				}
+			}
 			request.setAttribute("userID", ((UserDTO)request.getSession().getAttribute("user")).getId());
 		}
 		return super.preHandle(request, response, handler);

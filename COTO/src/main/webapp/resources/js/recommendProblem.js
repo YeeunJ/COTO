@@ -187,6 +187,48 @@ function addComment() {
 	}
 }
 
+function checkProblem(id){
+	$.ajax({
+		url : "recommendProblem/addRecomCheck",
+		type : "POST",
+		async : false,
+		data : {
+			rpID : id,
+		},
+		success : function(data) {
+			console.log(data);
+			idName = ".sweet-modal-content #eachProblemContent"+ id;
+			$(idName).html(data);
+		},
+		error : function(request, status, error) {
+			alert("허용되지 않은 접근입니다. 새로고침 후 다시 시도해주세요.");
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}
+function uncheckProblem(id){
+	$.ajax({
+		url : "recommendProblem/deleteRecomCheck",
+		type : "POST",
+		async : false,
+		data : {
+			rpID : id,
+		},
+		success : function(data) {
+			console.log(data);
+			idName = ".sweet-modal-content #eachProblemContent"+ id;
+			$(idName).html(data);
+		},
+		error : function(request, status, error) {
+			alert("허용되지 않은 접근입니다. 새로고침 후 다시 시도해주세요.");
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}
 function readDetailModalContent(recomID, count) {
 	$.ajax({
 		url : "recommendProblem/readModalInfo",

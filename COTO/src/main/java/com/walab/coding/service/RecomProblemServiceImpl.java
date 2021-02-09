@@ -45,5 +45,7 @@ public class RecomProblemServiceImpl implements RecomProblemService {
 		return recomProblemsDAO.readProblemByID(recomID);
 	}
 	
-	
+	public RecomProblemDTO readEachProblem(int rpID, int userID) {
+		return recomProblemsDAO.readEachProblem(rpID, userID);
+	}
 }
