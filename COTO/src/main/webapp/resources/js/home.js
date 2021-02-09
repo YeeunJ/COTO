@@ -131,6 +131,13 @@ function insertProblems(){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
     });
+	}else{
+		for(var i in valueSplit){
+			data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/>';
+			count++;
+		}
+		$('.sweet-modal-content #confirmSite').html(data);
+		$('#confirmSite').html(data);
 	}
 };
 
