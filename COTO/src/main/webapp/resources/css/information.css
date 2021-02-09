@@ -31,7 +31,7 @@
 .tableCell {
  	border-bottom: none !important;
 } 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 650px){
 	.area{
 		margin-left: 5% !important;
 		margin-right: 5% !important;
@@ -44,6 +44,6 @@
 		min-width: 80px;
 	}
 	.td8{
-		padding-left: 10px !important;
+		padding-left: 20px !important;
 	}
 }
