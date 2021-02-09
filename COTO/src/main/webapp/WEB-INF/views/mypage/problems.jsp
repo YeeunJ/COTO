@@ -229,16 +229,6 @@ function resetContent() {
 	opacity: 0.4;
 	z-index: -1;
 }
-
-@media screen and (max-width: 992px) {
-	.card-content2 { display: none; }
-	#myDoughnutChart {margin: auto;} 
-}
-
-@media screen and (max-width: 550px) {
-	.card-content2, .card-content3 { display: none; } 
-	.card-content1 {width: 100%; margin:0;}
-}
 </style>
 
 <div id="SiteContainer" class="container">
@@ -294,7 +284,7 @@ function resetContent() {
 		<div class="card-content3">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">현재 상황</div>
-				<canvas id="myDoughnutChart" width="300px" height="180px">
+				<canvas id="myDoughnutChart" width="300vw" height="180px">
 				</canvas>
 			</div>
 		</div>
