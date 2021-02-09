@@ -37,8 +37,8 @@
 	
 	<select id="readSovledUserProblem" resultType="int" parameterType="hashmap">
 		SELECT count(A.userID) as solved 
-		FROM userProblem as A, (SELECT startDate FROM goal WHERE userID=#{userID} order by startDate DESC limit 1) subquery 
-		WHERE A.regDate >= subquery.startDate and A.userID = #{userID}
+		FROM userProblem as A, (SELECT startDate,endDate FROM goal WHERE userID=#{userID} order by startDate DESC limit 1) subquery 
+		WHERE <![CDATA[A.regDate >= subquery.startDate and A.regDate <= subquery.endDate]]> and A.userID = #{userID}
 	</select>
 	
 	<select id = "readTotalRank" resultType="com.walab.coding.model.RankDTO">
@@ -104,8 +104,7 @@
 		join YeeunJ.problem as p on subquery.problemID=p.id 
 		join YeeunJ.codingSite as c on p.siteID=c.id
 		ORDER BY id DESC LIMIT #{s_point}, #{list}
-	</select>	
-		
+	</select>
 	<select id="readProblemCnt" resultType="int" parameterType="hashmap">
 		select COUNT(*) 
 		from (select up.id as id, up.problemID as problemID,

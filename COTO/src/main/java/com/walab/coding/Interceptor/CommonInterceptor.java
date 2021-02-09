@@ -1,15 +1,23 @@
 package com.walab.coding.Interceptor;
 
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.UserDTO;
+import com.walab.coding.service.CodingSiteService;
 
 public class CommonInterceptor extends HandlerInterceptorAdapter {
+	
+	@Autowired
+	CodingSiteService codingSiteService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -18,12 +26,19 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		System.out.println("===================        common interceptor test start       ===================");
 		System.out.println(request.getRequestURI());
 		if(request.getSession().getAttribute("user") == null) {
-			System.out.println("notLogin");
-			//request.getSession().setAttribute("header", "logoutHeader");
-			//request.setAttribute("header", "logoutHeader");
-			//modelAndView.addObject("header", "logoutHeader");
-			request.setAttribute("userID", 1);
+			if(request.getRequestURI().contains("mypage") || request.getRequestURI().contains("manageCodingsite") || request.getRequestURI().contains("usermanage")) {
+				System.out.println("haha");
+				response.sendRedirect(request.getContextPath() + "/");
+		        return false;
+			}
+			//request.setAttribute("userID", 0);
 		}else {
+			if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() <= 0) {
+				if(request.getRequestURI().contains("manageCodingsite") || request.getRequestURI().contains("usermanage")) {
+					response.sendRedirect(request.getContextPath() + "/");
+			        return false;
+				}
+			}
 			request.setAttribute("userID", ((UserDTO)request.getSession().getAttribute("user")).getId());
 		}
 		return super.preHandle(request, response, handler);
@@ -45,6 +60,8 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 			request.setAttribute("header", "loginHeader.jsp");
 		}
 		
+		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		request.setAttribute("codingSite", codingSite);
 		System.out.println("===================        common interceptor test end        ===================");
 		super.postHandle(request, response, handler, modelAndView);
 	}

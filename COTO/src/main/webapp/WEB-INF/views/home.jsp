@@ -13,7 +13,15 @@
  
  <script>
 
+<<<<<<< HEAD
 $(function(){
+=======
+/* var instance = M.FormSelect.getInstance(elem);
+instance.getSelectedValues();
+instance.destroy(); */
+
+function reponsive(){
+>>>>>>> branch 'master' of https://github.com/YeeunJ/COTO.git
 	var windowWidth = $( window ).width();
 	if(windowWidth < 770 || windowWidth > 380) {
 		if($("#second").css("display") == "none"){

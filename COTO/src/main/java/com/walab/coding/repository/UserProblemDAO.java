@@ -22,5 +22,6 @@ public interface UserProblemDAO {
 	public List<Map<String,Object>> readAvgForaWeek();
 	public List<UserProblemDTO> readProblemByPage(int userID, int s_point, int list);
 	public int readProblemCnt(int userID);
+	public void createUserProblembyID(UserProblemDTO p);
 
 }
