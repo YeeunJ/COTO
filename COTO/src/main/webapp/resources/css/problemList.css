@@ -47,3 +47,45 @@ fieldset {
 .right{
 	float: right;
 }
+
+/* 반응형 */
+@media only screen and (max-width: 830px) {
+  #chartBySite{
+  	margin-top: 20px !important;
+    height: 160px !important;
+    width: 240px !important;
+  }
+  #averageForWeek{
+    margin-top: 40px !important;
+    height: 130px !important;
+    width: 250px !important;
+  }
+}
+@media only screen and (max-width: 700px) {
+  #chartBySite{
+    height: 180px !important;
+    width: 260px !important;
+  }
+  #container{
+  	display:none;
+  }
+  #averageForWeek{
+    /* margin-top: 25px !important;
+    height: 144px !important;
+    width: 269px !important; */
+  }
+  .chart-div {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  #canvas-holder{
+  	display:none;
+  }
+  #container{
+  	display:none;
+  }
+}
+
+
+   

@@ -2,6 +2,11 @@ var count = 0;
 $('.chip').on('click', function() {
 							console.log("change");
 						});
+
+function deletechip(id) {
+	id.remove();
+}
+
 function createModel(content, titleValue, actionFunction){
 		var variant = {
 			args: [
@@ -18,7 +23,7 @@ function createModel(content, titleValue, actionFunction){
 							onChipAdd: function(){
 								var text = $('.sweet-modal-content .chips input').val();
 								$('.sweet-modal-content .chips .chip:last').remove();
-								$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close">close</i></div>');
+								$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close" onclick="deletechip(tabindex'+count+')">close</i></div>');
 								count++;
 							},
 							onChipSelect: function(){

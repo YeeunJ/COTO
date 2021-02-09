@@ -105,6 +105,7 @@ function drawChart2() {
 			  }
 	   }],
 	    options: {
+	       responsive: false,
 	       legend: {
 	         display: true
 	       },
@@ -228,6 +229,16 @@ function resetContent() {
 	opacity: 0.4;
 	z-index: -1;
 }
+
+@media screen and (max-width: 992px) {
+	.card-content2 { display: none; }
+	#myDoughnutChart {margin: auto;} 
+}
+
+@media screen and (max-width: 550px) {
+	.card-content2, .card-content3 { display: none; } 
+	.card-content1 {width: 100%; margin:0;}
+}
 </style>
 
 <div id="SiteContainer" class="container">
@@ -243,27 +254,29 @@ function resetContent() {
 		<div class="card-content1">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">나의 목표</div>
-				<div>
 					<div id="table">
 						<c:forEach items="${goal}" var="goal" varStatus="status">
-							<div class="tableRow box">
-								<span class="tableCell td1">목표</span> <span
+							<div class="tableRow">
+								<span class="tableCell td2">목표</span> <span
 									class="tableCell td4">${goal.goal}</span>
 							</div>
-							<div class="tableRow box">
-								<span class="tableCell td1">기간</span> <span
-									class="tableCell td4"> <fmt:formatDate
+							<div class="tableRow">
+								<span class="tableCell td2">기간</span> 
+								<span class="tableCell td4" style="font-size: 14px;"> <fmt:formatDate
 										pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
 										pattern="yyyy-MM-dd" value="${goal.endDate}" />
 								</span>
 							</div>
-							<div class="tableRow box">
+							<div class="tableRow">
 								<span class="tableCell td2">총 문제수</span> <span
 									class="tableCell td4">${goal.goalNum}문제</span>
 							</div>
+							<div class="tableRow">
+								<span class="tableCell td2" style="font-size: 13px;">현재 푼 문제수</span> <span
+									class="tableCell td4">${userSolvedP}문제</span>
+							</div>
 						</c:forEach>
 					</div>
-				</div>
 			</div>
 		</div>
 
@@ -281,7 +294,7 @@ function resetContent() {
 		<div class="card-content3">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">현재 상황</div>
-				<canvas id="myDoughnutChart" width="180" height="110">
+				<canvas id="myDoughnutChart" width="300px" height="180px">
 				</canvas>
 			</div>
 		</div>
@@ -386,8 +399,8 @@ function resetContent() {
 					<div class="row">
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d1" value="1" checked />
-								<label for="d1" class="diffCont">1</label>
+								<input type="radio" name="difficulty" id="d1" value="1"
+								 class="radioMrg" /> <label for="d1" class="diffCont">1</label>
 							</p>
 						</div>
 						<div class="input-field col s2">
@@ -416,8 +429,8 @@ function resetContent() {
 						</div>
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d0" value="0"
-									class="radioMrg" /> <label for="d0" class="diffCont">설정
+								<input type="radio" name="difficulty" id="d0" value="0" checked
+									 /> <label for="d0" class="diffCont">설정
 									안함</label>
 							</p>
 						</div>
