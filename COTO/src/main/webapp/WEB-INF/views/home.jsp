@@ -13,17 +13,22 @@
  
  <script>
 
-function reponsive(){
+$(function(){
 	var windowWidth = $( window ).width();
-	if(windowWidth < 770) {
+	if(windowWidth < 770 || windowWidth > 380) {
 		if($("#second").css("display") == "none"){
 		    $("#second").show();
 		    $("#first").hide();
 		}
-	} 
+	}
+	else if(windowWidth < 380) {
+		if($("#third").css("display") == "none"){
+		    $("#third").show();
+		    $("#second").hide();
+		}
+	}
 }
 
-reponsive();
 /* if ($(window).width() < 770 ) {
 	if($("#second").css("display") == "none"){
 
