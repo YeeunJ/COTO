@@ -108,6 +108,8 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		userProblemListParam.put("userID", userID);
 		userProblemListParam.put("content1", searchValue);
 		userProblemListParam.put("content2", searchValue);
+		userProblemListParam.put("content3", searchValue);
+		userProblemListParam.put("content4", searchValue);
 		System.out.println(searchValue);
 		
 		return sqlSession.selectList(namespace+".searchUserProblemByContent", userProblemListParam);

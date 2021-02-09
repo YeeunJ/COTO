@@ -16,12 +16,13 @@
 }
 
 .card-wrap {
-	display: flex;
+	display:flex;
+	/* grid-template-columns: 1fr 1fr 1fr; */
 }
 
-.card-content1, .card-content2, .card-content3 {
+ .card-content1, .card-content2, .card-content3 {
 	flex: 1;
-}
+} 
 
 .card-content1, .card-content2 {
 	margin-right: 15px;
@@ -31,6 +32,9 @@
 	border-radius: 10%;
 	height: 250px;
 	padding: 10px;
+	/* overflow: hidden;
+    position: relative;
+    resize: both; */
 }
 
 .card-title {
@@ -92,6 +96,13 @@ input[type='radio']:checked {
     overflow: scroll;
 }
 
+.pMemo{
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 150px;
+}
+
 
 /* 등록 모달 */
 .title {
@@ -146,3 +157,31 @@ input[type='radio']:checked {
 .sweet-modal-content {
 	padding-left: 45px !important;
 }
+
+/* 반응형 */
+@media only screen and (max-width: 910px) {
+  .index-col{
+  	display:none!important;
+  }
+}
+@media only screen and (max-width: 802px) {
+  .pRegdate{
+  	display:none!important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .pMemo{
+  	display:none!important;
+  }
+}
+@media only screen and (max-width: 500px) {
+ 	.card-wrap {
+		grid-template-columns: 1fr;
+	}
+}
+@media only screen and (max-width: 450px) {
+  .pDifficulty{
+  	display:none!important;
+  }
+}
+

@@ -194,6 +194,22 @@ $(document).ready(function() {
 	bottom: 100px;
 	color: #666666;
 }
+@media screen and (max-width: 715px){
+	.table{
+ 		font-size: 12px !important;
+ 		overflow-x: auto !important;
+ 		display: block !important;
+	}
+	.tablehead{
+	 	font-size: 12px !important;
+	}
+	.tableRow{
+		overflow-x: auto !important;
+	}
+	.tableCell{
+		overflow-x: auto !important;
+	}	
+}
 </style>
 
 <div id="SiteContainer" class="container">
@@ -215,7 +231,7 @@ $(document).ready(function() {
 		
 	<form name="form1" action="manageCodingsite/addok" method="post">	
 		 
-		<div class="table">
+		<div class="tableManage">
 			<div class="tableRow orange white-text">
 				<span class="tableCell th3 tablehead center">사이트 이름 </span> 
 				<span class="tableCell th7 tablehead center">URL</span> 

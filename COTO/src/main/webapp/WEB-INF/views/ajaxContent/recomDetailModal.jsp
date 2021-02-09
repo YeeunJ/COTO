@@ -10,6 +10,9 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
  */
 </script>
 
+<span id="readTitle" style="display:none;">${ recom.title }</span>
+<span id="readLoginID" style="display: none;">${loginID}</span>
+<span id="readUserID" style="display: none;">${recom.userID}</span>
 
 <!-- 세부 정보 모달 -->
 <div id="readRecommendProblem" style="display:none;">
@@ -47,9 +50,9 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 				<p class="title">추천 문제 태그</p>
 				<div id="readTags">
 				<c:forEach items="${recomProblemTag}" var="rpt">
-					<c:if test="${rpt.recomID eq recoms.id}">
+					<%-- <c:if test="${rpt.recomID eq recoms.id}"> --%>
 						<span class="readTagChips">${rpt.tag}</span>
-					</c:if>
+					<%-- </c:if> --%>
 				</c:forEach>
 				</div>
 				<br><br>
@@ -59,13 +62,17 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 				<p class="title desc">추천 문제</p>
 				<div id="readProblems" class="readBox">
 					<c:forEach items="${recomProblem}" var="rp" varStatus="status">
-						<div class="recomProblemID${status.index}" style="display:none;">${rp.id}</div>
-						<c:choose>
-							<c:when test="${rp.date eq null}"><c:set var="color" value="color:lightgray !important;"/></c:when> 
-							<c:otherwise><c:set var="color" value="color:green;"/></c:otherwise>
-						</c:choose>
-						<div class="sitetitle">${rp.siteName}</div>
-						<div><p style="display: inline-block;">${rp.name}</p> <i class="small smaller material-icons" style="${color} height: 30px; float: right; cursor: pointer;">done</i></div>
+						<c:if test="${!empty rp.name}">
+							<c:if test="${!empty rp.siteName}">
+								<div class="recomProblemID${status.index}" style="display:none;">${rp.id}</div>
+								<c:choose>
+									<c:when test="${rp.date eq null}"><c:set var="color" value="color:lightgray !important;"/></c:when> 
+									<c:otherwise><c:set var="color" value="color:green;"/></c:otherwise>
+								</c:choose>
+								<div class="sitetitle">${rp.siteName}</div>
+								<div><p style="display: inline-block;">${rp.name}</p> <i class="small smaller material-icons" style="${color} height: 30px; float: right; cursor: pointer;">done</i></div>
+							</c:if>
+						</c:if>
 					</c:forEach>
 				</div>
 			</div>
@@ -149,10 +156,10 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 				<div id="updateProblemTag" class="chips chips-placeholder input-field">
 				<c:set var="count" value="0"/>
 				<c:forEach items="${recomProblemTag}" var="rpt">
-					<c:if test="${rpt.recomID eq recoms.id}">
+					<%-- <c:if test="${rpt.recomID eq recoms.id}"> --%>
 						<div class = "chip" id="tabindex${ count }">${rpt.tag}<i class = "material-icons close">close</i></div>
 						<c:set var="count" value="${count + 1}"/>
-					</c:if>
+					<%-- </c:if> --%>
 				</c:forEach>
 				
 				</div>
@@ -188,8 +195,12 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 					<div class="recom-confirmSite" id="updateConfirmSite">
 						<c:set var="count" value="0"/>
 						<c:forEach items="${recomProblem}" var="rp">
-							<div id = "confirmProblemValue${ count }" onClick="deleteThis('confirmProblemValue${ count }')"><input disabled name="${ rp.siteID }" value="${rp.name} (${rp.siteName})" id="last_name disabled" type="text" class="problem validate"/></div>
-							<c:set var="count" value="${count + 1}"/>
+							<c:if test="${!empty rp.name}">
+								<c:if test="${!empty rp.siteName}">
+									<div id = "confirmProblemValue${ count }" onClick="deleteThis('confirmProblemValue${ count }')"><input disabled name="${ rp.siteID }" value="${rp.name} (${rp.siteName})" id="last_name disabled" type="text" class="updateConfirmProblem validate"/></div>
+									<c:set var="count" value="${count + 1}"/>
+								</c:if>
+							</c:if>
 						</c:forEach>
 					</div>
 				</div>

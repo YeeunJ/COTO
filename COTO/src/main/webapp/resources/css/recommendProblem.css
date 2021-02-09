@@ -190,3 +190,45 @@ input[type='radio']:checked {
 	grid-template-columns: 1fr 1fr;
 	column-gap: 35px;
 }
+.readTitle{
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 150px;
+}
+.index-col{
+ 	display:none;
+ }
+/* 반응형 */
+@media only screen and (max-width: 1002px) {
+  #detailRecom{
+  	grid-template-columns: 1fr;
+    column-gap: 0;
+    row-gap: 30px;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .index-col{
+  	display:none!important;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .comment-col{
+  	display:none!important;
+  }
+}
+
+@media only screen and (max-width: 602px) {
+  .index-col{
+  	display:none!important;
+  }
+  .comment-col{
+  	display:none!important;
+  }
+
+}
+@media only screen and (max-width: 510px) {
+  .like-col{
+  	display:none!important;
+  }
+}

@@ -46,7 +46,7 @@ button, input, optgroup, select, textarea {
     background-color: white;
     z-index: 100;
     transition-duration: 10s;
-    padding-left: 40vw !important;
+    padding-left: 50vw !important;
 }
 
 #list:hover > .submenu {
@@ -56,4 +56,17 @@ button, input, optgroup, select, textarea {
 
 .registerA {
 	padding: 0 0 0 15px;
+}
+@media screen and (max-width: 1350px){
+	.registerA {
+		padding: 0 0 0 10px;
+	}
+	#list {
+		padding: 0px 10px !important;
+	}
+}
+@media screen and (max-width: 1260px){
+	span.w1350{
+		display: none;
+	}
 }

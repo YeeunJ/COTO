@@ -8,24 +8,25 @@ $(document).ready(function(){
 	});
 	$('#orderValue').on('change', function() {
 		console.log("change");
-		search();
+		search(1);
 	});
+	search();
 });
 
 var selectHtml="";
 
-function search(){
+function search(page){
 	$.ajax({
 			url: "recommendProblem/search",
 			type: "POST",
 			async: false,
 			data: {
+				page: page,
 				searchValue:$('#searchValue').val(),
 				orderValue:$('#orderValue option:selected').val()
 			},
 			success: function(data){
-				console.log(data);
-				$('#recommendContent').html(data);
+				$('#pageajaxContent').html(data);
 			}, 
 			error:function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -187,7 +188,11 @@ function addComment() {
 	}
 }
 
-function readDetailModalContent(recomID, count) {
+function readDetailModalContent(recomID) { //, count) {
+	var title;
+	var logID;
+	var uID;
+	
 	$.ajax({
 		url : "recommendProblem/readModalInfo",
 		type : "POST",
@@ -197,8 +202,19 @@ function readDetailModalContent(recomID, count) {
 		},
 		success : function(data) {
 			//console.log(data);
+			var dataSplit = data.split("\n");
+			for(var i=0;i<dataSplit.length;i++) {
+				dataSplit[i] = dataSplit[i].trim();
+
+				if(dataSplit[i].indexOf("readTitle") != -1) title = $( dataSplit[i] ).text(); //console.log(dataSplit[i]);
+				else if(dataSplit[i].indexOf("readLoginID") != -1) logID = $( dataSplit[i] ).text();
+				else if(dataSplit[i].indexOf("readUserID") != -1) uID = $( dataSplit[i] ).text();
+			}
+			//console.log(title);
+			
 			$("#modalContent").html(data);
-			rudModel("#readRecommendProblem", "#updateRecommendProblem", "hello", "hello", updateAjax, deleteAjax);
+			if(logID == uID) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
+			else readModel("#readRecommendProblem", title);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n"

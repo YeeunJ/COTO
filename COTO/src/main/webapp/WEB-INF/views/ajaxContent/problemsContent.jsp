@@ -5,17 +5,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <div class="tableRow">
-	<span class="tableCell th1">No.</span>
+	<span class="index-col tableCell th1">No.</span>
 	<span class="tableCell th2">문제 제목</span>
 	<span class="tableCell th2">사이트</span>
-	<span class="tableCell th3">메모</span>
-	<span class="tableCell th1">날짜</span>
-	<span class="tableCell th1">난이도</span>
+	<span class="tableCell th3 pMemo">메모</span>
+	<span class="tableCell th1 pRegdate">날짜</span>
+	<span class="tableCell th1 pDifficulty">난이도</span>
 </div>
 									
 <c:forEach items="${problems}" var="problem" varStatus="status">
 	<div class="tableRow center" id="problem${problem.id}" onclick="printAllContent('#problem${problem.id}')">
-		<span class ="tableCell td1">${status.count}</span>
+		<span class ="index-col tableCell td1">${status.count}</span>
 		<span class ="tableCell td2 pTitle"><a href="${problem.link}" target="_blank">${problem.problem}</a></span>
 		<span class ="tableCell td2 pSite">${problem.site}</a></span>
 		<span class ="tableCell td3 pMemo">${problem.memo}</span>

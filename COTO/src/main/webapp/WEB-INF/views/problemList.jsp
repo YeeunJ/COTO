@@ -50,6 +50,11 @@ canvas {
 .chart-div {
 	display:inline-block;
 }
+.probname {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 @media screen and (max-width: 400px){
 	span.mobile{
 		display:none !important;
@@ -106,7 +111,7 @@ canvas {
 		<div class="tableRow">
 			<span class="tableCell th1 mobile">No.</span>
 			<span class="tableCell th3">문제 제목</span>
-			<span class="tableCell th1 mobile">사이트</span>
+			<span class="tableCell th1">사이트</span>
 			<span class="tableCell th1">참여자</span>
 			<span class="tableCell th1 mobile">등록일</span>
 		</div>
@@ -115,8 +120,8 @@ canvas {
 		<fmt:formatDate value="${problem.regdate}" var="formattedDate" type="date" pattern="yyyy-MM-dd" />
 		<div class="tableRow" id="problem${problem.id}">
 			<span class="tableCell td1 mobile">${status.count}</span> 
-			<span class="tableCell td3"> <a href="${problem.link}">${problem.name}</a></span> 
-			<span class="tableCell td1 mobile"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
+			<span class="tableCell td3 probname"> <nobr><a href="${problem.link}">${problem.name}</a></nobr></span> 
+			<span class="tableCell td1"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
 			<span class="tableCell td1">${problem.count}</span> 
 			<span class="tableCell td1 mobile">${formattedDate}</span> 
 		</div>

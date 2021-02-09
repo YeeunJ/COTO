@@ -111,7 +111,7 @@
 }
 
 .tableCell {
-	display: table-cell !important; 
+	display: table-cell; 
 	padding: 7px !important; 
 	border-bottom: 1px solid #DDD !important;
 }
@@ -270,4 +270,15 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 .sweet-modal-overlay.dark-overlay {
     background: rgba(28, 30, 35, 0.7);
+}
+.pagination-button{
+	display: inline-block;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.arrow-button{
+    display: inline-block;
+}
+.disable-button{
+    color:#adadad;
 }

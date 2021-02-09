@@ -15,7 +15,10 @@
 	font-weight : bold;
 	font-size : 16px;
 }
-
+.tableManage{
+	display: table !important;
+	width: 100% !important;
+}
 input {
 	display:inline-block;
 	width:100%;
@@ -51,4 +54,37 @@ span.addbtns {
 }
 #cancelbtn {
 	margin-right: 4px;
+}
+@media screen and (max-width: 715px){
+	.tableManage{
+		width: 100% !important;
+ 		font-size: 12px !important;
+ 		overflow-x: auto !important;
+ 		display: block !important;
+	}
+	.tablehead{
+	 	font-size: 12px !important;
+	}
+	.tableRow{
+		overflow-x: auto !important;
+	}
+	.tableCell{
+		overflow-x: auto !important;
+	}	
+}
+@media screen and (max-width: 380px){
+	.table{
+ 		font-size: 12px !important;
+ 		overflow-x: auto !important;
+ 		display: block !important;
+	}
+	.tablehead{
+	 	font-size: 12px !important;
+	}
+	.tableRow{
+		overflow-x: auto !important;
+	}
+	.tableCell{
+		overflow-x: auto !important;
+	}
 }
