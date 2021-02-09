@@ -6,7 +6,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
+<link rel="stylesheet" href="./resources/css/userManage.css?a" />
 <link href="./resources/css/problemList.css?qwe" rel="stylesheet">
+<link href="./resources/css/userManage.css?qwe" rel="stylesheet">
 
 
 <style>
@@ -59,9 +61,9 @@
 	
 	<div class="table center">
 		<div class="tableRow">
-			<span class="tableCell th1">No.</span>
+			<span class="tableCell th1 skip">No.</span>
 			<span class="tableCell th2">이름</span>
-			<span class="tableCell th3">이메일</span>
+			<span class="tableCell th3 skip">이메일</span>
 			<span class="tableCell th2">닉네임</span>
 			<span class="tableCell th1">권한</span>
 		</div>

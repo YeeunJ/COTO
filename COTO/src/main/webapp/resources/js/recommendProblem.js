@@ -191,6 +191,8 @@ function addComment() {
 
 function readDetailModalContent(recomID) { //, count) {
 	var title;
+	var logID;
+	var uID;
 	
 	$.ajax({
 		url : "recommendProblem/readModalInfo",
@@ -200,17 +202,20 @@ function readDetailModalContent(recomID) { //, count) {
 			recomID : recomID,
 		},
 		success : function(data) {
-			console.log(data);
+			//console.log(data);
 			var dataSplit = data.split("\n");
 			for(var i=0;i<dataSplit.length;i++) {
 				dataSplit[i] = dataSplit[i].trim();
 
 				if(dataSplit[i].indexOf("readTitle") != -1) title = $( dataSplit[i] ).text(); //console.log(dataSplit[i]);
+				else if(dataSplit[i].indexOf("readLoginID") != -1) logID = $( dataSplit[i] ).text();
+				else if(dataSplit[i].indexOf("readUserID") != -1) uID = $( dataSplit[i] ).text();
 			}
 			//console.log(title);
 			
 			$("#modalContent").html(data);
-			rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
+			if(logID == uID) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
+			else readModel("#readRecommendProblem", title);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n"

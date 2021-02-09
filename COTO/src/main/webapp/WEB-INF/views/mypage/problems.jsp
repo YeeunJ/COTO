@@ -268,10 +268,12 @@ function resetContent() {
 		</div>
 
 		<div class="card-content2">
-			<div class="card shadow card-body" style="overflow:scroll; width: 330px; height:200;">
+			<div class="card shadow card-body" >
 				<div class="font-color card-title">하루의 기록</div>
-				<div class="chartAreaWrapper" style="overflow:scroll; width:900px; height:200">
-					<canvas id="myBarChart" width="900px" height="200"></canvas>
+				<div class="myChart" style="overflow-x:scroll; width: 310px; height:200;">
+					<div class="chartAreaWrapper" style="overflow-x:scroll; width:900px; height:200">
+						<canvas id="myBarChart" width="900px" height="200"></canvas>
+					</div>
 				</div>
 			</div>
 		</div>

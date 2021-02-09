@@ -91,6 +91,7 @@ public class RecommendController {
 		}
 		
 		mv.addObject("recomID", recomID);
+		mv.addObject("loginID", userID);
 		mv.addObject("recom", recom);
 		mv.addObject("codingSite", codingSite);
 		mv.addObject("recomProblem", recomProblem);
@@ -323,7 +324,7 @@ public class RecommendController {
 			
 			p.setName(problem.get(i));
 			
-			if(link.get(i) == null) p.setLink(null);
+			if(link.size()==0) p.setLink(null);
 			else p.setLink(link.get(i));
 			
 			recomProbs.add(p);

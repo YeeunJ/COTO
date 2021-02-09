@@ -7,10 +7,10 @@
  <c:set var ="index" value = "1"/>
  <c:forEach items="${users}" var="user" varStatus="status">
 	<div class="tableRow">
-		<span class="tableCell td1">${ index }</span> 
+		<span class="tableCell td1 skip">${ index }</span> 
 		<span class="userID" style="display:none">${ user.id }</span> 
 		<span class="tableCell td2">${ user.name }</span> 
-		<span class="tableCell td3">${ user.email }</span>
+		<span class="tableCell td3 skip">${ user.email }</span>
 		<span class="tableCell td2">${ user.nickName }</span>
 		<span class="tableCell td1">
 			<c:if test="${user.isAdmin+0 == 0}" >

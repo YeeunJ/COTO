@@ -31,3 +31,19 @@
 .tableCell {
  	border-bottom: none !important;
 } 
+@media screen and (max-width: 650px){
+	.area{
+		margin-left: 5% !important;
+		margin-right: 5% !important;
+		max-width: 100% !important;
+	}
+	.table{
+		font-size: 12px !important;
+	}
+	.tableCell{
+		min-width: 80px;
+	}
+	.td8{
+		padding-left: 20px !important;
+	}
+}

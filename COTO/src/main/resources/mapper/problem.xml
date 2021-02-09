@@ -73,6 +73,10 @@
 		SELECT COUNT(*) FROM problem;
 	</select>
 	
+	<select id="readMaxProblem" resultType="int">
+		SELECT Max(id) as listCnt FROM problem
+	</select>
+	
 	<select id="readRecentProblem" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
 		SELECT problem.name, problem.siteID, codingSite.siteName
 		FROM problem
