@@ -65,6 +65,6 @@ public class RecomProblemDTO {
 	@Override
 	public String toString() {
 		return "RecomProblemDTO [id=" + id + ", recomID=" + recomID + ", siteID=" + siteID + ", problemID=" + problemID
-				+ ", name=" + name + ", siteName=" + siteName + ", link=" + link + "]";
+				+ ", date=" + date + ", name=" + name + ", siteName=" + siteName + ", link=" + link + "]";
 	}
 }

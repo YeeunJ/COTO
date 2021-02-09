@@ -64,14 +64,14 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 					<c:forEach items="${recomProblem}" var="rp" varStatus="status">
 						<div class="recomProblemID${status.index}" style="display:none;">${rp.id}</div>
 						<div class="sitetitle">${rp.siteName}</div>
-						<div id="eachProblemContent${rp.id}">
-						</div>
+						<div id="eachProblemContent${rp.problemID}">
 						<c:if test="${!empty rp.name}">
 							<c:if test="${!empty rp.siteName}">
 								<div class="recomProblemID${status.index}" style="display:none;">${rp.id}</div>
 								<%@ include file="./recomCheckContent.jsp"%>
 							</c:if>
 						</c:if>
+						</div>
 					</c:forEach>
 				</div>
 			</div>

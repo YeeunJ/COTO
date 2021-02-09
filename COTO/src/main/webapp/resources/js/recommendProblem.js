@@ -199,7 +199,8 @@ function checkProblem(id){
 		},
 		success : function(data) {
 			console.log(data);
-			idName = ".sweet-modal-content #eachProblemContent"+ id;
+			idName = ".sweet-modal-content #eachProblemContent"+id;
+			console.log(idName);
 			$(idName).html(data);
 		},
 		error : function(request, status, error) {

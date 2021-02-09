@@ -104,8 +104,8 @@ function insertProblems(){
 	$('.sweet-modal-content #confirmSite').html(data);
 	$('#confirmSite').html(data);*/
 	$(".sweet-modal-content #problems").val("");
-	
-	$.ajax({
+	if(siteId == 1){
+		$.ajax({
         url : './crawling/'+siteName,
         type: 'POST',
         data: {
@@ -131,6 +131,7 @@ function insertProblems(){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
     });
+	}
 };
 
 function resetContent() {

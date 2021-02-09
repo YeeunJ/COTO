@@ -172,11 +172,12 @@ public class RecommendController {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 			upd.setProblemID(rpID);
 			upd.setUserID(userID);
-			
 			userProblemService.createUserProblembyID(upd);
 		}
 		
 		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
+		if(rp != null)
+				System.out.println(rp.toString());
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("rp", rp);
 		mv.setViewName("ajaxContent/recomCheckContent");
@@ -188,6 +189,7 @@ public class RecommendController {
 	public ModelAndView deleteRecomCheck(HttpServletRequest httpServletRequest) {
 		int userID = -1;
 		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		System.out.println(rpID);
 		UserProblemDTO upd = new UserProblemDTO();
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
