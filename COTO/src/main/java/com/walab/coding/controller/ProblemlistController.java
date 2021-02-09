@@ -47,14 +47,41 @@ public class ProblemlistController {
 		
 //		List<ProblemDTO> problemList = problemService.readProblems();
 		List<Map<String,Object>> ratioBySite = problemService.readRatioBySiteid();
+				
 		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		List<Map<String,Object>> ratio = problemService.makeRatioBySiteid(ratioBySite, codingSite);
 		List<Map<String,Object>> average = userProblemService.readAvgForaWeek();
+	
+		
+		
+		mv.addObject("codingSite", codingSite);
+		mv.addObject("ratio", ratio);
+		mv.addObject("averageForWeek", average);
+		
+		mv.setViewName("problemList");
+		
+		return mv;
+	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ModelAndView searchProblem(HttpServletRequest httpServletRequest,
+			@RequestParam(value="page", defaultValue="1") int page,
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam(value="orderValue", defaultValue="") String orderValue,
+			@RequestParam(value="siteValue", defaultValue="") String siteValue) {		
+		
+//		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+//		String searchValue= httpServletRequest.getParameter("searchValue");
+//		String orderValue= httpServletRequest.getParameter("orderValue");
+//		String siteValue= httpServletRequest.getParameter("siteValue");
+		
 		
 		// pagination
-		int listCnt = problemService.readProblemListCnt(); // 총 문제의 개수
-		int list = 15; // 페이지 당 데이터 수
+		int listCnt = problemService.readProblemListCnt(searchValue, orderValue, siteValue); // 총 문제의 개수
+		int list = 10; // 페이지 당 데이터 수
 		int block = 10; // 블록 당 페이지 수
+		
+		System.out.println("listCnt: "+listCnt);
 		
 		int pageNum = (int) Math.ceil((float)listCnt/list); // 총 페이지
 		int blockNum = (int)Math.ceil((float)pageNum/block); // 총 블록
@@ -70,68 +97,22 @@ public class ProblemlistController {
 				e_page = pageNum;
 		}
 		
-		List<ProblemDTO> problems = problemService.readProblemByPage(s_point, list);
-		
-		mv.addObject("pagename", "problemList");
+		List<ProblemDTO> problems = problemService.search(s_point, list, searchValue, orderValue, siteValue);
+		ModelAndView mv = new ModelAndView();
 		mv.addObject("page", page);
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
-		
-		
-		mv.addObject("codingSite", codingSite);
 		mv.addObject("problems", problems);
-		mv.addObject("ratio", ratio);
-		mv.addObject("averageForWeek", average);
-		
-		mv.setViewName("problemList");
-		
-		return mv;
-	}
-	
-	@RequestMapping(value = "/getProblemList", method = RequestMethod.GET)
-	public ModelAndView getProblemList(ModelAndView mv,
-			@RequestParam(required=false, defaultValue="1") int page) {
 
-		int listCnt = problemService.readProblemListCnt(); // 총 문제의 개수
-		int list = 10; // 페이지 당 데이터 수
-		int block = 5; // 블록 당 페이지 수
-		
-		int pageNum = (int) Math.ceil(listCnt/list); // 총 페이지
-		int blockNum = (int)Math.ceil(pageNum/block); // 총 블록
-		int nowBlock = (int)Math.ceil(page/block); // 현재 페이지가 위치한 블록 번호
-		
-		int s_page = nowBlock*block - (block-1);
-		if (s_page <= 1) {
-			s_page = 1;
-		}
-		int e_page = nowBlock*block;
-			if (pageNum <= e_page) {
-				e_page = pageNum;
-		}
-		
-		mv.addObject("s_page", s_page);
-		mv.addObject("e_page", e_page);
+//		System.out.println("in search>>>>>>>>>>>>");
+//		System.out.println(page);
+//		System.out.println(s_point);
+//		System.out.println(list);
+//		System.out.println(orderValue);
+//		System.out.println(siteValue);
 
-			
-		mv.setViewName("ajaxContent/pagenationContent");
-		
-		return mv;
-	}
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView searchProblem(HttpServletRequest httpServletRequest) {		
-		
-//		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
-		String searchValue= httpServletRequest.getParameter("searchValue");
-		String orderValue= httpServletRequest.getParameter("orderValue");
-		String siteValue= httpServletRequest.getParameter("siteValue");
-		
-		List<ProblemDTO> problems = problemService.search(searchValue, orderValue, siteValue);
-		System.out.println(searchValue);
-		System.out.println(orderValue);
-		System.out.println(siteValue);
 		System.out.println("datacnt: " + problems.size());
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("problems", problems);
+		
 		mv.setViewName("ajaxContent/problemListContent");
 		
 		return mv;

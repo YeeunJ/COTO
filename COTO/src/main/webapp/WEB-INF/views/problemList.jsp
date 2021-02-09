@@ -12,14 +12,14 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 <script>
-$.ajax({  
+/* $.ajax({  
     type: 'get',  
     url: "${pageContext.request.contextPath}/manageCodingsite/problem",  
     
     success: function (result) {  
         $("#siteValue").html(result);
     }  
-}); 
+});  */
 </script>
 <style>
 canvas {
@@ -90,9 +90,12 @@ canvas {
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
-		<div class="col order">
+		<div class="col order" style="margin-right: 10px;">
 			<select id="siteValue">
-			
+				<option value="" selected>사이트 전체</option>
+				<c:forEach items="${codingSite}" var="c" varStatus="status">
+					<option value="${ c.id }">${ c.siteName }</option>
+				</c:forEach>
 			</select>
 		</div>
 		<div class="col order" style="margin-right: 10px;">
@@ -106,8 +109,11 @@ canvas {
 		</div>
 	</div>
 	
+	<div id="pageajaxContent">
+	<%@ include file="./ajaxContent/problemListContent.jsp"%>
+	</div>
 	
-	<div class="table center" id="problemContent">
+	<%-- <div class="table center" id="problemContent">
 		<div class="tableRow">
 			<span class="tableCell th1 mobile">No.</span>
 			<span class="tableCell th3">문제 제목</span>
@@ -126,12 +132,12 @@ canvas {
 			<span class="tableCell td1 mobile">${formattedDate}</span> 
 		</div>
 		</c:forEach>	
-		<%-- <%@ include file="./ajaxContent/problemListContent.jsp"%> --%>
+		<%@ include file="./ajaxContent/problemListContent.jsp"%>
 	</div>
 	<br> <br>
 	
 	<%@ include file="./inc/pagination.jsp"%>
-	
+	 --%>
 
 </div>
 

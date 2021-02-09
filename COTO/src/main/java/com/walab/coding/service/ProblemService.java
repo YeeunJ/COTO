@@ -11,13 +11,13 @@ import com.walab.coding.model.RecommendDTO;
 public interface ProblemService {
 	public List<ProblemDTO> readProblems();	
 	
-	public int readProblemListCnt();
+	public int readProblemListCnt(String searchValue, String orderValue, String siteValue);
 	
 	public List<ProblemDTO> readProblemByPage(int s_point, int list);
 	
 	List<ProblemDTO> readRecentProblem();
 	
-	public List<ProblemDTO> search(String searchValue, String orderValue, String siteValue);
+	public List<ProblemDTO> search(int s_point, int list, String searchValue, String orderValue, String siteValue);
 	
 	public List<Map<String, Object>> readRatioBySiteid();
 
