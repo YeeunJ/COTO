@@ -7,13 +7,16 @@ function deletechip(id) {
 	id.remove();
 }
 
-function createModel(content, titleValue, actionFunction){
+function createModel(content, titleValue, actionFunction, closeFunction){
 		var variant = {
 			args: [
 				{
 					content: $(content).html(),
 					title: titleValue,
 					showCloseButton: true,
+					onClose: function(){
+						if(closeFunction != null) closeFunction();
+					},
 					onOpen: function(){
 						$('.sweet-modal-box select').formSelect();
 						//$('.sweet-modal-content .chips').chips();

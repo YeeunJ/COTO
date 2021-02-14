@@ -34,9 +34,12 @@ function search(page){
 	        }
 	});
 }
+function searchF(){
+search(1);
+}
 function callModal() {
 	selectHtml = $('#selectHtml').html();
-	createModel("#createProblems", "문제집 등록", addajax);
+	createModel("#createProblems", "문제집 등록", addajax, searchF);
 }
 
 function printAllContent(id, recomId, count){
@@ -345,8 +348,7 @@ function addajax(){
         	"siteId":siteId, "problem":problem, "link":link, "title":title, "difficulty":difficulty, "tag":tag, "content":content
         },
         success: function(data) {
-            alert('리스트에 추가하였습니다.');
-            $('#recommendContent').html(data);
+            //$('#recommendContent').html(data);
         },
         error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

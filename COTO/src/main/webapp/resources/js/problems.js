@@ -93,7 +93,7 @@ function deleteAjax (){
 function callModal() {
 	selectHtml = $('#selectHtml').html();
 	
-	createModel("#createProblem", "푼 문제 등록", addajax);
+	createModel("#createProblem", "푼 문제 등록", addajax, search);
  	//$('select').formSelect();
 }
 

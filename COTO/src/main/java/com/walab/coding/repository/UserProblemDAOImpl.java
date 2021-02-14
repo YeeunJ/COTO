@@ -89,7 +89,7 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 			
 			sqlSession.insert("problem.createProblem", newProb);
 			problemID = sqlSession.selectOne("problem.readMyLastInsertProblem");
-			problemID++;
+			//problemID++;
 			
 			System.out.println("problem에 없음! 새로운 problem 만들었음");
 		}else {
