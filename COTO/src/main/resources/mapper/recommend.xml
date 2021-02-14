@@ -36,7 +36,7 @@
 			) as recom left outer join recomComment as rcm ON recom.id = rcm.recomID
             GROUP BY recom.id
 		) as recom left outer join user as us on recom.userID = us.id
-		where recom.title like #{searchValue}
+		where recom.title like #{searchValue} AND recom.deletedate IS NULL
 		order by
 		<choose>
 		    <when test="orderValue eq 'recom.difficulty desc'">recom.difficulty desc</when>
@@ -85,7 +85,7 @@
 			) as recom left outer join recomComment as rcm ON recom.id = rcm.recomID
             GROUP BY recom.id
 		) as recom left outer join user as us on recom.userID = us.id
-		where recom.title like CONCAT('%',#{searchValue},'%')
+		where recom.title like CONCAT('%',#{searchValue},'%') AND recom.deletedate IS NULL
 		order by
 		<choose>
 		    <when test="orderValue eq 'recom.difficulty desc'">recom.difficulty desc</when>
