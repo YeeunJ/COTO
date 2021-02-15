@@ -33,7 +33,7 @@ public class CodingsiteController {
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public ModelAndView CodingSiteList(ModelAndView mv) {
-		mv.addObject("CodingSite", codingSiteService.read());
+		mv.addObject("CodingSite", codingSiteService.readCodingSite());
 		mv.setViewName("manageCodingsite");
 		return mv;
 	}
@@ -84,7 +84,7 @@ public class CodingsiteController {
 	@ResponseBody
 	public String home2(Locale locale, Model model) {
 		ArrayList<String> data = new ArrayList<String>();
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		
 		String html="<li>"+" | ";
 		for(CodingSiteDTO i : codingSite) {
@@ -97,7 +97,7 @@ public class CodingsiteController {
 	@ResponseBody
 	public String problemlist(Locale locale, Model model) {
 //		ArrayList<String> data = new ArrayList<String>();
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		
 		String html="<option value='' disabled selected>사이트별</option>";
 		for(CodingSiteDTO i : codingSite) {

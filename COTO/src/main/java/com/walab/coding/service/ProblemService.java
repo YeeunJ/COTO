@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.walab.coding.model.CodingSiteDTO;
-import com.walab.coding.model.PaginationDTO;
 import com.walab.coding.model.ProblemDTO;
-import com.walab.coding.model.RecommendDTO;
 
 public interface ProblemService {
 	public List<ProblemDTO> readProblems();	
@@ -15,12 +13,13 @@ public interface ProblemService {
 	
 	public List<ProblemDTO> readProblemByPage(int s_point, int list);
 	
+	// Home Controller
 	List<ProblemDTO> readRecentProblem();
+	
+	public List<Map<String, Object>> readRatioBySiteid();
 	
 	public List<ProblemDTO> search(int s_point, int list, String searchValue, String orderValue, String siteValue);
 	
-	public List<Map<String, Object>> readRatioBySiteid();
-
 	public List<Map<String, Object>> makeRatioBySiteid(List<Map<String, Object>> ratioBySite, List<CodingSiteDTO> codingSite);
 
 

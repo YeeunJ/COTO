@@ -58,7 +58,7 @@ public class MyproblemsController {
 		List<GoalDTO> goal = goalService.readGoal(userID);
 		int userSolvedP = userProblemService.readSolvedP(userID);
 		List<UserProblemDTO> countSolvedProblemEachDay = userProblemService.countSolvedProblemEachDay(userID);
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 
 		GoalDTO g = goal.get(0);
 		int goalNum = g.getGoalNum();

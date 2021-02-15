@@ -48,7 +48,7 @@ public class ProblemlistController {
 //		List<ProblemDTO> problemList = problemService.readProblems();
 		List<Map<String,Object>> ratioBySite = problemService.readRatioBySiteid();
 				
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<Map<String,Object>> ratio = problemService.makeRatioBySiteid(ratioBySite, codingSite);
 		List<Map<String,Object>> average = userProblemService.readAvgForaWeek();
 	

@@ -60,7 +60,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 			request.setAttribute("header", "loginHeader.jsp");
 		}
 		
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		request.setAttribute("codingSite", codingSite);
 		System.out.println("===================        common interceptor test end        ===================");
 		super.postHandle(request, response, handler, modelAndView);
