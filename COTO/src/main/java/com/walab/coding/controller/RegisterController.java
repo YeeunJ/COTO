@@ -20,7 +20,7 @@ import com.walab.coding.model.UserDTO;
 import com.walab.coding.service.UserService;
 
 /**
- * Handles requests for the application RecommendProblems page.
+ * Handles requests for the application register page.
  */
 
 @Controller
@@ -35,6 +35,9 @@ public class RegisterController {
 		return "register";
 	}
 	
+	/**
+	 * Create user's basic information
+	 */
 	@RequestMapping(value = "/registerUserinfo", method = RequestMethod.POST)
 	@ResponseBody
 	public void registerUserinfo(HttpServletRequest httpServeletRequest) {
@@ -56,14 +59,15 @@ public class RegisterController {
 
 	}
 	
+	/**
+	 * Create user's goal information
+	 */
 	@RequestMapping(value = "/registerUsergoal", method = RequestMethod.POST)
 	@ResponseBody
 	public void registerUsergoal(HttpServletRequest httpServeletRequest) throws ParseException {
 		
-//		int userID = ((UserDTO)httpServeletRequest.getSession().getAttribute("user")).getId();
 		String email = httpServeletRequest.getParameter("email");
 		int userID = userService.readUserIDByEmail(email);
-		System.out.println(userID);
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		String goal = httpServeletRequest.getParameter("goal");
@@ -78,10 +82,13 @@ public class RegisterController {
 		g.setEndDate(endDate);
 		g.setGoalNum(goalNum);
 
-
 		int result = userService.createUsergoal(g);
 				
 	}
+	
+	/**
+	 * Return the number of duplicate email
+	 */
 	@RequestMapping(value = "/dupCheck", method = RequestMethod.POST)
 	@ResponseBody
 	public int dupCheck(HttpServletRequest httpServeletRequest) throws ParseException {
