@@ -12,27 +12,6 @@
 <link href="../resources/css/activities.css" rel="stylesheet">
 <script src="../resources/js/activities.js"></script>
 
-<style>
-#activities {
-	position: relative;
-	padding: 80px 0;
-	margin-bottom: 3%;
-}
-
-#activities:before {
-	content: "";
-	background-image: url("../resources/img/activityimg.jpg");
-	background-size: cover;
-	top: 0;
-	left: 0;
-	right: 0px;
-	bottom: 0px;
-	position: absolute;
-	opacity: 0.4;
-	z-index: -1;
-}
-</style>
-
 <div id="SiteContainer" class="container">
 	<div id="activities">
 		<div class="content">
