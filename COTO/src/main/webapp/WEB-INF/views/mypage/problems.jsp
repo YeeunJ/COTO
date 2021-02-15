@@ -11,131 +11,6 @@
 <link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
 <script src="../resources/js/problems.js"></script>
 
-<script>
-
-$(document).ready(function(){	
-	drawChart1();
-	drawChart2();
-});
-
-function drawChart1() {
-	<!-- Bar cahrt -->
-	var ctx1 = document.getElementById("myBarChart"); 
-	var labels = new Array();
-	var data = new Array();
-	<c:forEach items="${countSolvedProblemEachDay}" var="countList" >
-		var json = new Object();
-		labels.push("${countList.regDate}");
-		data.push("${countList.countSolvedP}");
-	</c:forEach>
-
-	var myBarChart = new Chart(ctx1 , {
-	    type: 'bar',
-	    data: {
-	        labels: labels,
-	        datasets: [{
-	            label: '푼 문제수',
-	            data: data,
-	            borderColor: "rgba(255, 201, 14, 1)",
-	            backgroundColor: "rgba(255, 201, 14, 0.5)",
-	            fill: false,
-	        }]
-	    },
-	    options: {
-	    	//maintainAspectRatio: false,
-	        responsive: true,
-	        hover: {
-	            mode: 'nearest',
-	            intersect: true
-	        },
-	        scales: {
-	            xAxes: [{
-	                display: true,
-	                scaleLabel: {
-	                    display: true,
-	                },
-	                ticks: {
-	                    autoSkip: false,
-	                    maxTicksLimit:4
-	                }
-	            }],
-	            yAxes: [{
-	                display: true,
-	                ticks: {
-	                    suggestedMin: 0,
-	                    stepSize: 1,
-	                },
-	                scaleLabel: {
-	                    display: true,
-	                }
-	            }]
-	        }
-	    }
-	});
-	}
-	
-function drawChart2() {
-	<!-- Doughnut cahrt -->
-	data = { datasets: [{
-		backgroundColor: ['#e8e8e8','rgba(255, 201, 14, 0.5)'], 
-		data: [ ${goalNum}, ${userSolvedP} ] }],
-		labels: ['총 문제수','푼 문제수']};
-		
-	var ctx = document.getElementById("myDoughnutChart"); 
-	var myDoughnutChart = new Chart(ctx, { 
-	    type: 'doughnut', 
-	    data: data, 
-	    plugins: [{
-	    	beforeDraw: function(chart) {
-			    var width = chart.chart.width,
-			        height = chart.chart.height,
-			        ctx = chart.chart.ctx;
-
-			    ctx.restore();
-			    var fontSize = (height / 210).toFixed(2);
-			    ctx.font = fontSize + "em sans-serif";
-			    ctx.textBaseline = "middle";
-
-			    var text =  ${userSolvedP}+"문제"+" / "+${goalNum}+"문제",
-			        textX = Math.round((width - ctx.measureText(text).width) / 2),
-			        textY = height / 1.7;
-
-			    ctx.fillText(text, textX, textY);
-			    ctx.save();
-			  }
-	   }],
-	    options: {
-	       responsive: false,
-	       legend: {
-	         display: true
-	       },
-	       cutoutPercentage: 65
-	    },
-	 });
-}
-
-</script>
-<style>
-#problem {
-	position: relative;
-	padding: 80px 0;
-	margin-bottom: 3%;
-}
-
-#problem:before {
-	content: "";
-	background-image: url("../resources/img/problem.png");
-	background-size: cover;
-	top: 0;
-	left: 0;
-	right: 0px;
-	bottom: 0px;
-	position: absolute;
-	opacity: 0.4;
-	z-index: -1;
-}
-</style>
-
 <div id="SiteContainer" class="container">
 	<div id="problem">
 		<div class="content">
@@ -339,5 +214,42 @@ function drawChart2() {
 
 	</div>
 </div>
+
+<script>
+var labels = new Array();
+var dataForBar = new Array();
+var dataForDoughnut = new Array();
+var gN = ${goalNum};
+var uP = ${userSolvedP};
+
+<c:forEach items="${countSolvedProblemEachDay}" var="countList" >
+	var json = new Object();
+	labels.push("${countList.regDate}");
+	dataForBar.push("${countList.countSolvedP}");
+</c:forEach>
+
+dataForDoughnut.push(gN);
+dataForDoughnut.push(uP);
+</script>
+<style>
+#problem {
+	position: relative;
+	padding: 80px 0;
+	margin-bottom: 3%;
+}
+
+#problem:before {
+	content: "";
+	background-image: url("../resources/img/problem.png");
+	background-size: cover;
+	top: 0;
+	left: 0;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
+	opacity: 0.4;
+	z-index: -1;
+}
+</style>
 
 <%@ include file="../inc/footer.jsp"%>

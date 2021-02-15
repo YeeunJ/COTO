@@ -88,3 +88,45 @@ span.addbtns {
 		overflow-x: auto !important;
 	}
 }
+#manage {
+	position: relative;
+	padding: 80px 0;
+	margin-bottom: 3%;
+}
+
+#manage:before {
+	content: "";
+	background-image: url("./resources/img/codingSiteimg.jpg");
+	background-size: cover;
+	top: 0;
+	left: 0;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
+	opacity: 0.4;
+	z-index: -1;
+}
+
+.content {
+	top: 15%;
+	left: 50px;
+	width: 100%;
+	bottom: 100px;
+	color: #666666;
+}
+@media screen and (max-width: 715px){
+	.table{
+ 		font-size: 12px !important;
+ 		overflow-x: auto !important;
+ 		display: block !important;
+	}
+	.tablehead{
+	 	font-size: 12px !important;
+	}
+	.tableRow{
+		overflow-x: auto !important;
+	}
+	.tableCell{
+		overflow-x: auto !important;
+	}	
+}

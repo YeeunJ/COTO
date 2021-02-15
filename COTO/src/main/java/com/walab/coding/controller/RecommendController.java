@@ -60,7 +60,7 @@ public class RecommendController {
 	@RequestMapping(value = "", method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
 		
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 
 		mv.addObject("codingSite", codingSite);
 		mv.setViewName("recommendProblem");
@@ -73,7 +73,7 @@ public class RecommendController {
 		
 		int recomID = Integer.parseInt(request.getParameter("recomID"));
 		
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		RecommendDTO recom = recommendService.readRecommend(recomID);	
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemByID(recomID);
 		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);
@@ -292,7 +292,7 @@ public class RecommendController {
 		
 		List<RecommendDTO> recoms = recommendService.readRecom();
 		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
 		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
 		
@@ -377,7 +377,7 @@ public class RecommendController {
 
 		List<RecommendDTO> recoms = recommendService.readRecom();
 		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
 		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
 		
@@ -434,7 +434,7 @@ public class RecommendController {
 		
 		List<RecommendDTO> recoms = recommendService.readRecom();
 		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblem();
 		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
 		
@@ -464,7 +464,7 @@ public class RecommendController {
 		System.out.println(searchValue);
 		System.out.println(orderValue);
 		
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 
 		// pagination
 		int listCnt = recommendService.readRecomListCnt(); // 총 문제의 개수

@@ -3,102 +3,100 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
- <div id="container">
-  
-    <div class="slide_wrap_third">
-      <div class="slide_box_third">
-        <div class="slide_list_third clearfix_third">
-        
-          <div class="slide_content_third slide01">
-					<div class="icon-block center">
-						<span class="icon icon-award"></span>
-						<h5 class="small-title">누적 랭킹</h5>
-						<ul class="fs-18 textList">
-							<c:forEach items="${ranks}" var="rank" varStatus="status">
-								<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName} [${rank.cnt}문제]</li>
-							</c:forEach>
-						</ul>
-					</div>
-		  </div>
-          <div class="slide_content_third slide02">
-					<div class="icon-block center">
-						<span class="icon icon-tag"></span>
-						<h5 class="small-title">인기 태그</h5>
-						<ul class="fs-18 list">
-							<c:forEach items="${tags}" var="tag">
-								<li class="tag"><span class="bold">#</span>${tag.tag}</li>
-							</c:forEach>
-						</ul>
-					</div>
-		  </div>
-          <div class="slide_content_third slide03">			
-					<div class="icon-block center">
-						<span class="icon icon-problem"></span>
-						<h5 class="position-r small-title">
-							문제 순위<a href="./recommendProblem" class="more">더보기 ></a>
-						</h5>
-						<ul class="fs-18 textList">
-							<c:forEach items="${problems}" var="problem" varStatus="status">
-								<li class="ranking"><span class="bold">${status.count}.</span>${problem.problem} [${problem.site}]</li>
-							</c:forEach>
-						</ul>
-					</div>
-          </div>
-          
-          <div class="slide_content_third slide04">
+<!-- container_third -->
+<div id="container_third">
+	<!-- slide_wrap_third -->
+	<div class="slide_wrap_third">
+		<!-- slide_box_third -->
+		<div class="slide_box_third">
+        	<div class="slide_list_third clearfix_third">
+	        	<div class="slide_content_third slide01">
 					<div class="icon-block center">
 						<span class="icon icon-award"></span>
 						<h5 class="small-title">오늘의 랭킹</h5>
 						<ul class="fs-18 textList">
-							<c:forEach items="${ranksToday}" var="rankToday" varStatus="status">
-								<li class="ranking"><span class="bold">${status.count}.</span> ${rankToday.nickName} [${rankToday.cnt}문제]</li>
-							</c:forEach>
+						<c:forEach items="${ranksToday}" var="rankToday" varStatus="status">
+						<li class="ranking"><span class="bold">${status.count}.</span> ${rankToday.nickName} [${rankToday.cnt}문제]</li>
+						</c:forEach>
 						</ul>
 					</div>
-		  </div>
-          <div class="slide_content_third slide05">
+		  		</div>
+		        <div class="slide_content_third slide02">
 					<div class="icon-block center">
 						<span class="icon icon-tag"></span>
 						<h5 class="position-r small-title">
 							새로운 추천 글<a href="./recommendProblem" class="more" style = "right: -29px;">더보기 ></a>
 						</h5>
 						<ul class="fs-18 textList">
-							<c:forEach items="${recoms}" var="recom" varStatus="status">
-								<li class="ranking"><span class="bold">${status.count}.</span>${recom.title} </li>
-							</c:forEach>
+						<c:forEach items="${recoms}" var="recom" varStatus="status">
+						<li class="ranking"><span class="bold">${status.count}.</span>${recom.title} </li>
+						</c:forEach>
 						</ul>
 					</div>
-		  </div>
-          <div class="slide_content_third slide06">
+		  		</div>
+		        <div class="slide_content_third slide03">
 					<div class="icon-block center">
 						<span class="icon icon-problem"></span>
 						<h5 class="position-r small-title">
 							새로운 문제<a href="./problemList" class="more" style = "right: -13px;">더보기 ></a>
 						</h5>
 						<ul class="fs-18 textList">
-							<c:forEach items="${recentProblems}" var="recentProblem" varStatus="status">
-								<li class="ranking" style = "font-size: 14px;"><span class="bold" style = "font-size: 14px;">${status.count}.</span>${recentProblem.name}<br>[${recentProblem.siteName}]</li>
-							</c:forEach>
+						<c:forEach items="${recentProblems}" var="recentProblem" varStatus="status">
+						<li class="ranking" style = "font-size: 14px;"><span class="bold" style = "font-size: 14px;">${status.count}.</span>${recentProblem.name}<br>[${recentProblem.siteName}]</li>
+						</c:forEach>
 						</ul>
 					</div>
-          </div>
-          
-        </div>
-        <!-- // .slide_list -->
-      </div>
-      <!-- // .slide_box -->
-      <div class="slide_btn_box_third">
-        <button type="button" class="slide_btn_prev_third"><</button>
-        <button type="button" class="slide_btn_next_third">></button>
-      </div>
-      <!-- // .slide_btn_box -->
-      <ul class="slide_pagination_third"></ul>
-      <!-- // .slide_pagination -->
+		        </div>
+		        <div class="slide_content_third slide04">
+					<div class="icon-block center">
+						<span class="icon icon-award"></span>
+						<h5 class="small-title">누적 랭킹</h5>
+						<ul class="fs-18 textList">
+						<c:forEach items="${ranks}" var="rank" varStatus="status">
+						<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName} [${rank.cnt}문제]</li>
+						</c:forEach>
+						</ul>
+					</div>
+			  	</div>
+		         <div class="slide_content_third slide05">
+					<div class="icon-block center">
+						<span class="icon icon-tag"></span>
+						<h5 class="small-title">인기 태그</h5>
+						<ul class="fs-18 list">
+						<c:forEach items="${tags}" var="tag">
+						<li class="tag"><span class="bold">#</span>${tag.tag}</li>
+						</c:forEach>
+						</ul>
+					</div>
+			  	</div>
+		        <div class="slide_content_third slide06">			
+					<div class="icon-block center">
+						<span class="icon icon-problem"></span>
+						<h5 class="position-r small-title">
+							문제 순위<a href="./recommendProblem" class="more">더보기 ></a>
+						</h5>
+						<ul class="fs-18 textList">
+						<c:forEach items="${problems}" var="problem" varStatus="status">
+						<li class="ranking"><span class="bold">${status.count}.</span>${problem.problem} [${problem.site}]</li>
+						</c:forEach>
+						</ul>
+					</div>
+		        </div>
+			</div>
+		</div>
+		<!-- //slide_box_third -->
+	
+		<div class="slide_btn_box_third">
+			<button type="button" class="slide_btn_prev_third"><</button>
+			<button type="button" class="slide_btn_next_third">></button>
+		</div>
+		
+	    <ul class="slide_pagination_third"></ul>
+	    
     </div>
-    <!-- // .slide_wrap -->
-  </div>
-  <!-- // .container -->
-<!-- // .container -->  
+	<!-- //slide_wrap_third -->
+</div>
+<!-- //container_third --> 
 
 
 
