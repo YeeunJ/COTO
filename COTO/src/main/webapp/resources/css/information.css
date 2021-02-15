@@ -6,7 +6,7 @@
 
 #information:before {
 	content: "";
-	background-image: url("../resources/img/problem.png");
+	background-image: url("../img/problem.png");
 	background-size: cover;
 	top: 0;
 	left: 0;
