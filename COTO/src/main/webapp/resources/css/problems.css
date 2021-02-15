@@ -1,6 +1,7 @@
 @media screen and (max-width: 1199px) {
 	#myDoughnutChart {width: 260px !important; margin: auto;}
 	#myBarChart {width: 700px !important;}
+	.myChart {width: 220px !important; }
 }
 @media screen and (max-width: 992px) {
 	.card-content2 { display: none; }
