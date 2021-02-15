@@ -29,8 +29,10 @@ public class ProblemlistController {
 
 	@Autowired
 	ProblemService problemService;
+	
 	@Autowired
 	CodingSiteService codingSiteService;
+	
 	@Autowired
 	UserProblemService userProblemService;
 	
@@ -53,11 +55,10 @@ public class ProblemlistController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView searchProblem(HttpServletRequest httpServletRequest,
-			@RequestParam(value="page", defaultValue="1") int page,
-			@RequestParam(value="searchValue", defaultValue="") String searchValue,
-			@RequestParam(value="orderValue", defaultValue="") String orderValue,
-			@RequestParam(value="siteValue", defaultValue="") String siteValue) {		
-		
+											@RequestParam(value="page", defaultValue="1") int page,
+											@RequestParam(value="searchValue", defaultValue="") String searchValue,
+											@RequestParam(value="orderValue", defaultValue="") String orderValue,
+											@RequestParam(value="siteValue", defaultValue="") String siteValue) {				
 		
 		// pagination
 		int listCnt = problemService.readProblemListCnt(searchValue, orderValue, siteValue); // 총 문제의 개수
