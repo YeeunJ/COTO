@@ -8,30 +8,7 @@
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
 <link rel="stylesheet" href="./resources/css/userManage.css?a" />
 <link href="./resources/css/problemList.css?qwe" rel="stylesheet">
-<link href="./resources/css/userManage.css?qwe" rel="stylesheet">
-
-
-<style>
-
-#problem {
-	position: relative;
-	padding: 80px 0;
-	margin-bottom: 3%;
-}
-
-#problem:before {
-	content: "";
-	background-image: url("./resources/img/problemList.jpg");
-	background-size: cover;
-	top: 0;
-	left: 0;
-	right: 0px;
-	bottom: 0px;
-	position: absolute;
-	opacity: 0.4;
-	z-index: -1;
-}
-</style>
+<link href="./resources/css/userManage.css?asd" rel="stylesheet">
 
 <div id="SiteContainer" class="container">
 	<div id="problem">
@@ -71,9 +48,7 @@
 		<%@ include file="./ajaxContent/userManageContent.jsp"%>
 	</div>
 	
-	
-	<br> <br>
-	
+	<br><br>
 	
 	<div class="table" style="text-align: center">
 		<ul class="pagination ">
@@ -89,64 +64,6 @@
 
 </div>
 
-<script>
-$('select').formSelect();
-
-$('.adminSelect').change(function(){
-	var tableRow = $(this).closest('.tableRow');
-	var userID = $(tableRow).find(".userID").text();
-	var updateAdmin = $(this).val();
-
-	if(confirm("해당 사용자의 권한을 변경하시겠습니까?")){
-		$.ajax({
-			url: "./usermanage/updateAdmin",
-			type: "POST",
-			async: false,
-			data: {
-				userID: userID,
-				isAdmin: updateAdmin
-			},
-			success: function(data){
-				alert("권한이 변경되었습니다.");
-			}, 
-			error:function(request, status, error){
-				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	        }
-		});
-	}
-	/* $.ajax({
-		url: "./usermanage/updateAdmin",
-		type: "POST",
-		async: false,
-		data: {
-			userID: userID,
-			isAdmin: updateAdmin
-		}
-		success: function(data){
-			console.log("success");
-		}, 
-		error:function(request, status, error){
-			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
-	}); */
-})
-
-function readUserlist(){
-	console.log("hello");
-	$.ajax({
-		url: "./usermanage/readUsers",
-		type: "POST",
-		async: false,
-		success: function(data){
-			console.log("success");
-		}, 
-		error:function(request, status, error){
-			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
-	});
-}
-
-</script>
 
 <%@ include file="./inc/footer.jsp"%>
 

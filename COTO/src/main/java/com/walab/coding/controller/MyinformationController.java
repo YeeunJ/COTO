@@ -36,24 +36,28 @@ public class MyinformationController {
 	GoalService goalService;	
 	
 	
+	/**
+	 * Read user's basic and goal information
+	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewUsers(HttpServletRequest request, ModelAndView mv) {
 		
 		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
 		
 		List<UserDTO> users = userService.readUser(userID);
-		System.out.println(users.toString());
 		mv.addObject("users", users);
 		mv.setViewName("mypage/information");
 		
 		List<GoalDTO> goals = goalService.readGoal(userID);
-		System.out.println(goals.toString());
 		mv.addObject("goals", goals);
 		mv.setViewName("mypage/information");
 		
 		return mv;
 	}
-
+	
+	/**
+	 * Update a user's goals
+	 */
 	@RequestMapping(value = "/updateGoal", method = RequestMethod.POST)
 	public ModelAndView updateGoal(ModelAndView mv, HttpServletRequest httpServletRequest) throws ParseException {
 		
@@ -75,23 +79,20 @@ public class MyinformationController {
 		updateGoal.setEndDate(edate);
 		updateGoal.setGoalNum(goalNum);
 		updateGoal.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
-
+		
+		goalService.updateGoal(updateGoal);
+		
 		List<GoalDTO> goals = goalService.readGoal(userID);
 		mv.addObject("goals", goals);
-
-		if(goalService.updateGoal(updateGoal) > 0) {
-		System.out.println("success");
-		System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate() + updateGoal.getGoalNum());
-
-	}else {
-		System.out.println("fail");
-		System.out.println(updateGoal.getGoal() + updateGoal.getStartDate() + updateGoal.getEndDate());
-	}
 		
 		mv.setViewName("redirect:/mypage/information");
 		return mv;
 
 	}
+	
+	/**
+	 * Update a user's basic information
+	 */
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
 	public ModelAndView updateInfo(ModelAndView mv, HttpServletRequest httpServletRequest) {
 		
@@ -102,16 +103,12 @@ public class MyinformationController {
 		updateUser.setNickName(httpServletRequest.getParameter("nickName"));
 		updateUser.setIntro(httpServletRequest.getParameter("intro"));
 		updateUser.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
-
-		if(userService.updateUser(updateUser) > 0) {
-			System.out.println("success");
-		}else {
-			System.out.println("fail");
-			System.out.println(updateUser.getName() + updateUser.getNickName());
-		}
+		
+		userService.updateUser(updateUser);
 		
 		List<UserDTO> users = userService.readUser(userID);
 		ModelAndView mvNew = new ModelAndView();
+		
 		mvNew.addObject("users", users);
 		mvNew.setViewName("redirect:/mypage/information");
 		

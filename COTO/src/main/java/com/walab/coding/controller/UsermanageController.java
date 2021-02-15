@@ -15,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.walab.coding.model.UserDTO;
 import com.walab.coding.service.UserService;
 
+/**
+ * Handles requests for the application user manage page.
+ */
 
 @Controller
 @RequestMapping(value= "/usermanage")
@@ -23,42 +26,26 @@ public class UsermanageController {
 	@Autowired
 	UserService userService;
 	
+	/**
+	 * Read all users' information.
+	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView usermanage(ModelAndView mv) {
 		List<UserDTO> users = userService.read();
-		
-		for(int i=0 ; i<users.size() ; i++) {
-			System.out.println(users.get(i).toString());
-		}
 		
 		mv.addObject("users", users);
 		mv.setViewName("userManage");
 		return mv;
 	}
 	
-	
+	/**
+	 * Update user's admin permission.
+	 */
 	@RequestMapping(value = "/updateAdmin", method = RequestMethod.POST)
 	@ResponseBody
 	public void updateUserAdmin(HttpServletRequest httpServletRequest) {
 		int isAdmin = Integer.parseInt(httpServletRequest.getParameter("isAdmin"));
 		int userID = Integer.parseInt(httpServletRequest.getParameter("userID"));
-		System.out.println(isAdmin+"//"+userID);
-		userService.updateUserAdmin(isAdmin, userID);
-	}
-	
-	@RequestMapping(value = "/searchUser", method = RequestMethod.POST)
-	@ResponseBody
-	public void searchUser(HttpServletRequest httpServletRequest, ModelAndView mv) {
-		String category = httpServletRequest.getParameter("category");
-		
-		List<UserDTO> users = new ArrayList<UserDTO>();
-		if(category=="regdate") {
-			
-		}
-		
-		int isAdmin = Integer.parseInt(httpServletRequest.getParameter("isAdmin"));
-		int userID = Integer.parseInt(httpServletRequest.getParameter("userID"));
-		System.out.println(isAdmin+"//"+userID);
 		userService.updateUserAdmin(isAdmin, userID);
 	}
 	

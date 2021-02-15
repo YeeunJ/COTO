@@ -22,6 +22,10 @@ public class UserDAOImpl implements UserDAO{
 	
 	private String namespace = "user";
 	
+	/**
+	 * MyinformationController
+	 * Read the information of a user with a specific ID
+	 */
 	public List<UserDTO> readUserAll(int userID) {
 		
 		List<UserDTO> userList = new ArrayList<UserDTO>();
@@ -55,18 +59,31 @@ public class UserDAOImpl implements UserDAO{
 //		return userList = sqlSession.update(namespace+".userList", userListParam);
 //	}
 	
-	@Override
-	public int createUsergoal(GoalDTO goal) {
-		sqlSession.insert("user.createUsergoal", goal);
-		return 0;
-	}
 
+	/**
+	 * RegisterController
+	 * Create user's basic information
+	 */
 	@Override
 	public int createUserInfo(UserDTO user) {
 		sqlSession.insert("user.createUserInfo", user);
 		return 0;
 	}
-
+	
+	/**
+	 * RegisterController
+	 * Create user's goal information
+	 */
+	@Override
+	public int createUsergoal(GoalDTO goal) {
+		sqlSession.insert("user.createUsergoal", goal);
+		return 0;
+	}
+	
+	/**
+	 * MyinformationController
+	 * Update a user's basic information
+	 */
 	@Override
 	public int updateUser(UserDTO updateUser) {
 		
@@ -78,7 +95,11 @@ public class UserDAOImpl implements UserDAO{
 		
 		return sqlSession.update("user.updateUser", userParam);
 	}
-
+	
+	/**
+	 * RegisterController
+	 * Return the number of duplicate email
+	 */
 	@Override
 	public int readUserCountByNickname(String nickname) {
 		Map<String, Object> param = new HashMap<String, Object>();
@@ -86,14 +107,22 @@ public class UserDAOImpl implements UserDAO{
 	
 		return sqlSession.selectOne("user.readUserCountByNickname", param);
 	}
-
+	
+	/**
+	 * UsermanageController
+	 * Read all users' information.
+	 */
 	@Override
 	public List<UserDTO> read() {
 		List<UserDTO> users = sqlSession.selectList("user.readAllUser");
 		
 		return users;
 	}
-
+	
+	/**
+	 * UsermanageController
+	 * Update user's admin permission from user to admin or admin to user.
+	 */
 	@Override
 	public void updateUserAdmin(int isAdmin, int userID) {
 		Map<String, Object> param = new HashMap<String, Object>();

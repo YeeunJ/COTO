@@ -16,7 +16,10 @@ public class GoalServiceImpl implements GoalService{
 	@Autowired
 	GoalDAO goalDAO ;
 	
-	
+	/**
+	 * MyinformationController
+	 * Read the goal information of a user with a specific ID
+	 */
 	@Override
 	public List<GoalDTO> readGoal(int userID){
 		List<GoalDTO> goal = goalDAO.readGoal(userID);
@@ -36,6 +39,10 @@ public class GoalServiceImpl implements GoalService{
 //		return goalsCount;
 //	}
 	
+	/**
+	 * MyinformationController
+	 * Update a user's goals
+	 */
 	@Override
 	public int updateGoal(GoalDTO goalDTO) {
 		// TODO Auto-generated method stub
