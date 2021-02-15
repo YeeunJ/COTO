@@ -7,7 +7,11 @@ import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.UserProblemDTO;
 
 public interface UserProblemService {
-	// HomeController, MyproblemsController
+	
+	/**
+	 * insert user problems that user solved
+	 * usage: HomeController, MyproblemsController
+	 */
 	void createUserProblem(List<UserProblemDTO> p);
 	
 	// RecommendController
