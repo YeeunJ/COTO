@@ -37,7 +37,7 @@ public interface UserProblemService {
 	// MyactivitiesController
 	public List<UserProblemDTO> readProblemActivities(int userID, int goalID);
 
-	// ProblemlistController
+	// ProblemlistController, ProblemlistController
 	public List<Map<String, Object>> readAvgForaWeek();
 
 	// MyproblemsController

@@ -22,24 +22,24 @@ public class UserProblemServiceImpl implements UserProblemService{
 	UserProblemDAO userProblemDAO;
 	
 	@Override
-	public List<UserProblemDTO> read(int userID){
+	public List<UserProblemDTO> read(int userID) {
 		
 		List<UserProblemDTO> problems = userProblemDAO.readAll(userID);
 		
-		for(UserProblemDTO problem: problems){
+		for(UserProblemDTO problem: problems) {
 			if(problem.getSite() == null) {
 				String[]problemSplit = problem.getLink().trim().split("://|/|\\.");
 				System.out.println(problemSplit.length + " : "+problem.getLink());
 				
 				if(problemSplit[problemSplit.length-1].compareTo("")!=0 && problemSplit[problemSplit.length-1]!= null) {
 					problem.setProblem(problemSplit[problemSplit.length-1]);
-				}else {
+				} else {
 					problem.setProblem(problemSplit[problemSplit.length-2]);
 				}
 				
 				if(problemSplit[0].compareTo("https") == 0|| problemSplit[0].compareTo("http") == 0) {
 					problem.setSite(problemSplit[1]);
-				}else {
+				} else {
 					problem.setSite(problemSplit[0]);
 				}
 			}

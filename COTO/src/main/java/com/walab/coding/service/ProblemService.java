@@ -16,10 +16,12 @@ public interface ProblemService {
 	// Home Controller
 	List<ProblemDTO> readRecentProblem();
 	
+	// Problemlist Controller
 	public List<Map<String, Object>> readRatioBySiteid();
 	
 	public List<ProblemDTO> search(int s_point, int list, String searchValue, String orderValue, String siteValue);
 	
+	// Problemlist Controller
 	public List<Map<String, Object>> makeRatioBySiteid(List<Map<String, Object>> ratioBySite, List<CodingSiteDTO> codingSite);
 
 

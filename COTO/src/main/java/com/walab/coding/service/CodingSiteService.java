@@ -7,7 +7,7 @@ import com.walab.coding.model.CodingSiteDTO;
 public interface CodingSiteService {
 	public int insertCodingSite(CodingSiteDTO dto);
 
-	// Home Controller
+	// Home Controller, Problemlist Controller
 	List<CodingSiteDTO> readCodingSite();
 	
 	public int updateCodingSite(CodingSiteDTO dto);
