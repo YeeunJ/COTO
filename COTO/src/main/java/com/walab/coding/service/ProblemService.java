@@ -7,12 +7,13 @@ import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.ProblemDTO;
 
 public interface ProblemService {
-	public List<ProblemDTO> readProblems();	
 	
+	/**
+	 * Read count of all problem
+	 * usage: Problemlist controller
+	 */
 	public int readProblemListCnt(String searchValue, String orderValue, String siteValue);
-	
-	public List<ProblemDTO> readProblemByPage(int s_point, int list);
-	
+		
 	/**
 	 * read the problem that uploaded today
 	 * usage: HomeController
@@ -25,6 +26,10 @@ public interface ProblemService {
 	 */
 	public List<Map<String, Object>> readRatioBySiteid();
 	
+	/**
+	 * read pagination and search results
+	 * usage: Problemlist controller
+	 */
 	public List<ProblemDTO> search(int s_point, int list, String searchValue, String orderValue, String siteValue);
 	
 	/**
