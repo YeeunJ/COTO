@@ -22,16 +22,6 @@ public class CodingSiteDAOImpl implements CodingSiteDAO {
 		int result = sqlSession.insert("CodingSite.insertCodingSite", dto);
 		return result;
 	}
-
-	public int updateCodingSite(CodingSiteDTO dto) {
-		int result = sqlSession.update("CodingSite.updateCodingSite", dto);
-		return result;
-	}
-
-	public int deleteCodingSite(int seq) {
-		int result = sqlSession.delete("CodingSite.deleteCodingSite", seq);
-		return result;
-	}
 	@Override
 	public List<CodingSiteDTO> readCodingSite() {
 		List<CodingSiteDTO> codingSitelist = new ArrayList<CodingSiteDTO>();
@@ -45,5 +35,16 @@ public class CodingSiteDAOImpl implements CodingSiteDAO {
 		codingSiteParam.put("siteID", siteID);
 		return sqlSession.selectOne("CodingSite.readCodingSiteById", codingSiteParam);
 	}
+
+	public int updateCodingSite(CodingSiteDTO dto) {
+		int result = sqlSession.update("CodingSite.updateCodingSite", dto);
+		return result;
+	}
+
+	public int deleteCodingSite(int seq) {
+		int result = sqlSession.delete("CodingSite.deleteCodingSite", seq);
+		return result;
+	}
+	
 
 }

@@ -18,17 +18,6 @@ public class CodingSiteServiceImpl implements CodingSiteService {
 	public int insertCodingSite(CodingSiteDTO dto) {
 		return codingDAO.insertCodingSite(dto);
 	}
-
-	@Override
-	public int deleteCodingSite(int id) {
-		return codingDAO.deleteCodingSite(id);
-	}
-
-	@Override
-	public int updateCodingSite(CodingSiteDTO dto) {
-		return codingDAO.updateCodingSite(dto);
-	}
-
 	/**
 	 * RecommendController
 	 * 
@@ -39,5 +28,19 @@ public class CodingSiteServiceImpl implements CodingSiteService {
 
 		return result;
 	}
+	
+	@Override
+	public int updateCodingSite(CodingSiteDTO dto) {
+		return codingDAO.updateCodingSite(dto);
+	}
+
+	@Override
+	public int deleteCodingSite(int id) {
+		return codingDAO.deleteCodingSite(id);
+	}
+
+
+	
+	
 
 }

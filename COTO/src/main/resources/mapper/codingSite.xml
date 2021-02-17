@@ -6,6 +6,14 @@
 		values
 		(#{siteName}, #{siteUrl})
 	</insert>
+	
+		<select id="readCodingSite"
+		resultType="com.walab.coding.model.CodingSiteDTO">
+		select id, siteName, siteUrl, regDate FROM codingSite
+	</select>
+	<select id="readCodingSiteById" resultType="com.walab.coding.model.CodingSiteDTO">
+		select id, siteName, siteUrl, mappingUrl, regDate FROM codingSite where id = ${siteID}
+	</select>
 	<update id="updateCodingSite">
 		update codingSite
 		set siteName=#{siteName},
@@ -15,11 +23,5 @@
 	<delete id="deleteCodingSite">
 		delete from codingSite where id=#{id}
 	</delete>
-	<select id="readCodingSite"
-		resultType="com.walab.coding.model.CodingSiteDTO">
-		select id, siteName, siteUrl, regDate FROM codingSite
-	</select>
-	<select id="readCodingSiteById" resultType="com.walab.coding.model.CodingSiteDTO">
-		select id, siteName, siteUrl, mappingUrl, regDate FROM codingSite where id = ${siteID}
-	</select>
+
 </mapper>
