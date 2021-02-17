@@ -15,6 +15,10 @@ public class RecomProblemServiceImpl implements RecomProblemService {
 	@Autowired
 	RecomProblemDAO recomProblemsDAO;
 
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public void createRecomProblem(List<RecomProblemDTO> recomprobs) {
 		for(RecomProblemDTO rp : recomprobs) {
@@ -27,6 +31,10 @@ public class RecomProblemServiceImpl implements RecomProblemService {
 		return recomProblemsDAO.readProblemID(siteID, problem);
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public List<RecomProblemDTO> readProblem() {
 		List<RecomProblemDTO> recomProblems = recomProblemsDAO.readProblem();
@@ -34,17 +42,29 @@ public class RecomProblemServiceImpl implements RecomProblemService {
 		return recomProblems;
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public int deleteRecomProblem(int recomID) {
 		return recomProblemsDAO.deleteRecomProblem(recomID);
 	}
 
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public List<RecomProblemDTO> readProblemByID(int recomID) {
 
 		return recomProblemsDAO.readProblemByID(recomID);
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	public RecomProblemDTO readEachProblem(int rpID, int userID) {
 		return recomProblemsDAO.readEachProblem(rpID, userID);
 	}

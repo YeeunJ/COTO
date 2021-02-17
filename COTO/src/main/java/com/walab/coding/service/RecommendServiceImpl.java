@@ -24,6 +24,10 @@ public class RecommendServiceImpl implements RecommendService {
 	@Autowired
 	RecomCommentDAO recomCommentDAO;
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public List<RecommendDTO> readRecom() {
 		List<RecommendDTO> recoms = recommendDAO.readRecom();
@@ -38,6 +42,10 @@ public class RecommendServiceImpl implements RecommendService {
 		return recoms;
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	public RecommendDTO readRecommend(int recomID) {
 		RecommendDTO recommend = recommendDAO.readRecommend(recomID);
 		
@@ -60,6 +68,10 @@ public class RecommendServiceImpl implements RecommendService {
 		return recomProblems;
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public int createRecomProblem(RecommendDTO recommend) {
 		int recomID = recommendDAO.createRecomProblem(recommend);
@@ -84,16 +96,28 @@ public class RecommendServiceImpl implements RecommendService {
 		return recoms;
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public int deleteRecom(int recomID) {
 		return recommendDAO.deleteRecom(recomID);
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public int updateRecommend(RecommendDTO r) {
 		return recommendDAO.updateRecommend(r);
 	}
 
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public List<RecommendDTO> readRecomByPage(String searchValue, String orderValue, int s_point, int list) {
 		List<RecommendDTO> recoms = recommendDAO.readRecomByPage(searchValue, orderValue, s_point, list);
@@ -108,6 +132,10 @@ public class RecommendServiceImpl implements RecommendService {
 		return recoms;
 	}
 
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public int readRecomListCnt() {
 		return recommendDAO.readRecomListCnt();

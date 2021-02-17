@@ -29,6 +29,10 @@ public class CodingSiteServiceImpl implements CodingSiteService {
 		return codingDAO.updateCodingSite(dto);
 	}
 
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public List<CodingSiteDTO> readCodingSite() {
 		List<CodingSiteDTO> result = codingDAO.readCodingSite();

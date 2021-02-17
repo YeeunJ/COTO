@@ -14,13 +14,22 @@ public class RecomCountServiceImpl implements RecomCountService {
 	@Autowired
 	RecomCountDAO recomCountDAO;
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	public int createRecomCount(RecomCountDTO rcd) {
 		return recomCountDAO.createRecomCount(rcd);
 	}
+	
 	public int deleteRecomCount(RecomCountDTO rcd) {
 		return recomCountDAO.deleteRecomCount(rcd);
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	public RecomCountDTO readRecomCount(int recomID, int userID) {
 		RecomCountDTO rcd = new RecomCountDTO();
 		rcd.setRecommendCount(recomCountDAO.readRecomCount(recomID));

@@ -32,6 +32,7 @@ import com.walab.coding.service.RecomCountService;
 import com.walab.coding.service.RecomProblemService;
 import com.walab.coding.service.UserService;
 import com.walab.coding.service.RecomTagService;
+
 /**
  * Handles requests for the application RecommendProblems page.
  */
@@ -57,58 +58,9 @@ public class RecommendController {
 	@Autowired
 	UserProblemService userProblemService;
 	
-	@RequestMapping(value = "", method={RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
-		
-		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-
-		mv.addObject("codingSite", codingSite);
-		mv.setViewName("recommendProblem");
-
-		return mv;
-	}
-	
-	@RequestMapping(value = "/readModalInfo", method = RequestMethod.POST)
-	public ModelAndView readModalInfo(HttpServletRequest request, ModelAndView mv) {
-		
-		int recomID = Integer.parseInt(request.getParameter("recomID"));
-		
-		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-		RecommendDTO recom = recommendService.readRecommend(recomID);	
-		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemByID(recomID);
-		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);
-		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
-		int commentCount = recomComment.size();
-		RecomCountDTO rcd;
-		int userID = -1;
-		if((UserDTO)request.getSession().getAttribute("user") != null) {
-			userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
-		}
-		rcd = recomCountService.readRecomCount(recomID, userID);
-		rcd.setRecomID(recomID);
-		
-		for(int i=0;i<recomProblem.size();i++) {
-			for(int j=0;j<codingSite.size();j++) {
-				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
-					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
-			}
-		}
-		
-		mv.addObject("recomID", recomID);
-		mv.addObject("loginID", userID);
-		mv.addObject("recom", recom);
-		mv.addObject("codingSite", codingSite);
-		mv.addObject("recomProblem", recomProblem);
-		mv.addObject("recomProblemTag", recomProblemTag);
-		mv.addObject("countInfo", rcd);
-		mv.addObject("recomComment", recomComment);
-		mv.addObject("commentCount", commentCount);
-		
-		mv.setViewName("ajaxContent/recomDetailModal");
-		
-		return mv;
-	}
-	
+	/**
+	 * Create comment
+	 */
 	@RequestMapping(value = "/addComment", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView addComment(HttpServletRequest request, ModelAndView mv) {
@@ -124,9 +76,7 @@ public class RecommendController {
 		
 		recomCommentService.createComment(dto);
 		
-		
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
-		
 		
 		mv.addObject("userid", userID);
 		mv.addObject("recomID", recomID);
@@ -136,6 +86,9 @@ public class RecommendController {
 		return mv;
 	}
 	
+	/**
+	 * Create recommend
+	 */
 	@RequestMapping(value = "/addRecomCount", method = RequestMethod.POST)
 	public ModelAndView createRecomCount(HttpServletRequest httpServletRequest) {
 		RecomCountDTO rcd;
@@ -162,89 +115,9 @@ public class RecommendController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/addRecomCheck", method = RequestMethod.POST)
-	public ModelAndView createRecomCheck(HttpServletRequest httpServletRequest) {
-		RecomCountDTO rcd;
-		int userID = -1;
-		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
-		UserProblemDTO upd = new UserProblemDTO();
-		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
-			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
-			upd.setProblemID(rpID);
-			upd.setUserID(userID);
-			userProblemService.createUserProblembyID(upd);
-		}
-		
-		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
-		if(rp != null)
-				System.out.println(rp.toString());
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("rp", rp);
-		mv.setViewName("ajaxContent/recomCheckContent");
-		
-		return mv;
-	}
-	
-	@RequestMapping(value = "/deleteRecomCheck", method = RequestMethod.POST)
-	public ModelAndView deleteRecomCheck(HttpServletRequest httpServletRequest) {
-		int userID = -1;
-		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
-		System.out.println(rpID);
-		UserProblemDTO upd = new UserProblemDTO();
-		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
-			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
-			upd.setProblemID(rpID);
-			upd.setUserID(userID);
-			
-			userProblemService.delete(rpID);
-		}
-		
-		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("rp", rp);
-		mv.setViewName("ajaxContent/recomCheckContent");
-		
-		return mv;
-	}
-	
-	@RequestMapping(value = "/deleteRecomCount", method = RequestMethod.POST)
-	public ModelAndView deleteRecomCount(HttpServletRequest httpServletRequest) {		
-		int userID = -1;
-		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
-		UserProblemDTO upd = new UserProblemDTO();
-		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
-			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
-			upd.setProblemID(rpID);
-			upd.setUserID(userID);
-			
-			userProblemService.delete(rpID);
-		}
-		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("rp", rp);
-		mv.setViewName("ajaxContent/recomCheckContent");
-		
-		return mv;
-	}
-	
-	@RequestMapping(value = "/readComment", method = RequestMethod.POST)
-	@ResponseBody
-	public ModelAndView readComment(HttpServletRequest request, ModelAndView mv) {
-		
-		int recomID = Integer.parseInt(request.getParameter("recomID"));		
-		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
-		
-		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
-		System.out.println("in readCommend: "+userID);
-		
-		mv.addObject("userid", userID);
-		mv.addObject("recomID", recomID);
-		mv.addObject("recomComment", recomComment);
-		mv.setViewName("ajaxContent/recomCommentContent");
-		
-		return mv;
-	}
-
+	/**
+	 * Create recommend zip
+	 */
 	@RequestMapping(value = "/createRecomProblem", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView createProblem(HttpServletRequest request, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="title") String title, @RequestParam(value="difficulty") String difficulty, @RequestParam(value="tag[]") List<String> tag, @RequestParam(value="content") String content) throws UnsupportedEncodingException {
@@ -261,7 +134,6 @@ public class RecommendController {
 		int recomID = recommendService.createRecomProblem(recom);
 		
 		for(int i=0 ; i<siteId.size() ; i++) {
-			System.out.println(siteId.get(i));
 			RecomProblemDTO p = new RecomProblemDTO();
 			
 			p.setRecomID(recomID);
@@ -313,10 +185,163 @@ public class RecommendController {
 		return mvNew;
 	}
 	
+	
+	/**
+	 * Read 
+	 */
+	@RequestMapping(value = "", method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
+		
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+
+		mv.addObject("codingSite", codingSite);
+		mv.setViewName("recommendProblem");
+
+		return mv;
+	}
+	
+	/**
+	 * Read recommend list(problem & tag & comment & recommend), coding site
+	 */
+	@RequestMapping(value = "/readModalInfo", method = RequestMethod.POST)
+	public ModelAndView readModalInfo(HttpServletRequest request, ModelAndView mv) {
+		
+		int recomID = Integer.parseInt(request.getParameter("recomID"));
+		
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		RecommendDTO recom = recommendService.readRecommend(recomID);	
+		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemByID(recomID);
+		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+		RecomCountDTO rcd;
+		int userID = -1;
+		if((UserDTO)request.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
+		}
+		rcd = recomCountService.readRecomCount(recomID, userID);
+		rcd.setRecomID(recomID);
+		
+		for(int i=0;i<recomProblem.size();i++) {
+			for(int j=0;j<codingSite.size();j++) {
+				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
+					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
+			}
+		}
+		
+		mv.addObject("recomID", recomID);
+		mv.addObject("loginID", userID);
+		mv.addObject("recom", recom);
+		mv.addObject("codingSite", codingSite);
+		mv.addObject("recomProblem", recomProblem);
+		mv.addObject("recomProblemTag", recomProblemTag);
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		
+		mv.setViewName("ajaxContent/recomDetailModal");
+		
+		return mv;
+	}
+	
+	/**
+	 * Read comment
+	 */
+	@RequestMapping(value = "/readComment", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView readComment(HttpServletRequest request, ModelAndView mv) {
+		
+		int recomID = Integer.parseInt(request.getParameter("recomID"));		
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		
+		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
+		
+		mv.addObject("userid", userID);
+		mv.addObject("recomID", recomID);
+		mv.addObject("recomComment", recomComment);
+		mv.setViewName("ajaxContent/recomCommentContent");
+		
+		return mv;
+	}
+	
+	
+	
+	/**
+	 * Check recommend
+	 */
+	@RequestMapping(value = "/addRecomCheck", method = RequestMethod.POST)
+	public ModelAndView createRecomCheck(HttpServletRequest httpServletRequest) {
+		int userID = -1;
+		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		UserProblemDTO upd = new UserProblemDTO();
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			upd.setProblemID(rpID);
+			upd.setUserID(userID);
+			userProblemService.createUserProblembyID(upd);
+		}
+		
+		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("rp", rp);
+		mv.setViewName("ajaxContent/recomCheckContent");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomCheck", method = RequestMethod.POST)
+	public ModelAndView deleteRecomCheck(HttpServletRequest httpServletRequest) {
+		int userID = -1;
+		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		System.out.println(rpID);
+		UserProblemDTO upd = new UserProblemDTO();
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			upd.setProblemID(rpID);
+			upd.setUserID(userID);
+			
+			userProblemService.delete(rpID);
+		}
+		
+		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("rp", rp);
+		mv.setViewName("ajaxContent/recomCheckContent");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomCount", method = RequestMethod.POST)
+	public ModelAndView deleteRecomCount(HttpServletRequest httpServletRequest) {		
+		int userID = -1;
+		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		UserProblemDTO upd = new UserProblemDTO();
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			upd.setProblemID(rpID);
+			upd.setUserID(userID);
+			
+			userProblemService.delete(rpID);
+		}
+		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("rp", rp);
+		mv.setViewName("ajaxContent/recomCheckContent");
+		
+		return mv;
+	}
+	
+	
+
+	
+	
+	/**
+	 * Update recommend zip
+	 */
 	@RequestMapping(value = "/updateRecomProblem", method = RequestMethod.POST)
 	public ModelAndView updateRecomProblem(HttpServletRequest httpServletRequest, @RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="tag[]", required=false) List<String> tag) {
 		
-		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 		List<RecomProblemDTO> recomProbs = new ArrayList<RecomProblemDTO>();
 		RecommendDTO recom = new RecommendDTO();
 		List<RecomTagDTO> recomTags = new ArrayList<RecomTagDTO>();
@@ -326,11 +351,7 @@ public class RecommendController {
 		recom.setDifficulty(Integer.parseInt(httpServletRequest.getParameter("difficulty")));
 		recom.setContent(httpServletRequest.getParameter("content"));
 		
-		if(recommendService.updateRecommend(recom) > 0) {
-			System.out.println("success");
-		}else {
-			System.out.println("fail");
-		}
+		recommendService.updateRecommend(recom);
 		
 		recomTagService.deleteRecomTag(Integer.parseInt(httpServletRequest.getParameter("recomID")));
 		
@@ -346,13 +367,6 @@ public class RecommendController {
 			
 			recomTagService.createTag(recomTags);
 		}
-		//recomTagService.updateTag(recomTags);
-		
-//		if(recomTagService.updateTag(recomTags) > 0) {
-//			System.out.println("success");
-//		}else {
-//			System.out.println("fail");
-//		}
 		
 		recomProblemsService.deleteRecomProblem(Integer.parseInt(httpServletRequest.getParameter("recomID")));
 		
@@ -398,39 +412,14 @@ public class RecommendController {
 		return mv;
 	}
 	
+	/**
+	 * Delete recommend zip
+	 */
 	@RequestMapping(value = "/deleteRecomProblem", method = RequestMethod.POST)
 	public ModelAndView deleteRecomProblem(HttpServletRequest httpServletRequest) {
-		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 		int recomID = Integer.parseInt(httpServletRequest.getParameter("id"));
 		
 		recommendService.deleteRecom(recomID);
-		
-//		System.out.println(recomID);
-//		if(recommendService.deleteRecom(recomID) > 0) {
-//			System.out.println("recom success");
-//		}else {
-//			System.out.println("recom fail");
-//		}
-//		if(recomCommentService.deleteRecomComment(recomID) > 0) {
-//			System.out.println("recomComment success");
-//		}else {
-//			System.out.println("recomComment fail");
-//		}
-//		if(recomProblemsService.deleteRecomProblem(recomID) > 0) {
-//			System.out.println("recomProblem success");
-//		}else {
-//			System.out.println("recomProblem fail");
-//		}
-//		if(recomTagService.deleteRecomTag(recomID) > 0) {
-//			System.out.println("recomTag success");
-//		}else {
-//			System.out.println("recomTag fail");
-//		}
-//		if(recomCountService.deleteRecomCount(recomID) > 0) {
-//			System.out.println("recomCount success");
-//		}else {
-//			System.out.println("recomCount fail");
-//		}
 		
 		List<RecommendDTO> recoms = recommendService.readRecom();
 		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
@@ -461,18 +450,15 @@ public class RecommendController {
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
 			@RequestParam(value="orderValue", defaultValue="") String orderValue) {		
 		
-		System.out.println(searchValue);
-		System.out.println(orderValue);
-		
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 
 		// pagination
-		int listCnt = recommendService.readRecomListCnt(); // 총 문제의 개수
-		int list = 10; // 페이지 당 데이터 수
-		int block = 10; // 블록 당 페이지 수
+		int listCnt = recommendService.readRecomListCnt();
+		int list = 10;
+		int block = 10;
 		
-		int pageNum = (int) Math.ceil((float)listCnt/list); // 총 페이지
-		int nowBlock = (int)Math.ceil((float)page/block); // 현재 페이지가 위치한 블록 번호
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block);
 		
 		int s_point = (page-1)*list;
 		
