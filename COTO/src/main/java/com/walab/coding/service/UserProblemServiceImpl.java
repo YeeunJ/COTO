@@ -108,7 +108,9 @@ public class UserProblemServiceImpl implements UserProblemService{
 	public List<UserProblemDTO> countSolvedProblemEachDay(int userID){
 		return userProblemDAO.countSolvedProblemEachDay(userID);
 	}
-	
+	/**
+	 * MyactivitiesController
+	 */
 	@Override
 	public List<UserProblemDTO> readProblemActivities(int userID, int goalID){
 		List<UserProblemDTO> problems = userProblemDAO.readProblemActivities(userID, goalID);

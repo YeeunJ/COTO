@@ -135,7 +135,9 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		
 		return sqlSession.selectList(namespace+".countUserProblemEachDay", countSolvedProblemParam);
 	}
-	
+	/**
+	 * MyactivitiesController
+	 */
 	@Override
 	public List<UserProblemDTO> readProblemActivities(int userID, int goalID){
 		Map<String, Object> readProblemListParam = new HashMap<String, Object>();
