@@ -11,58 +11,9 @@
 <script src="./resources/js/problemList.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-<script>
-/* $.ajax({  
-    type: 'get',  
-    url: "${pageContext.request.contextPath}/manageCodingsite/problem",  
-    
-    success: function (result) {  
-        $("#siteValue").html(result);
-    }  
-});  */
-</script>
-<style>
-canvas {
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-}		
-		
 
-#problem {
-	position: relative;
-	padding: 80px 0;
-	margin-bottom: 3%;
-}
 
-#problem:before {
-	content: "";
-	background-image: url("./resources/img/problemList.jpg");
-	background-size: cover;
-	top: 0;
-	left: 0;
-	right: 0px;
-	bottom: 0px;
-	position: absolute;
-	opacity: 0.4;
-	z-index: -1;
-}
-.chart-div {
-	display:inline-block;
-}
-.probname {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-@media screen and (max-width: 400px){
-	span.mobile{
-		display:none !important;
-	}
-
-}
-</style>
-
+<!-- SiteContainer -->
 <div id="SiteContainer" class="container">
 	<div id="problem">
 		<div class="content">
@@ -81,7 +32,7 @@ canvas {
 		</div>
 	</div>
 
-
+	<!-- top-bar -->
 	<div class="top-bar">
 		<fieldset class="search">
 			<input id="searchValue" class="search_problem" type="search"
@@ -108,38 +59,14 @@ canvas {
 			</select>
 		</div>
 	</div>
+	<!-- //top-bar -->
 	
 	<div id="pageajaxContent">
-	<%@ include file="./ajaxContent/problemListContent.jsp"%>
-	</div>
-	
-	<%-- <div class="table center" id="problemContent">
-		<div class="tableRow">
-			<span class="tableCell th1 mobile">No.</span>
-			<span class="tableCell th3">문제 제목</span>
-			<span class="tableCell th1">사이트</span>
-			<span class="tableCell th1">참여자</span>
-			<span class="tableCell th1 mobile">등록일</span>
-		</div>
-		
-		<c:forEach items="${problems}" var="problem" varStatus="status">
-		<fmt:formatDate value="${problem.regdate}" var="formattedDate" type="date" pattern="yyyy-MM-dd" />
-		<div class="tableRow" id="problem${problem.id}">
-			<span class="tableCell td1 mobile">${status.count}</span> 
-			<span class="tableCell td3 probname"> <nobr><a href="${problem.link}">${problem.name}</a></nobr></span> 
-			<span class="tableCell td1"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
-			<span class="tableCell td1">${problem.count}</span> 
-			<span class="tableCell td1 mobile">${formattedDate}</span> 
-		</div>
-		</c:forEach>	
 		<%@ include file="./ajaxContent/problemListContent.jsp"%>
 	</div>
-	<br> <br>
-	
-	<%@ include file="./inc/pagination.jsp"%>
-	 --%>
 
 </div>
+<!-- //SiteContainer -->
 
 <script>
 

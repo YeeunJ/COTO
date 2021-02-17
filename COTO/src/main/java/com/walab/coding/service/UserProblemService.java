@@ -23,13 +23,22 @@ public interface UserProblemService {
 	// MyproblemsController
 	int readSolvedP(int userID);
 	
-	// HomeController
+	/**
+	 * read user problems that user solved
+	 * usage: HomeController
+	 */
 	public List<UserProblemDTO> readProblemList();
 	
-	// HomeController
+	/**
+	 * read accumulated rank
+	 * usage: HomeController
+	 */
 	public List<RankDTO> readTotalRankList();
 
-	// HomeController
+	/**
+	 * read today's rank
+	 * usage: HomeController
+	 */
 	public List<RankDTO> readTodayRankList();
 	
 	// MyproblemsController

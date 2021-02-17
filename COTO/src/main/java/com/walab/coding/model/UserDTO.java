@@ -12,7 +12,6 @@ public class UserDTO {
 	private Date regDate;
 	private int isAdmin;
 
-	
 	public int getId() {
 		return id;
 	}

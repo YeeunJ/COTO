@@ -13,15 +13,24 @@ public interface ProblemService {
 	
 	public List<ProblemDTO> readProblemByPage(int s_point, int list);
 	
-	// Home Controller
+	/**
+	 * read the problem that uploaded today
+	 * usage: HomeController
+	 */
 	List<ProblemDTO> readRecentProblem();
 	
-	// Problemlist Controller
+	/**
+	 * read by the page
+	 * usage: Problemlist controller
+	 */
 	public List<Map<String, Object>> readRatioBySiteid();
 	
 	public List<ProblemDTO> search(int s_point, int list, String searchValue, String orderValue, String siteValue);
 	
-	// Problemlist Controller
+	/**
+	 * read by the site id
+	 * usage: Problemlist controller
+	 */
 	public List<Map<String, Object>> makeRatioBySiteid(List<Map<String, Object>> ratioBySite, List<CodingSiteDTO> codingSite);
 
 

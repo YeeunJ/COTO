@@ -51,5 +51,6 @@
 		</c:if>
 	</ul>
 </div> 
+<!-- //pagination -->
 
 

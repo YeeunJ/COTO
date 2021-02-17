@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.walab.coding.model.UserDTO;
-import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.GoalDTO;
 
 @Repository
@@ -19,7 +18,7 @@ public class UserDAOImpl implements UserDAO{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
 	private String namespace = "user";
 	
 	/**
@@ -48,17 +47,6 @@ public class UserDAOImpl implements UserDAO{
 		}
 		return id;
 	}
-	
-//	public List<UserDTO> updateUser(int userID){
-//		
-//		int userList = new ArrayList<UserDTO>();
-//
-//		Map<String, Object> userListParam = new HashMap<String, Object>();
-//		userListParam.put("userID", userID);
-//		
-//		return userList = sqlSession.update(namespace+".userList", userListParam);
-//	}
-	
 
 	/**
 	 * RegisterController
@@ -76,7 +64,7 @@ public class UserDAOImpl implements UserDAO{
 	 */
 	@Override
 	public int createUsergoal(GoalDTO goal) {
-		sqlSession.insert("user.createUsergoal", goal);
+		sqlSession.insert("goal.createUsergoal", goal);
 		return 0;
 	}
 	

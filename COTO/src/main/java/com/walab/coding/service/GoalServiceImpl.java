@@ -33,12 +33,6 @@ public class GoalServiceImpl implements GoalService{
 	}
 
 	
-//	@Override
-//	public List<GoalDTO> countGoal(int userID){
-//		List<GoalDTO> goalsCount = goalService.countGoal(userID);
-//		return goalsCount;
-//	}
-	
 	/**
 	 * MyinformationController
 	 * Update a user's goals

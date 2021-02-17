@@ -13,7 +13,10 @@ public interface RecommendService {
 	
 	List<RecomProblemDTO> readRecomProblems(int recomID);
 	
-	// Home Controller
+	/**
+	 * read the recommend list that uploaded recently
+	 * usage: HomeController
+	 */
 	public List<RecommendDTO> readRecentRecommendList();
 	
 	public RecommendDTO readRecommend(int recomID);

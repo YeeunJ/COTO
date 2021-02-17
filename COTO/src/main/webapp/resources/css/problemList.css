@@ -1,3 +1,28 @@
+#problem {
+	position: relative;
+	padding: 80px 0;
+	margin-bottom: 3%;
+}
+#problem:before {
+	content: "";
+	background-image: url("../img/problemList.jpg");
+	background-size: cover;
+	top: 0;
+	left: 0;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
+	opacity: 0.4;
+	z-index: -1;
+}
+.chart-div {
+	display:inline-block;
+}
+.probname {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 fieldset {
 	background: #fff;
 	border: none;
@@ -69,11 +94,6 @@ fieldset {
   #container{
   	display:none;
   }
-  #averageForWeek{
-    /* margin-top: 25px !important;
-    height: 144px !important;
-    width: 269px !important; */
-  }
   .chart-div {
     width: 100%;
   }
@@ -87,5 +107,16 @@ fieldset {
   }
 }
 
+canvas {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}		
 
+@media screen and (max-width: 400px){
+	span.mobile{
+		display:none !important;
+	}
+
+}
    
