@@ -8,13 +8,15 @@ public interface RecomProblemDAO {
 
 	void createRecomProblem(RecomProblemDTO rp);
 	
-	public int readProblemID(int siteID, String problem);
+	public List<RecomProblemDTO> readProblemList();
 	
-	public List<RecomProblemDTO> readProblem();
-	
-	public int deleteRecomProblem(int recomID);
-
 	List<RecomProblemDTO> readProblemByID(int recomID);
 	
 	public RecomProblemDTO readEachProblem(int rpID, int userID);
+	
+	public int deleteRecomProblem(int recomID);
+	
+	
+	
+	public int readProblemID(int siteID, String problem);
 }

@@ -11,18 +11,19 @@
 		FROM recomProblem as rp left join problem as p on rp.problemID = p.id
 	</select>
 	
-	<delete id="deleteRecomProblem" parameterType="hashmap">
-		delete from recomProblem where recomID = ${recomID}
-	</delete>
-	
 	<select id="readProblemByID" resultType="com.walab.coding.model.RecomProblemDTO" parameterType="hashmap">
 		SELECT rp.id as id, rp.problemID as problemID, rp.recomID as recomID, p.name as name, p.siteID as siteID, up.regdate as date
 		FROM recomProblem as rp left join problem as p on rp.problemID = p.id
 		left join userProblem as up on up.problemID = p.id
 		WHERE rp.recomID = ${recomID};
 	</select>
+	
 	<select id="readEachProblem" resultType="com.walab.coding.model.RecomProblemDTO" parameterType="hashmap">
 		SELECT p.name as name, up.problemID as problemID, p.id as id, up.regdate as date FROM userProblem as up 
 		join problem as p on up.problemID = p.id where up.userID= ${userID} and up.problemID = ${rpID};
 	</select>
+	
+	<delete id="deleteRecomProblem" parameterType="hashmap">
+		delete from recomProblem where recomID = ${recomID}
+	</delete>
 </mapper>

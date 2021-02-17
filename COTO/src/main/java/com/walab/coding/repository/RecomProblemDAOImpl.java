@@ -51,33 +51,13 @@ public class RecomProblemDAOImpl implements RecomProblemDAO {
 	}
 	
 	@Override
-	public int readProblemID(int siteID, String problem) {
-		Map<String, Object> ProblemIDParam = new HashMap<String, Object>();
-		ProblemIDParam.put("siteID", siteID);
-		ProblemIDParam.put("name", problem);
-		System.out.println(problem);
-		
-		int problemID = sqlSession.selectOne("problem.readProblemID", ProblemIDParam);
-		
-		return problemID;
-	}
-	
-	@Override
-	public List<RecomProblemDTO> readProblem() {
+	public List<RecomProblemDTO> readProblemList() {
 		List<RecomProblemDTO> recommendProblemList = new ArrayList<RecomProblemDTO>();
 		recommendProblemList  = sqlSession.selectList(namespace+".readRecommendProblemList");
 		
 		return recommendProblemList;
 	}
 	
-	@Override
-	public int deleteRecomProblem(int recomID) {
-		Map<String, Object> recomProblemListParam = new HashMap<String, Object>();
-		recomProblemListParam.put("recomID", recomID);
-		
-		return sqlSession.delete(namespace+".deleteRecomProblem", recomProblemListParam);
-	}
-
 	@Override
 	public List<RecomProblemDTO> readProblemByID(int recomID) {
 		Map<String, Object> param = new HashMap<String, Object>();
@@ -91,5 +71,28 @@ public class RecomProblemDAOImpl implements RecomProblemDAO {
 		param.put("rpID", rpID);
 		param.put("userID", userID);
 		return sqlSession.selectOne(namespace+".readEachProblem", param);
+	}
+	
+	@Override
+	public int deleteRecomProblem(int recomID) {
+		Map<String, Object> recomProblemListParam = new HashMap<String, Object>();
+		recomProblemListParam.put("recomID", recomID);
+		
+		return sqlSession.delete(namespace+".deleteRecomProblem", recomProblemListParam);
+	}
+	
+
+	
+	
+	@Override
+	public int readProblemID(int siteID, String problem) {
+		Map<String, Object> ProblemIDParam = new HashMap<String, Object>();
+		ProblemIDParam.put("siteID", siteID);
+		ProblemIDParam.put("name", problem);
+		System.out.println(problem);
+		
+		int problemID = sqlSession.selectOne("problem.readProblemID", ProblemIDParam);
+		
+		return problemID;
 	}
 }
