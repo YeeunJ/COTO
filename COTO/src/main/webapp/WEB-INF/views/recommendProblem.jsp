@@ -5,45 +5,12 @@
 <jsp:include page= "<%=\"./inc/\".concat(((String)request.getAttribute(\"header\")))%>" />
 
 <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
-<!-- <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css"> -->
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
 <link href="./resources/css/recommendProblem.css?asd" rel="stylesheet">
 <script src="./resources/js/recommendProblem.js"></script>
 
 <style>
-#recommend {
-	position: relative;
-	padding: 80px 0;
-	margin-bottom: 3%;
-}
 
-#recommend:before {
-	content: "";
-	background-image: url("./resources/img/recommendimg.jpg");
-	background-size: cover;
-	top: 0;
-	left: 0;
-	right: 0px;
-	bottom: 0px;
-	position: absolute;
-	opacity: 0.4;
-	z-index: -1;
-}
-
-.readTagChips {
-	height: 32px;
-	font-size: 15px;
-	font-weight: 500;
-    color: rgba(0, 0, 0, 0.6);
-    line-height: 32px;
-	padding: 8px 12px;
-    border-radius: 16px;
-    background-color: #e4e4e4;
-    margin-right: 2%;
-}
-.alignCenter {
-	text-align: center;
-}
 </style>
 
 <div id="SiteContainer" class="container">
@@ -73,17 +40,10 @@
 			</select>
 		</div>
 	</div>
-
-	<%-- <div class="table" id="recommendContent">
-		<%@ include file="./ajaxContent/recommendContent.jsp"%>
-	</div> 
-	<br> <br>--%>
 	
 	<div id="pageajaxContent">
-	<%@ include file="./ajaxContent/recommendContent.jsp"%>
+		<%@ include file="./ajaxContent/recommendContent.jsp"%>
 	</div>
-	
-	<%-- <%@ include file="./inc/pagination.jsp"%> --%>
 	
 </div>
 

@@ -51,6 +51,10 @@ public class UserProblemServiceImpl implements UserProblemService{
 		return userProblemDAO.updateProblem(upd);
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	public int delete(int userProblemID) {
 		return userProblemDAO.deleteProblem(userProblemID);
 	}
@@ -81,6 +85,10 @@ public class UserProblemServiceImpl implements UserProblemService{
 		}
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	public void createUserProblembyID(UserProblemDTO p) {
 		userProblemDAO.createUserProblembyID(p);
 	}
