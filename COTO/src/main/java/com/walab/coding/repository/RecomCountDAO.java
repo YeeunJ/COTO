@@ -7,11 +7,11 @@ public interface RecomCountDAO {
 
 	public int createRecomCount(RecomCountDTO rcd);
 	
-	public int deleteRecomCount(RecomCountDTO rcd);
-	
 	public int readRecomCount(int recomID);
 	
-	public int readRecomCountYNbyUserID(int recomID, int userID);
+	public int readRecomCountYNbyUserID(int recomID, int userID);	
+	
+	public int deleteRecomCount(RecomCountDTO rcd);
 
 	public int deleteRecomCount(int recomID);
 }

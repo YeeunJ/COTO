@@ -22,10 +22,6 @@ public class RecomCountServiceImpl implements RecomCountService {
 		return recomCountDAO.createRecomCount(rcd);
 	}
 	
-	public int deleteRecomCount(RecomCountDTO rcd) {
-		return recomCountDAO.deleteRecomCount(rcd);
-	}
-	
 	/**
 	 * RecommendController
 	 * 
@@ -40,6 +36,10 @@ public class RecomCountServiceImpl implements RecomCountService {
 		}
 		
 		return rcd;
+	}
+	
+	public int deleteRecomCount(RecomCountDTO rcd) {
+		return recomCountDAO.deleteRecomCount(rcd);
 	}
 	
 	@Override
