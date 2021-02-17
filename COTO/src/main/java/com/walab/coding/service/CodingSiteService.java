@@ -9,7 +9,7 @@ public interface CodingSiteService {
 
 	/**
 	 * read the name of the coding sites
-	 * usage: HomeController, ProblemlistController
+	 * usage: HomeController, ProblemlistController, MyproblemsController
 	 */
 	List<CodingSiteDTO> readCodingSite();
 	

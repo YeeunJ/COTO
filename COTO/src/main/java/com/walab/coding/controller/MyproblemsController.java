@@ -43,12 +43,11 @@ public class MyproblemsController {
 	GoalService goalService;
 
 	@Autowired
-	UserService userService;
-
-	@Autowired
 	CodingSiteService codingSiteService;
 
-	// 문제 등록 모달로부터 UserProblemsDTO LiST를 반환받아야 함.
+	/**
+	 * Create problem zip 
+	 */
 	@RequestMapping(value = "/createProblem", method = RequestMethod.POST)
 	@ResponseBody
 	public String createProblem(HttpServletRequest httpServletRequest, ModelAndView mv,
@@ -83,6 +82,9 @@ public class MyproblemsController {
 		return "success";
 	}
 
+	/**
+	 * Read user goal, solvedProblem, codingSite, solvedProblem List
+	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewProblems(HttpServletRequest httpServletRequest, ModelAndView mv, Model model,
 			@RequestParam(value = "page", defaultValue = "1") int page) {
@@ -104,13 +106,13 @@ public class MyproblemsController {
 		mv.addObject("CodingSite", codingSite);
 
 		/* pagination */
-		int listCnt = userProblemService.readProblemCnt(userID); // 총 문제의 개수
-		int list = 10; // 페이지 당 데이터 수
-		int block = 10; // 블록 당 페이지 수
+		int listCnt = userProblemService.readProblemCnt(userID); 
+		int list = 10; 
+		int block = 10;
 
-		int pageNum = (int) Math.ceil((float) listCnt / list); // 총 페이지
-		int blockNum = (int) Math.ceil((float) pageNum / block); // 총 블록
-		int nowBlock = (int) Math.ceil((float) page / block); // 현재 페이지가 위치한 블록 번호
+		int pageNum = (int) Math.ceil((float) listCnt / list); 
+		int blockNum = (int) Math.ceil((float) pageNum / block);
+		int nowBlock = (int) Math.ceil((float) page / block);
 		int s_point = (page - 1) * list;
 
 		int s_page = nowBlock * block - (block - 1);
@@ -135,7 +137,10 @@ public class MyproblemsController {
 
 		return mv;
 	}
-
+	
+	/**
+	 * Update user solvedProblem List
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ModelAndView updateProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
 
@@ -160,6 +165,9 @@ public class MyproblemsController {
 		return mvNew;
 	}
 
+	/**
+	 * Delete user solvedProblem List
+	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public ModelAndView deleteProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
 
@@ -179,6 +187,9 @@ public class MyproblemsController {
 		return mv;
 	}
 
+	/**
+	 * Search user solvedProblem List
+	 */
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView searchProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
 

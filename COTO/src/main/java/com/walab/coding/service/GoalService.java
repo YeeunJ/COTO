@@ -8,7 +8,7 @@ import com.walab.coding.model.UserProblemDTO;
 public interface GoalService {
 	/**
 	 * Read the goal information of a user with a specific ID
-	 * usage: MyinformationController	 
+	 * usage: MyinformationController, MyproblemsController
 	 */
 	List<GoalDTO> readGoal(int userID);
 	/**

@@ -17,10 +17,16 @@ public interface UserProblemService {
 	// RecommendController
 	public void createUserProblembyID(UserProblemDTO p);
 	
-	// MyproblemsController
+	/**
+	 * insert read problems each site
+	 * usage: MyproblemsController
+	 */
 	List<UserProblemDTO> read(int userID);
 	
-	// MyproblemsController
+	/**
+	 * count user solvedProblem List
+	 * usage: MyproblemsController
+	 */
 	int readSolvedP(int userID);
 	
 	/**
@@ -41,27 +47,42 @@ public interface UserProblemService {
 	 */
 	public List<RankDTO> readTodayRankList();
 	
-	// MyproblemsController
+	/**
+	 * For pagination
+	 * usage: MyproblemsController
+	 */
 	List<UserProblemDTO> readProblemByPage(int userID, int s_point, int list);
 	
-	// MyproblemsController
+	/**
+	 * For pagination
+	 * usage: MyproblemsController
+	 */
 	int readProblemCnt(int userID);
 	
 	// MyactivitiesController
 	public List<UserProblemDTO> readProblemActivities(int userID, int goalID);
 
-	// ProblemlistController, ProblemlistController
+	// ProblemlistController
 	public List<Map<String, Object>> readAvgForaWeek();
 
-	// MyproblemsController
+	/**
+	 * update user solvedProblem List
+	 * usage: MyproblemsController
+	 */
 	public int update(UserProblemDTO upd);
 	
 	// RecommendController
 	public int delete(int userProblemID);
 	
-	// MyproblemsController
+	/**
+	 * For chart, count user solvedProblem Each day
+	 * usage: MyproblemsController
+	 */
 	public List<UserProblemDTO> countSolvedProblemEachDay(int userID);
 
-	// MyproblemsController
+	/**
+	 * search user solvedProblem List
+	 * usage: MyproblemsController
+	 */
 	List<UserProblemDTO> search(int userID, String searchValue);
 }
