@@ -9,9 +9,9 @@ public interface RecommendService {
 	
 	int createRecomProblem(RecommendDTO recommend);
 
-	List<RecommendDTO> readRecom();
+	List<RecommendDTO> readRecommendList();
 	
-	List<RecomProblemDTO> readRecomProblems(int recomID);
+	//List<RecomProblemDTO> readRecomProblems(int recomID);
 	
 	/**
 	 * read the recommend list that uploaded recently
@@ -24,11 +24,9 @@ public interface RecommendService {
 	public List<RecommendDTO> readRecomByPage(String searchValue, String orderValue, int s_point, int list);
 
 	public int readRecomListCnt();
-		
-	public int deleteRecom(int recomID);
 	
 	public int updateRecommend(RecommendDTO r);
-	
-	public List<RecommendDTO> search(String searchValue, String orderValue);
+		
+	public int deleteRecom(int recomID);
 
 }
