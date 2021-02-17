@@ -15,6 +15,10 @@ public class RecomTagServiceImpl implements RecomTagService {
 	@Autowired
 	RecomTagDAO tagDAO;
 
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public void createTag(List<RecomTagDTO> recomTags) {
 		for(RecomTagDTO t : recomTags) {
@@ -27,11 +31,19 @@ public class RecomTagServiceImpl implements RecomTagService {
 		return tagDAO.readTagOrderByCount();
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public List<RecomTagDTO> readProblemTag() {
 		return tagDAO.readProblemTag();
 	}
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public int deleteRecomTag(int recomID) {
 		return tagDAO.deleteRecomTag(recomID);
@@ -48,6 +60,10 @@ public class RecomTagServiceImpl implements RecomTagService {
 		return 1;
 	}
 
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public List<RecomTagDTO> readTagByID(int recomID) {
 		return tagDAO.readTagByID(recomID);

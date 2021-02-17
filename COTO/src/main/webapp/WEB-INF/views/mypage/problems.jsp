@@ -11,225 +11,6 @@
 <link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
 <script src="../resources/js/problems.js"></script>
 
-<script>
-
-$(document).ready(function(){	
-	drawChart1();
-	drawChart2();
-});
-
-function drawChart1() {
-	<!-- Bar cahrt -->
-	var ctx1 = document.getElementById("myBarChart"); 
-	var labels = new Array();
-	var data = new Array();
-	<c:forEach items="${countSolvedProblemEachDay}" var="countList" >
-		var json = new Object();
-		labels.push("${countList.regDate}");
-		data.push("${countList.countSolvedP}");
-	</c:forEach>
-
-	var myBarChart = new Chart(ctx1 , {
-	    type: 'bar',
-	    data: {
-	        labels: labels,
-	        datasets: [{
-	            label: '푼 문제수',
-	            data: data,
-	            borderColor: "rgba(255, 201, 14, 1)",
-	            backgroundColor: "rgba(255, 201, 14, 0.5)",
-	            fill: false,
-	        }]
-	    },
-	    options: {
-	    	//maintainAspectRatio: false,
-	        responsive: true,
-	        hover: {
-	            mode: 'nearest',
-	            intersect: true
-	        },
-	        scales: {
-	            xAxes: [{
-	                display: true,
-	                scaleLabel: {
-	                    display: true,
-	                },
-	                ticks: {
-	                    autoSkip: false,
-	                    maxTicksLimit:4
-	                }
-	            }],
-	            yAxes: [{
-	                display: true,
-	                ticks: {
-	                    suggestedMin: 0,
-	                    stepSize: 1,
-	                },
-	                scaleLabel: {
-	                    display: true,
-	                }
-	            }]
-	        }
-	    }
-	});
-	}
-	
-function drawChart2() {
-	<!-- Doughnut cahrt -->
-	data = { datasets: [{
-		backgroundColor: ['#e8e8e8','rgba(255, 201, 14, 0.5)'], 
-		data: [ ${goalNum}, ${userSolvedP} ] }],
-		labels: ['총 문제수','푼 문제수']};
-		
-	var ctx = document.getElementById("myDoughnutChart"); 
-	var myDoughnutChart = new Chart(ctx, { 
-	    type: 'doughnut', 
-	    data: data, 
-	    plugins: [{
-	    	beforeDraw: function(chart) {
-			    var width = chart.chart.width,
-			        height = chart.chart.height,
-			        ctx = chart.chart.ctx;
-
-			    ctx.restore();
-			    var fontSize = (height / 210).toFixed(2);
-			    ctx.font = fontSize + "em sans-serif";
-			    ctx.textBaseline = "middle";
-
-			    var text =  ${userSolvedP}+"문제"+" / "+${goalNum}+"문제",
-			        textX = Math.round((width - ctx.measureText(text).width) / 2),
-			        textY = height / 1.7;
-
-			    ctx.fillText(text, textX, textY);
-			    ctx.save();
-			  }
-	   }],
-	    options: {
-	       legend: {
-	         display: true
-	       },
-	       cutoutPercentage: 65
-	    },
-	 });
-}
-
-<!-- 문제 등록 모달 -->
-var selectHtml="";
-
-function callModal() {
-	selectHtml = $('#selectHtml').html();
-	
-	createModel("#createProblem", "푼 문제 등록", addajax);
- 	$('select').formSelect();
-}
-
-function addajax(){
-	
-	var siteId = [];
-	var problem = [];
-	var link = [];
-	
-	$('.sweet-modal-content .problem').each(function(){
-		
-		var s_id = 0;
-		var l = "";
-		var p;
-		
-		var valueSplit = $(this).val().split(' (');
-		
-		if($(this).attr('name') == 0){ // link로 설정하는 경우
-			l = valueSplit[0].trim();
-			console.log("link: "+l);
-			
-			var split = l.split('/');
-			p = split[split.length-1].trim();
-			console.log("problem: "+split[split.length-1].trim());
-
-		} else { // siteId 존재하는 경우
-			s_id = $(this).attr('name');
-			p = valueSplit[0].trim();
-		}
-		
-		siteId.push(s_id);
-		problem.push(p);
-		link.push(l);
-		
-	});
-		
-	console.log(problem);
-	console.log(siteId);
-	console.log(link);
-	
-   $.ajax({
-        url : 'problems/createProblem',
-        type: 'POST',
-        data: {
-        	"siteId":siteId, "problem":problem, "link":link
-        },
-        success: function(data){
-        	resetContent();
-        	console.log("success");
-        },
-        error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        },
-    });
-
-}
-
-function deleteThis(id){
-	var allid = "#"+id;
-	$(allid).remove();
-}
-
-var count=0;
-function insertProblems(){
-	
-	var siteName = $(".sweet-modal-content #siteName option:selected").text();
-	var siteId = $('.sweet-modal-content #siteName').val();
-	console.log("siteId: "+siteId);
-	var site = $(".sweet-modal-content #siteName option:selected").val();
-	var value = $(".sweet-modal-content #problems").val();
-	console.log(value);
-	var valueSplit = value.split(',');
-	var data = $('.sweet-modal-content #confirmSite').html();
-	for(var i in valueSplit){
-		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
-		count++;
-	}
-	$('.sweet-modal-content #confirmSite').html(data);
-	$('#confirmSite').html(data);
-	$(".sweet-modal-content #problems").val("");
-};
-
-function resetContent() {
-	
-	$('#createProblem #confirmSite').html("");
-	$('#selectHtml').html(selectHtml);
-	
-}
-</script>
-<style>
-#problem {
-	position: relative;
-	padding: 80px 0;
-	margin-bottom: 3%;
-}
-
-#problem:before {
-	content: "";
-	background-image: url("../resources/img/problem.png");
-	background-size: cover;
-	top: 0;
-	left: 0;
-	right: 0px;
-	bottom: 0px;
-	position: absolute;
-	opacity: 0.4;
-	z-index: -1;
-}
-</style>
-
 <div id="SiteContainer" class="container">
 	<div id="problem">
 		<div class="content">
@@ -243,27 +24,29 @@ function resetContent() {
 		<div class="card-content1">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">나의 목표</div>
-				<div>
 					<div id="table">
 						<c:forEach items="${goal}" var="goal" varStatus="status">
-							<div class="tableRow box">
-								<span class="tableCell td1">목표</span> <span
+							<div class="tableRow">
+								<span class="tableCell td2">목표</span> <span
 									class="tableCell td4">${goal.goal}</span>
 							</div>
-							<div class="tableRow box">
-								<span class="tableCell td1">기간</span> <span
-									class="tableCell td4"> <fmt:formatDate
+							<div class="tableRow">
+								<span class="tableCell td2">기간</span> 
+								<span class="tableCell td4" style="font-size: 14px;"> <fmt:formatDate
 										pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
 										pattern="yyyy-MM-dd" value="${goal.endDate}" />
 								</span>
 							</div>
-							<div class="tableRow box">
+							<div class="tableRow">
 								<span class="tableCell td2">총 문제수</span> <span
 									class="tableCell td4">${goal.goalNum}문제</span>
 							</div>
+							<div class="tableRow">
+								<span class="tableCell td2" style="font-size: 13px;">현재 푼 문제수</span> <span
+									class="tableCell td4">${userSolvedP}문제</span>
+							</div>
 						</c:forEach>
 					</div>
-				</div>
 			</div>
 		</div>
 
@@ -281,7 +64,7 @@ function resetContent() {
 		<div class="card-content3">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">현재 상황</div>
-				<canvas id="myDoughnutChart" width="180" height="110">
+				<canvas id="myDoughnutChart" width="300vw" height="180px">
 				</canvas>
 			</div>
 		</div>
@@ -308,7 +91,7 @@ function resetContent() {
 		
 
 		<!-- 문제등록 모달 -->
-		<div id="createProblem" class="container" hidden>
+		<div id="createProblem" class="container" style="display:none">
 			<form class="col s12">
 				<div class="row">
 					<div id="selectHtml" class="input-field col s4">
@@ -333,13 +116,12 @@ function resetContent() {
 						onClick="insertProblems()">추가</button>
 				</div>
 				<div class="input-field col s10">
-					<label for="last_name">입력한 Problems</label><br> <label
-						class="helper-text">문제를 누르면 삭제할 수 있습니다.</label><br> <br>
+					<label for="last_name">입력한 Problems</label><br>
+					<label class="helper-text">문제를 누르면 삭제할 수 있습니다.</label><br><br>
 					<div id="confirmSite"></div>
 				</div>
 			</form>
 		</div>
-		
 		
 		<%@ include file="../inc/pagination.jsp"%>
 		
@@ -386,8 +168,8 @@ function resetContent() {
 					<div class="row">
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d1" value="1" checked />
-								<label for="d1" class="diffCont">1</label>
+								<input type="radio" name="difficulty" id="d1" value="1"
+								 class="radioMrg" /> <label for="d1" class="diffCont">1</label>
 							</p>
 						</div>
 						<div class="input-field col s2">
@@ -416,8 +198,8 @@ function resetContent() {
 						</div>
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d0" value="0"
-									class="radioMrg" /> <label for="d0" class="diffCont">설정
+								<input type="radio" name="difficulty" id="d0" value="0" checked
+									 /> <label for="d0" class="diffCont">설정
 									안함</label>
 							</p>
 						</div>
@@ -432,5 +214,42 @@ function resetContent() {
 
 	</div>
 </div>
+
+<script>
+var labels = new Array();
+var dataForBar = new Array();
+var dataForDoughnut = new Array();
+var gN = ${goalNum};
+var uP = ${userSolvedP};
+
+<c:forEach items="${countSolvedProblemEachDay}" var="countList" >
+	var json = new Object();
+	labels.push("${countList.regDate}");
+	dataForBar.push("${countList.countSolvedP}");
+</c:forEach>
+
+dataForDoughnut.push(gN);
+dataForDoughnut.push(uP);
+</script>
+<style>
+#problem {
+	position: relative;
+	padding: 80px 0;
+	margin-bottom: 3%;
+}
+
+#problem:before {
+	content: "";
+	background-image: url("../resources/img/problem.png");
+	background-size: cover;
+	top: 0;
+	left: 0;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
+	opacity: 0.4;
+	z-index: -1;
+}
+</style>
 
 <%@ include file="../inc/footer.jsp"%>

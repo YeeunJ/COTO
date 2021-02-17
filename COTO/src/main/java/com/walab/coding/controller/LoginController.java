@@ -9,10 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
@@ -90,8 +88,6 @@ public class LoginController {
 		GoogleOAuthResponseDTO result = mapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponseDTO>() {
 		});
 		
-		//System.out.println(resultEntity.getBody());
-
 		//ID Token만 추출 (사용자의 정보는 jwt로 인코딩 되어있다)
 		String jwtToken = result.getIdToken();
 		String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
@@ -100,11 +96,6 @@ public class LoginController {
 		String resultJson = restTemplate.getForObject(requestUrl, String.class);
 		
 		Map<String,String> userInfo = mapper.readValue(resultJson, new TypeReference<Map<String, String>>(){});
-		//model.addAllObjects(userInfo);
-		//model.addObject("token", result.getAccessToken());
-		//model.addAllAttributes(userInfo);
-		//model.addAttribute("token", result.getAccessToken());
-		//System.out.println(userInfo);
 		
 		HttpSession session = request.getSession();
 		UserDTO ud = new UserDTO();

@@ -1,8 +1,6 @@
 package com.walab.coding.controller;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.walab.coding.model.CodingSiteDTO;
-import com.walab.coding.model.PaginationDTO;
 import com.walab.coding.model.ProblemDTO;
-import com.walab.coding.model.RecommendDTO;
-import com.walab.coding.model.UserDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.ProblemService;
 import com.walab.coding.service.UserProblemService;
@@ -27,7 +22,6 @@ import com.walab.coding.service.UserProblemService;
 /**
  * Handles requests for the application RecommendProblems page.
  */
-
 @Controller
 @RequestMapping(value = "/problemList")
 public class ProblemlistController {
@@ -35,25 +29,21 @@ public class ProblemlistController {
 
 	@Autowired
 	ProblemService problemService;
+	
 	@Autowired
 	CodingSiteService codingSiteService;
+	
 	@Autowired
 	UserProblemService userProblemService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewProblems(ModelAndView mv, 
-			@RequestParam(value="page", defaultValue="1") int page) {
-
-		
-//		List<ProblemDTO> problemList = problemService.readProblems();
+										@RequestParam(value="page", defaultValue="1") int page) {
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<Map<String,Object>> ratioBySite = problemService.readRatioBySiteid();
-				
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
 		List<Map<String,Object>> ratio = problemService.makeRatioBySiteid(ratioBySite, codingSite);
 		List<Map<String,Object>> average = userProblemService.readAvgForaWeek();
 	
-		
-		
 		mv.addObject("codingSite", codingSite);
 		mv.addObject("ratio", ratio);
 		mv.addObject("averageForWeek", average);
@@ -65,16 +55,10 @@ public class ProblemlistController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView searchProblem(HttpServletRequest httpServletRequest,
-			@RequestParam(value="page", defaultValue="1") int page,
-			@RequestParam(value="searchValue", defaultValue="") String searchValue,
-			@RequestParam(value="orderValue", defaultValue="") String orderValue,
-			@RequestParam(value="siteValue", defaultValue="") String siteValue) {		
-		
-//		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
-//		String searchValue= httpServletRequest.getParameter("searchValue");
-//		String orderValue= httpServletRequest.getParameter("orderValue");
-//		String siteValue= httpServletRequest.getParameter("siteValue");
-		
+											@RequestParam(value="page", defaultValue="1") int page,
+											@RequestParam(value="searchValue", defaultValue="") String searchValue,
+											@RequestParam(value="orderValue", defaultValue="") String orderValue,
+											@RequestParam(value="siteValue", defaultValue="") String siteValue) {				
 		
 		// pagination
 		int listCnt = problemService.readProblemListCnt(searchValue, orderValue, siteValue); // 총 문제의 개수
@@ -84,7 +68,6 @@ public class ProblemlistController {
 		System.out.println("listCnt: "+listCnt);
 		
 		int pageNum = (int) Math.ceil((float)listCnt/list); // 총 페이지
-		int blockNum = (int)Math.ceil((float)pageNum/block); // 총 블록
 		int nowBlock = (int)Math.ceil((float)page/block); // 현재 페이지가 위치한 블록 번호
 		int s_point = (page-1)*list;
 		
@@ -93,23 +76,18 @@ public class ProblemlistController {
 			s_page = 1;
 		}
 		int e_page = nowBlock*block;
-			if (pageNum <= e_page) {
-				e_page = pageNum;
+		if (pageNum <= e_page) {
+			e_page = pageNum;
 		}
 		
 		List<ProblemDTO> problems = problemService.search(s_point, list, searchValue, orderValue, siteValue);
+		
 		ModelAndView mv = new ModelAndView();
+		
 		mv.addObject("page", page);
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
 		mv.addObject("problems", problems);
-
-//		System.out.println("in search>>>>>>>>>>>>");
-//		System.out.println(page);
-//		System.out.println(s_point);
-//		System.out.println(list);
-//		System.out.println(orderValue);
-//		System.out.println(siteValue);
 
 		System.out.println("datacnt: " + problems.size());
 		

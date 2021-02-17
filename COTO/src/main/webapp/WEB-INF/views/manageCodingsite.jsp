@@ -5,18 +5,16 @@
 <jsp:include page= "<%=\"./inc/\".concat(((String)request.getAttribute(\"header\")))%>" />
 
 <link rel="stylesheet" href="./resources/css/manageCodingsite.css?asd" />
-<script src="./resources/js/manageCodingsite.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script>
+<script type="text/javascript" src="./resources/js/manageCodingsite.js"></script>
+<script >
 
 var isAdd = false;
 
 $(document).ready(function() {
 	
 	var posts = new Array();
-	
-	<c:forEach items="${CodingSite}" var="u">
+		<c:forEach items="${CodingSite}" var="u">
 		
 		var list = new Object();
 		list.siteName = "${u.getSiteName()}";
@@ -26,6 +24,7 @@ $(document).ready(function() {
 		posts.push(list);
 	
 	</c:forEach>
+	
 
 	$('#editbtn').click(function() {
 		if ($("span.btns").css("display") == "none") {
@@ -104,13 +103,6 @@ $(document).ready(function() {
 			$('#submitbtn').html('추가');
 		} 
 	}
-	
-	function deleteOk(id) {            
-		if (confirm("정말로 삭제하겠습니까?")){
-			location.href = './manageCodingsite/deleteok/' + id;
-		}
-	}
-	
 	$(document).on("click", ".editSite", function(){
 		var form = document.form1;
 		var tableRow = $(this).closest('.tableRow');
@@ -120,7 +112,7 @@ $(document).ready(function() {
 		
 		var buttons = '<span class="btns wide"><button id="cancelbtn" class="cancelbtn whitebtn" type="button">취소</button><button id="submitbtn" class="submitbtn whitebtn" type="submit">수정</button></span>';
 
-		$(editCell[0]).html('<input id="editonly" type="hidden" name="id" value="'+ posts[index-1].id +'" /> <input id="siteName"  class="siteName" type="text" name="siteName" value="'+posts[index-1].siteName+'">');
+		$(editCell[0]).html('<input id="editonly" type="hidden" name="id" value="'+  [index-1].id +'" /> <input id="siteName"  class="siteName" type="text" name="siteName" value="'+posts[index-1].siteName+'">');
 		$(editCell[1]).html('<input id="siteUrl" class="siteUrl" type="text" name="siteUrl" value="'+ posts[index-1].siteUrl +'">');
 		$(editCell[1]).append(buttons);
 		
@@ -165,53 +157,7 @@ $(document).ready(function() {
 	}
 
 });
-
 </script>
-<style>
-#manage {
-	position: relative;
-	padding: 80px 0;
-	margin-bottom: 3%;
-}
-
-#manage:before {
-	content: "";
-	background-image: url("./resources/img/codingSiteimg.jpg");
-	background-size: cover;
-	top: 0;
-	left: 0;
-	right: 0px;
-	bottom: 0px;
-	position: absolute;
-	opacity: 0.4;
-	z-index: -1;
-}
-
-.content {
-	top: 15%;
-	left: 50px;
-	width: 100%;
-	bottom: 100px;
-	color: #666666;
-}
-@media screen and (max-width: 715px){
-	.table{
- 		font-size: 12px !important;
- 		overflow-x: auto !important;
- 		display: block !important;
-	}
-	.tablehead{
-	 	font-size: 12px !important;
-	}
-	.tableRow{
-		overflow-x: auto !important;
-	}
-	.tableCell{
-		overflow-x: auto !important;
-	}	
-}
-</style>
-
 <div id="SiteContainer" class="container">
 	<div id="manage">
 		<div class="content">
@@ -261,8 +207,5 @@ $(document).ready(function() {
 		</div>
 	</form>
 </div>
-
-
-
 
 <%@ include file="./inc/footer.jsp"%>

@@ -33,13 +33,13 @@ import com.walab.coding.service.UserService;
 public class HomeController {
 	
 	@Autowired
-	CodingSiteService codingSiteService;
-	
-	@Autowired
 	UserService userService;
 
 	@Autowired
 	UserProblemService userProblemService;
+	
+	@Autowired
+	ProblemService problemService;
 	
 	@Autowired
 	RecomTagService recomTagService;
@@ -48,65 +48,69 @@ public class HomeController {
 	RecommendService recommendService;
 	
 	@Autowired
-	ProblemService problemService;
+	CodingSiteService codingSiteService;
 	
+	/**
+	 * reads rank, problem, tag, recommend list, coding sites
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView viewHome(HttpServletRequest httpServletRequest, ModelAndView mv) {
-		int probs = 0;
-		List<CodingSiteDTO> codingSite = codingSiteService.read();
-		mv.addObject("CodingSite", codingSite);
-					
+		
 		List<RankDTO> totalRankList = userProblemService.readTotalRankList();
 		List<RankDTO> todayRankList = userProblemService.readTodayRankList();
-		List<UserProblemDTO> upd = userProblemService.readProblemList();
-		List<RecomTagDTO> rtd = recomTagService.readTagList();
-		List<RecommendDTO> recentRecomList = recommendService.readRecentRecommendList();
+		List<UserProblemDTO> totalProblemList = userProblemService.readProblemList();
 		List<ProblemDTO> recentProblemList = problemService.readRecentProblem();
+		List<RecomTagDTO> tagList = recomTagService.readTagList();
+		List<RecommendDTO> recentRecomList = recommendService.readRecentRecommendList();
+		List<CodingSiteDTO> codingSiteList = codingSiteService.readCodingSite();
 
-	
 		mv.addObject("ranks", totalRankList);
 		mv.addObject("ranksToday", todayRankList);
-		mv.addObject("problems", upd);
-		mv.addObject("tags", rtd);
-		mv.addObject("recoms", recentRecomList);
+		mv.addObject("problems", totalProblemList);
 		mv.addObject("recentProblems", recentProblemList);
+		mv.addObject("tags", tagList);
+		mv.addObject("recoms", recentRecomList);
+		mv.addObject("CodingSite", codingSiteList);
+
 		mv.setViewName("home");
 	
-		
 		return mv;
 	}
 	
-	// 문제 등록 모달로부터 UserProblemsDTO LiST를 반환받아야 함. 
+	/**
+	 * creates the problem user entered
+	 */	
 	@RequestMapping(value = "/createProblem", method=RequestMethod.POST)
 	@ResponseBody
-	public String createProblem(HttpServletRequest httpServletRequest, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, 
-											  @RequestParam(value="problem[]") List<String> problem, 
-											  @RequestParam(value="link[]") List<String> link) {
+	public String createProblem(HttpServletRequest httpServletRequest, ModelAndView mv, 
+									@RequestParam(value="siteId[]") List<String> siteId, 
+									@RequestParam(value="problem[]") List<String> problem, 
+									@RequestParam(value="link[]") List<String> link) {
 	
 		
-		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
+		List<UserProblemDTO> problems = new ArrayList<UserProblemDTO>();
 
 		
 		for(int i=0 ; i<siteId.size() ; i++) {
-			UserProblemDTO p = new UserProblemDTO();
+			UserProblemDTO userProblem = new UserProblemDTO();
 			
-			p.setUserID((int)httpServletRequest.getAttribute("userID"));
-			if(Integer.parseInt(siteId.get(i)) != 0)
-				p.setSiteID(Integer.parseInt(siteId.get(i)));
+			userProblem.setUserID((int)httpServletRequest.getAttribute("userID"));
+			if(Integer.parseInt(siteId.get(i)) != 0) {
+				userProblem.setSiteID(Integer.parseInt(siteId.get(i)));
+			}
+			userProblem.setProblem(problem.get(i));
+			if(link.get(i) == null) {
+				userProblem.setLink(null); 
+			} else {
+				userProblem.setLink(link.get(i));
+			}
+			userProblem.setDifficulty(null);
+			userProblem.setMemo(null);
 			
-			p.setProblem(problem.get(i));
-			
-			if(link.get(i) == null)
-				p.setLink(null);
-			else
-				p.setLink(link.get(i));
-			p.setDifficulty(null);
-			p.setMemo(null);
-			
-			probs.add(p);
+			problems.add(userProblem);
 		}
 		
-		userProblemService.createUserProblem(probs);
+		userProblemService.createUserProblem(problems);
 		
 		return "success";
 	}

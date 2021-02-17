@@ -18,6 +18,10 @@ public class RecomCommentServiceImpl implements RecomCommentService {
 	@Autowired
 	RecomCommentDAO recomCommentDAO;
 	
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public List<Map<String, Object>> read(int recomID) {
 		
@@ -29,6 +33,10 @@ public class RecomCommentServiceImpl implements RecomCommentService {
 		return list;
 	}
 
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public List<Map<Integer, Integer>> readCount() {
 		
@@ -38,6 +46,10 @@ public class RecomCommentServiceImpl implements RecomCommentService {
 		
 	}
 
+	/**
+	 * RecommendController
+	 * 
+	 */
 	@Override
 	public void createComment(RecomCommentDTO r) {
 		

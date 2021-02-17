@@ -6,40 +6,12 @@
 
 <link rel="stylesheet" href="./resources/css/home.css?asd" />
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?asd" />
+
 <script src="./resources/js/home.js"></script>
 
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
  
- <script>
-
-/* var instance = M.FormSelect.getInstance(elem);
-instance.getSelectedValues();
-instance.destroy(); */
-
-function reponsive(){
-	var windowWidth = $( window ).width();
-	if(windowWidth < 770 || windowWidth > 380) {
-		if($("#second").css("display") == "none"){
-		    $("#second").show();
-		    $("#first").hide();
-		}
-	}
-	else if(windowWidth < 380) {
-		if($("#third").css("display") == "none"){
-		    $("#third").show();
-		    $("#second").hide();
-		}
-	}
-}
-
-/* if ($(window).width() < 770 ) {
-	if($("#second").css("display") == "none"){
-
-} */
- </script>
-
-<!-- first section start- 문제 등록, 내 정보 -->
 <div class="section no-pad-bot">
 	<div id="myInfo" class="container center">
 		<br> <br>
@@ -48,24 +20,22 @@ function reponsive(){
 		<br>
 		<div class="row center">
 			<button id="register-button" class="probBtn" onclick="callModal()">문제 등록하러 가기 ></button>
-			<!-- onclick="callModal()" -->
 		</div>
 		<br> <br>
 	</div>
 </div>
 
 <div id = "first"> 
-<%@ include file="./ajaxContent/homeFirstContent.jsp"%> 
+	<%@ include file="./ajaxContent/homeFirstContent.jsp"%> 
 </div> 
 
  <div id = "second" style="display:none"> 
-<%@ include file="./ajaxContent/homeSecondContent.jsp"%> 
+	<%@ include file="./ajaxContent/homeSecondContent.jsp"%> 
 </div> 
 
 <div id = "third" style="display:none"> 
-<%@ include file="./ajaxContent/homeThirdContent.jsp"%> 
+	<%@ include file="./ajaxContent/homeThirdContent.jsp"%> 
 </div> 
-
 
 <div id="createProblem" class="container" style="display:none">
 	<form class="col s12">
@@ -99,10 +69,4 @@ function reponsive(){
 	</form>
 </div>
 
-<br>
-
-
 <%@ include file="./inc/footer.jsp"%>
-<%-- <%@ include file="./solvedProblem.jsp"%>
- --%>
- 

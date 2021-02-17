@@ -35,7 +35,7 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		Map<String, Object> userProblemListParam = new HashMap<String, Object>();
 		userProblemListParam.put("memo", upd.getMemo());
 		userProblemListParam.put("difficulty", upd.getDifficulty());
-		userProblemListParam.put("problemID", upd.getId());
+		userProblemListParam.put("id", upd.getId());
 		
 		return sqlSession.update(namespace+".updateUserProblem", userProblemListParam);
 	}
@@ -88,8 +88,8 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 			newProb.setLink(p.getLink());
 			
 			sqlSession.insert("problem.createProblem", newProb);
-			problemID = sqlSession.selectOne("problem.readProblemCnt");
-			problemID++;
+			problemID = sqlSession.selectOne("problem.readMyLastInsertProblem");
+			//problemID++;
 			
 			System.out.println("problem에 없음! 새로운 problem 만들었음");
 		}else {

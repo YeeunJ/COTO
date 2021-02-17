@@ -1,10 +1,22 @@
+@media screen and (max-width: 1199px) {
+	#myDoughnutChart {width: 260px !important; margin: auto;}
+	#myBarChart {width: 700px !important;}
+	.myChart {width: 220px !important; }
+}
+@media screen and (max-width: 992px) {
+	.card-content2 { display: none; }
+	#myDoughnutChart {margin: auto;} 
+}
+@media screen and (max-width: 550px) {
+	.card-content2, .card-content3 { display: none; } 
+	.card-content1 {width: 100%; margin:0;}
+}
 .box{
 	border: 0;
 }
 .search{
 	display: flex;
 	float: right;
-	width: 25% !important;
 	border: none;
 	padding: 0px !important;
 }
@@ -16,12 +28,14 @@
 }
 
 .card-wrap {
-	display:flex;
+	width: 100%;
+	display: inline-flex;
 	/* grid-template-columns: 1fr 1fr 1fr; */
 }
 
  .card-content1, .card-content2, .card-content3 {
 	flex: 1;
+	width: 200px;
 } 
 
 .card-content1, .card-content2 {

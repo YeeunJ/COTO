@@ -1,13 +1,10 @@
 // Or with jQuery
 $(document).ready(function(){
-    //$('select').formSelect();
     $('#orderValue').formSelect();
     $('#searchButton').on('click', function() {
-		console.log("click");
 		search();
 	});
 	$('#orderValue').on('change', function() {
-		console.log("change");
 		search();
 	});
 	search(1);
@@ -26,7 +23,6 @@ function search(page){
 				orderValue:$('#orderValue option:selected').val()
 			},
 			success: function(data){
-				console.log(data);
 				$('#pageajaxContent').html(data);
 			}, 
 			error:function(request, status, error){
@@ -34,49 +30,379 @@ function search(page){
 	        }
 	});
 }
-function callModal() {
-	selectHtml = $('#selectHtml').html();
-	createModel("#createProblems", "문제집 등록", addajax);
+
+function searchF(){
+	search(1);
 }
 
-function printAllContent(id, recomId, count){
+/* create */
+//추천집 create modal 부르
+function callModal() {
+	selectHtml = $('#selectHtml').html();
+	createModel("#createProblems", "문제집 등록", addajax, searchF);
+}
+
+//comment create
+function addComment() {	
+	var userID = $("input[name='writer']").val();
+	var recomID = $("input[name='recomID']").val();
+
+	if (confirm("댓글을 추가하시겠습니까?")) {
+		$.ajax({
+			url : "recommendProblem/addComment",
+			type : "POST",
+			async : false,
+			data : {
+				userID : userID,
+				recomID : recomID,
+				content : $('.sweet-modal-content #comment-textarea').val()
+			},
+			success : function(data) {
+				$('.sweet-modal-content #modal-comment').html(data);
+				$('.sweet-modal-content #comment-textarea').val("");
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n"
+						+ "message:" + request.responseText + "\n"
+						+ "error:" + error);
+			}
+		});
+	}
+}
+
+//create modal db에
+function addajax(){
+	var siteId = [];
+	var problem = [];
+	var link = [];
+	var title = $('.sweet-modal-content #createTitle').val();
+	var difficulty_cnt = document.getElementsByName("difficulty").length;
+	var tag = [];
+	var content = $('.sweet-modal-content #createContent').val();
+	
+	$('.sweet-modal-content .problem').each(function(){
+		var s_id = 0;
+		var l = "";
+		var p;
+		var valueSplit = $(this).val().split(' (');
+		
+		if($(this).attr('name') == 0){
+			l = valueSplit[0].trim();
+			
+			var split = l.split('/');
+			p = split[split.length-1].trim();
+		} else {
+			s_id = $(this).attr('name');
+			p = valueSplit[0].trim();
+		}
+		
+		siteId.push(s_id);
+		problem.push(p);
+		link.push(l);
+	});
+	
+	probs = {"siteId":siteId, "problem":problem, "link":link};
+	
+	var tag_data= $('.sweet-modal-content #problemTag').text(); //$('.sweet-modal-content #problemTag').material_chip('data');
+	var tagSplit = tag_data.split("close");
+	for(var i in tagSplit) {
+		tagSplit[i] = tagSplit[i].trim();
+		
+		if(tagSplit[i] === '') continue;
+		else tag.push(tagSplit[i]);
+	}
+	
+	for(var i=0;i<difficulty_cnt;i++) {
+		if(document.getElementsByName("difficulty")[i].checked == true)
+			var difficulty = document.getElementsByName("difficulty")[i].value;
+	}		
+	
+	$.ajax({
+        url : './recommendProblem/createRecomProblem',
+        type: 'POST',
+        data: {
+        	"siteId":siteId, "problem":problem, "link":link, "title":title, "difficulty":difficulty, "tag":tag, "content":content
+        },
+        success: function(data) {
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+
+}
+
+var count=0;
+
+//create modal에서 problem입력할 때
+function insertProblems(){
+	var siteName = $(".sweet-modal-content #siteName option:selected").text();
+	var siteId = $('.sweet-modal-content #siteName').val();
+	console.log("siteId: "+siteId);
+	var site = $(".sweet-modal-content #siteName option:selected").val();
+	var value = $(".sweet-modal-content #problems").val();
+	console.log(value);
+	var valueSplit = value.split(',');
+	var data = $('.sweet-modal-content #confirmSite').html();
+	for(var i in valueSplit){
+		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
+		count++;
+	}
+	$('.sweet-modal-content #confirmSite').html(data);
+	$('#confirmSite').html(data);
+	$(".sweet-modal-content #problems").val("");
+};
+
+//read modal에서 recom count
+function addRecomCount(){
+	$.ajax({
+		url: "./recommendProblem/addRecomCount",
+		type: "POST",
+		async: false,
+		data: {
+			recomID:$('#readRecomID').html()
+		},
+		success: function(data){
+			$('.sweet-modal-content #recomCountCommentContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
+}
+
+
+/* read */
+//문제 list에서 클릭 시, detail modal 불러오기
+function printAllContent(recomId){
 	selectHtml = $('#selectHtml').html();
 	
 	readDetailModalContent(recomId);
-
-//	$('#updateRecomID').html(recomId);
-	//$('input[name=updateTitle]').attr('value',$(id+' .readTitle').text());
-	//$('.sweet-modal-content #updateTitle').val($(id+' .readTitle').text());
-	//$('#updateContents').html($(id+' .readContent').html());
-	
-	//$('#updateTags').text($(id+' .readTag').text());
-	//$('#updateProblems').html($(id+' .readProblem').html());
-	
-	//var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
-//	console.log(d);
-	//jQuery버전 1.6 이하 일때 아래코드로, 아니라면 $("#ud"+d).prop("checked", true);
-	//$("#ud"+d).attr('checked', 'checked');
-//	for(var i=0;i<6;i++) {
-//		if(i == d) $("#ud"+i).attr('checked', 'checked');
-//		else $("#ud"+i).removeAttr('checked');
-//	}
-	
-	//updateConfirmSite
-	//updateInsertProblems($(id+' .readProblem').text());
-	
-	//updateChipTag($(id+' .readTag').text());
-	
-	var logID = $(id+' .readLoginID').text();
-	var uID = $(id+' .readUserID').text();
-	//console.log(logID + " = " + uID);
-	/*
-	if(logID == uID)rudModel("#readRecommendProblem", "#updateRecommendProblem", $(id+' .readTitle').html(), $(id+' .readTitle').html(), updateAjax, deleteAjax);
-	else readModel("#readRecommendProblem", $(id+' .readTitle').html());
-	$('select').formSelect();*/
 }
 
+//detail modal에 들어갈 내용 read
+function readDetailModalContent(recomID, count) {
+	var title;
+	var logID;
+	var uID;
+	
+	$.ajax({
+		url : "recommendProblem/readModalInfo",
+		type : "POST",
+		async : false,
+		data : {
+			recomID : recomID,
+		},
+		success : function(data) {
+			var dataSplit = data.split("\n");
+			for(var i=0;i<dataSplit.length;i++) {
+				dataSplit[i] = dataSplit[i].trim();
+
+				if(dataSplit[i].indexOf("readTitle") != -1) title = $( dataSplit[i] ).text(); //console.log(dataSplit[i]);
+				else if(dataSplit[i].indexOf("readLoginID") != -1) logID = $( dataSplit[i] ).text();
+				else if(dataSplit[i].indexOf("readUserID") != -1) uID = $( dataSplit[i] ).text();
+			}
+			
+			$("#modalContent").html(data);
+			if(logID == uID) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
+			else readModel("#readRecommendProblem", title);
+		},
+		error : function(request, status, error) {
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}
+
+
+/* update */
+//read modal를 update
+function updateAjax (){
+	var recomID = $('.sweet-modal-content #updateRecomID').val(); 
+	var title = $('.sweet-modal-content #updateTitle').val(); 
+	var content = $('.sweet-modal-content #updateContents').val();
+	var tag = [];
+	var difficulty_cnt = document.getElementsByName("updateDifficulty").length;
+	var siteId = [];
+	var problem = [];
+	var link = [];
+	
+	$('.sweet-modal-content .updateConfirmProblem').each(function(){
+		var s_id = 0;
+		var l = "";
+		var p;
+		var valueSplit = $(this).val().split(' (');
+		
+		if($(this).attr('name') == 0){
+			l = valueSplit[0].trim();
+			
+			var split = l.split('/');
+			p = split[split.length-1].trim();
+		} else { 
+			s_id = $(this).attr('name');
+			p = valueSplit[0].trim();
+		}
+		
+		siteId.push(s_id);
+		problem.push(p);
+		link.push(l);
+	});
+	
+	var tag_data= $('.sweet-modal-content #updateProblemTag').text(); //$('.sweet-modal-content #problemTag').material_chip('data');
+	var tagSplit = tag_data.split("close");
+	for(var i in tagSplit) {
+		tagSplit[i] = tagSplit[i].trim();
+		
+		if(tagSplit[i] === '') continue;
+		else tag.push(tagSplit[i]);
+	}
+	
+	for(var i=0;i<difficulty_cnt;i++) {
+		if(document.getElementsByName("updateDifficulty")[i].checked == true)
+			var difficulty = document.getElementsByName("updateDifficulty")[i].value;
+	}
+	
+	$.ajax({
+		url: "./recommendProblem/updateRecomProblem",
+		type: "POST",
+		async: false,
+		data: {
+			"recomID": recomID, "siteId":siteId, "problem":problem, "link":link, "title":title, "difficulty":difficulty, "tag":tag, "content":content
+		},
+		success: function(data){
+			$('#recommendContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
+}
+
+//update modal에서 problem입력할 때
+function updateProblems(){
+	var siteName = $(".sweet-modal-content #siteName option:selected").text();
+	var siteId = $('.sweet-modal-content #siteName').val();
+	console.log("siteId: "+siteId);
+	var site = $(".sweet-modal-content #siteName option:selected").val();
+	var value = $(".sweet-modal-content #updateConfirmProblems").val();
+	console.log(value);
+	var valueSplit = value.split(',');
+	var data = $('.sweet-modal-content #updateConfirmSite').html();
+	for(var i in valueSplit){
+		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
+		count++;
+	}
+	$('.sweet-modal-content #updateConfirmSite').html(data);
+	$('#updateConfirmSite').html(data);
+	$(".sweet-modal-content #updateConfirmProblems").val("");
+};
+
+
+/* delete */
+//read modal을 delete
+function deleteAjax (){
+	$.ajax({
+		url: "./recommendProblem/deleteRecomProblem",
+		type: "POST",
+		async: false,
+		data: {
+			id:$('#updateRecomID').html()
+		},
+		success: function(data){
+			$('#recommendContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
+}
+
+//(create나 update에서)problem을 클릭하면, 해당 problem는 delete
+function deleteThis(id){
+	var allid = "#"+id;
+	$(allid).remove();
+}
+
+//read modal에서 recom count
+function deleteRecomCount(){
+	$.ajax({
+		url: "./recommendProblem/deleteRecomCount",
+		type: "POST",
+		async: false,
+		data: {
+			recomID:$('#readRecomID').html()
+		},
+		success: function(data){
+			console.log(data);
+			$('.sweet-modal-content #recomCountCommentContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
+}
+
+
+
+
+function checkProblem(id){
+	$.ajax({
+		url : "recommendProblem/addRecomCheck",
+		type : "POST",
+		async : false,
+		data : {
+			rpID : id,
+		},
+		success : function(data) {
+			console.log(data);
+			idName = ".sweet-modal-content #eachProblemContent"+id;
+			console.log(idName);
+			$(idName).html(data);
+		},
+		error : function(request, status, error) {
+			alert("허용되지 않은 접근입니다. 새로고침 후 다시 시도해주세요.");
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}
+function uncheckProblem(id){
+	$.ajax({
+		url : "recommendProblem/deleteRecomCheck",
+		type : "POST",
+		async : false,
+		data : {
+			rpID : id,
+		},
+		success : function(data) {
+			console.log(data);
+			idName = ".sweet-modal-content #eachProblemContent"+ id;
+			$(idName).html(data);
+		},
+		error : function(request, status, error) {
+			alert("허용되지 않은 접근입니다. 새로고침 후 다시 시도해주세요.");
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}
+
+function resetContent() {
+	$('#createProblems #confirmSite').html("");
+	$('#selectHtml').html(selectHtml);
+	$('.sweet-modal-content .chip').remove();
+}
+
+
+
+
+
+
 // 수정 필요 ! -> update 창이 뜨면 보이도록
-function updateChipTag(data) {
+/*function updateChipTag(data) {
 	//var tagData = data;
 	var tdSplit = data.split('\n');
 	var cnt=0;
@@ -159,368 +485,4 @@ function updateInsertProblems(data){
 	
 	$('.sweet-modal-content #updateConfirmSite').html(result);
 	$('#updateConfirmSite').html(result);
-};
-
-
-function addComment() {	
-	var userID = $("input[name='writer']").val();
-	var recomID = $("input[name='recomID']").val();
-
-	if (confirm("댓글을 추가하시겠습니까?")) {
-		$.ajax({
-			url : "recommendProblem/addComment",
-			type : "POST",
-			async : false,
-			data : {
-				userID : userID,
-				recomID : recomID,
-				content : $('.sweet-modal-content #comment-textarea').val()
-			},
-			success : function(data) {
-				$('.sweet-modal-content #modal-comment').html(data);
-				$('.sweet-modal-content #comment-textarea').val("");
-			},
-			error : function(request, status, error) {
-				console.log("code:" + request.status + "\n"
-						+ "message:" + request.responseText + "\n"
-						+ "error:" + error);
-			}
-		});
-	}
-}
-
-function checkProblem(id){
-	$.ajax({
-		url : "recommendProblem/addRecomCheck",
-		type : "POST",
-		async : false,
-		data : {
-			rpID : id,
-		},
-		success : function(data) {
-			console.log(data);
-			idName = ".sweet-modal-content #eachProblemContent"+ id;
-			$(idName).html(data);
-		},
-		error : function(request, status, error) {
-			alert("허용되지 않은 접근입니다. 새로고침 후 다시 시도해주세요.");
-			console.log("code:" + request.status + "\n"
-					+ "message:" + request.responseText + "\n"
-					+ "error:" + error);
-		}
-	});
-}
-function uncheckProblem(id){
-	$.ajax({
-		url : "recommendProblem/deleteRecomCheck",
-		type : "POST",
-		async : false,
-		data : {
-			rpID : id,
-		},
-		success : function(data) {
-			console.log(data);
-			idName = ".sweet-modal-content #eachProblemContent"+ id;
-			$(idName).html(data);
-		},
-		error : function(request, status, error) {
-			alert("허용되지 않은 접근입니다. 새로고침 후 다시 시도해주세요.");
-			console.log("code:" + request.status + "\n"
-					+ "message:" + request.responseText + "\n"
-					+ "error:" + error);
-		}
-	});
-}
-function readDetailModalContent(recomID, count) {
-	var title;
-	var logID;
-	var uID;
-	
-	$.ajax({
-		url : "recommendProblem/readModalInfo",
-		type : "POST",
-		async : false,
-		data : {
-			recomID : recomID,
-		},
-		success : function(data) {
-			//console.log(data);
-			var dataSplit = data.split("\n");
-			for(var i=0;i<dataSplit.length;i++) {
-				dataSplit[i] = dataSplit[i].trim();
-
-				if(dataSplit[i].indexOf("readTitle") != -1) title = $( dataSplit[i] ).text(); //console.log(dataSplit[i]);
-				else if(dataSplit[i].indexOf("readLoginID") != -1) logID = $( dataSplit[i] ).text();
-				else if(dataSplit[i].indexOf("readUserID") != -1) uID = $( dataSplit[i] ).text();
-			}
-			//console.log(title);
-			
-			$("#modalContent").html(data);
-			if(logID == uID) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
-			else readModel("#readRecommendProblem", title);
-		},
-		error : function(request, status, error) {
-			console.log("code:" + request.status + "\n"
-					+ "message:" + request.responseText + "\n"
-					+ "error:" + error);
-		}
-	});
-}
-
-function resetContent() {
-	$('#createProblems #confirmSite').html("");
-	$('#selectHtml').html(selectHtml);
-	$('.sweet-modal-content .chip').remove();
-}
-
-
-function addajax(){
-	
-	var siteId = [];
-	var problem = [];
-	var link = [];
-	var title = $('.sweet-modal-content #createTitle').val(); //document.getElementById('createTitle').value;
-	var difficulty_cnt = document.getElementsByName("difficulty").length;
-	var tag = [];
-	var content = $('.sweet-modal-content #createContent').val(); //document.getElementById('createContent').value;
-	
-	console.log(title + " - " + content)
-	
-	$('.sweet-modal-content .problem').each(function(){
-		
-		var s_id = 0;
-		var l = "";
-		var p;
-		var valueSplit = $(this).val().split(' (');
-		
-		if($(this).attr('name') == 0){ // link로 설정하는 경우
-			l = valueSplit[0].trim();
-			console.log("link: "+l);
-			
-			var split = l.split('/');
-			p = split[split.length-1].trim();
-			console.log("problem: "+split[split.length-1].trim());
-
-		} else { // siteId 존재하는 경우
-			s_id = $(this).attr('name');
-			p = valueSplit[0].trim();
-		}
-		
-		siteId.push(s_id);
-		problem.push(p);
-		link.push(l);
-		
-	});
-	
-	console.log(problem);
-	console.log(siteId);
-	console.log(link);
-	
-	probs = {"siteId":siteId, "problem":problem, "link":link};
-	
-	var tag_data= $('.sweet-modal-content #problemTag').text(); //$('.sweet-modal-content #problemTag').material_chip('data');
-	var tagSplit = tag_data.split("close");
-	for(var i in tagSplit) {
-		tagSplit[i] = tagSplit[i].trim();
-		
-		if(tagSplit[i] === '') continue;
-		else tag.push(tagSplit[i]);
-	}
-	console.log(tag);
-	
-	for(var i=0;i<difficulty_cnt;i++) {
-		if(document.getElementsByName("difficulty")[i].checked == true)
-			var difficulty = document.getElementsByName("difficulty")[i].value;
-	}		
-
-	for(var i=0; i<siteId.length; i++) {
-		console.log("TEST: "+siteId[i]+"/"+problem[i]+"/"+link[i]);
-	}
-	
-	$.ajax({
-        url : './recommendProblem/createRecomProblem',
-        type: 'POST',
-        data: {
-        	"siteId":siteId, "problem":problem, "link":link, "title":title, "difficulty":difficulty, "tag":tag, "content":content
-        },
-        success: function(data) {
-            alert('리스트에 추가하였습니다.');
-            $('#recommendContent').html(data);
-        },
-        error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        },
-    });
-
-}
-
-function updateAjax (){
-	var recomID = $('.sweet-modal-content #updateRecomID').val(); 
-	var title = $('.sweet-modal-content #updateTitle').val(); 
-	var content = $('.sweet-modal-content #updateContents').val();
-	var tag = [];
-	var difficulty_cnt = document.getElementsByName("updateDifficulty").length;
-	var siteId = [];
-	var problem = [];
-	var link = [];
-	
-	console.log(recomID);
-	
-	$('.sweet-modal-content .updateConfirmProblem').each(function(){
-		
-		var s_id = 0;
-		var l = "";
-		var p;
-		var valueSplit = $(this).val().split(' (');
-		
-		if($(this).attr('name') == 0){ // link로 설정하는 경우
-			l = valueSplit[0].trim();
-			console.log("link: "+l);
-			
-			var split = l.split('/');
-			p = split[split.length-1].trim();
-			console.log("problem: "+split[split.length-1].trim());
-
-		} else { // siteId 존재하는 경우
-			s_id = $(this).attr('name');
-			p = valueSplit[0].trim();
-		}
-		
-		siteId.push(s_id);
-		problem.push(p);
-		link.push(l);
-		
-	});
-	
-	console.log(problem);
-	console.log(siteId);
-	console.log(link);
-	
-	var tag_data= $('.sweet-modal-content #updateProblemTag').text(); //$('.sweet-modal-content #problemTag').material_chip('data');
-	var tagSplit = tag_data.split("close");
-	for(var i in tagSplit) {
-		tagSplit[i] = tagSplit[i].trim();
-		
-		if(tagSplit[i] === '') continue;
-		else tag.push(tagSplit[i]);
-	}
-	
-	for(var i=0;i<difficulty_cnt;i++) {
-		if(document.getElementsByName("updateDifficulty")[i].checked == true)
-			var difficulty = document.getElementsByName("updateDifficulty")[i].value;
-	}
-	
-	$.ajax({
-		url: "./recommendProblem/updateRecomProblem",
-		type: "POST",
-		async: false,
-		data: {
-			"recomID": recomID, "siteId":siteId, "problem":problem, "link":link, "title":title, "difficulty":difficulty, "tag":tag, "content":content
-		},
-		success: function(data){
-			console.log(data);
-			$('#recommendContent').html(data);
-		}, 
-		error:function(request, status, error){
-			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
-	});
-}
-
-function deleteAjax (){
-	$.ajax({
-		url: "./recommendProblem/deleteRecomProblem",
-		type: "POST",
-		async: false,
-		data: {
-			id:$('#updateRecomID').html()
-		},
-		success: function(data){
-			console.log(data);
-			$('#recommendContent').html(data);
-		}, 
-		error:function(request, status, error){
-			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
-	});
-}
-
-function deleteThis(id){
-	var allid = "#"+id;
-	$(allid).remove();
-}
-
-var count=0;
-function insertProblems(){
-	
-	var siteName = $(".sweet-modal-content #siteName option:selected").text();
-	var siteId = $('.sweet-modal-content #siteName').val();
-	console.log("siteId: "+siteId);
-	var site = $(".sweet-modal-content #siteName option:selected").val();
-	var value = $(".sweet-modal-content #problems").val();
-	console.log(value);
-	var valueSplit = value.split(',');
-	var data = $('.sweet-modal-content #confirmSite').html();
-	for(var i in valueSplit){
-		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
-		count++;
-	}
-	$('.sweet-modal-content #confirmSite').html(data);
-	$('#confirmSite').html(data);
-	$(".sweet-modal-content #problems").val("");
-};
-
-function updateProblems(){
-	
-	var siteName = $(".sweet-modal-content #siteName option:selected").text();
-	var siteId = $('.sweet-modal-content #siteName').val();
-	console.log("siteId: "+siteId);
-	var site = $(".sweet-modal-content #siteName option:selected").val();
-	var value = $(".sweet-modal-content #updateConfirmProblems").val();
-	console.log(value);
-	var valueSplit = value.split(',');
-	var data = $('.sweet-modal-content #updateConfirmSite').html();
-	for(var i in valueSplit){
-		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
-		count++;
-	}
-	$('.sweet-modal-content #updateConfirmSite').html(data);
-	$('#updateConfirmSite').html(data);
-	$(".sweet-modal-content #updateConfirmProblems").val("");
-};
-
-function addRecomCount(){
-	$.ajax({
-		url: "./recommendProblem/addRecomCount",
-		type: "POST",
-		async: false,
-		data: {
-			recomID:$('#readRecomID').html()
-		},
-		success: function(data){
-			console.log(data);
-			$('.sweet-modal-content #recomCountCommentContent').html(data);
-		}, 
-		error:function(request, status, error){
-			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
-	});
-}
-
-function deleteRecomCount(){
-	$.ajax({
-		url: "./recommendProblem/deleteRecomCount",
-		type: "POST",
-		async: false,
-		data: {
-			recomID:$('#readRecomID').html()
-		},
-		success: function(data){
-			console.log(data);
-			$('.sweet-modal-content #recomCountCommentContent').html(data);
-		}, 
-		error:function(request, status, error){
-			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
-	});
-}
+};*/
