@@ -8,13 +8,13 @@ public interface RecomProblemService {
 
 	public void createRecomProblem(List<RecomProblemDTO> recomprobs);
 	
-	public int readProblemID(int siteID, String problem);
+	//public int readProblemID(int siteID, String problem);
 	
-	public List<RecomProblemDTO> readProblem();
-	
-	public int deleteRecomProblem(int recomID);
+	public List<RecomProblemDTO> readProblemList();
 	
 	public List<RecomProblemDTO> readProblemByID(int recomID);
 	
 	public RecomProblemDTO readEachProblem(int rpID, int userID);
+	
+	public int deleteRecomProblem(int recomID);
 }
