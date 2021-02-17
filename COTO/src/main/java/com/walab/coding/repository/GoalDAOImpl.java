@@ -19,6 +19,10 @@ public class GoalDAOImpl implements GoalDAO{
 	
 	private String namespace = "goal";
 	
+	/**
+	 * MyinformationController
+	 * Read the goal information of a user with a specific ID
+	 */
 	public List<GoalDTO> readGoal(int userID) {
 		
 		List<GoalDTO> goal = new ArrayList<GoalDTO>();
@@ -42,7 +46,10 @@ public class GoalDAOImpl implements GoalDAO{
 		//return goalList = sqlSession.selectList(namespace+".readGoalList", goalListParam);
 	}
 	
-	
+	/**
+	 * MyinformationController
+	 * Update a user's goals
+	 */
 	public int updateGoal(GoalDTO updatdGoal) {
 		
 		Map<String, Object> goalParam = new HashMap<String, Object>();

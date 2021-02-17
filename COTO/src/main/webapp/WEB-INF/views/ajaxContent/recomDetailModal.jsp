@@ -3,13 +3,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<script>
-/* console.log(${recom.difficulty});
-var difficulty = ${recom.difficulty};
-$("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('checked', true); 
- */
-</script>
-
 <span id="readTitle" style="display:none;">${ recom.title }</span>
 <span id="readLoginID" style="display: none;">${loginID}</span>
 <span id="readUserID" style="display: none;">${recom.userID}</span>
@@ -50,9 +43,7 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 				<p class="title">추천 문제 태그</p>
 				<div id="readTags">
 				<c:forEach items="${recomProblemTag}" var="rpt">
-					<%-- <c:if test="${rpt.recomID eq recoms.id}"> --%>
-						<span class="readTagChips">${rpt.tag}</span>
-					<%-- </c:if> --%>
+					<span class="readTagChips">${rpt.tag}</span>
 				</c:forEach>
 				</div>
 				<br><br>
@@ -155,10 +146,8 @@ $("input:radio[name='updateDifficulty']:radio[value='"+difficulty+"']").prop('ch
 				<div id="updateProblemTag" class="chips chips-placeholder input-field">
 				<c:set var="count" value="0"/>
 				<c:forEach items="${recomProblemTag}" var="rpt">
-					<%-- <c:if test="${rpt.recomID eq recoms.id}"> --%>
-						<div class = "chip" id="tabindex${ count }">${rpt.tag}<i class = "material-icons close">close</i></div>
-						<c:set var="count" value="${count + 1}"/>
-					<%-- </c:if> --%>
+					<div class = "chip" id="tabindex${ count }">${rpt.tag}<i class = "material-icons close">close</i></div>
+					<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
 				
 				</div>

@@ -9,26 +9,6 @@
 
 <link href="../resources/css/information.css" rel="stylesheet">
 <script src="../resources/js/information.js"></script>
-<style>
-#information {
-	position: relative;
-	padding: 80px 0;
-	margin-bottom: 3%;
-}
-
-#information:before {
-	content: "";
-	background-image: url("../resources/img/problem.png");
-	background-size: cover;
-	top: 0;
-	left: 0;
-	right: 0px;
-	bottom: 0px;
-	position: absolute;
-	opacity: 0.4;
-	z-index: -1;
-}
-</style>
 
 <div id="SiteContainer" class="container">
 	<div id="information">
