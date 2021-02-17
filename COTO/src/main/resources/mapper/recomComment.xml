@@ -2,11 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="recomComment">
-	<!-- <select id="userProblemList" resultType="com.walab.coding.Model.UserProblemDTO" parameterType="hashmap">
-		select up.id as id, cs.siteName as site, cs.siteUrl as siteUrl, up.problem as problem, up.link as link, up.difficulty as difficulty, up.memo as memo, up.regDate as regDate 
-		from userProblem as up left join codingSite as cs on up.siteID = cs.id 
-		where up.userID = #{userID}
-	</select> -->
+
 	<resultMap type="HashMap" id="CommentCount">
 		<id column="recomID" property="recomID"/>
 		<id column="count" property="count"/>
@@ -19,6 +15,10 @@
 		<id column="regDate" property="regDate"/>
 		<id column="content" property="content"/>
 	</resultMap>
+	
+	<insert id="createComment" parameterType="com.walab.coding.model.RecomCommentDTO">
+		INSERT INTO recomComment (recomID, content, userId) VALUES (#{recomID}, #{content}, #{userId})
+	</insert>
 	
 	<select id="readRecomComment" resultMap="Comment" parameterType="hashmap">
 		SELECT R.id, U.id, U.name, R.regDate, R.content 
@@ -35,11 +35,9 @@
 		SELECT COALESCE(COUNT(*), 0) FROM recomComment WHERE recomID = #{recomID}
 	</select>
 	
-	<insert id="createComment" parameterType="com.walab.coding.model.RecomCommentDTO">
-		INSERT INTO recomComment (recomID, content, userId) VALUES (#{recomID}, #{content}, #{userId})
-	</insert>
 	
 	<delete id="deleteRecomComment" parameterType="hashmap">
 		delete from recomComment where recomID = #{recomID}
 	</delete>
+	
 </mapper>

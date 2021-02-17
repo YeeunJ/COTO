@@ -17,6 +17,12 @@ public class RecomCommentDAOImpl implements RecomCommentDAO{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	@Override
+	public void createComment(RecomCommentDTO r) {
+		
+		sqlSession.insert("recomComment.createComment", r);
+		
+	}
 	
 	@Override
 	public List<Map<String, Object>> readAll(Map<String, Object> param) {
@@ -33,13 +39,12 @@ public class RecomCommentDAOImpl implements RecomCommentDAO{
 		return commentCount;
 		
 	}
-
+	
 	@Override
-	public void createComment(RecomCommentDTO r) {
-		
-		sqlSession.insert("recomComment.createComment", r);
-		
+	public int readRecomCommentCount(int recomID) {
+		return sqlSession.selectOne("recomComment.readRecomCommentCount", recomID);
 	}
+
 	
 	@Override
 	public int deleteRecomComment(int recomID) {
@@ -49,9 +54,5 @@ public class RecomCommentDAOImpl implements RecomCommentDAO{
 		return sqlSession.delete("recomComment.deleteRecomComment", recomCommentListParam);
 	}
 	
-	@Override
-	public int readRecomCommentCount(int recomID) {
-		return sqlSession.selectOne("recomComment.readRecomCommentCount", recomID);
-	}
 	
 }

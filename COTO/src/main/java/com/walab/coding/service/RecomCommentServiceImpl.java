@@ -57,6 +57,10 @@ public class RecomCommentServiceImpl implements RecomCommentService {
 		
 	}
 	
+	/**
+	 * 지금은 안쓰지만 댓글 삭제에 그대로 적용하면 될듯!!
+	 * 
+	 */
 	@Override
 	public int deleteRecomComment(int recomID) {
 		return recomCommentDAO.deleteRecomComment(recomID);
