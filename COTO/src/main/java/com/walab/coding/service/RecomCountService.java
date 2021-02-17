@@ -6,9 +6,9 @@ public interface RecomCountService {
 	
 	public int createRecomCount(RecomCountDTO rcd);
 	
-	public int deleteRecomCount(RecomCountDTO rcd);
-	
 	public RecomCountDTO readRecomCount(int recomID, int userID);
+	
+	public int deleteRecomCount(RecomCountDTO rcd);
 	
 	public int deleteRecomCount(int recomID);
 }

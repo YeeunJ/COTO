@@ -14,21 +14,13 @@ public class CodingSiteServiceImpl implements CodingSiteService {
 	@Autowired
 	CodingSiteDAO codingDAO;
 
+	/**
+	 * Codingsite Controller
+	 */
 	@Override
 	public int insertCodingSite(CodingSiteDTO dto) {
 		return codingDAO.insertCodingSite(dto);
 	}
-
-	@Override
-	public int deleteCodingSite(int id) {
-		return codingDAO.deleteCodingSite(id);
-	}
-
-	@Override
-	public int updateCodingSite(CodingSiteDTO dto) {
-		return codingDAO.updateCodingSite(dto);
-	}
-
 	/**
 	 * RecommendController
 	 * 
@@ -39,5 +31,23 @@ public class CodingSiteServiceImpl implements CodingSiteService {
 
 		return result;
 	}
+	/**
+	 * Codingsite Controller
+	 */
+	@Override
+	public int updateCodingSite(CodingSiteDTO dto) {
+		return codingDAO.updateCodingSite(dto);
+	}
+	/**
+	 * Codingsite Controller
+	 */
+	@Override
+	public int deleteCodingSite(int id) {
+		return codingDAO.deleteCodingSite(id);
+	}
+
+
+	
+	
 
 }

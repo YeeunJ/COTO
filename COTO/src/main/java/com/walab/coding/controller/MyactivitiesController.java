@@ -15,7 +15,6 @@ import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.service.GoalService;
 import com.walab.coding.service.UserProblemService;
-import com.walab.coding.service.UserService;
 
 @Controller
 @RequestMapping(value = "/mypage/activities")
@@ -27,8 +26,7 @@ public class MyactivitiesController {
 	@Autowired
 	UserProblemService userProblemService;
 
-	@Autowired
-	UserService userService;
+
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewProblems(HttpServletRequest httpServletRequest, ModelAndView mv, Model model,
