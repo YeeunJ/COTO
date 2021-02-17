@@ -232,6 +232,12 @@ dataForDoughnut.push(gN);
 dataForDoughnut.push(uP);
 </script>
 <style>
+#problem {
+	position: relative;
+	padding: 80px 0;
+	margin-bottom: 3%;
+}
+
 #problem:before {
 	content: "";
 	background-image: url("../resources/img/problem.png");
