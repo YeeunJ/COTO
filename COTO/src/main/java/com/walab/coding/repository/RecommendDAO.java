@@ -6,24 +6,28 @@ import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecommendDTO;
 
 public interface RecommendDAO {
-
-	public List<RecommendDTO> readRecom();
-	
-	public List<RecomProblemDTO> readRecomProblems(int recomID);
-	
-	public List<RecommendDTO> readRecentRecommendList();
 	
 	public int createRecomProblem(RecommendDTO recommend);
 	
-	public List<RecommendDTO> searchProblemByContents(String searchValue, String orderValue);
-
-	public int deleteRecom(int recomID);
+	public List<RecommendDTO> readRecommendList();
+	
+	public List<RecommendDTO> readRecentRecommendList();
+	
+	public RecommendDTO readRecommend(int recomID);
+	
+	public List<RecommendDTO> readRecomByPage(String searchValue, String orderValue, int s_point, int list);
+	
+	public int readRecomListCnt();
 	
 	public int updateRecommend(RecommendDTO r);
 	
-	public RecommendDTO readRecommend(int recomID);
+	public int deleteRecom(int recomID);
 
-	public List<RecommendDTO> readRecomByPage(String searchValue, String orderValue, int s_point, int list);
+	
 
-	public int readRecomListCnt();
+	
+	
+	public List<RecomProblemDTO> readRecomProblems(int recomID);
+	
+	public List<RecommendDTO> searchProblemByContents(String searchValue, String orderValue);
 }
