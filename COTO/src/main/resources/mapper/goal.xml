@@ -37,5 +37,8 @@
 	<update id="updateGoal" parameterType="hashmap">
 		UPDATE goal SET goal='${goal}', startDate='${startDate}', endDate='${endDate}', goalNum='${goalNum}' WHERE id = #{id}
 	</update>
+	<delete id="deleteGoal">
+		delete from goal where id = #{id}
+	</delete>
 	
 </mapper>

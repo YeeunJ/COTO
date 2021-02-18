@@ -69,5 +69,9 @@ public class GoalDAOImpl implements GoalDAO{
 		
 		return sqlSession.selectOne(namespace+".readGoalCnt", goalListParam);
 	}
+	public int deleteGoal(int id) {
+		int result = sqlSession.delete("goal.deleteGoal", id);
+		return result;
+	}
 }
 
