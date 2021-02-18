@@ -5,8 +5,10 @@ import java.util.Map;
 
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.ProblemDTO;
+import com.walab.coding.model.RecomProblemDTO;
 
 public interface ProblemService {
+	
 	
 	/**
 	 * Read count of all problem

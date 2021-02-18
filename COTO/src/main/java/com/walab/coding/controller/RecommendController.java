@@ -64,13 +64,34 @@ public class RecommendController {
 	 */
 	@RequestMapping(value = "/createRecomProblem", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView createProblem(HttpServletRequest request, ModelAndView mv, @RequestParam(value="siteId[]") List<String> siteId, @RequestParam(value="problem[]") List<String> problem, @RequestParam(value="link[]") List<String> link, @RequestParam(value="title") String title, @RequestParam(value="difficulty") String difficulty, @RequestParam(value="tag[]") List<String> tag, @RequestParam(value="content") String content) throws UnsupportedEncodingException {
+	public ModelAndView createProblem(HttpServletRequest request, ModelAndView mv, 
+			@RequestParam(value="siteId[]") List<String> siteId, 
+			@RequestParam(value="problem[]") List<String> problem, 
+			@RequestParam(value="link[]") List<String> link, 
+			@RequestParam(value="title") String title, 
+			@RequestParam(value="difficulty") String difficulty, 
+			@RequestParam(value="tag[]") List<String> tag, 
+			@RequestParam(value="content") String content) throws UnsupportedEncodingException {
+		
 		RecommendDTO recom = new RecommendDTO();
 		List<RecomProblemDTO> recomProbs = new ArrayList<RecomProblemDTO>();
 		List<RecomTagDTO> recomTags = new ArrayList<RecomTagDTO>();
 
 		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
-
+//		
+//		System.out.println("siteId >>>>>>>>>>");
+//		for(int i=0 ; i<siteId.size() ; i++) {
+//			System.out.println(siteId.get(i));
+//		}
+//		System.out.println("problem >>>>>>>>>>");
+//		for(int i=0 ; i<problem.size() ; i++) {
+//			System.out.println(problem.get(i));
+//		}
+//		System.out.println("link >>>>>>>>>>");
+//		for(int i=0 ; i<link.size() ; i++) {
+//			System.out.println(link.get(i));
+//		}
+		
 		recom.setUserID(userID);
 		recom.setTitle(title);
 		recom.setDifficulty(Integer.parseInt(difficulty));
@@ -92,38 +113,39 @@ public class RecommendController {
 
 			recomProbs.add(p);
 		}
-
+		
 		recomProblemsService.createRecomProblem(recomProbs);
 
-		for(int i=0;i<tag.size();i++) {
-			RecomTagDTO t = new RecomTagDTO();
 
-			t.setRecomID(recomID);
-			t.setTag(tag.get(i));
-
-			recomTags.add(t);
-		}
-
-		recomTagService.createTag(recomTags);
-
-		List<RecommendDTO> recoms = recommendService.readRecommendList();
-		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
-		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemList();
-		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
-
-		for(int i=0;i<recomProblem.size();i++) {
-			for(int j=0;j<codingSite.size();j++) {
-				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
-					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
-			}
-		}
-
+//		for(int i=0;i<tag.size();i++) {
+//			RecomTagDTO t = new RecomTagDTO();
+//
+//			t.setRecomID(recomID);
+//			t.setTag(tag.get(i));
+//
+//			recomTags.add(t);
+//		}
+//
+//		recomTagService.createTag(recomTags);
+//
+//		List<RecommendDTO> recoms = recommendService.readRecommendList();
+//		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
+//		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+//		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemList();
+//		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
+//
+//		for(int i=0;i<recomProblem.size();i++) {
+//			for(int j=0;j<codingSite.size();j++) {
+//				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
+//					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
+//			}
+//		}
+//
 		ModelAndView mvNew = new ModelAndView();
-		mvNew.addObject("recoms", recoms);
-		mvNew.addObject("commentCount", commentCount);
-		mvNew.addObject("recomProblem", recomProblem);
-		mvNew.addObject("recomProblemTag", recomProblemTag);
+//		mvNew.addObject("recoms", recoms);
+//		mvNew.addObject("commentCount", commentCount);
+//		mvNew.addObject("recomProblem", recomProblem);
+//		mvNew.addObject("recomProblemTag", recomProblemTag);
 		mvNew.setViewName("ajaxContent/recommendContent");
 
 		return mvNew;

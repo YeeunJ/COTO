@@ -40,7 +40,7 @@
 	</select>
 	
 	<select id="readProblemByUser" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT * FROM problem WHERE siteID=#{siteID} AND (name=#{name} OR link=#{link})
+		SELECT * FROM problem WHERE siteID=#{siteID} AND (name=#{name} AND link=#{link})
 	</select>
 	
 	<select id="readProblemCnt" resultType="int">

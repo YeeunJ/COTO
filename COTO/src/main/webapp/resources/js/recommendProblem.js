@@ -149,7 +149,6 @@ function insertProblems(){
 		count++;
 	}
 	$('.sweet-modal-content #confirmSite').html(data);
-	$('#confirmSite').html(data);
 	$(".sweet-modal-content #problems").val("");
 };
 

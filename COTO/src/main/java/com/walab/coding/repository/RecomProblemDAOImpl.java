@@ -39,11 +39,8 @@ public class RecomProblemDAOImpl implements RecomProblemDAO {
 			
 			sqlSession.insert("problem.createProblem", newProb);
 			problemID = sqlSession.selectOne("problem.readMaxProblem");
-			
-			System.out.println("problem에 없음! 새로운 problem 만들었음");
 		}else {
 			problemID = result.get(0).getId();
-			System.out.println("problem에 있음 : "+problemID);
 		}
 		
 		rp.setProblemID(problemID);
