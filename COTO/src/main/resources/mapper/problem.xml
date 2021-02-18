@@ -55,10 +55,6 @@
         GROUP BY problem.id) subquery;
 	</select>
 	
-	<select id="readMyLastInsertProblem" resultType="int">
-		SELECT LAST_INSERT_ID()
-	</select>
-	
 	<select id="readAllProblemCnt" resultType="int">
 		SELECT COUNT(*) FROM problem;
 	</select>

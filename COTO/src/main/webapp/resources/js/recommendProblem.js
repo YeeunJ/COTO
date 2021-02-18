@@ -44,8 +44,7 @@ function callModal() {
 
 //comment create
 function addComment() {	
-	var userID = $("input[name='writer']").val();
-	var recomID = $("input[name='recomID']").val();
+	var recomID = $('#readRecomID').html();
 
 	if (confirm("댓글을 추가하시겠습니까?")) {
 		$.ajax({
@@ -53,12 +52,11 @@ function addComment() {
 			type : "POST",
 			async : false,
 			data : {
-				userID : userID,
 				recomID : recomID,
 				content : $('.sweet-modal-content #comment-textarea').val()
 			},
 			success : function(data) {
-				$('.sweet-modal-content #modal-comment').html(data);
+				$('.sweet-modal-content #recomCountCommentContent').html(data);
 				$('.sweet-modal-content #comment-textarea').val("");
 			},
 			error : function(request, status, error) {

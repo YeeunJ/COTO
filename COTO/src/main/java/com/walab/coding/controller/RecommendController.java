@@ -78,19 +78,6 @@ public class RecommendController {
 		List<RecomTagDTO> recomTags = new ArrayList<RecomTagDTO>();
 
 		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
-//		
-//		System.out.println("siteId >>>>>>>>>>");
-//		for(int i=0 ; i<siteId.size() ; i++) {
-//			System.out.println(siteId.get(i));
-//		}
-//		System.out.println("problem >>>>>>>>>>");
-//		for(int i=0 ; i<problem.size() ; i++) {
-//			System.out.println(problem.get(i));
-//		}
-//		System.out.println("link >>>>>>>>>>");
-//		for(int i=0 ; i<link.size() ; i++) {
-//			System.out.println(link.get(i));
-//		}
 		
 		recom.setUserID(userID);
 		recom.setTitle(title);
@@ -116,36 +103,20 @@ public class RecommendController {
 		
 		recomProblemsService.createRecomProblem(recomProbs);
 
+		if(tag.size() > 0) {
+			for(int i=0;i<tag.size();i++) {
+				RecomTagDTO t = new RecomTagDTO();
 
-//		for(int i=0;i<tag.size();i++) {
-//			RecomTagDTO t = new RecomTagDTO();
-//
-//			t.setRecomID(recomID);
-//			t.setTag(tag.get(i));
-//
-//			recomTags.add(t);
-//		}
-//
-//		recomTagService.createTag(recomTags);
-//
-//		List<RecommendDTO> recoms = recommendService.readRecommendList();
-//		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
-//		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-//		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemList();
-//		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
-//
-//		for(int i=0;i<recomProblem.size();i++) {
-//			for(int j=0;j<codingSite.size();j++) {
-//				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
-//					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
-//			}
-//		}
-//
+				t.setRecomID(recomID);
+				t.setTag(tag.get(i));
+
+				recomTags.add(t);
+			}
+
+			recomTagService.createTag(recomTags);
+		}
+
 		ModelAndView mvNew = new ModelAndView();
-//		mvNew.addObject("recoms", recoms);
-//		mvNew.addObject("commentCount", commentCount);
-//		mvNew.addObject("recomProblem", recomProblem);
-//		mvNew.addObject("recomProblemTag", recomProblemTag);
 		mvNew.setViewName("ajaxContent/recommendContent");
 
 		return mvNew;
@@ -156,25 +127,33 @@ public class RecommendController {
 	 */
 	@RequestMapping(value = "/addComment", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView addComment(HttpServletRequest request, ModelAndView mv) {
-		int recomID = Integer.parseInt(request.getParameter("recomID"));
-		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
-		String content = request.getParameter("content");
+	public ModelAndView addComment(HttpServletRequest httpServletRequest, ModelAndView mv) {
+		RecomCountDTO rcd;
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		String content = httpServletRequest.getParameter("content");
+		
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			RecomCommentDTO dto = new RecomCommentDTO();
 
-		RecomCommentDTO dto = new RecomCommentDTO();
+			dto.setUserId(userID);
+			dto.setRecomID(recomID);
+			dto.setContent(content);
 
-		dto.setUserId(userID);
-		dto.setRecomID(recomID);
-		dto.setContent(content);
-
-		recomCommentService.createComment(dto);
-
+			recomCommentService.createComment(dto);
+			
+		}
+		
+		rcd = recomCountService.readRecomCount(recomID, userID);
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
-
-		mv.addObject("userid", userID);
-		mv.addObject("recomID", recomID);
+		int commentCount = recomComment.size();
+		
+		mv.addObject("countInfo", rcd);
 		mv.addObject("recomComment", recomComment);
-		mv.setViewName("ajaxContent/recomCommentContent");
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
 
 		return mv;
 	}
