@@ -182,6 +182,7 @@ function readDetailModalContent(recomID, count) {
 	var title;
 	var logID;
 	var uID;
+	var adminID;
 	
 	$.ajax({
 		url : "recommendProblem/readModalInfo",
@@ -198,10 +199,11 @@ function readDetailModalContent(recomID, count) {
 				if(dataSplit[i].indexOf("readTitle") != -1) title = $( dataSplit[i] ).text(); //console.log(dataSplit[i]);
 				else if(dataSplit[i].indexOf("readLoginID") != -1) logID = $( dataSplit[i] ).text();
 				else if(dataSplit[i].indexOf("readUserID") != -1) uID = $( dataSplit[i] ).text();
+				else if(dataSplit[i].indexOf("readAdminID") != -1) adminID = $( dataSplit[i] ).text();
 			}
 			
 			$("#modalContent").html(data);
-			if(logID == uID) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
+			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
 			else readModel("#readRecommendProblem", title);
 		},
 		error : function(request, status, error) {

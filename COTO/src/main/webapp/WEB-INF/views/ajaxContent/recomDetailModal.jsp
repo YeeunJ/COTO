@@ -6,6 +6,7 @@
 <span id="readTitle" style="display:none;">${ recom.title }</span>
 <span id="readLoginID" style="display: none;">${loginID}</span>
 <span id="readUserID" style="display: none;">${recom.userID}</span>
+<span id="readAdminID" style="display: none;">${adminID}</span>
 
 <!-- 세부 정보 모달 -->
 <div id="readRecommendProblem" style="display:none;">
@@ -146,7 +147,7 @@
 				<div id="updateProblemTag" class="chips chips-placeholder input-field">
 				<c:set var="count" value="0"/>
 				<c:forEach items="${recomProblemTag}" var="rpt">
-					<div class = "chip" id="tabindex${ count }">${rpt.tag}<i class = "material-icons close">close</i></div>
+					<div class = "chip" id="tabindex${ count }">${rpt.tag}<i class = "material-icons close" onclick="deletechip(tabindex${ count })">close</i></div>
 					<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
 				
