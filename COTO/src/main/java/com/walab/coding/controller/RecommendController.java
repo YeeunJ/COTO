@@ -246,6 +246,9 @@ public class RecommendController {
 		if((UserDTO)request.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
 		}
+		
+		int admin = ((UserDTO)request.getSession().getAttribute("user")).getIsAdmin();
+		//if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0) {
 		rcd = recomCountService.readRecomCount(recomID, userID);
 		rcd.setRecomID(recomID);
 
@@ -258,6 +261,7 @@ public class RecommendController {
 
 		mv.addObject("recomID", recomID);
 		mv.addObject("loginID", userID);
+		mv.addObject("adminID", admin);
 		mv.addObject("recom", recom);
 		mv.addObject("codingSite", codingSite);
 		mv.addObject("recomProblem", recomProblem);
