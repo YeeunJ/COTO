@@ -74,16 +74,20 @@ public class RegisterController {
 		Date startDate = transFormat.parse(httpServeletRequest.getParameter("startDate"));
 		Date endDate = transFormat.parse(httpServeletRequest.getParameter("endDate"));
 		int goalNum = Integer.parseInt(httpServeletRequest.getParameter("goalNum"));
-				
+		
+		java.sql.Date sdate = new java.sql.Date(startDate.getTime());
+		java.sql.Date edate = new java.sql.Date(endDate.getTime());
+		
 		GoalDTO g = new GoalDTO();
 		g.setUserID(userID);
 		g.setGoal(goal);
-		g.setStartDate(startDate);
-		g.setEndDate(endDate);
+		g.setStartDate(sdate);
+		g.setEndDate(edate);
 		g.setGoalNum(goalNum);
 
-		int result = userService.createUsergoal(g);
-				
+		userService.createUsergoal(g);
+		System.out.println("시작날짜는: "+g.getStartDate());
+		System.out.println("종료날짜는: "+g.getEndDate());
 	}
 	
 	/**

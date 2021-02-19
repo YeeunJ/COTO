@@ -63,8 +63,8 @@
 		<br>
 		<br>
 		<div class="center">
-			<button id="userGoalBtn" class="btn-small waves-effect waves-light" style="background-color: #e69138ff">등록</button>
 			<button id="skipBtn" class="btn-small waves-effect waves-light" style="background-color: #e69138ff">건너뛰기</button>
+			<button id="userGoalBtn" class="btn-small waves-effect waves-light" style="background-color: #e69138ff">등록</button>
 		</div>
 	</div>
 </div>
