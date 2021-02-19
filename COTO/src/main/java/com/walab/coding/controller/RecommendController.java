@@ -70,7 +70,7 @@ public class RecommendController {
 			@RequestParam(value="link[]") List<String> link, 
 			@RequestParam(value="title") String title, 
 			@RequestParam(value="difficulty") String difficulty, 
-			@RequestParam(value="tag[]") List<String> tag, 
+			@RequestParam(value="tag[]", required=false) List<String> tag, 
 			@RequestParam(value="content") String content) throws UnsupportedEncodingException {
 		
 		RecommendDTO recom = new RecommendDTO();
@@ -95,7 +95,7 @@ public class RecommendController {
 
 			p.setName(problem.get(i));
 
-			if(link.get(i) == null) p.setLink(null);
+			if(link.size()==0) p.setLink(null);
 			else p.setLink(link.get(i));
 
 			recomProbs.add(p);
@@ -103,7 +103,7 @@ public class RecommendController {
 		
 		recomProblemsService.createRecomProblem(recomProbs);
 
-		if(tag.size() > 0) {
+		if(tag != null) {
 			for(int i=0;i<tag.size();i++) {
 				RecomTagDTO t = new RecomTagDTO();
 
