@@ -116,7 +116,7 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 											onChipAdd: function(){
 												var text = $('.sweet-modal-content .chips input').val();
 												$('.sweet-modal-content .chips .chip:last').remove();
-												$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close">close</i></div>');
+												$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close" onclick="deletechip(tabindex'+count+')">close</i></div>');
 												count++;
 											},
 											onChipSelect: function(){
