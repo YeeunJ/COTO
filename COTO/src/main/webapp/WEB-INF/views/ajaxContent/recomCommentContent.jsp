@@ -9,7 +9,8 @@
 
 <c:forEach items="${recomComment}" var="r" varStatus="status">
 	<div class="comment-wrapper">
-		<span class="username">${ r.name }</span><span class="commentdate">${ r.regDate }</span>
+		<span class="username">${ r.name }</span>
+		<span class="commentdate"><fmt:formatDate pattern="yyyy-MM-dd" value="${r.regDate}" /></span>
 		<p class="comment">${ r.content }</p>
 	</div>
 </c:forEach>

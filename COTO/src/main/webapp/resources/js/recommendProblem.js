@@ -44,8 +44,7 @@ function callModal() {
 
 //comment create
 function addComment() {	
-	var userID = $("input[name='writer']").val();
-	var recomID = $("input[name='recomID']").val();
+	var recomID = $('#readRecomID').html();
 
 	if (confirm("댓글을 추가하시겠습니까?")) {
 		$.ajax({
@@ -53,12 +52,11 @@ function addComment() {
 			type : "POST",
 			async : false,
 			data : {
-				userID : userID,
 				recomID : recomID,
 				content : $('.sweet-modal-content #comment-textarea').val()
 			},
 			success : function(data) {
-				$('.sweet-modal-content #modal-comment').html(data);
+				$('.sweet-modal-content #recomCountCommentContent').html(data);
 				$('.sweet-modal-content #comment-textarea').val("");
 			},
 			error : function(request, status, error) {
@@ -149,7 +147,6 @@ function insertProblems(){
 		count++;
 	}
 	$('.sweet-modal-content #confirmSite').html(data);
-	$('#confirmSite').html(data);
 	$(".sweet-modal-content #problems").val("");
 };
 
@@ -185,6 +182,7 @@ function readDetailModalContent(recomID, count) {
 	var title;
 	var logID;
 	var uID;
+	var adminID;
 	
 	$.ajax({
 		url : "recommendProblem/readModalInfo",
@@ -201,10 +199,11 @@ function readDetailModalContent(recomID, count) {
 				if(dataSplit[i].indexOf("readTitle") != -1) title = $( dataSplit[i] ).text(); //console.log(dataSplit[i]);
 				else if(dataSplit[i].indexOf("readLoginID") != -1) logID = $( dataSplit[i] ).text();
 				else if(dataSplit[i].indexOf("readUserID") != -1) uID = $( dataSplit[i] ).text();
+				else if(dataSplit[i].indexOf("readAdminID") != -1) adminID = $( dataSplit[i] ).text();
 			}
 			
 			$("#modalContent").html(data);
-			if(logID == uID) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
+			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
 			else readModel("#readRecommendProblem", title);
 		},
 		error : function(request, status, error) {

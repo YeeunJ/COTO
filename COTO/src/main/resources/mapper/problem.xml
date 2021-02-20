@@ -8,7 +8,8 @@
 	</insert>
 	
 	<select id="readProblem" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT problem.id, userProblem.problemID, COUNT(*) as count, problem.name, problem.link, problem.siteID, codingSite.siteName, codingSite.siteUrl, problem.regdate 
+		SELECT problem.id, userProblem.problemID, COUNT(*) as count, 
+			   problem.name, problem.link, problem.siteID, codingSite.siteName, codingSite.siteUrl, problem.regdate 
 		FROM ((problem
 		INNER JOIN codingSite ON problem.siteID = codingSite.id)
 		INNER JOIN userProblem ON problem.id = userProblem.problemID) GROUP BY problem.id ORDER BY count DESC;
@@ -33,11 +34,6 @@
 		    <otherwise>problem.regdate</otherwise>
 		</choose> 
 		LIMIT #{s_point}, #{list}
-		
-  		<!-- ${orderValue}; -->
-		<!-- <if test="siteValue!=null and !siteValue.equals('')">
-			, #{siteValue}
-		</if > -->
 	</select>
 	
 	<select id="readProblembyID" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
@@ -45,18 +41,9 @@
 	</select>
 	
 	<select id="readProblemByUser" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT * FROM problem WHERE siteID=#{siteID} AND (name=#{name} OR link=#{link})
+		SELECT * FROM problem WHERE siteID=#{siteID} AND (name=#{name} AND link=#{link})
 	</select>
 	
-	<select id="readProblemByPage" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT problem.id, userProblem.problemID, COUNT(*) as count, problem.name, problem.link, problem.siteID, codingSite.siteName, codingSite.siteUrl, problem.regdate 
-		FROM ((problem
-		INNER JOIN codingSite ON problem.siteID = codingSite.id)
-		INNER JOIN userProblem ON problem.id = userProblem.problemID) 
-		GROUP BY problem.id
-		ORDER BY count DESC LIMIT #{s_point}, #{list}
-	</select>	
-		
 	<select id="readProblemCnt" resultType="int">
 		SELECT COUNT(*) FROM
         (SELECT problem.id FROM ((problem
@@ -67,9 +54,6 @@
 			and problem.siteID=#{siteValue}
 		</if>
         GROUP BY problem.id) subquery;
-	</select>
-	<select id="readMyLastInsertProblem" resultType="int">
-		SELECT LAST_INSERT_ID()
 	</select>
 	
 	<select id="readAllProblemCnt" resultType="int">

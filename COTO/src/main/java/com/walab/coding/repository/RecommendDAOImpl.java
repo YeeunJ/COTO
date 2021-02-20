@@ -23,37 +23,6 @@ public class RecommendDAOImpl implements RecommendDAO {
 	private String namespace = "recommend";
 	private List<RecommendDTO> recommendList = new ArrayList<RecommendDTO>();
 	
-	public List<RecommendDTO> readRecom() {
-		
-		recommendList = sqlSession.selectList(namespace+".readRecommendList");
-		
-		return recommendList;
-	}
-	
-	public List<RecomProblemDTO> readRecomProblems(int recomID) {
-		List<RecomProblemDTO> recommendProblemsList = new ArrayList<RecomProblemDTO>();
-		
-		Map<String, Object> recommendProblemsListParam = new HashMap<String, Object>();
-		recommendProblemsListParam.put("recomID", recomID);
-		
-		return recommendProblemsList = sqlSession.selectList(namespace+".readRecommendProblemList", recommendProblemsListParam);
-	}
-	
-	public RecommendDTO readRecommend(int recomID) {
-		Map<String, Object> recommendProblemParam = new HashMap<String, Object>();
-		recommendProblemParam.put("recomID", recomID);
-		
-		return sqlSession.selectOne(namespace+".readRecommendProblem", recommendProblemParam);
-		
-	}
-	
-	public List<RecommendDTO> readRecentRecommendList() {
-		List<RecommendDTO> rankList = new ArrayList<RecommendDTO>();
-		rankList = sqlSession.selectList(namespace+".readRecentRecommendList");
-
-		return rankList;
-	}
-	
 	@Override
 	public int createRecomProblem(RecommendDTO recommend) {	
 		sqlSession.insert(namespace+".createRecomProblem", recommend);
@@ -62,22 +31,44 @@ public class RecommendDAOImpl implements RecommendDAO {
 		return recomID;
 	}
 	
-	public List<RecommendDTO> searchProblemByContents(String searchValue, String orderValue){
-		Map<String, Object> recomProblemListParam = new HashMap<String, Object>();
-		recomProblemListParam.put("searchValue", searchValue);
-		recomProblemListParam.put("orderValue", orderValue);
-		System.out.println(searchValue);
-		System.out.println(orderValue);
-		
-		return sqlSession.selectList(namespace+".searchRecommendList", recomProblemListParam);
-	}
-
 	@Override
-	public int deleteRecom(int recomID) {
-		Map<String, Object> recomListParam = new HashMap<String, Object>();
-		recomListParam.put("recomID", recomID);
+	public List<RecommendDTO> readRecommendList() {
+		recommendList = sqlSession.selectList(namespace+".readRecommendList");
 		
-		return sqlSession.delete(namespace+".deleteRecom", recomListParam);
+		return recommendList;
+	}
+	
+	@Override
+	public List<RecommendDTO> readRecentRecommendList() {
+		List<RecommendDTO> rankList = new ArrayList<RecommendDTO>();
+		rankList = sqlSession.selectList(namespace+".readRecentRecommendList");
+
+		return rankList;
+	}
+	
+	@Override
+	public RecommendDTO readRecommend(int recomID) {
+		Map<String, Object> recommendProblemParam = new HashMap<String, Object>();
+		recommendProblemParam.put("recomID", recomID);
+		
+		return sqlSession.selectOne(namespace+".readRecommendProblem", recommendProblemParam);
+	}
+	
+	@Override
+	public List<RecommendDTO> readRecomByPage(String searchValue, String orderValue, int s_point, int list) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("s_point", s_point);
+		param.put("list", list);
+		param.put("searchValue", searchValue);
+		param.put("orderValue", orderValue);
+		
+		
+		return sqlSession.selectList(namespace+".readRecomByPage", param);
+	}
+	
+	@Override
+	public int readRecomListCnt() {
+		return sqlSession.selectOne(namespace+".readRecomListCnt");
 	}
 	
 	@Override
@@ -90,21 +81,37 @@ public class RecommendDAOImpl implements RecommendDAO {
 		
 		return sqlSession.update(namespace+".updateRecommend", recommendParam);
 	}
-
+	
 	@Override
-	public List<RecommendDTO> readRecomByPage(String searchValue, String orderValue, int s_point, int list) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("s_point", s_point);
-		param.put("list", list);
-		param.put("searchValue", searchValue);
-		param.put("orderValue", orderValue);
+	public int deleteRecom(int recomID) {
+		Map<String, Object> recomListParam = new HashMap<String, Object>();
+		recomListParam.put("recomID", recomID);
 		
-		
-		return sqlSession.selectList(namespace+".readRecomByPage", param);
+		return sqlSession.delete(namespace+".deleteRecom", recomListParam);
 	}
-
-	@Override
-	public int readRecomListCnt() {
-		return sqlSession.selectOne(namespace+".readRecomListCnt");
+	
+	
+	
+	
+	
+	
+	
+	public List<RecomProblemDTO> readRecomProblems(int recomID) {
+		List<RecomProblemDTO> recommendProblemsList = new ArrayList<RecomProblemDTO>();
+		
+		Map<String, Object> recommendProblemsListParam = new HashMap<String, Object>();
+		recommendProblemsListParam.put("recomID", recomID);
+		
+		return recommendProblemsList = sqlSession.selectList(namespace+".readRecommendProblemList", recommendProblemsListParam);
+	}
+	
+	public List<RecommendDTO> searchProblemByContents(String searchValue, String orderValue){
+		Map<String, Object> recomProblemListParam = new HashMap<String, Object>();
+		recomProblemListParam.put("searchValue", searchValue);
+		recomProblemListParam.put("orderValue", orderValue);
+		System.out.println(searchValue);
+		System.out.println(orderValue);
+		
+		return sqlSession.selectList(namespace+".searchRecommendList", recomProblemListParam);
 	}
 }

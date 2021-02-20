@@ -7,7 +7,10 @@ import com.walab.coding.model.CodingSiteDTO;
 public interface CodingSiteService {
 	public int insertCodingSite(CodingSiteDTO dto);
 
-	// Home Controller, Problemlist Controller
+	/**
+	 * read the name of the coding sites
+	 * usage: HomeController, ProblemlistController, MyproblemsController
+	 */
 	List<CodingSiteDTO> readCodingSite();
 	
 	public int updateCodingSite(CodingSiteDTO dto);

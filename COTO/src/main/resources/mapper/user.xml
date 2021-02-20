@@ -1,36 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- <mapper namespace="user">
-	<select id="user" resultType="com.walab.coding.Model.UserDTO" parameterType="hashmap">
-		SELECT name,email,userNumber,nickName,intro FROM user WHERE userID=#{userID}
-	</select>
-
-</mapper> -->
-
 <mapper namespace="user">
-	<select id="readUserIDByEmail" resultType="int" parameterType="hashmap">
-		SELECT id FROM user WHERE email=#{email}
-	</select>
-	<select id="readIsAdminByUserID" resultType="int" parameterType="hashmap">
-		SELECT isAdmin FROM user WHERE id=${userID}
-	</select>
 	<insert id="createUserInfo" parameterType="com.walab.coding.model.UserDTO">
 		insert into user (name, email, nickname, intro, isAdmin) values (#{name}, #{email}, #{nickName}, #{intro}, 0)
 	</insert>
 	
-	<insert id="createUsergoal" parameterType="com.walab.coding.model.GoalDTO">
-		insert into goal (userID, goalNum, goal, startDate, endDate) values (#{userID}, #{goalNum}, #{goal}, #{startDate}, #{endDate})
-	</insert>
+	<select id="readUserIDByEmail" resultType="int" parameterType="hashmap">
+		SELECT id FROM user WHERE email=#{email}
+	</select>
 	
-	<select id="userList"
-		resultType="com.walab.coding.model.UserDTO" parameterType="hashmap">
-		SELECT * FROM user WHERE id=#{userID}	</select>
-		
- 	<update id="updateUser" parameterType="hashmap">
-		UPDATE user SET name='${name}', nickName='${nickName}', email='${email}', intro='${intro}' WHERE id = #{id}
-	</update>  
-	
+	<select id="readIsAdminByUserID" resultType="int" parameterType="hashmap">
+		SELECT isAdmin FROM user WHERE id=${userID}
+	</select>
+
 	<select id="readUserCountByNickname" resultType="int" parameterType="hashmap">
 		SELECT COUNT(*) FROM user WHERE nickName=#{nickName}
 	</select>
@@ -38,16 +21,16 @@
 	<select id="readAllUser" resultType="com.walab.coding.model.UserDTO">
 		SELECT * FROM user	
 	</select>
+		
+	<select id="userList"
+		resultType="com.walab.coding.model.UserDTO" parameterType="hashmap">
+		SELECT * FROM user WHERE id=#{userID}	</select>
+		
+ 	<update id="updateUser" parameterType="hashmap">
+		UPDATE user SET name='${name}', email='${email}', nickName='${nickName}', intro='${intro}' WHERE id = #{id}
+	</update>  
 	
 	<update id="updateUserAdmin" parameterType="hashmap">
 		UPDATE user SET isAdmin=#{isAdmin} WHERE id=#{userID}
 	</update>  
-<!-- 	<update id="updateUser">
-		UPDATE user
-		SET name=#{name},
-		nickName=#{nickName},
-		userNumber=#{userNumber},
-		intro=#{intro}
-		WHERE id=#{id}
-	</update> 	 --> 
 </mapper>

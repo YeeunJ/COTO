@@ -43,7 +43,6 @@ public class GoalDAOImpl implements GoalDAO{
 		goalListParam.put("list", list);
 		
 		return goalList = sqlSession.selectList(namespace+".readGoalByPage", goalListParam);
-		//return goalList = sqlSession.selectList(namespace+".readGoalList", goalListParam);
 	}
 	
 	/**

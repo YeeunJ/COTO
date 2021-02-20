@@ -35,7 +35,9 @@ public class ProblemlistController {
 	
 	@Autowired
 	UserProblemService userProblemService;
-	
+	/**
+	 * Reads coding sites and shows by page
+	 */	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewProblems(ModelAndView mv, 
 										@RequestParam(value="page", defaultValue="1") int page) {
@@ -53,6 +55,9 @@ public class ProblemlistController {
 		return mv;
 	}
 
+	/**
+	 * Searches the value that user enters
+	 */	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView searchProblem(HttpServletRequest httpServletRequest,
 											@RequestParam(value="page", defaultValue="1") int page,
@@ -60,15 +65,11 @@ public class ProblemlistController {
 											@RequestParam(value="orderValue", defaultValue="") String orderValue,
 											@RequestParam(value="siteValue", defaultValue="") String siteValue) {				
 		
-		// pagination
-		int listCnt = problemService.readProblemListCnt(searchValue, orderValue, siteValue); // 총 문제의 개수
-		int list = 10; // 페이지 당 데이터 수
-		int block = 10; // 블록 당 페이지 수
-		
-		System.out.println("listCnt: "+listCnt);
-		
-		int pageNum = (int) Math.ceil((float)listCnt/list); // 총 페이지
-		int nowBlock = (int)Math.ceil((float)page/block); // 현재 페이지가 위치한 블록 번호
+		int listCnt = problemService.readProblemListCnt(searchValue, orderValue, siteValue); 
+		int list = 10; 
+		int block = 10; 
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block); 
 		int s_point = (page-1)*list;
 		
 		int s_page = nowBlock*block - (block-1);
@@ -88,8 +89,6 @@ public class ProblemlistController {
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
 		mv.addObject("problems", problems);
-
-		System.out.println("datacnt: " + problems.size());
 		
 		mv.setViewName("ajaxContent/problemListContent");
 		

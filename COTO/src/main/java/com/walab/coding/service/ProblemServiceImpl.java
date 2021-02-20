@@ -22,21 +22,10 @@ public class ProblemServiceImpl implements ProblemService {
 
 	@Autowired
 	ProblemDAO problemDAO;
-	
-	@Override
-	public List<ProblemDTO> readProblems() {
-		List<ProblemDTO> problems = problemDAO.readProblem();
-		return problems;
-	}
 
 	@Override
 	public int readProblemListCnt(String searchValue, String orderValue, String siteValue) {
 		return problemDAO.readProblemListCnt(searchValue, orderValue, siteValue);
-	}
-
-	@Override
-	public List<ProblemDTO> readProblemByPage(int s_point, int list) {
-		return problemDAO.readProblemByPage(s_point, list);
 	}
 
 	@Override
@@ -49,19 +38,8 @@ public class ProblemServiceImpl implements ProblemService {
 		searchValue = "%".concat(searchValue).concat("%");
 		if(orderValue == null)
 			orderValue ="problem.regdate desc";
-//		else if(orderValue.compareTo("difficulty") == 0) {
-//			orderValue = "recom.".concat(orderValue).concat("desc");
-//		}
 		
 		List<ProblemDTO> problems = problemDAO.searchProblemByContents(s_point, list, searchValue, orderValue, siteValue);
-		
-//		for(int i=0;i<recoms.size();i++) {
-//			System.out.println(recoms.get(i).getNickname());
-//			recoms.get(i).setRecomCount(recomCountDAO.readRecomCount(recoms.get(i).getId()));
-//			
-//			int recomID = recoms.get(i).getId();
-//			recoms.get(i).setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));
-//		}
 		
 		return problems;
 	}

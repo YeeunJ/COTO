@@ -8,7 +8,10 @@ public interface RecomTagService {
 
 	void createTag(List<RecomTagDTO> recomTags);
 	
-	// Home Controller
+	/**
+	 * read the tags
+	 * usage: HomeController
+	 */
 	public List<RecomTagDTO> readTagList();
 	
 	public List<RecomTagDTO> readProblemTag();

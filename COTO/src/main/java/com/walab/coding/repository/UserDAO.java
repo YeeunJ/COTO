@@ -9,13 +9,12 @@ public interface UserDAO {
 	
 	public int createUserInfo(UserDTO u);
 	public int createUsergoal(GoalDTO g);
+	public List<UserDTO> read();
+	public List<UserDTO> readUserAll(int userID);
 	public int readUserIDByEmail(String email);
 	public int readIsAdminByUserID(int userID);
-	public List<UserDTO> readUserAll(int userID);
-//	public List<UserDTO> updateUser(int userID);
-	public int updateUser(UserDTO updateUser);
 	public int readUserCountByNickname(String nickname);
-	public List<UserDTO> read();
+	public int updateUser(UserDTO updateUser);
 	public void updateUserAdmin(int isAdmin, int userID);
 
 }

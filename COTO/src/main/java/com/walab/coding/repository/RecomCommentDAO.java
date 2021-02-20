@@ -7,9 +7,9 @@ import com.walab.coding.model.RecomCommentDTO;
 
 public interface RecomCommentDAO {
 	
+	public void createComment(RecomCommentDTO r);
 	public List<Map<String, Object>> readAll(Map<String, Object> param);
 	public List<Map<Integer, Integer>> readCommentCount();
-	public void createComment(RecomCommentDTO r);
-	public int deleteRecomComment(int recomID);
 	public int readRecomCommentCount(int recomID);
+	public int deleteRecomComment(int recomID);
 }

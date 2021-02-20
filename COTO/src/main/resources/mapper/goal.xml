@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- <mapper namespace="user">
-	<select id="user" resultType="com.walab.coding.Model.UserDTO" parameterType="hashmap">
-		SELECT name,email,userNumber,nickName,intro FROM user WHERE userID=#{userID}
-	</select>
-
-</mapper> -->
-
 <mapper namespace="goal">
+	<insert id="createUsergoal" parameterType="com.walab.coding.model.GoalDTO">
+		insert into goal (userID, goalNum, goal, startDate, endDate) values (#{userID}, #{goalNum}, #{goal}, #{startDate}, #{endDate})
+	</insert>
+	
 	<select id="readGoal" resultType="com.walab.coding.model.GoalDTO" parameterType="hashmap">
 		SELECT * FROM goal WHERE userID=#{userID} ORDER BY startDate DESC limit 1	
 	</select>
 	 
 	<select id="readGoalList" resultType="com.walab.coding.model.GoalDTO" parameterType="hashmap">
-		SELECT (count(if(<![CDATA[A.regdate >= B.startdate and A.regdate <= B.enddate]]>, A.userID, null))/B.goalNum)*100 AS rate,
+		SELECT (count(if(<![CDATA[A.regdate >= B.startdate and A.regdate <= B.enddate]]>, 
+			A.userID, null))/B.goalNum)*100 AS rate,
 			B.id AS id, B.goalNum AS goalNum, B.goal AS goal, B.startdate as startDate, B.enddate as endDate
 		FROM goal as B LEFT OUTER JOIN userProblem as A ON B.userID = A.userID
 		WHERE B.userID=#{userID}
@@ -22,12 +20,9 @@
 		ORDER BY B.startdate DESC;
 	</select>
 	
-	<update id="updateGoal" parameterType="hashmap">
-		UPDATE goal SET goal='${goal}', startDate='${startDate}', endDate='${endDate}', goalNum='${goalNum}' WHERE id = #{id}
-	</update>
-	
 	<select id="readGoalByPage" resultType="com.walab.coding.model.GoalDTO" parameterType="hashmap">
-		SELECT (count(if(<![CDATA[A.regdate >= B.startdate and A.regdate <= B.enddate]]>, A.userID, null))/B.goalNum)*100 AS rate,
+		SELECT (count(if(<![CDATA[A.regdate >= B.startdate and A.regdate <= B.enddate]]>, 
+			A.userID, null))/B.goalNum)*100 AS rate,
 			B.id AS id, B.goalNum AS goalNum, B.goal AS goal, B.startdate as startDate, B.enddate as endDate
 		FROM goal as B LEFT OUTER JOIN userProblem as A ON B.userID = A.userID
 		WHERE B.userID=#{userID}
@@ -38,5 +33,9 @@
 	<select id="readGoalCnt" resultType="int" parameterType="hashmap">
 		SELECT COUNT(*) FROM goal WHERE userID=#{userID} 
 	</select>
+	
+	<update id="updateGoal" parameterType="hashmap">
+		UPDATE goal SET goal='${goal}', startDate='${startDate}', endDate='${endDate}', goalNum='${goalNum}' WHERE id = #{id}
+	</update>
 	
 </mapper>
