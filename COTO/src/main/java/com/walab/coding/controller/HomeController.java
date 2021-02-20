@@ -16,6 +16,7 @@ import com.walab.coding.model.RankDTO;
 import com.walab.coding.model.RecomTagDTO;
 
 import com.walab.coding.model.RecommendDTO;
+import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.ProblemDTO;
@@ -56,6 +57,11 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView viewHome(HttpServletRequest httpServletRequest, ModelAndView mv) {
 		
+		if(httpServletRequest.getSession().getAttribute("user") != null) {
+			int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			mv.addObject("userID", userID);
+		}
 		List<RankDTO> totalRankList = userProblemService.readTotalRankList();
 		List<RankDTO> todayRankList = userProblemService.readTodayRankList();
 		List<UserProblemDTO> totalProblemList = userProblemService.readProblemList();
