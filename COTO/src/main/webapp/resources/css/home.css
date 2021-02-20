@@ -362,3 +362,11 @@ html, body { box-sizing: border-box;  }
 		font-size: 12px !important;
 	}
 }
+
+.celeb {
+	width: 500px !important;
+	margin-top: 2% !important;
+	padding: 2%;
+	background-color:rgba(255, 215, 0, 0.3);
+	border: 10px solid #ffd700;
+}
