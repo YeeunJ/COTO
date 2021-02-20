@@ -37,9 +37,11 @@ function searchF(){
 
 /* create */
 //추천집 create modal 부르
-function callModal() {
+function callModal(userID) {
 	selectHtml = $('#selectHtml').html();
-	createModel("#createProblems", "문제집 등록", addajax, searchF);
+	
+	if(userID > 0) createModel("#createProblems", "문제집 등록", addajax, searchF);
+	else alert("로그인을 해야 글쓰기가 가능합니다.");
 }
 
 //comment create
