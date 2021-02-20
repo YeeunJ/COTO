@@ -4,7 +4,7 @@ $('.chip').on('click', function() {
 						});
 
 function deletechip(id) {
-	id.remove();
+	$(id).remove();
 }
 
 function createModel(content, titleValue, actionFunction, closeFunction){
@@ -84,7 +84,7 @@ function insertProblems(){
 };
 
 
-function rudModel(readContent, updateContent, titleValue, titleValue2, updateFunction, deleteFunction, closeFunction){
+function rudModel(readContent, updateContent, titleValue, titleValue2, updateFunction, deleteFunction, closeFunction, tagCnt){
 		var variant = {
 			args: [
 				{
@@ -116,8 +116,8 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 											onChipAdd: function(){
 												var text = $('.sweet-modal-content .chips input').val();
 												$('.sweet-modal-content .chips .chip:last').remove();
-												$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close" onclick="deletechip(tabindex'+count+')">close</i></div>');
-												count++;
+												$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+tagCnt+'">'+text+'<i class = "material-icons close" onclick="deletechip(tabindex'+tagCnt+')">close</i></div>');
+												tagCnt++;
 											},
 											onChipSelect: function(){
 											},
