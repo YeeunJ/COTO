@@ -60,11 +60,14 @@
 	</insert>
 	
 	<select id="countUserProblemEachDay" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
-		SELECT count(A.userID) as countSolvedP, date_format(A.regdate,'%Y-%m-%d') as regDate From YeeunJ.userProblem as A, 
+		(SELECT count(A.userID) as countSolvedP, date_format(A.regdate,'%Y-%m-%d') as regDate From YeeunJ.userProblem as A, 
 		(SELECT startdate, enddate FROM YeeunJ.goal WHERE userID=#{userID} order by startdate Desc limit 1) as B 
 		WHERE A.userID = #{userID} and 
 		<![CDATA[date_format(A.regdate,'%Y-%m-%d') >= B.startdate and date_format(A.regdate,'%Y-%m-%d') <= B.enddate]]>
 		group by date_format(A.regdate,'%Y-%m-%d')
+		ORDER BY date_format(A.regdate,'%Y-%m-%d') DESC
+		LIMIT 20)
+		ORDER BY regDate;
 	</select>
 	
 	<select id="readProblemActivities" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">

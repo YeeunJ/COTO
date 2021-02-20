@@ -1,11 +1,15 @@
-@media screen and (max-width: 1199px) {
-	#myDoughnutChart {width: 260px !important; margin: auto;}
-	#myBarChart {width: 700px !important;}
-	.myChart {width: 220px !important; }
+#myDoughnutChart {margin: auto !important;}
+#myBarChart {width: 700px !important;}
+
+@media screen and (max-width: 1458px) {
+	.myChart {width: 250px !important; }
+}
+@media screen and (max-width: 1180px) {
+	#myDoughnutChart {width: 200px !important;}
+	.myChart {width: 200px !important; }
 }
 @media screen and (max-width: 992px) {
 	.card-content2 { display: none; }
-	#myDoughnutChart {margin: auto;} 
 }
 @media screen and (max-width: 550px) {
 	.card-content2, .card-content3 { display: none; } 
