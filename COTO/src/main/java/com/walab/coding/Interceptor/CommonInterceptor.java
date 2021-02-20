@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -14,6 +15,7 @@ import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.UserDTO;
 import com.walab.coding.service.CodingSiteService;
 
+@Component
 public class CommonInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired
