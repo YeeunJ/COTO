@@ -150,6 +150,7 @@
 					<div class = "chip" id="tabindex${ count }">${rpt.tag}<i class = "material-icons close" onclick="deletechip(tabindex${ count })">close</i></div>
 					<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
+				<span id="updateTagCount" style="display: none;">${count}</span>
 				
 				</div>
 				<br><br>
