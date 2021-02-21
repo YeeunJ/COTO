@@ -47,7 +47,10 @@ function createModel(content, titleValue, actionFunction, closeFunction){
 								return $.sweetModal({
 									content: '<p style = "font-weight:800;font-size:15px;padding-top: 15px;text-align: center;">데이터가 등록 되었습니다~:)</p>',
 									theme: $.sweetModal.THEME_MIXED,
-									icon: $.sweetModal.ICON_SUCCESS
+									icon: $.sweetModal.ICON_SUCCESS,
+									onClose: function(){
+										if(closeFunction != null) closeFunction();
+									}
 								});
 							}
 						}
