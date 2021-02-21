@@ -213,6 +213,12 @@
 		</div>
 
 	</div>
+	<div>
+		<div class="table" id="problemsContent">
+			<%@ include file="../ajaxContent/recomCartContent.jsp"%>
+		</div>
+	
+	</div>
 </div>
 
 <script>
