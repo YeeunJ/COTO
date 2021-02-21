@@ -8,7 +8,7 @@
 <h5 class="font-color">내가 찜한 문제들</h5>
 <br>	
 
-<div class="table" id="recomCartContent">
+<div class="table center" id="recomCartContent">
 	
 	<div class="tableRow">
 		<span class="index-col tableCell th1">No.</span> <span class="tableCell th4">제목</span>

@@ -2,6 +2,7 @@ package com.walab.coding.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,12 +20,19 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.GoalDTO;
 import com.walab.coding.model.ProblemDTO;
+import com.walab.coding.model.RecomCountDTO;
+import com.walab.coding.model.RecomProblemDTO;
+import com.walab.coding.model.RecomTagDTO;
 import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.GoalService;
 import com.walab.coding.service.GoalServiceImpl;
+import com.walab.coding.service.RecomCommentService;
+import com.walab.coding.service.RecomCountService;
+import com.walab.coding.service.RecomProblemService;
+import com.walab.coding.service.RecomTagService;
 import com.walab.coding.service.RecommendService;
 import com.walab.coding.service.UserProblemService;
 import com.walab.coding.service.UserProblemServiceImpl;
@@ -49,6 +57,18 @@ public class MyproblemsController {
 	
 	@Autowired
 	RecommendService recommendService;
+	
+	@Autowired
+	RecomProblemService recomProblemsService;
+	
+	@Autowired
+	RecomTagService recomTagService;
+	
+	@Autowired
+	RecomCountService recomCountService;
+	
+	@Autowired
+	RecomCommentService recomCommentService;
 	/**
 	 * Create problem zip 
 	 */
@@ -110,8 +130,6 @@ public class MyproblemsController {
 		mv.addObject("countSolvedProblemEachDay", countSolvedProblemEachDay);
 		mv.addObject("CodingSite", codingSite);
 		mv.addObject("recomCarts", recomCart);
-		
-		System.out.println(recomCart);
 
 		/* pagination */
 		int listCnt = userProblemService.readProblemCnt(userID); 
@@ -211,4 +229,53 @@ public class MyproblemsController {
 
 		return mv;
 	}
+	
+	/**
+	 * Read recommend list(problem & tag & comment & recommend), coding site
+	 */
+	@RequestMapping(value = "/readModalInfo", method = RequestMethod.POST)
+	public ModelAndView readModalInfo(HttpServletRequest request, ModelAndView mv) {
+
+		int recomID = Integer.parseInt(request.getParameter("recomID"));
+
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		RecommendDTO recom = recommendService.readRecommend(recomID);
+		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemByID(recomID);
+		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+		RecomCountDTO rcd;
+		int userID = -1;
+		if((UserDTO)request.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
+		}
+		
+		int admin = ((UserDTO)request.getSession().getAttribute("user")).getIsAdmin();
+		//if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0) {
+		rcd = recomCountService.readRecomCount(recomID, userID);
+		rcd.setRecomID(recomID);
+
+		for(int i=0;i<recomProblem.size();i++) {
+			for(int j=0;j<codingSite.size();j++) {
+				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
+					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
+			}
+		}
+
+		mv.addObject("recomID", recomID);
+		mv.addObject("loginID", userID);
+		mv.addObject("adminID", admin);
+		mv.addObject("recom", recom);
+		mv.addObject("codingSite", codingSite);
+		mv.addObject("recomProblem", recomProblem);
+		mv.addObject("recomProblemTag", recomProblemTag);
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+
+		mv.setViewName("ajaxContent/recomCartDetailModal");
+
+		return mv;
+	}
+
 }

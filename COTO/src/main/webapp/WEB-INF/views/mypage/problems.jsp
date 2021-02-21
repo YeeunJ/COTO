@@ -7,9 +7,13 @@
 
 <jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
-<link href="../resources/css/problems.css" rel="stylesheet">
 <link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
+<link href="../resources/css/recommendProblem.css?asd" rel="stylesheet">
+
+<script src="../resources/js/createModal.js"></script>
 <script src="../resources/js/problems.js"></script>
+<script src="../resources/js/recomCart.js"></script>
+
 
 <div id="SiteContainer" class="container">
 	<div id="problem">
@@ -220,7 +224,9 @@
 	
 	</div>
 </div>
-
+<div id="modalContent">
+<%@ include file="../ajaxContent/recomDetailModal.jsp"%>
+</div>
 <script>
 var labels = new Array();
 var dataForBar = new Array();
