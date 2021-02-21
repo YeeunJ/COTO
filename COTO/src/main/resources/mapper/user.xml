@@ -24,13 +24,20 @@
 		
 	<select id="userList"
 		resultType="com.walab.coding.model.UserDTO" parameterType="hashmap">
-		SELECT * FROM user WHERE id=#{userID}	</select>
+		SELECT * FROM user WHERE id=#{userID}	
+	</select>
 		
  	<update id="updateUser" parameterType="hashmap">
-		UPDATE user SET name='${name}', nickName='${nickName}', email='${email}', intro='${intro}' WHERE id = #{id}
+		UPDATE user SET name='${name}', email='${email}', nickName='${nickName}', intro='${intro}' WHERE id = #{id}
 	</update>  
 	
 	<update id="updateUserAdmin" parameterType="hashmap">
 		UPDATE user SET isAdmin=#{isAdmin} WHERE id=#{userID}
 	</update>  
+	
+	<select id="selectedUserTotalProblem"
+		resultType="int" parameterType="hashmap">
+		SELECT id FROM YeeunJ.user where nickName=#{nickName}
+		<!-- SELECT count(*) FROM YeeunJ.userProblem where userID=id -->
+	</select>
 </mapper>

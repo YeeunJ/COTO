@@ -100,6 +100,7 @@ public class MyinformationController {
 		
 		UserDTO updateUser = new UserDTO();
 		updateUser.setName(httpServletRequest.getParameter("name"));
+		updateUser.setEmail(httpServletRequest.getParameter("email"));
 		updateUser.setNickName(httpServletRequest.getParameter("nickName"));
 		updateUser.setIntro(httpServletRequest.getParameter("intro"));
 		updateUser.setId(Integer.parseInt(httpServletRequest.getParameter("id")));

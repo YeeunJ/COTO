@@ -10,6 +10,9 @@
 instance.getSelectedValues();
 instance.destroy(); */
 
+/* move to user page*/
+
+
 var selectHtml="";
 
 function callModal() {
@@ -75,9 +78,6 @@ function addajax(){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
     });
-   
-   
-
 }
 
 function deleteThis(id){
