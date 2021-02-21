@@ -78,6 +78,7 @@ public class UserDAOImpl implements UserDAO{
 		Map<String, Object> userParam = new HashMap<String, Object>();
 		userParam.put("name", updateUser.getName());
 		userParam.put("email", updateUser.getEmail());
+		userParam.put("nickName", updateUser.getNickName());
 		userParam.put("intro", updateUser.getIntro());
 		userParam.put("id", updateUser.getId());
 		
@@ -124,6 +125,13 @@ public class UserDAOImpl implements UserDAO{
 		Map<String, Object> userParam = new HashMap<String, Object>();
 		userParam.put("userID", userID);
 		return sqlSession.selectOne(namespace+".readIsAdminByUserID", userParam);
+	}
+	
+	public int selectedUserTotalProblem(String nickName) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("nickName", nickName);
+	
+		return sqlSession.selectOne("user.selectedUserTotalProblem", param);
 	}
 }
 

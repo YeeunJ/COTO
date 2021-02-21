@@ -46,7 +46,7 @@ button, input, optgroup, select, textarea {
     background-color: white;
     z-index: 100;
     transition-duration: 10s;
-    padding-left: 50vw !important;
+    padding-left: 40vw !important;
 }
 
 #list:hover > .submenu {

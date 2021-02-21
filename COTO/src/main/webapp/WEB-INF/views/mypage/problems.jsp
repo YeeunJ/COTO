@@ -38,7 +38,7 @@
 								</span>
 							</div>
 							<div class="tableRow">
-								<span class="tableCell td2">총 문제수</span> <span
+								<span class="tableCell td2">목표 문제수</span> <span
 									class="tableCell td4">${goal.goalNum}문제</span>
 							</div>
 							<div class="tableRow">

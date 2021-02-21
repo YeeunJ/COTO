@@ -6,6 +6,7 @@
 
 <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
+<script src="./resources/js/createModal.js"></script>
 <link href="./resources/css/recommendProblem.css?asd" rel="stylesheet">
 <script src="./resources/js/recommendProblem.js"></script>
 
