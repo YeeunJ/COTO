@@ -136,6 +136,7 @@ var count=0;
 
 //create modal에서 problem입력할 때
 function insertProblems(){
+	
 	var siteName = $(".sweet-modal-content #siteName option:selected").text();
 	var siteId = $('.sweet-modal-content #siteName').val();
 	console.log("siteId: "+siteId);
@@ -144,13 +145,53 @@ function insertProblems(){
 	console.log(value);
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #confirmSite').html();
-	for(var i in valueSplit){
-		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
-		count++;
-	}
-	$('.sweet-modal-content #confirmSite').html(data);
 	$(".sweet-modal-content #problems").val("");
+	if(siteId == 1){
+		$.ajax({
+        url : './crawling/'+siteName,
+        type: 'POST',
+        data: {
+        	"problem": valueSplit,
+        	"siteID": siteId,
+        	"count": count
+        },
+        success: function(data){
+            console.log(data);
+            var data2 = $('.sweet-modal-content #confirmSite').html()+data;
+        	$('.sweet-modal-content #confirmSite').html(data2);
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+	}else{
+		for(var i in valueSplit){
+			data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/></div>';
+			count++;
+		}
+		$('.sweet-modal-content #confirmSite').html(data);
+		$('#confirmSite').html(data);
+	}
 };
+
+function baekjoon(){
+	var siteSelect = document.getElementById("siteName");
+	var selectValue = siteSelect.options[siteSelect.selectedIndex].value;
+	var inputValue = $(".sweet-modal-content #problems").val();
+	var value = parseFloat(inputValue.replace(/,/gi, " "));
+
+	if(selectValue=='1'){
+		if(isNaN(value) == true){ 
+			alert("백준 문제를 등록할때는 숫자만 입력할 수 있습니다.");
+			
+		}else{
+			insertProblems();
+		}
+		
+	}else{
+		insertProblems();
+	}
+}
 
 //read modal에서 recom count
 function addRecomCount(){
