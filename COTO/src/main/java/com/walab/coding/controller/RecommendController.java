@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.walab.coding.model.CodingSiteDTO;
+import com.walab.coding.model.RecomCartDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecomCountDTO;
@@ -24,6 +25,7 @@ import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.RecomTagDTO;
 import com.walab.coding.service.CodingSiteService;
+import com.walab.coding.service.RecomCartService;
 import com.walab.coding.service.RecomCommentService;
 import com.walab.coding.service.RecommendService;
 import com.walab.coding.service.UserProblemService;
@@ -56,6 +58,8 @@ public class RecommendController {
 	RecomCountService recomCountService;
 	@Autowired
 	UserProblemService userProblemService;
+	@Autowired
+	RecomCartService recomCartService;
 
 
 
@@ -149,7 +153,9 @@ public class RecommendController {
 		rcd = recomCountService.readRecomCount(recomID, userID);
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		int commentCount = recomComment.size();
-		
+		int cartYN = recomCartService.readCartByID(recomID, userID);
+
+		mv.addObject("cartYN", cartYN);
 		mv.addObject("countInfo", rcd);
 		mv.addObject("recomComment", recomComment);
 		mv.addObject("commentCount", commentCount);
@@ -201,8 +207,41 @@ public class RecommendController {
 		rcd = recomCountService.readRecomCount(recomID, userID);
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		int commentCount = recomComment.size();
+		int cartYN = recomCartService.readCartByID(recomID, userID);
 
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("cartYN", cartYN);
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
+
+		return mv;
+	}
+	
+	@RequestMapping(value = "/addRecomCart", method = RequestMethod.POST)
+	public ModelAndView createRecomCart(HttpServletRequest httpServletRequest) {
+		RecomCartDTO cart = new RecomCartDTO();
+		
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			cart.setRecomID(recomID);
+			cart.setUserID(userID);
+			recomCartService.createRecomCart(cart);
+			
+		}
+		
+		RecomCountDTO rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+		int cartYN = recomCartService.readCartByID(recomID, userID);
+		System.out.println("cartYN: "+cartYN);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("cartYN", cartYN);
 		mv.addObject("countInfo", rcd);
 		mv.addObject("recomComment", recomComment);
 		mv.addObject("commentCount", commentCount);
@@ -248,6 +287,8 @@ public class RecommendController {
 		}
 		
 		int admin = ((UserDTO)request.getSession().getAttribute("user")).getIsAdmin();
+		int cartYN = recomCartService.readCartByID(recomID, userID);
+
 		//if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0) {
 		rcd = recomCountService.readRecomCount(recomID, userID);
 		rcd.setRecomID(recomID);
@@ -258,7 +299,8 @@ public class RecommendController {
 					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
 			}
 		}
-
+		
+		mv.addObject("cartYN", cartYN);
 		mv.addObject("recomID", recomID);
 		mv.addObject("loginID", userID);
 		mv.addObject("adminID", admin);

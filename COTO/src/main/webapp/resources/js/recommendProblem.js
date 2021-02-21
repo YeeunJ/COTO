@@ -342,6 +342,47 @@ function deleteRecomCount(){
 	});
 }
 
+function addRecomCart(){
+	if(confirm("문제집을 장바구니에 담으시겠습니까?")) {
+		$.ajax({
+			url: "./recommendProblem/addRecomCart",
+			type: "POST",
+			async: false,
+			data: {
+				recomID:$('#readRecomID').html()
+			},
+			success: function(data){
+				$('.sweet-modal-content #recomCountCommentContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+	}
+
+}
+
+function deleteRecomCart(){
+	if(confirm("문제집을 장바구니에서 지우시겠습니까?")) {
+		$.ajax({
+			url: "./recommendProblem/addRecomCount",
+			type: "POST",
+			async: false,
+			data: {
+				recomID:$('#readRecomID').html()
+			},
+			success: function(data){
+				$('.sweet-modal-content #recomCountCommentContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+	}
+	
+	
+}
+
 
 
 
