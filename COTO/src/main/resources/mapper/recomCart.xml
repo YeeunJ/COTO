@@ -12,8 +12,20 @@
 	</select>
 	
 	<select id="readRecomCart" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">
-		SELECT * from recomCart, recommend
-		WHERE recomCart.recomID = recommend.id AND recomCart.userID=#{userID}
+		SELECT * FROM (
+			SELECT recom.id as id, recom.title as title, recom.content as content, us.id AS userID, us.nickname as nickname, recom.difficulty as difficulty, recom.recomCount as recomCount, recom.recomCommentCount as recomCommentCount
+				FROM (
+					SELECT recom.*, if(count(rcm.id)=0, 0, count(rcm.id)) as recomCommentCount
+					FROM (
+						SELECT r.*, if(count(rc.id)=0, 0, count(rc.id)) as recomCount
+						FROM recommend as r
+						left outer JOIN recomCount as rc ON r.id = rc.recomID
+						GROUP BY r.id
+					) as recom left outer join recomComment as rcm ON recom.id = rcm.recomID
+		            GROUP BY recom.id
+				) as recom left outer join user as us on recom.userID = us.id
+		) AS recom, recomCart AS RC
+		WHERE recom.id=RC.recomID AND RC.userID=#{userID};
 	</select>	
 
 	
