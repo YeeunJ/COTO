@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="recomCart">
+	
+	<insert id="createCart" parameterType="hashmap">
+		INSERT INTO recomCart (recomID, userID) VALUES (#{recomID}, #{userID})
+	</insert>
+	
+	<select id="readCartByID" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) FROM recomCart WHERE recomID=#{recomID} AND userID=#{userID}
+	</select>
+	
+	<delete id="deleteCart" parameterType="hashmap">
+		DELETE FROM recomCart where id = #{id}
+	</delete>
+	
+	
+
+</mapper>
