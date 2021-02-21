@@ -16,10 +16,10 @@
 		FROM ((recomCart
 		INNER JOIN user ON recomCart.userID = user.id)
 		INNER JOIN recommend ON recomCart.recomID = recommend.id);
-	</select>	
+	</select>
 	
 	<delete id="deleteCart" parameterType="hashmap">
-		DELETE FROM recomCart where id = #{id}
+		DELETE FROM recomCart where recomID=#{recomID} AND userID=#{userID}
 	</delete>
 	
 	

@@ -365,7 +365,7 @@ function addRecomCart(){
 function deleteRecomCart(){
 	if(confirm("문제집을 장바구니에서 지우시겠습니까?")) {
 		$.ajax({
-			url: "./recommendProblem/addRecomCount",
+			url: "./recommendProblem/deleteRecomCart",
 			type: "POST",
 			async: false,
 			data: {
@@ -379,8 +379,7 @@ function deleteRecomCart(){
 	        }
 		});
 	}
-	
-	
+
 }
 
 
