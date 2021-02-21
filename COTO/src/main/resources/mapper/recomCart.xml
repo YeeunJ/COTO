@@ -11,10 +11,16 @@
 		SELECT COUNT(*) FROM recomCart WHERE recomID=#{recomID} AND userID=#{userID}
 	</select>
 	
+	<select id="readRecomCart" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">
+		SELECT recommend.id,recommend.title, recommend.content, recommend.difficulty, recommend.regdate, user.id as userID, user.nickName as nickName
+		FROM ((recomCart
+		INNER JOIN user ON recomCart.userID = user.id)
+		INNER JOIN recommend ON recomCart.recomID = recommend.id);
+	</select>	
+	
 	<delete id="deleteCart" parameterType="hashmap">
 		DELETE FROM recomCart where id = #{id}
 	</delete>
 	
 	
-
 </mapper>

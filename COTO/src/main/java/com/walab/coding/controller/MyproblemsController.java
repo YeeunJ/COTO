@@ -19,11 +19,13 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.GoalDTO;
 import com.walab.coding.model.ProblemDTO;
+import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.GoalService;
 import com.walab.coding.service.GoalServiceImpl;
+import com.walab.coding.service.RecommendService;
 import com.walab.coding.service.UserProblemService;
 import com.walab.coding.service.UserProblemServiceImpl;
 import com.walab.coding.service.UserService;
@@ -44,7 +46,9 @@ public class MyproblemsController {
 
 	@Autowired
 	CodingSiteService codingSiteService;
-
+	
+	@Autowired
+	RecommendService recommendService;
 	/**
 	 * Create problem zip 
 	 */
@@ -95,6 +99,7 @@ public class MyproblemsController {
 		int userSolvedP = userProblemService.readSolvedP(userID);
 		List<UserProblemDTO> countSolvedProblemEachDay = userProblemService.countSolvedProblemEachDay(userID);
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<RecommendDTO> recomCart = recommendService.readCartRecommendList();
 
 		GoalDTO g = goal.get(0);
 		int goalNum = g.getGoalNum();
@@ -104,6 +109,9 @@ public class MyproblemsController {
 		model.addAttribute("goalNum", goalNum);
 		mv.addObject("countSolvedProblemEachDay", countSolvedProblemEachDay);
 		mv.addObject("CodingSite", codingSite);
+		mv.addObject("recomCarts", recomCart);
+		
+		System.out.println(recomCart);
 
 		/* pagination */
 		int listCnt = userProblemService.readProblemCnt(userID); 
