@@ -295,8 +295,6 @@ public class RecommendController {
 		return mv;
 	}
 
-
-
 	/**
 	 * Update recommend zip
 	 */

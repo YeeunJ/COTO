@@ -1,11 +1,15 @@
 package com.walab.coding.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -113,5 +117,25 @@ public class HomeController {
 		userProblemService.createUserProblem(problems);
 		
 		return "success";
+	}
+	
+	@RequestMapping(value = "/{nickName}", method = RequestMethod.GET)
+	public ModelAndView moveUserPAge(HttpServletRequest httpServletRequest, ModelAndView mv, @PathVariable("nickName") String nickName) throws UnsupportedEncodingException {
+
+		int totalProblem = userService.selectedUserTotalProblem(URLDecoder.decode(nickName,"UTF-8"));
+		
+//		List<RankDTO> totalRankList = userProblemService.readTotalRankList();
+//		List<RankDTO> todayRankList = userProblemService.readTodayRankList();
+//		List<UserProblemDTO> totalProblemList = userProblemService.readProblemList();
+//		List<ProblemDTO> recentProblemList = problemService.readRecentProblem();
+//		List<RecomTagDTO> tagList = recomTagService.readTagList();
+//		List<RecommendDTO> recentRecomList = recommendService.readRecentRecommendList();
+//		List<CodingSiteDTO> codingSiteList = codingSiteService.readCodingSite();
+
+		mv.addObject("totalProblem", totalProblem);
+
+		mv.setViewName("userPage");
+	
+		return mv;
 	}
 }
