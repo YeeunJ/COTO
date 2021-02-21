@@ -16,7 +16,9 @@
 						<h5 class="small-title">오늘의 랭킹</h5>
 						<ul class="fs-18 textList">
 						<c:forEach items="${ranksToday}" var="rankToday" varStatus="status">
-						<li class="ranking"><span class="bold">${status.count}.</span> ${rankToday.nickName} [${rankToday.cnt}문제]</li>
+						<li class="ranking" onclick="moveUserPage('${rankToday.nickName}')">
+							<span class="bold">${status.count}.</span> ${rankToday.nickName} [${rankToday.cnt}문제]
+						</li>
 						</c:forEach>
 						</ul>
 					</div>
@@ -101,6 +103,9 @@
 
 
   <script>
+  function moveUserPage(nickName){
+		location.href='./'+encodeURI(encodeURIComponent(nickName));
+	};
     (function () {
       const slideList_third = document.querySelector('.slide_list_third');  // Slide parent dom
       const slideContents_third = document.querySelectorAll('.slide_content_third');  // each slide dom
