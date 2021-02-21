@@ -20,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.GoalDTO;
 import com.walab.coding.model.ProblemDTO;
+import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecomCountDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomTagDTO;
@@ -29,6 +30,7 @@ import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.GoalService;
 import com.walab.coding.service.GoalServiceImpl;
+import com.walab.coding.service.RecomCartService;
 import com.walab.coding.service.RecomCommentService;
 import com.walab.coding.service.RecomCountService;
 import com.walab.coding.service.RecomProblemService;
@@ -69,6 +71,9 @@ public class MyproblemsController {
 	
 	@Autowired
 	RecomCommentService recomCommentService;
+	
+	@Autowired
+	RecomCartService recomCartService;
 	/**
 	 * Create problem zip 
 	 */
@@ -274,6 +279,44 @@ public class MyproblemsController {
 		mv.addObject("commentCount", commentCount);
 
 		mv.setViewName("ajaxContent/recomCartDetailModal");
+
+		return mv;
+	}
+	
+	/**
+	 * Create comment
+	 */
+	@RequestMapping(value = "/addComment", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView addComment(HttpServletRequest httpServletRequest, ModelAndView mv) {
+		RecomCountDTO rcd;
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		String content = httpServletRequest.getParameter("content");
+		
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			RecomCommentDTO dto = new RecomCommentDTO();
+
+			dto.setUserId(userID);
+			dto.setRecomID(recomID);
+			dto.setContent(content);
+
+			recomCommentService.createComment(dto);
+			
+		}
+		
+		rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+		int cartYN = recomCartService.readCartByID(recomID, userID);
+
+		mv.addObject("cartYN", cartYN);
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
 
 		return mv;
 	}

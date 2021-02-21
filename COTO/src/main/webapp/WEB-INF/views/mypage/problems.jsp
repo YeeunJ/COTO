@@ -7,9 +7,9 @@
 
 <jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
+<link href="../resources/css/problems.css" rel="stylesheet">
 <link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
 <link href="../resources/css/recommendProblem.css?asd" rel="stylesheet">
-
 <script src="../resources/js/createModal.js"></script>
 <script src="../resources/js/problems.js"></script>
 <script src="../resources/js/recomCart.js"></script>
@@ -58,8 +58,8 @@
 			<div class="card shadow card-body" >
 				<div class="font-color card-title">하루의 기록</div>
 				<div class="myChart" style="overflow-x:scroll; width: 310px; height:200;">
-					<div class="chartAreaWrapper" style="overflow-x:scroll; width:750px">
-						<canvas id="myBarChart" width="700px" height="180px"></canvas>
+					<div class="chartAreaWrapper" style="overflow-x:scroll; width:900px; height:200">
+						<canvas id="myBarChart" width="900px" height="200"></canvas>
 					</div>
 				</div>
 			</div>
@@ -68,7 +68,7 @@
 		<div class="card-content3">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">현재 상황</div>
-				<canvas id="myDoughnutChart" width="280vw" height="180px">
+				<canvas id="myDoughnutChart" width="300vw" height="180px">
 				</canvas>
 			</div>
 		</div>

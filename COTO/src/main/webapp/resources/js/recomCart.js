@@ -26,7 +26,7 @@ function addComment() {
 
 	if (confirm("댓글을 추가하시겠습니까?")) {
 		$.ajax({
-			url : "recommendProblem/addComment",
+			url : "../mypage/problems/addComment",
 			type : "POST",
 			async : false,
 			data : {
