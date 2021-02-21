@@ -30,10 +30,11 @@
 .sweet-modal-close a.sweet-modal-close-link:hover {
 	background-color: #e3a96d;
 }
+/*
 .sweet-modal-content{
 	height: 600px;
     overflow: scroll;
-}
+}*/
 #confirmSite .problem:hover {
 	box-shadow: 2px 2px 7px #8080804a;
     cursor: pointer;

@@ -8,10 +8,11 @@ function deletechip(id) {
 }
 
 function createModel(content, titleValue, actionFunction, closeFunction){
+	content = "<div style='height: 600px !important; overflow: scroll;'>" + $(content).html() + "</div>";
 		var variant = {
 			args: [
 				{
-					content: $(content).html(),
+					content: content,
 					title: titleValue,
 					showCloseButton: true,
 					onClose: function(){
@@ -85,10 +86,12 @@ function insertProblems(){
 
 
 function rudModel(readContent, updateContent, titleValue, titleValue2, updateFunction, deleteFunction, closeFunction, tagCnt){
+		readContent = "<div style='height: 600px !important; overflow: scroll;'>" + $(readContent).html() + "</div>";
+		updateContent = "<div style='height: 600px !important; overflow: scroll;'>" + $(updateContent).html() + "</div>";
 		var variant = {
 			args: [
 				{
-					content: $(readContent).html(),
+					content: readContent,
 					title: titleValue,
 					showCloseButton: true,
 					onOpen: function(){
@@ -104,7 +107,7 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 							action: function() {
 								return $.sweetModal({
 									title: titleValue2,
-									content: $(updateContent).html(),
+									content: updateContent,
 									onClose: function(){
 										closeFunction();
 									},
@@ -173,10 +176,11 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 }
 
 function readModel(readContent, titleValue){
+	readContent = "<div style='height: 600px !important; overflow: scroll;'>" + $(readContent).html() + "</div>";
 		var variant = {
 			args: [
 				{
-					content: $(readContent).html(),
+					content: readContent,
 					title: titleValue,
 					theme: $.sweetModal.THEME_MIXED,
 					showCloseButton: true
