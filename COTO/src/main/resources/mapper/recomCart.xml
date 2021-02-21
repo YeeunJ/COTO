@@ -15,9 +15,10 @@
 		SELECT * from recomCart, recommend
 		WHERE recomCart.recomID = recommend.id AND recomCart.userID=#{userID}
 	</select>	
+
 	
 	<delete id="deleteCart" parameterType="hashmap">
-		DELETE FROM recomCart where id = #{id}
+		DELETE FROM recomCart where recomID=#{recomID} AND userID=#{userID}
 	</delete>
 	
 	

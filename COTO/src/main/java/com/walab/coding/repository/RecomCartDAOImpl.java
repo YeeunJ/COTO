@@ -49,17 +49,19 @@ public class RecomCartDAOImpl implements RecomCartDAO {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("recomID", recomID);
 		param.put("userID", userID);
-		System.out.println("recomID: "+recomID);
-		System.out.println("userID :"+userID);
 		
 		return sqlSession.selectOne(namespace+".readCartByID", param);
 	
 	}
 
 	@Override
-	public void deleteRecomCart(int id) {
+	public void deleteRecomCart(RecomCartDTO cart) {
 		
-		sqlSession.delete(namespace+".deleteCart");
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("recomID", cart.getRecomID());
+		param.put("userID", cart.getUserID());
+		
+		sqlSession.delete(namespace+".deleteCart", param);
 		
 	}
 

@@ -33,9 +33,9 @@ public class RecomCartServiceImpl implements RecomCartService {
 	}
 
 	@Override
-	public void deleteRecomCart(int id) {
+	public void deleteRecomCart(RecomCartDTO cart) {
 		
-		recomCartDAO.deleteRecomCart(id);
+		recomCartDAO.deleteRecomCart(cart);
 		
 	}
 

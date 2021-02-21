@@ -238,7 +238,6 @@ public class RecommendController {
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		int commentCount = recomComment.size();
 		int cartYN = recomCartService.readCartByID(recomID, userID);
-		System.out.println("cartYN: "+cartYN);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("cartYN", cartYN);
@@ -493,6 +492,36 @@ public class RecommendController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("rp", rp);
 		mv.setViewName("ajaxContent/recomCheckContent");
+
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomCart", method = RequestMethod.POST)
+	public ModelAndView deleteRecomCart(HttpServletRequest httpServletRequest) {
+		RecomCartDTO cart = new RecomCartDTO();
+		
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			cart.setRecomID(recomID);
+			cart.setUserID(userID);
+			recomCartService.deleteRecomCart(cart);
+			
+		}
+		
+		RecomCountDTO rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+		int cartYN = recomCartService.readCartByID(recomID, userID);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("cartYN", cartYN);
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
 
 		return mv;
 	}
