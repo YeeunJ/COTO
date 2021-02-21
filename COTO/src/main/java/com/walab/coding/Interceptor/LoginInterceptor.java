@@ -22,10 +22,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		HttpSession session = request.getSession();
-		UserDTO ud = (UserDTO) session.getAttribute("user");
+		UserDTO ud = (UserDTO) session.getAttribute("tempUser");
 		int id = 0;
 		id = UserService.readUserIDByEmail(ud.getEmail());
-		session.setAttribute("user", ud);
 		if(id > 0) {
 			ud.setId(id);
 			ud.setIsAdmin(UserService.readIsAdminByUserID(id));
