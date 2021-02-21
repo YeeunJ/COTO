@@ -11,8 +11,6 @@ public interface RecommendDAO {
 	
 	public List<RecommendDTO> readRecommendList();
 
-	public List<RecommendDTO> readCartRecommendList();
-
 	public List<RecommendDTO> readRecentRecommendList();
 	
 	public RecommendDTO readRecommend(int recomID);

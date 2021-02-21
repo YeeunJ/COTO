@@ -124,8 +124,11 @@ public class MyproblemsController {
 		int userSolvedP = userProblemService.readSolvedP(userID);
 		List<UserProblemDTO> countSolvedProblemEachDay = userProblemService.countSolvedProblemEachDay(userID);
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-		List<RecommendDTO> recomCart = recommendService.readCartRecommendList();
+		List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
 
+
+		System.out.println(recomCart);
+		
 		GoalDTO g = goal.get(0);
 		int goalNum = g.getGoalNum();
 

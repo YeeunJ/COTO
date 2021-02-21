@@ -50,10 +50,6 @@ public class RecommendServiceImpl implements RecommendService {
 		return recoms;
 	}
 
-	public List<RecommendDTO> readCartRecommendList(){
-		List<RecommendDTO> result = recommendDAO.readCartRecommendList();	
-		return result;
-	}
 	
 	//일단 혹시 몰라서 주석 처리 
 	/*@Override

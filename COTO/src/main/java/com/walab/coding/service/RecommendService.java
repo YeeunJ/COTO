@@ -14,12 +14,6 @@ public interface RecommendService {
 	//List<RecomProblemDTO> readRecomProblems(int recomID);
 	
 	/**
-	 * read the recommend list that user picked
-	 * usage: MyproblemController
-	 */
-	public List<RecommendDTO> readCartRecommendList();
-	
-	/**
 	 * read the recommend list that uploaded recently
 	 * usage: HomeController
 	 */

@@ -22,7 +22,6 @@ public class RecommendDAOImpl implements RecommendDAO {
 	private SqlSessionTemplate sqlSession;
 	private String namespace = "recommend";
 	private List<RecommendDTO> recommendList = new ArrayList<RecommendDTO>();
-	private List<RecommendDTO> cartRecommendList = new ArrayList<RecommendDTO>();
 
 	@Override
 	public int createRecomProblem(RecommendDTO recommend) {	
@@ -37,13 +36,6 @@ public class RecommendDAOImpl implements RecommendDAO {
 		recommendList = sqlSession.selectList(namespace+".readRecommendList");
 		
 		return recommendList;
-	}
-
-	@Override
-	public List<RecommendDTO> readCartRecommendList() {
-		cartRecommendList = sqlSession.selectList("recomCart"+".readRecomCart");
-		
-		return cartRecommendList;
 	}
 	
 	@Override
