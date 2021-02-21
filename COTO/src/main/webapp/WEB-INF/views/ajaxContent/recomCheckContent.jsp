@@ -6,6 +6,6 @@
 		<i class="small smaller material-icons" onclick="checkProblem(${rp.problemID})" style="color:lightgray !important; height: 30px; float: right; cursor: pointer;">done</i>
 	</c:when> 
 	<c:otherwise>
-		<i class="small smaller material-icons" onclick = "uncheckProblem(${rp.problemID})" style="color:green; height: 30px; float: right; cursor: pointer;">done</i>
+		<i class="small smaller material-icons" onclick = "uncheckProblem(${rp.problemID}, ${rp.name})" style="color:green; height: 30px; float: right; cursor: pointer;">done</i>
 	</c:otherwise>
 </c:choose>

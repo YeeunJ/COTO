@@ -17,6 +17,8 @@ public interface UserProblemDAO {
 	// RecommendController
 	public int deleteProblem(int userProblemID);
 	
+	public int deleteUserProblemByProblemID(int userProblemID);
+	
 	// MyproblemsController
 	public int readSolvedP(int userID);
 	

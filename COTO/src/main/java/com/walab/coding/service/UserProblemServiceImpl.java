@@ -59,6 +59,10 @@ public class UserProblemServiceImpl implements UserProblemService{
 		return userProblemDAO.deleteProblem(userProblemID);
 	}
 	
+	public int deleteUserProblemByProblemID(int userProblemID) {
+		return userProblemDAO.deleteUserProblemByProblemID(userProblemID);
+	}
+	
 	@Override
 	public int readSolvedP(int userID){
 		int solvedP = userProblemDAO.readSolvedP(userID);
