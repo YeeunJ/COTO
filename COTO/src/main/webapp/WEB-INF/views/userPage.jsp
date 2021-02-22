@@ -9,14 +9,15 @@
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
 
-<link href="../resources/css/activities.css" rel="stylesheet">
+<!-- <link href="../resources/css/activities.css" rel="stylesheet"> -->
 <script src="../resources/js/activities.js"></script>
 
+
 <div id="SiteContainer" class="container">
-	<div id="activities">
+	<div id="otherUser">
 		<div class="content">
-			<h4>${nickName}</h4>
-			<p>${intro }</p>
+			<h4>| ${nickName}</h4>
+			<p>${intro}</p>
 		</div>
 	</div>
 
@@ -56,7 +57,7 @@
 				</c:choose>
 			</div>
 		</c:forEach>
-	</div>
+	</div> 1
 	
 
 </div>
@@ -72,6 +73,11 @@
 	position: absolute;
 	opacity: 0.4;
 	z-index: -1;
+}
+#otherUser{
+    position: relative;
+    padding: 80px 0;
+    margin-bottom: 3%;
 }
 </style>
 <%@ include file="./inc/footer.jsp"%>
