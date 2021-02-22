@@ -20,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.GoalDTO;
 import com.walab.coding.model.ProblemDTO;
+import com.walab.coding.model.RecomCartDTO;
 import com.walab.coding.model.RecomCommentDTO;
 import com.walab.coding.model.RecomCountDTO;
 import com.walab.coding.model.RecomProblemDTO;
@@ -110,6 +111,36 @@ public class MyproblemsController {
 
 		return "success";
 	}
+	
+	@RequestMapping(value = "/addRecomCart", method = RequestMethod.POST)
+	public ModelAndView createRecomCart(HttpServletRequest httpServletRequest) {
+		RecomCartDTO cart = new RecomCartDTO();
+		
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			cart.setRecomID(recomID);
+			cart.setUserID(userID);
+			recomCartService.createRecomCart(cart);
+			
+		}
+		
+		RecomCountDTO rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+		int cartYN = recomCartService.readCartByID(recomID, userID);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("cartYN", cartYN);
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
+
+		return mv;
+	}
 
 	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
@@ -125,7 +156,7 @@ public class MyproblemsController {
 		List<UserProblemDTO> countSolvedProblemEachDay = userProblemService.countSolvedProblemEachDay(userID);
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
-
+		
 
 		System.out.println(recomCart);
 		
@@ -259,6 +290,8 @@ public class MyproblemsController {
 		}
 		
 		int admin = ((UserDTO)request.getSession().getAttribute("user")).getIsAdmin();
+		int cartYN = recomCartService.readCartByID(recomID, userID);
+
 		//if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0) {
 		rcd = recomCountService.readRecomCount(recomID, userID);
 		rcd.setRecomID(recomID);
@@ -269,7 +302,8 @@ public class MyproblemsController {
 					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
 			}
 		}
-
+		
+		mv.addObject("cartYN", cartYN);
 		mv.addObject("recomID", recomID);
 		mv.addObject("loginID", userID);
 		mv.addObject("adminID", admin);
@@ -315,6 +349,36 @@ public class MyproblemsController {
 		int commentCount = recomComment.size();
 		int cartYN = recomCartService.readCartByID(recomID, userID);
 
+		mv.addObject("cartYN", cartYN);
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
+
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomCart", method = RequestMethod.POST)
+	public ModelAndView deleteRecomCart(HttpServletRequest httpServletRequest) {
+		RecomCartDTO cart = new RecomCartDTO();
+		
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			cart.setRecomID(recomID);
+			cart.setUserID(userID);
+			recomCartService.deleteRecomCart(cart);
+			
+		}
+		
+		RecomCountDTO rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+		int cartYN = recomCartService.readCartByID(recomID, userID);
+		
+		ModelAndView mv = new ModelAndView();
 		mv.addObject("cartYN", cartYN);
 		mv.addObject("countInfo", rcd);
 		mv.addObject("recomComment", recomComment);

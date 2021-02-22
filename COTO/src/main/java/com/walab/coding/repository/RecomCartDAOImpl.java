@@ -65,4 +65,22 @@ public class RecomCartDAOImpl implements RecomCartDAO {
 		
 	}
 
+	@Override
+	public int readTotalProbCnt(int recomID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("recomID", recomID);
+		return sqlSession.selectOne(namespace+".readTotalProbCnt", param);
+	}
+
+	@Override
+	public int readUserProbCnt(int userID, int recomID) {
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userID", userID);
+		param.put("recomID", recomID);
+		
+		return sqlSession.selectOne(namespace+".readUserProbCnt", param);
+		
+	}
+
 }

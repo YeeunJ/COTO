@@ -10,4 +10,6 @@ public interface RecomCartDAO {
 	public List<RecommendDTO> readCartRecommendList(int userID);
 	int readCartByID(int recomID, int userID);
 	void deleteRecomCart(RecomCartDTO cart);
+	int readTotalProbCnt(int recomID);
+	int readUserProbCnt(int userID,int recomID);
 }

@@ -11,6 +11,15 @@
 		SELECT COUNT(*) FROM recomCart WHERE recomID=#{recomID} AND userID=#{userID}
 	</select>
 	
+	<select id="readTotalProbCnt" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) FROM recomProblem WHERE recomID=#{recomID}
+	</select>
+	
+	<select id="readUserProbCnt" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) FROM recomProblem AS RP, userProblem AS UP
+		WHERE RP.problemID=UP.problemID AND UP.userID=#{userID} AND RP.recomID=#{recomID}
+	</select>
+	
 	<select id="readRecomCart" resultType="com.walab.coding.model.RecommendDTO" parameterType="hashmap">
 		SELECT * FROM (
 			SELECT recom.id as id, recom.title as title, recom.content as content, us.id AS userID, us.nickname as nickname, recom.difficulty as difficulty, recom.recomCount as recomCount, recom.recomCommentCount as recomCommentCount

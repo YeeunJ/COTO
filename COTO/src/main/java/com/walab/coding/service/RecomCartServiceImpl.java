@@ -23,7 +23,26 @@ public class RecomCartServiceImpl implements RecomCartService {
 	}
 	
 	public List<RecommendDTO> readCartRecommendList(int userID){
-		List<RecommendDTO> result = recomCartDAO.readCartRecommendList(userID);	
+		List<RecommendDTO> result = recomCartDAO.readCartRecommendList(userID);
+		
+		for(int i=0 ; i<result.size() ; i++) {
+			int recomID = result.get(i).getId();
+			int totalProbCnt = recomCartDAO.readTotalProbCnt(recomID);
+			int userProbCnt = recomCartDAO.readUserProbCnt(userID,recomID);
+			System.out.println("Total: "+totalProbCnt+" // User:" +userProbCnt);
+			
+			result.get(i).setTotalProbCnt(totalProbCnt);
+			result.get(i).setUserProbCnt(userProbCnt);
+			
+			if(totalProbCnt == userProbCnt) {
+				RecommendDTO recom = result.get(i);
+				result.remove(i);
+				result.add(recom);
+			}
+			
+		}
+		
+		
 		return result;
 	}
 	
