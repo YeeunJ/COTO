@@ -331,15 +331,42 @@ function updateProblems(){
 	console.log("siteId: "+siteId);
 	var site = $(".sweet-modal-content #siteName option:selected").val();
 	var value = $(".sweet-modal-content #updateConfirmProblems").val();
-	console.log(value);
+	
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #updateConfirmSite').html();
-	for(var i in valueSplit){
-		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
-		count++;
+	$(".sweet-modal-content #problems").val("");
+	if(siteId == 1){
+		count += valueSplit.length;
+		$.ajax({
+        url : './crawling/'+siteName,
+        type: 'POST',
+        data: {
+        	"problem": valueSplit,
+        	"siteID": siteId,
+        	"count": count
+        },
+        success: function(data){
+            console.log(data);
+            var data2 = $('.sweet-modal-content #updateConfirmSite').html()+data;
+        	$('.sweet-modal-content #updateConfirmSite').html(data2);
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+	}else{
+		for(var i in valueSplit){
+			data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/></div>';
+			count++;
+		}
+		$('.sweet-modal-content #updateConfirmSite').html(data);
+		$('#updateConfirmSite').html(data);
 	}
-	$('.sweet-modal-content #updateConfirmSite').html(data);
-	$('#updateConfirmSite').html(data);
+	/*
+	for(var i in valueSplit){
+		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate" style="width:90%;padding-left: 10px;"/></div>';
+		count++;
+	}*/
 	$(".sweet-modal-content #updateConfirmProblems").val("");
 };
 

@@ -187,7 +187,7 @@
 						<c:forEach items="${recomProblem}" var="rp">
 							<c:if test="${!empty rp.name}">
 								<c:if test="${!empty rp.siteName}">
-									<div id = "confirmProblemValue${ count }" onClick="deleteThis('confirmProblemValue${ count }')"><input disabled name="${ rp.siteID }" value="${rp.name} (${rp.siteName})" id="last_name disabled" type="text" class="updateConfirmProblem validate"/></div>
+									<div id = "confirmProblemValue${ count }" onClick="deleteThis('confirmProblemValue${ count }')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="${ rp.siteID }" value="${rp.name} (${rp.siteName})" id="last_name disabled" type="text" class="updateConfirmProblem validate" style="width:90%;padding-left: 10px;"/></div>
 									<c:set var="count" value="${count + 1}"/>
 								</c:if>
 							</c:if>
@@ -197,3 +197,4 @@
 			</div>
 	</form>		
 </div>
+<script>var count = ${count}</script>
