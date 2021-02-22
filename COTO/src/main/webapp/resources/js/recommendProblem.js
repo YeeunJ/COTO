@@ -413,13 +413,14 @@ function checkProblem(id){
 		}
 	});
 }
-function uncheckProblem(id){
+function uncheckProblem(id, name){
 	$.ajax({
 		url : "recommendProblem/deleteRecomCheck",
 		type : "POST",
 		async : false,
 		data : {
 			rpID : id,
+			problemName: name
 		},
 		success : function(data) {
 			console.log(data);

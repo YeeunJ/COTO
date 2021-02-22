@@ -31,6 +31,10 @@
 		delete from userProblem where id = #{problemID}
 	</delete>
 	
+	<delete id="deleteUserProblemByProblemID" parameterType="hashmap">
+		delete from userProblem where problemID = #{problemID}
+	</delete>
+	
 	<update id="updateUserProblem" parameterType="hashmap">
 		update userProblem set difficulty='${difficulty}', memo='${memo}' where id = #{id}
 	</update>
