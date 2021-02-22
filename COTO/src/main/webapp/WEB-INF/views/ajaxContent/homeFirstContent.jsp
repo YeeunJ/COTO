@@ -60,7 +60,9 @@
 							<h5 class="small-title">누적 랭킹</h5>
 							<ul class="fs-18 textList">
 							<c:forEach items="${ranks}" var="rank" varStatus="status">
-							<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName} [${rank.cnt}문제]</li>
+							<li class="ranking" onclick="moveUserPage('${rank.nickName}')">
+								<span class="bold">${status.count}.</span> ${rank.nickName} [${rank.cnt}문제]
+							</li>
 							</c:forEach>
 							</ul>
 						</div>
