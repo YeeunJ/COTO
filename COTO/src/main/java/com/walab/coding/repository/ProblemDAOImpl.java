@@ -75,4 +75,12 @@ public class ProblemDAOImpl implements ProblemDAO {
 		return problemList;
 	}
 	
+	@Override
+	public List<ProblemDTO> readOtherUserProblemName(int userID){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userID", userID);
+		
+		return sqlSession.selectList(namespace+".readOtherUserProblemName", param);
+	}
+	
 }
