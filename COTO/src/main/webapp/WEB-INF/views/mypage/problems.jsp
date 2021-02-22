@@ -218,7 +218,7 @@
 
 	</div>
 	<div>
-		<div class="table" id="problemsContent">
+		<div class="table" id="recomCartContent">
 			<%@ include file="../ajaxContent/recomCartContent.jsp"%>
 		</div>
 	

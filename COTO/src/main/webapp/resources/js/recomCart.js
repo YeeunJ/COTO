@@ -181,14 +181,28 @@ function readDetailModalContent(recomID, count) {
 			}
 			
 			$("#modalContent").html(data);
-			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
-			else readModel("#readRecommendProblem", title);
+			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, readRecomCartContent);
+			else readCartModel("#readRecommendProblem", title, readRecomCartContent);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n"
 					+ "message:" + request.responseText + "\n"
 					+ "error:" + error);
 		}
+	});
+}
+
+function readRecomCartContent(){
+	$.ajax({
+		url: "../mypage/problems/readRecomCartContent",
+		type: "POST",
+		async: false,
+		success: function(data){
+			$('#recomCartContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
 	});
 }
 
@@ -280,7 +294,7 @@ function updateProblems(){
 //read modal을 delete
 function deleteAjax (){
 	$.ajax({
-		url: "./recommendProblem/deleteRecomProblem",
+		url: "./deleteRecomProblem",
 		type: "POST",
 		async: false,
 		data: {
@@ -304,7 +318,7 @@ function deleteThis(id){
 //read modal에서 recom count
 function deleteRecomCount(){
 	$.ajax({
-		url: "./recommendProblem/deleteRecomCount",
+		url: "../mypage/problems/deleteRecomCount",
 		type: "POST",
 		async: false,
 		data: {
@@ -324,7 +338,7 @@ function deleteRecomCount(){
 function addRecomCart(){
 	if(confirm("문제집을 장바구니에 담으시겠습니까?")) {
 		$.ajax({
-			url: "./recommendProblem/addRecomCart",
+			url: "../mypage/problems/addRecomCart",
 			type: "POST",
 			async: false,
 			data: {
@@ -345,7 +359,7 @@ function addRecomCart(){
 function deleteRecomCart(){
 	if(confirm("문제집을 장바구니에서 지우시겠습니까?")) {
 		$.ajax({
-			url: "./recommendProblem/deleteRecomCart",
+			url: "../mypage/problems/deleteRecomCart",
 			type: "POST",
 			async: false,
 			data: {

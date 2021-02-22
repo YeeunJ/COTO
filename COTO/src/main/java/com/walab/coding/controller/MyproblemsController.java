@@ -203,6 +203,23 @@ public class MyproblemsController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/readRecomCartContent", method = RequestMethod.POST)
+	public ModelAndView readRecomCartContent(HttpServletRequest httpServletRequest, ModelAndView mv) {
+		
+		int userID = -1;
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+		}
+		
+		List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
+		
+		mv.addObject("recomCarts", recomCart);
+
+		mv.setViewName("ajaxContent/recomCartContent");
+
+		return mv;
+	}
+	
 	/**
 	 * Update user solvedProblem List
 	 */
