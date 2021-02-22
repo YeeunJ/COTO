@@ -113,4 +113,9 @@
 		join YeeunJ.problem as p on subquery.problemID=p.id 
 		join YeeunJ.codingSite as c on p.siteID=c.id
 	</select>
+	<select id="readOtherUserPage" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
+		SELECT count(A.userID) as solved, goal
+		FROM userProblem as A, (SELECT startDate,endDate,goal FROM goal WHERE userID=#{userID} order by startDate DESC limit 1) subquery 
+		WHERE <![CDATA[A.regDate >= subquery.startDate and A.regDate <= subquery.endDate]]> and A.userID = #{userID}
+	</select>
 </mapper>

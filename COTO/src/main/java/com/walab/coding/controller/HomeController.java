@@ -119,23 +119,4 @@ public class HomeController {
 		return "success";
 	}
 	
-	@RequestMapping(value = "/{nickName}", method = RequestMethod.GET)
-	public ModelAndView moveUserPAge(HttpServletRequest httpServletRequest, ModelAndView mv, @PathVariable("nickName") String nickName) throws UnsupportedEncodingException {
-
-		int totalProblem = userService.selectedUserTotalProblem(URLDecoder.decode(nickName,"UTF-8"));
-		
-//		List<RankDTO> totalRankList = userProblemService.readTotalRankList();
-//		List<RankDTO> todayRankList = userProblemService.readTodayRankList();
-//		List<UserProblemDTO> totalProblemList = userProblemService.readProblemList();
-//		List<ProblemDTO> recentProblemList = problemService.readRecentProblem();
-//		List<RecomTagDTO> tagList = recomTagService.readTagList();
-//		List<RecommendDTO> recentRecomList = recommendService.readRecentRecommendList();
-//		List<CodingSiteDTO> codingSiteList = codingSiteService.readCodingSite();
-
-		mv.addObject("totalProblem", totalProblem);
-
-		mv.setViewName("userPage");
-	
-		return mv;
-	}
 }

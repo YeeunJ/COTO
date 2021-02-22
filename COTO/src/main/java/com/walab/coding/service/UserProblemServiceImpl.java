@@ -179,4 +179,9 @@ public class UserProblemServiceImpl implements UserProblemService{
 	public int readProblemCnt(int userID) {
 		return userProblemDAO.readProblemCnt(userID);
 	}
+	
+	@Override
+	public List<UserProblemDTO> readOtherUserPage(int userID){
+		return userProblemDAO.readOtherUserPage(userID);
+	}
 }

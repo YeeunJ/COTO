@@ -52,4 +52,7 @@ public interface UserProblemDAO {
 	
 	// RecommendController
 	public void createUserProblembyID(UserProblemDTO p);
+	
+	// UserPageController
+	public List<UserProblemDTO> readOtherUserPage(int userID);
 }

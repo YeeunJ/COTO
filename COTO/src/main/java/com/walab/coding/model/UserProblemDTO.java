@@ -15,6 +15,8 @@ public class UserProblemDTO {
 	private String memo;
 	private Date regDate;
 	private int countSolvedP;
+	private int solved;
+	private String goal;
 	
 	public int getId() {
 		return id;
@@ -94,6 +96,18 @@ public class UserProblemDTO {
 		return "UserProblemDTO [id=" + id + ", userID=" + userID + ", problemID=" + problemID + ", siteID=" + siteID
 				+ ", problem=" + problem + ", site=" + site + ", siteUrl=" + siteUrl + ", link=" + link
 				+ ", difficulty=" + difficulty + ", memo=" + memo + ", regDate=" + regDate + "]";
+	}
+	public int getSolved() {
+		return solved;
+	}
+	public void setSolved(int solved) {
+		this.solved = solved;
+	}
+	public String getGoal() {
+		return goal;
+	}
+	public void setGoal(String goal) {
+		this.goal = goal;
 	}
 	
 	
