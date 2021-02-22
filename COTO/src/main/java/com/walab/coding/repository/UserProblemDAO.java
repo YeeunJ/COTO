@@ -55,4 +55,7 @@ public interface UserProblemDAO {
 	
 	// UserPageController
 	public List<UserProblemDTO> readOtherUserPage(int userID);
+	
+	// UserPageController
+	public int countOtherUserProblem(int userID);
 }

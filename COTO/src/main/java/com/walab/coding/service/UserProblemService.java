@@ -91,4 +91,10 @@ public interface UserProblemService {
 	 * usage: UserPageController
 	 */
 	public List<UserProblemDTO> readOtherUserPage(int userID);
+	
+	/**
+	 * count other User total Solved Problem
+	 * usage: UserPageController
+	 */
+	public int countOtherUserProblem(int userID);
 }
