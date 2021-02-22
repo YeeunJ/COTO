@@ -40,4 +40,8 @@
 		SELECT id FROM YeeunJ.user where nickName=#{nickName}
 		<!-- SELECT count(*) FROM YeeunJ.userProblem where userID=id -->
 	</select>
+	<select id="selectedUserintro"
+		resultType="string" parameterType="hashmap">
+		SELECT intro FROM YeeunJ.user where nickName=#{nickName}
+	</select>
 </mapper>

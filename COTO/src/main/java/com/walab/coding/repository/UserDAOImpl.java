@@ -133,5 +133,11 @@ public class UserDAOImpl implements UserDAO{
 	
 		return sqlSession.selectOne("user.selectedUserTotalProblem", param);
 	}
+	public String selectedUserintro(String nickName) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("nickName", nickName);
+	
+		return sqlSession.selectOne("user.selectedUserintro", param);
+	}
 }
 

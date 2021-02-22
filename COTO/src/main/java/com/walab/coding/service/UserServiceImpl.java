@@ -99,4 +99,9 @@ public class UserServiceImpl implements UserService{
 	public int selectedUserTotalProblem(String nickName) {
 		return userDAO.selectedUserTotalProblem(nickName);
 	}
+	
+	@Override
+	public String selectedUserintro(String nickName) {
+		return userDAO.selectedUserintro(nickName);
+	}
 }

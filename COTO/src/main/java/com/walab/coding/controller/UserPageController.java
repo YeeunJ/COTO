@@ -45,10 +45,14 @@ public class UserPageController {
 		List<UserProblemDTO> readOtherUserPage = userProblemService.readOtherUserPage(userID);
 		int t_solved = userProblemService.countOtherUserProblem(userID);
 		List<ProblemDTO> readOtherUserProblemName = problemService.readOtherUserProblemName(userID);
+		String userIntro =userService.selectedUserintro(URLDecoder.decode(nickName,"UTF-8"));
+		
 
 		mv.addObject("readOtherUserPage", readOtherUserPage);
 		model.addAttribute("t_solved", t_solved);
 		mv.addObject("readOtherUserProblemName", readOtherUserProblemName);
+		mv.addObject("nickName",URLDecoder.decode(nickName,"UTF-8"));
+		mv.addObject("intro",userIntro);
 		mv.setViewName("userPage");
 	
 		return mv;

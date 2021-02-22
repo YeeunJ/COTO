@@ -15,8 +15,8 @@
 <div id="SiteContainer" class="container">
 	<div id="activities">
 		<div class="content">
-			<h4>내 기록</h4>
-			<p>지금까지 내가 등록한 기록들을 확인해 보세요!</p>
+			<h4>${nickName}</h4>
+			<p>${intro }</p>
 		</div>
 	</div>
 

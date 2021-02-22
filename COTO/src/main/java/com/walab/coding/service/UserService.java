@@ -52,4 +52,6 @@ public interface UserService {
 	public void updateUserAdmin(int isAdmin, int userID);
 	
 	public int selectedUserTotalProblem(String nickName);
+	
+	public String selectedUserintro(String nickName);
 }
