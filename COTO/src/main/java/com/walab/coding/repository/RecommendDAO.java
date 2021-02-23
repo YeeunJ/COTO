@@ -10,7 +10,7 @@ public interface RecommendDAO {
 	public int createRecomProblem(RecommendDTO recommend);
 	
 	public List<RecommendDTO> readRecommendList();
-	
+
 	public List<RecommendDTO> readRecentRecommendList();
 	
 	public RecommendDTO readRecommend(int recomID);

@@ -186,7 +186,26 @@ function readModel(readContent, titleValue){
 					content: readContent,
 					title: titleValue,
 					theme: $.sweetModal.THEME_MIXED,
-					showCloseButton: true
+					showCloseButton: true,
+				}
+			]
+		};
+		
+		variant.fn = variant.fn || $.sweetModal;
+		variant.fn.apply(this, variant.args);
+}
+
+function readCartModel(readContent, titleValue, closeFunction){
+		var variant = {
+			args: [
+				{
+					content: $(readContent).html(),
+					title: titleValue,
+					theme: $.sweetModal.THEME_MIXED,
+					showCloseButton: true,
+					onClose: function(){
+						closeFunction();
+					}
 				}
 			]
 		};

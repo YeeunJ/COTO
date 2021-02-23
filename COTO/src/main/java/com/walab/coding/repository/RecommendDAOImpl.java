@@ -22,7 +22,7 @@ public class RecommendDAOImpl implements RecommendDAO {
 	private SqlSessionTemplate sqlSession;
 	private String namespace = "recommend";
 	private List<RecommendDTO> recommendList = new ArrayList<RecommendDTO>();
-	
+
 	@Override
 	public int createRecomProblem(RecommendDTO recommend) {	
 		sqlSession.insert(namespace+".createRecomProblem", recommend);
