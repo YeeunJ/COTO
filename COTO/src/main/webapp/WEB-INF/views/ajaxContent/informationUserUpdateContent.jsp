@@ -12,12 +12,12 @@
 			<span class="tableCell th3">이름</span> 
 			<span class="tableCell td8">
 				<input type="text" name="name" value="${user.name}"
-					placeholder="${user.name}" /> </span>
+					placeholder="${user.name}" disabled/> </span>
 		</div>
 		<div class="tableRow">
 			<span class="tableCell th3">이메일</span> <span class="tableCell td8"><input
 				type="text" name="email" value="${user.email}"
-				placeholder="${user.email}" /> </span>
+				placeholder="${user.email}" disabled/> </span>
 		</div>
 		<div class="tableRow">
 			<span class="tableCell th3">닉네임</span> <span
