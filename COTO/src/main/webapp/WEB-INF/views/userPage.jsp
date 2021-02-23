@@ -10,7 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
-<<link href="./resources/css/userpage.css" rel="stylesheet">
+<link href="./resources/css/userpage.css" rel="stylesheet">
 <script src="./resources/js/userpage.js"></script>
 
 
