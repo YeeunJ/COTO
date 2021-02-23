@@ -80,7 +80,8 @@
 	<select id="readRatioBySiteid" parameterType="hashmap" resultMap="ratioBySite">
 		SELECT siteID, COUNT(*)/#{ count } AS ratio FROM problem GROUP BY siteID
 	</select>
-
 	
-	
+	<select id="readMyLastInsertProblem" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
 </mapper>

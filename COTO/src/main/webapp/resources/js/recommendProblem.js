@@ -37,9 +37,11 @@ function searchF(){
 
 /* create */
 //추천집 create modal 부르
-function callModal() {
+function callModal(userID) {
 	selectHtml = $('#selectHtml').html();
-	createModel("#createProblems", "문제집 등록", addajax, searchF);
+	
+	if(userID > 0) createModel("#createProblems", "문제집 등록", addajax, searchF);
+	else alert("로그인을 해야 글쓰기가 가능합니다.");
 }
 
 //comment create
@@ -134,6 +136,7 @@ var count=0;
 
 //create modal에서 problem입력할 때
 function insertProblems(){
+	
 	var siteName = $(".sweet-modal-content #siteName option:selected").text();
 	var siteId = $('.sweet-modal-content #siteName').val();
 	console.log("siteId: "+siteId);
@@ -142,13 +145,53 @@ function insertProblems(){
 	console.log(value);
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #confirmSite').html();
-	for(var i in valueSplit){
-		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
-		count++;
-	}
-	$('.sweet-modal-content #confirmSite').html(data);
 	$(".sweet-modal-content #problems").val("");
+	if(siteId == 1){
+		$.ajax({
+        url : './crawling/'+siteName,
+        type: 'POST',
+        data: {
+        	"problem": valueSplit,
+        	"siteID": siteId,
+        	"count": count
+        },
+        success: function(data){
+            console.log(data);
+            var data2 = $('.sweet-modal-content #confirmSite').html()+data;
+        	$('.sweet-modal-content #confirmSite').html(data2);
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+	}else{
+		for(var i in valueSplit){
+			data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/></div>';
+			count++;
+		}
+		$('.sweet-modal-content #confirmSite').html(data);
+//		$('#confirmSite').html(data);
+	}
 };
+
+function baekjoon(){
+	var siteSelect = document.getElementById("siteName");
+	var selectValue = siteSelect.options[siteSelect.selectedIndex].value;
+	var inputValue = $(".sweet-modal-content #problems").val();
+	var value = parseFloat(inputValue.replace(/,/gi, " "));
+
+	if(selectValue=='1'){
+		if(isNaN(value) == true){ 
+			alert("백준 문제를 등록할때는 숫자만 입력할 수 있습니다.");
+			
+		}else{
+			insertProblems();
+		}
+		
+	}else{
+		insertProblems();
+	}
+}
 
 //read modal에서 recom count
 function addRecomCount(){
@@ -183,6 +226,7 @@ function readDetailModalContent(recomID, count) {
 	var logID;
 	var uID;
 	var adminID;
+	var tCnt;
 	
 	$.ajax({
 		url : "recommendProblem/readModalInfo",
@@ -200,10 +244,12 @@ function readDetailModalContent(recomID, count) {
 				else if(dataSplit[i].indexOf("readLoginID") != -1) logID = $( dataSplit[i] ).text();
 				else if(dataSplit[i].indexOf("readUserID") != -1) uID = $( dataSplit[i] ).text();
 				else if(dataSplit[i].indexOf("readAdminID") != -1) adminID = $( dataSplit[i] ).text();
+				else if(dataSplit[i].indexOf("updateTagCount") != -1) tCnt = $( dataSplit[i] ).text();
+				
 			}
 			
 			$("#modalContent").html(data);
-			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
+			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search, tCnt);
 			else readModel("#readRecommendProblem", title);
 		},
 		error : function(request, status, error) {

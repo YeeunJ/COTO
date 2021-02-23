@@ -30,7 +30,7 @@
 				<i class="fa fa-search"></i>
 			</button>
 		</fieldset>
-		<button class="input-field custom-button" onclick="callModal()">글쓰기</button>
+		<button class="input-field custom-button" onclick="callModal(${userID})">글쓰기</button>
 		<div class="col order">
 			<select id="orderValue">
 				<option value="recom.regdate desc" disabled selected>정렬</option>

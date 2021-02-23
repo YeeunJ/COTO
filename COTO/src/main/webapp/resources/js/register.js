@@ -33,8 +33,27 @@ $(document).ready(function(){
 	});
 	
 	$('#skipBtn').click(function(){
-		if(confirm("초기 목표 등록을 건너뛰시겠습니까?")){
-			location.href="./";
+		if(confirm("---초기 목표 등록을 건너뛰시겠습니까?")){
+		alert("골없음테스");
+			$.ajax({
+				url: "./register/registerUsergoal",
+				type: "POST",
+				async: false,
+				data: {
+					goal: "없음",
+					startDate: "2021-01-01",
+					endDate:"2021-12-31",
+					goalNum: "0",
+					email: $('input[name="email"]').val(),
+				},
+				success: function(data){
+					location.href="./";
+				}, 
+				error:function(request, status, error){
+					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		        }
+		        
+			});
 		}
 	});
 	

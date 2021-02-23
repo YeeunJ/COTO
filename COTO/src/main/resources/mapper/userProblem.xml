@@ -46,7 +46,7 @@
  	</select>
  
  	<select id = "readTodayRank" resultType="com.walab.coding.model.RankDTO">
- 		SELECT (SELECT nickName FROM user WHERE A.userID = id) AS nickName, count(userID) AS cnt 
+ 		SELECT (SELECT id FROM user WHERE A.userID = id) AS id, (SELECT nickName FROM user WHERE A.userID = id) AS nickName, count(userID) AS cnt 
 		FROM userProblem
 		AS A 
 		WHERE DATE_FORMAT(regdate, "%Y-%m-%d") = CURDATE()

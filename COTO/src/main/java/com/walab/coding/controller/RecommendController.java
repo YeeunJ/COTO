@@ -256,7 +256,7 @@ public class RecommendController {
 	 */
 	@RequestMapping(value = "", method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
-
+		
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 
 		mv.addObject("codingSite", codingSite);
@@ -283,12 +283,17 @@ public class RecommendController {
 		int userID = -1;
 		if((UserDTO)request.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
+			
+			int admin = ((UserDTO)request.getSession().getAttribute("user")).getIsAdmin();
+			
+			mv.addObject("adminID", admin);
 		}
 		
 		int admin = ((UserDTO)request.getSession().getAttribute("user")).getIsAdmin();
 		int cartYN = recomCartService.readCartByID(recomID, userID);
 
 		//if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0) {
+
 		rcd = recomCountService.readRecomCount(recomID, userID);
 		rcd.setRecomID(recomID);
 
@@ -302,7 +307,6 @@ public class RecommendController {
 		mv.addObject("cartYN", cartYN);
 		mv.addObject("recomID", recomID);
 		mv.addObject("loginID", userID);
-		mv.addObject("adminID", admin);
 		mv.addObject("recom", recom);
 		mv.addObject("codingSite", codingSite);
 		mv.addObject("recomProblem", recomProblem);
@@ -536,7 +540,7 @@ public class RecommendController {
 			@RequestParam(value="page", defaultValue="1") int page,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
 			@RequestParam(value="orderValue", defaultValue="") String orderValue) {
-
+		
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 
 		// pagination
@@ -561,6 +565,13 @@ public class RecommendController {
 		List<RecommendDTO> recoms = recommendService.readRecomByPage(searchValue, orderValue, s_point, list);
 
 		ModelAndView mv = new ModelAndView();
+		
+		int userID = -1;
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			mv.addObject("userID", userID);
+		}
 
 		mv.addObject("pagename", "recommendProblem");
 		mv.addObject("page", page);
