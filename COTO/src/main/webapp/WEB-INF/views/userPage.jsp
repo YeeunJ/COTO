@@ -7,78 +7,81 @@
 <jsp:include page= "<%=\"./inc/\".concat(((String)request.getAttribute(\"header\")))%>" />
 
 <jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
-<!-- <link href="../resources/css/activities.css" rel="stylesheet"> -->
-<script src="../resources/js/activities.js"></script>
+<<link href="./resources/css/userpage.css" rel="stylesheet">
+<script src="./resources/js/userpage.js"></script>
 
 
 <div id="SiteContainer" class="container">
 	<div id="otherUser">
 		<div class="content">
-			<h4>| ${nickName}</h4>
+			<h4 class="">| ${nickName}</h4>
 			<p>${intro}</p>
 		</div>
 	</div>
-
-	<div class="table center">
-		<div class="tableRow">
-			<span class="tableCell th1">No.</span> <span class="tableCell th3">기간</span>
-			<span class="tableCell th3">달성률</span> <span class="tableCell th2">상태</span>
+	
+		<!-- Content Row -->
+	<div class="card-wrap">
+		<div class="card-content1">
+			<div class="card shadow card-body">
+				<div class="font-color card-title">${nickName}님의 목표</div>
+				<div id="table">
+					<c:forEach items="${readOtherUserPage}" var="r" varStatus="status">
+						<div class="tableRow">
+							<span class="tableCell td2">현재 목표</span> <span class="tableCell td4">${r.goal}</span>
+						</div>
+						<div class="tableRow">
+							<span class="tableCell td2">현재 푼 문제수</span> <span
+								class="tableCell td4">${r.solved}문제</span>
+						</div>
+					</c:forEach>
+						<div class="tableRow">
+							<span class="tableCell td2" style="font-size: 13px;">전체 푼 문제수</span> 
+								<span class="tableCell td4">${t_solved}문제</span>
+						</div>
+				</div>
+			</div>
 		</div>
 
-		<c:forEach items="${goalList}" var="goals" varStatus="status">
-			<div class="tableRow" id="goals${goals.id}"
-				onclick="printAllContent('#goals${goals.id}', ${goals.id})">
-				<div class="readGoal" hidden>${goals.goal}</div>
-				<div class="readGoalNum" hidden>${goals.goalNum}개</div>
-				<span class="tableCell td1">${status.count}</span> 
-				<span class="tableCell td3 readTitle"> 
-					<fmt:formatDate pattern="yyyy-MM-dd" value="${goals.startDate}" /> 
-					~ <fmt:formatDate pattern="yyyy-MM-dd" value="${goals.endDate}" />
-				</span>
-				<span class="tableCell td3">
-					<div class="prog">
-						<fmt:formatNumber value="${goals.rate}" pattern=".0" var="userRate"/>
-						<div class="progs" style="width: ${userRate}%;">
-							<span class="rate readRate"> ${userRate}%</span>	
-						</div>
-					</div>
-				</span>
-				<fmt:formatDate value="${goals.endDate}" pattern="yyyy-MM-dd"
-					var="endDate" />
-				<c:choose>
-					<c:when test="${endDate > nowDate}">
-						<span class="tableCell td2 readStatus" style="color: #e69138ff;">진행중</span>
-					</c:when>
-					<c:otherwise>
-						<span class="tableCell td2 readStatus">종료</span>
-					</c:otherwise>
-				</c:choose>
+		<div class="card-content2">
+			<div class="card shadow card-body">
+				<div class="font-color card-title">${nickName}님의 진행도</div>
+				<canvas id="myDoughnutChart" width="340vw" height="130px">
+				</canvas>
 			</div>
-		</c:forEach>
-	</div> 1
-	
+		</div>
+	</div>
 
+	<br><br>
+	<div class="table center" id="problemContent">
+			<div class="tableRow">
+				<span class="tableCell th3" style="text-align:left !important">전체 푼 문제</span>
+			</div>
+
+			<span class="tableCell td3 probname tc"> 
+				<c:forEach items="${readOtherUserProblemName}" var="problem" varStatus="status">
+					<nobr><a href="${problem.link}" target="_blank">${problem.name}, </a></nobr>
+				</c:forEach>
+			</span>
+	</div>
+	
 </div>
+<script>
+var dataForDoughnut = new Array();
+var gN = ${goalNum};
+var uP = ${solved};
+
+dataForDoughnut.push(gN);
+dataForDoughnut.push(uP);
+</script>
 <style>
-#activities:before {
-	content: "";
-	background-image: url("../resources/img/activityimg.jpg");
-	background-size: cover;
-	top: 0;
-	left: 0;
-	right: 0px;
-	bottom: 0px;
-	position: absolute;
-	opacity: 0.4;
-	z-index: -1;
-}
 #otherUser{
     position: relative;
-    padding: 80px 0;
-    margin-bottom: 3%;
+    padding: 80px 0 60px 0;
+    border-bottom: 1px solid #DDD ;
+    margin-bottom: 2.5%;
 }
 </style>
 <%@ include file="./inc/footer.jsp"%>
-

@@ -18,7 +18,7 @@
 							<h5 class="small-title">오늘의 랭킹</h5>
 							<ul class="fs-18 textList">
 							<c:forEach items="${ranksToday}" var="rankToday" varStatus="status">
-							<li class="ranking" onclick="moveUserPage('${rankToday.nickName}')">
+							<li class="ranking f_ranking" onclick="moveUserPage('${rankToday.nickName}')">
 								<span class="bold">${status.count}.</span> ${rankToday.nickName} [${rankToday.cnt}문제]
 							</li>
 							</c:forEach>
@@ -60,7 +60,7 @@
 							<h5 class="small-title">누적 랭킹</h5>
 							<ul class="fs-18 textList">
 							<c:forEach items="${ranks}" var="rank" varStatus="status">
-							<li class="ranking" onclick="moveUserPage('${rank.nickName}')">
+							<li class="ranking f_ranking" onclick="moveUserPage('${rank.nickName}')">
 								<span class="bold">${status.count}.</span> ${rank.nickName} [${rank.cnt}문제]
 							</li>
 							</c:forEach>
@@ -108,6 +108,9 @@
 </div>
 <!-- //container -->
 
+<style>
+.f_ranking:hover { color: orange; font-weight:bold;}
+</style>
  <script>
 
 function moveUserPage(nickName){

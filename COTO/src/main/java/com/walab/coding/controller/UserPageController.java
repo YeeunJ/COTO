@@ -43,12 +43,16 @@ public class UserPageController {
 
 		int userID = userService.selectedUserTotalProblem(URLDecoder.decode(nickName,"UTF-8"));
 		List<UserProblemDTO> readOtherUserPage = userProblemService.readOtherUserPage(userID);
+		int solved = readOtherUserPage.get(0).getSolved();
+		int goalNum = readOtherUserPage.get(0).getGoalNum();
 		int t_solved = userProblemService.countOtherUserProblem(userID);
 		List<ProblemDTO> readOtherUserProblemName = problemService.readOtherUserProblemName(userID);
-		String userIntro =userService.selectedUserintro(URLDecoder.decode(nickName,"UTF-8"));
-		
-
+		String userIntro = userService.selectedUserintro(URLDecoder.decode(nickName,"UTF-8"));
+		if(userIntro == "") { userIntro = "자기소개가 없습니다..";}
+	
 		mv.addObject("readOtherUserPage", readOtherUserPage);
+		model.addAttribute("solved", solved);
+		model.addAttribute("goalNum", goalNum);
 		model.addAttribute("t_solved", t_solved);
 		mv.addObject("readOtherUserProblemName", readOtherUserProblemName);
 		mv.addObject("nickName",URLDecoder.decode(nickName,"UTF-8"));

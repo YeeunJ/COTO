@@ -17,6 +17,7 @@ public class UserProblemDTO {
 	private int countSolvedP;
 	private int solved;
 	private String goal;
+	private int goalNum;
 	
 	public int getId() {
 		return id;
@@ -108,6 +109,12 @@ public class UserProblemDTO {
 	}
 	public void setGoal(String goal) {
 		this.goal = goal;
+	}
+	public int getGoalNum() {
+		return goalNum;
+	}
+	public void setGoalNum(int goalNum) {
+		this.goalNum = goalNum;
 	}
 	
 	

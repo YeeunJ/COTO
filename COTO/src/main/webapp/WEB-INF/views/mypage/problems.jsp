@@ -11,6 +11,8 @@
 <link href="../resources/css/problems.css" rel="stylesheet">
 <link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
 <script src="../resources/js/problems.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
 <div id="SiteContainer" class="container">
 	<div id="problem">

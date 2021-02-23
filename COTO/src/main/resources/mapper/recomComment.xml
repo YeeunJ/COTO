@@ -21,7 +21,7 @@
 	</insert>
 	
 	<select id="readRecomComment" resultMap="Comment" parameterType="hashmap">
-		SELECT R.id, U.id, U.name, R.regDate, R.content 
+		SELECT R.id, U.id, U.name, U.nickName, R.regDate, R.content 
 		FROM recomComment AS R, user AS U 
 		WHERE R.userId = U.id AND R.recomID=#{recomID}
 		ORDER BY R.regDate DESC
