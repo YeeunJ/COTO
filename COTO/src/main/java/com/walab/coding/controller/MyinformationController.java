@@ -83,6 +83,7 @@ public class MyinformationController {
 		updateGoal.setGoalNum(goalNum);
 		updateGoal.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
 		if(updateGoal.getId() == -1) {
+			updateGoal.setUserID(userID);
 			userService.createUsergoal(updateGoal);
 		}else {
 			goalService.updateGoal(updateGoal);
