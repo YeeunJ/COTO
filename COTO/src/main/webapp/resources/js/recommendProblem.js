@@ -58,6 +58,7 @@ function addComment() {
 				content : $('.sweet-modal-content #comment-textarea').val()
 			},
 			success : function(data) {
+				count += valueSplit.length+1;
 				$('.sweet-modal-content #recomCountCommentContent').html(data);
 				$('.sweet-modal-content #comment-textarea').val("");
 			},
@@ -335,8 +336,9 @@ function updateProblems(){
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #updateConfirmSite').html();
 	$(".sweet-modal-content #problems").val("");
+	console.log(count);
 	if(siteId == 1){
-		count += valueSplit.length;
+		//count += valueSplit.length;
 		$.ajax({
         url : './crawling/'+siteName,
         type: 'POST',
@@ -346,7 +348,9 @@ function updateProblems(){
         	"count": count
         },
         success: function(data){
-            console.log(data);
+            console.log(count);
+            count += valueSplit.length+1;
+            console.log(count);
             var data2 = $('.sweet-modal-content #updateConfirmSite').html()+data;
         	$('.sweet-modal-content #updateConfirmSite').html(data2);
         },
@@ -362,11 +366,6 @@ function updateProblems(){
 		$('.sweet-modal-content #updateConfirmSite').html(data);
 		$('#updateConfirmSite').html(data);
 	}
-	/*
-	for(var i in valueSplit){
-		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate" style="width:90%;padding-left: 10px;"/></div>';
-		count++;
-	}*/
 	$(".sweet-modal-content #updateConfirmProblems").val("");
 };
 
