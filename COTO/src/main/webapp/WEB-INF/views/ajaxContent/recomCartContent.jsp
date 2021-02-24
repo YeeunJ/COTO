@@ -17,13 +17,14 @@
  		<span class="like-col tableCell th1">추천수</span> <span class="comment-col tableCell th1">댓글수</span>
 	</div>
 	
+	
 	<c:forEach items="${recomCarts}" var="recomCart" varStatus="status">
 		<c:choose>
 			<c:when test = "${recomCart.totalProbCnt == recomCart.userProbCnt && recomCart.totalProbCnt != 0}">
 				<div class="tableRow" style="background:#e592391a;" id="recoms${recomCart.id}" onclick="printAllContent(${recomCart.id})">			
 			</c:when>
 			<c:otherwise>
-				<div class="tableRow" id="recoms${recomCart.id}" onclick="printAllContent(${recomCart.id})">			
+				<div class="tableRow" id="recoms${recomCart.id}" onclick="printCartAllContent(${recomCart.id})">			
 			</c:otherwise>
 		</c:choose>
 			<span class="index-col tableCell td1 alignCenter">${status.count}</span> 
