@@ -56,29 +56,6 @@
 						</div>
 					</c:forEach>
 				</div>
-					<div id="table">
-							<c:forEach items="${goal}" var="goal" varStatus="status">
-								<div class="tableRow">
-									<span class="tableCell td2">목표</span> <span
-										class="tableCell td4">${goal.goal}</span>
-								</div>
-								<div class="tableRow">
-									<span class="tableCell td2">기간</span> 
-									<span class="tableCell td4" style="font-size: 14px;"> <fmt:formatDate
-											pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
-											pattern="yyyy-MM-dd" value="${goal.endDate}" />
-									</span>
-								</div>
-								<div class="tableRow">
-									<span class="tableCell td2">총 문제수</span> <span
-										class="tableCell td4">${goal.goalNum}문제</span>
-								</div>
-								<div class="tableRow">
-									<span class="tableCell td2" style="font-size: 13px;">현재 푼 문제수</span> <span
-										class="tableCell td4">${userSolvedP}문제</span>
-								</div>
-							</c:forEach>
-					</div>
 			</div>
 		</div>
 		<div class="card-content2">
@@ -257,7 +234,7 @@
 			</form>
 		</div>
 
-	</div>
+	</div><br><br>
 	<div>
 		<div class="table" id="recomCartContent">
 			<%@ include file="../ajaxContent/recomCartContent.jsp"%>
