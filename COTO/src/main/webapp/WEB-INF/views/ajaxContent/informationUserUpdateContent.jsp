@@ -9,17 +9,17 @@
 	<c:forEach items="${users}" var="user" varStatus="status">
 		<input name="id" value="${user.id}" type="hidden" />
 		<div class="tableRow">
-			<span class="tableCell th3">이름</span> 
+			<span class="tableCell th3">이름</span>
 			<span class="tableCell td8">
-				<input type="text" name="name" value="${user.name}"
-					placeholder="${user.name}" /> </span>
+			<input type="text" name="name" value="${user.name}" disabled />
+			</span>
 		</div>
 		<div class="tableRow">
 			<span class="tableCell th3">이메일</span> 
-			<span class="tableCell td8"><input
-				type="text" name="email" value="${user.email}"
-				placeholder="${user.email}" /> </span>
-		</div>
+			<span class="tableCell td8">
+			<input type="text" name="email" value="${user.email}" disabled />
+			</span>
+		</div>				
   		<div class="tableRow">
 			<span class="tableCell th3">닉네임</span>
 			<span class="tableCell td8">
@@ -27,11 +27,12 @@
 					value="${user.nickName}" required />
 			</span>
 		</div>	 		
-		
 		<div class="tableRow">
 			<span class="tableCell th3">자기소개</span> <span
 				class="tableCell td8"><input type="text" name="intro"
 				value="${user.intro}" placeholder="자기소개를 입력하세요." /> </span>
 		</div>
+		<input name="name" value="${user.name}" type="hidden"/>
+		<input name="email" value="${user.email}" type="hidden"/> 
 	</c:forEach>
 </div>
