@@ -110,7 +110,7 @@
 	   		  from YeeunJ.userProblem as up where up.userID=#{userID}) as subquery 
 		join YeeunJ.problem as p on subquery.problemID=p.id 
 		join YeeunJ.codingSite as c on p.siteID=c.id
-		ORDER BY id DESC LIMIT #{s_point}, #{list}
+		ORDER BY id LIMIT #{s_point}, #{list}
 	</select>
 	<select id="readProblemCnt" resultType="int" parameterType="hashmap">
 		select COUNT(*) 

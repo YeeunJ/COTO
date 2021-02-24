@@ -213,6 +213,32 @@ html, body { box-sizing: border-box;  }
 	height: 150px !important;
 }  
 
+.celeb {
+	width: 40% !important;
+	background-image: url('../img/celebrate.png');
+	background-size: 100% 100%;
+	margin-top: 2% !important;
+	padding: 1%;
+	border: 3px solid rgb(255, 215, 0);
+}
+.congraturation {
+	font-weight: 900;
+	font-size: 25px;
+	margin: 0 !important;
+	margin-top: 1em !important;
+}
+.congraturation2 {
+	font-weight: 200;
+	font-size: 16px;
+	margin-bottom: 1.5em !important;
+}
+
+@media screen and (max-width: 1080px){
+	.celeb {
+		width: 50% !important;
+	}
+}
+
 @media screen and (max-width: 1062px){
 	.main-title{
 		font-size: 29px;
@@ -225,6 +251,11 @@ html, body { box-sizing: border-box;  }
 	}
 	.fs-18 {
     	font-size: 15px;
+	}
+}
+@media screen and (max-width: 992px){
+	.celeb {
+		width: 60% !important;
 	}
 }
 
@@ -363,10 +394,4 @@ html, body { box-sizing: border-box;  }
 	}
 }
 
-.celeb {
-	width: 500px !important;
-	margin-top: 2% !important;
-	padding: 2%;
-	background-color:rgba(255, 215, 0, 0.3);
-	border: 10px solid #ffd700;
-}
+
