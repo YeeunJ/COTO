@@ -14,12 +14,12 @@
 	</div>
 	
 	<c:forEach items="${problems}" var="problem" varStatus="status">
-	<fmt:formatDate value="${problem.regdate}" var="formattedDate" type="date" pattern="yyyy-MM-dd" />
 	<div class="tableRow" id="problem${problem.id}">
 		<span class="tableCell td1 mobile">${status.count}</span> 
 		<span class="tableCell td3 probname"> <nobr><a href="${problem.link}">${problem.name}</a></nobr></span> 
 		<span class="tableCell td1"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
 		<span class="tableCell td1">${problem.count}</span> 
+		<fmt:formatDate value="${problem.regdate}" var="formattedDate" type="date" pattern="yyyy-MM-dd" />
 		<span class="tableCell td1 mobile">${formattedDate}</span> 
 	</div>
 	</c:forEach>	
