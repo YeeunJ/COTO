@@ -52,4 +52,8 @@ public class GoalServiceImpl implements GoalService{
 	public int readGoalCnt(int userID) {
 		return goalDAO.readGoalCnt(userID);
 	}
+	@Override
+	public int deleteGoal(int id) {
+		return goalDAO.deleteGoal(id);
+	}
 }

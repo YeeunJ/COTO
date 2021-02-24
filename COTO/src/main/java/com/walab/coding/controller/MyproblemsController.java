@@ -31,6 +31,7 @@ import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.GoalService;
 import com.walab.coding.service.GoalServiceImpl;
+import com.walab.coding.service.ProblemService;
 import com.walab.coding.service.RecomCartService;
 import com.walab.coding.service.RecomCommentService;
 import com.walab.coding.service.RecomCountService;
@@ -59,6 +60,9 @@ public class MyproblemsController {
 	CodingSiteService codingSiteService;
 	
 	@Autowired
+	ProblemService problemService;
+  
+  @Autowired
 	RecommendService recommendService;
 	
 	@Autowired
@@ -75,6 +79,7 @@ public class MyproblemsController {
 	
 	@Autowired
 	RecomCartService recomCartService;
+
 	/**
 	 * Create problem zip 
 	 */
@@ -141,6 +146,57 @@ public class MyproblemsController {
 
 		return mv;
 	}
+	
+	@RequestMapping(value = "/addRecomCheck", method = RequestMethod.POST)
+	public ModelAndView createRecomCheck(HttpServletRequest httpServletRequest) {
+		int userID = -1;
+		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		UserProblemDTO upd = new UserProblemDTO();
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			upd.setProblemID(rpID);
+			upd.setUserID(userID);
+			userProblemService.createUserProblembyID(upd);
+		}
+
+		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("rp", rp);
+		mv.setViewName("ajaxContent/recomCheckContent");
+
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomProblem", method = RequestMethod.POST)
+	public ModelAndView deleteRecomProblem(HttpServletRequest httpServletRequest) {
+		int recomID = Integer.parseInt(httpServletRequest.getParameter("id"));
+
+		recommendService.deleteRecom(recomID);
+
+		List<RecommendDTO> recoms = recommendService.readRecommendList();
+		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemList();
+		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
+
+		for(int i=0;i<recomProblem.size();i++) {
+			for(int j=0;j<codingSite.size();j++) {
+				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
+					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
+			}
+		}
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("recoms", recoms);
+		mv.addObject("commentCount", commentCount);
+		mv.addObject("recomProblem", recomProblem);
+		mv.addObject("recomProblemTag", recomProblemTag);
+		mv.setViewName("ajaxContent/recommendContent");
+
+		return mv;
+	}
+
 
 	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
@@ -155,19 +211,22 @@ public class MyproblemsController {
 		int userSolvedP = userProblemService.readSolvedP(userID);
 		List<UserProblemDTO> countSolvedProblemEachDay = userProblemService.countSolvedProblemEachDay(userID);
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<ProblemDTO> readOtherUserProblemName = problemService.readOtherUserProblemName(userID);
 		List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
 		
-
-		System.out.println(recomCart);
-		
-		GoalDTO g = goal.get(0);
-		int goalNum = g.getGoalNum();
+		GoalDTO g = null;
+		int goalNum = -1;
+		if(goal.size() != 0) {
+			g = goal.get(0);
+			goalNum = g.getGoalNum();
+		}
 
 		mv.addObject("goal", goal);
 		model.addAttribute("userSolvedP", userSolvedP);
 		model.addAttribute("goalNum", goalNum);
 		mv.addObject("countSolvedProblemEachDay", countSolvedProblemEachDay);
 		mv.addObject("CodingSite", codingSite);
+		mv.addObject("readOtherUserProblemName", readOtherUserProblemName);
 		mv.addObject("recomCarts", recomCart);
 
 		/* pagination */

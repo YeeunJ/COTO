@@ -8,6 +8,7 @@ function deletechip(id) {
 }
 
 function createModel(content, titleValue, actionFunction, closeFunction){
+	var insCount = 0;
 	content = "<div style='height: 600px !important; overflow: scroll;'>" + $(content).html() + "</div>";
 		var variant = {
 			args: [
@@ -36,12 +37,29 @@ function createModel(content, titleValue, actionFunction, closeFunction){
 								//console.log($(this));
 							}
 						});
+						
+						$('.sweet-modal-content #createTitle').change( function() {
+							if($('.sweet-modal-content #createTitle').val() != "") insCount++;
+							
+							//alert("제목 입력");
+							
+							if(insCount == 2) $('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+						});
+						
+						$('.sweet-modal-content #problems').change( function() {
+							//if($('.sweet-modal-content #confirmSite').html() != "") {
+								insCount++;
+								//alert("문제 입력");
+							
+								if(insCount == 2) $('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+							//}
+						});
 					},
 					theme: $.sweetModal.THEME_MIXED,
 					buttons: [
 						{
 							label: '등록',
-							classes: 'modal_button',
+							classes: 'modal_button disableCheck',
 							action: function() {
 								actionFunction();
 								return $.sweetModal({
@@ -89,6 +107,7 @@ function insertProblems(){
 
 
 function rudModel(readContent, updateContent, titleValue, titleValue2, updateFunction, deleteFunction, closeFunction, tagCnt){
+		var insCount = 0;
 		readContent = "<div style='height: 600px !important; overflow: scroll;'>" + $(readContent).html() + "</div>";
 		updateContent = "<div style='height: 600px !important; overflow: scroll;'>" + $(updateContent).html() + "</div>";
 		var variant = {
@@ -131,12 +150,29 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 												//console.log($(this));
 											}
 										});
+										
+										$('.sweet-modal-content #createTitle').change( function() {
+											if($('.sweet-modal-content #createTitle').val() == "") insCount++;
+											
+											//alert("제목 입력");
+											
+											if(insCount == 0) $('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+										});
+										
+										$('.sweet-modal-content #problems').change( function() {
+											//if($('.sweet-modal-content #confirmSite').html() != "") {
+												//insCount++;
+												//alert("문제 입력");
+											
+												if(insCount == 0) $('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+											//}
+										});
 									},
 									theme: $.sweetModal.THEME_MIXED,
 									buttons: [
 										{
 											label: '등록',
-											classes: 'modal_button',
+											classes: 'modal_button disableCheck',
 											action: function() {
 												updateFunction();
 												return $.sweetModal({

@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	language="java"%>
 <%@ page import="com.walab.coding.model.UserDTO"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -12,8 +13,9 @@
 <link href="../resources/css/recommendProblem.css?asd" rel="stylesheet">
 <script src="../resources/js/createModal.js"></script>
 <script src="../resources/js/problems.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 <script src="../resources/js/recomCart.js"></script>
-
 
 <div id="SiteContainer" class="container">
 	<div id="problem">
@@ -22,43 +24,47 @@
 			<p>지금까지 자신이 푼 문제와 목표 현황을 확인해 보세요!</p>
 		</div>
 	</div>
-
+<c:choose>
+	<c:when test = "${goal.size() == 0}">
+		<script>alert("목표를 입력해주세요~:)\n목표를 입력하시면 더 많은 정보를 확인하실 수 있습니다!\n 목표는 마이페이지의 내 정보 페이지에서 입력하실 수 있습니다.");</script>
+	</c:when>
+	<c:otherwise>
 	<!-- Content Row -->
 	<div class="card-wrap">
 		<div class="card-content1">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">나의 목표</div>
-					<div id="table">
-						<c:forEach items="${goal}" var="goal" varStatus="status">
-							<div class="tableRow">
-								<span class="tableCell td2">목표</span> <span
-									class="tableCell td4">${goal.goal}</span>
-							</div>
-							<div class="tableRow">
-								<span class="tableCell td2">기간</span> 
-								<span class="tableCell td4" style="font-size: 14px;"> <fmt:formatDate
-										pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
-										pattern="yyyy-MM-dd" value="${goal.endDate}" />
-								</span>
-							</div>
-							<div class="tableRow">
-								<span class="tableCell td2">총 문제수</span> <span
-									class="tableCell td4">${goal.goalNum}문제</span>
-							</div>
-							<div class="tableRow">
-								<span class="tableCell td2" style="font-size: 13px;">현재 푼 문제수</span> <span
-									class="tableCell td4">${userSolvedP}문제</span>
-							</div>
-						</c:forEach>
-					</div>
+				<div id="table">
+					<c:forEach items="${goal}" var="goal" varStatus="status">
+						<div class="tableRow">
+							<span class="tableCell td2">목표</span> <span class="tableCell td4">${goal.goal}</span>
+						</div>
+						<div class="tableRow">
+							<span class="tableCell td2">기간</span> <span class="tableCell td4"
+								style="font-size: 14px;"> <fmt:formatDate
+									pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
+									pattern="yyyy-MM-dd" value="${goal.endDate}" />
+							</span>
+						</div>
+						<div class="tableRow">
+							<span class="tableCell td2">목표 문제수</span> <span
+								class="tableCell td4">${goal.goalNum}문제</span>
+						</div>
+						<div class="tableRow">
+							<span class="tableCell td2" style="font-size: 13px;">현재 푼
+								문제수</span> <span class="tableCell td4">${userSolvedP}문제</span>
+						</div>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
-
 		<div class="card-content2">
-			<div class="card shadow card-body" >
+			<div class="card shadow card-body">
 				<div class="font-color card-title">하루의 기록</div>
-				<div class="myChart" style="overflow-x:scroll; width: 310px; height:200;">
-					<div class="chartAreaWrapper" style="overflow-x:scroll; width:900px; height:200">
+				<div class="myChart"
+					style="overflow-x: scroll; width: 310px; height: 200;">
+					<div class="chartAreaWrapper"
+						style="overflow-x: scroll; width: 900px; height: 200">
 						<canvas id="myBarChart" width="900px" height="200"></canvas>
 					</div>
 				</div>
@@ -73,11 +79,12 @@
 			</div>
 		</div>
 	</div>
-
+	</c:otherwise>
+</c:choose>
 	<!-- Content Row -->
 	<div>
 		<br>
-		<h5 class="font-color">내가 푼 문제들</h5>
+		<h5 class="font-color">전체 푼 문제들</h5>
 
 		<fieldset class="search" style="float: right;">
 			<input id="searchValue" class="search_problem" type="search"
@@ -89,13 +96,28 @@
 		<button onclick="callModal()" id="register-button" class="mybtn"
 			style="margin-top: 2%; float: left;">문제 등록하기</button>
 
+		<!-- table1 -->
 		<div class="table" id="problemsContent">
 			<%@ include file="../ajaxContent/problemsContent.jsp"%>
 		</div>
 		
+		<%@ include file="../inc/pagination.jsp"%><br><br>
+
+		<!-- table2 -->
+		<div class="table center" id="problemContent">
+			<div class="tableRow">
+				<span class="tableCell th3" style="text-align:left !important">전체 푼 문제</span>
+			</div>
+
+			<span class="tableCell td3 probname tc"> 
+				<c:forEach items="${readOtherUserProblemName}" var="problem" varStatus="status">
+					<nobr><a href="${problem.link}" target="_blank">${problem.name}, </a></nobr>
+				</c:forEach>
+			</span>
+		</div>
 
 		<!-- 문제등록 모달 -->
-		<div id="createProblem" class="container" style="display:none">
+		<div id="createProblem" class="container" style="display: none">
 			<form class="col s12">
 				<div class="row">
 					<div id="selectHtml" class="input-field col s4">
@@ -120,16 +142,13 @@
 						onClick="insertProblems()">추가</button>
 				</div>
 				<div class="input-field col s10">
-					<label for="last_name">입력한 Problems</label><br>
-					<label class="helper-text">문제를 누르면 삭제할 수 있습니다.</label><br><br>
+					<label for="last_name">입력한 Problems</label><br> <label
+						class="helper-text">문제를 누르면 삭제할 수 있습니다.</label><br>
+					<br>
 					<div id="confirmSite"></div>
 				</div>
 			</form>
 		</div>
-		
-		<%@ include file="../inc/pagination.jsp"%>
-		
-
 
 		<!-- 모달 -->
 		<div id="readSolvedProblem" hidden>
@@ -173,7 +192,7 @@
 						<div class="input-field col s2">
 							<p>
 								<input type="radio" name="difficulty" id="d1" value="1"
-								 class="radioMrg" /> <label for="d1" class="diffCont">1</label>
+									class="radioMrg" /> <label for="d1" class="diffCont">1</label>
 							</p>
 						</div>
 						<div class="input-field col s2">
@@ -202,9 +221,8 @@
 						</div>
 						<div class="input-field col s2">
 							<p>
-								<input type="radio" name="difficulty" id="d0" value="0" checked
-									 /> <label for="d0" class="diffCont">설정
-									안함</label>
+								<input type="radio" name="difficulty" id="d0" value="0" checked />
+								<label for="d0" class="diffCont">설정 안함</label>
 							</p>
 						</div>
 
@@ -216,7 +234,7 @@
 			</form>
 		</div>
 
-	</div>
+	</div><br><br>
 	<div>
 		<div class="table" id="recomCartContent">
 			<%@ include file="../ajaxContent/recomCartContent.jsp"%>
@@ -228,20 +246,20 @@
 <%@ include file="../ajaxContent/recomDetailModal.jsp"%>
 </div>
 <script>
-var labels = new Array();
-var dataForBar = new Array();
-var dataForDoughnut = new Array();
-var gN = ${goalNum};
-var uP = ${userSolvedP};
+	var labels = new Array();
+	var dataForBar = new Array();
+	var dataForDoughnut = new Array();
+	var gN = ${goalNum};
+	var uP = ${userSolvedP};
 
-<c:forEach items="${countSolvedProblemEachDay}" var="countList" >
+	<c:forEach items="${countSolvedProblemEachDay}" var="countList" >
 	var json = new Object();
 	labels.push("${countList.regDate}");
 	dataForBar.push("${countList.countSolvedP}");
-</c:forEach>
+	</c:forEach>
 
-dataForDoughnut.push(gN);
-dataForDoughnut.push(uP);
+	dataForDoughnut.push(gN);
+	dataForDoughnut.push(uP);
 </script>
 <style>
 #problem {
@@ -262,6 +280,13 @@ dataForDoughnut.push(uP);
 	opacity: 0.4;
 	z-index: -1;
 }
+.tc{
+	word-break: break-all;
+	text-align: left !important;
+	border-left: 1px solid #DDD !important;
+	border-right: 1px solid #DDD !important;
+}
+.probname{ font-size: 0.8rem; }
 </style>
 
 <%@ include file="../inc/footer.jsp"%>

@@ -32,8 +32,8 @@
 	</c:if>
 	<c:if test="${rankToday.id eq userID && rankToday.cnt eq count}">
 		<div class="container center celeb">
-			<h5><i class="fas fa-medal"></i>&nbsp;&nbsp;오늘의 1등&nbsp;&nbsp;<i class="fas fa-medal"></i></h5>
-			<h5>${rankToday.nickName}님 축하합니다!</h5>
+			<p class="congraturation">CONGRATURATION</p>
+			<p class="congraturation2">${rankToday.nickName}님 오늘의 1등입니다!</p>
 		</div>
 	</c:if>
 	

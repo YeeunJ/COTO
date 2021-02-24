@@ -278,6 +278,7 @@ public class RecommendController {
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemByID(recomID);
 		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		
 		int commentCount = recomComment.size();
 		RecomCountDTO rcd;
 		int userID = -1;
@@ -289,7 +290,6 @@ public class RecommendController {
 			mv.addObject("adminID", admin);
 		}
 		
-		int admin = ((UserDTO)request.getSession().getAttribute("user")).getIsAdmin();
 		int cartYN = recomCartService.readCartByID(recomID, userID);
 
 		//if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0) {
@@ -339,8 +339,6 @@ public class RecommendController {
 
 		return mv;
 	}
-
-
 
 	/**
 	 * Update recommend zip

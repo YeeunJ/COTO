@@ -2,9 +2,10 @@ $(document).ready(function() {
 	$('#searchButton').on('click', function() {
 		search();
 	});
-	
-	drawChart1();
-	drawChart2();
+	if(gN != -1){
+		drawChart1();
+		drawChart2();
+	}
 });
 
 function drawChart1() {
@@ -140,7 +141,7 @@ function drawChart2() {
 	var myDoughnutChart = new Chart(ctx, { 
 	    type: 'doughnut', 
 	    data: {
-	    	labels: ['총 문제수','푼 문제수'],
+	    	labels: ['목표 문제수','푼 문제수'],
 	        datasets: [{
 	            data: dataForDoughnut,
 	            backgroundColor: ['#e8e8e8','rgba(255, 201, 14, 0.5)'],

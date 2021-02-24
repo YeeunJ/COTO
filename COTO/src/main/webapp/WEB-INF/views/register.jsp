@@ -5,7 +5,7 @@
 <jsp:include page= "./inc/logoutHeader.jsp" />
 
 <link rel="stylesheet" href="./resources/css/register.css?aa" />
-<script src="./resources/js/register.js?ght"></script>
+<script src="./resources/js/register.js?gfet"></script>
 
 
 <div id="SiteContainer" class="container">

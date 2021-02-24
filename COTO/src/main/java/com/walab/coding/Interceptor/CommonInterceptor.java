@@ -24,7 +24,6 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
 		if(request.getSession().getAttribute("user") == null) {
 			if(request.getRequestURI().contains("mypage") || request.getRequestURI().contains("manageCodingsite") || request.getRequestURI().contains("usermanage")) {
 				response.sendRedirect(request.getContextPath() + "/");

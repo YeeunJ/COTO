@@ -283,3 +283,9 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .disable-button{
     color:#adadad;
 }
+
+@media(max-width: 590px){
+	.checkIcon {
+		display: none !important;
+	}
+}

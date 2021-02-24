@@ -178,4 +178,20 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		int count = sqlSession.selectOne(namespace+".readProblemCnt", param);
 		return count;
 	}
+	
+	@Override
+	public List<UserProblemDTO> readOtherUserPage(int userID){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userID", userID);
+		
+		return sqlSession.selectList(namespace+".readOtherUserPage", param);
+	}
+	
+	@Override
+	public int countOtherUserProblem(int userID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userID", userID);
+		
+		return sqlSession.selectOne(namespace+".countOtherUserProblem", param);
+	}
 }
