@@ -36,13 +36,7 @@
 .tableCell {
  	border-bottom: none !important;
 } 
-#dupCheck{
-    background: #e69138ff;
-	position: absolute;
-}
-.nicknameRow{
-	position: relative;
-}
+
 @media screen and (max-width: 650px){
 	.area{
 		margin-left: 5% !important;

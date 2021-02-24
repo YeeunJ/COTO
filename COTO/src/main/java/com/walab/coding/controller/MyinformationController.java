@@ -118,16 +118,4 @@ public class MyinformationController {
 
 	}
 	
-	/**
-	 * Return the number of duplicate email
-	 */
-	@RequestMapping(value = "/dupCheck", method = RequestMethod.POST)
-	@ResponseBody
-	public int dupCheck(HttpServletRequest httpServeletRequest) throws ParseException {
-		
-		String nickName = httpServeletRequest.getParameter("nickName");
-		int result = userService.readUserCountByNickname(nickName);
-		
-		return result;
-	}
 }
