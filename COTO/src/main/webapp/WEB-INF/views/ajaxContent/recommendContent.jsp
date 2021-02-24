@@ -9,6 +9,8 @@
 		<span class="index-col tableCell th1">No.</span> <span class="tableCell th4">제목</span>
 		<span class="tableCell th2">등록자</span> <span class="tableCell th1">난이도</span>
 		<span class="like-col tableCell th1">추천수</span> <span class="comment-col tableCell th1">댓글수</span>
+<!-- 		<span class="like-col tableCell th1">담기</span>  -->
+		
 	</div>
 	
 	<c:forEach items="${recoms}" var="recoms" varStatus="status">
@@ -23,6 +25,19 @@
 				<c:when test = "${recoms.id} == ${recomCarts.recomID}">
 								</c:when>
 			</c:choose>			
+
+<%-- 			<span class="tableCell dt1 alignCenter">				
+			<c:choose>
+					<c:when test = "${cartYN > 0}">
+						<%! int cart = 0;%>
+						<%= cart %>						
+						<span class="clicked-cart icon" onclick="deleteRecomCart()"><span class="clicked-tooltip">장바구니에서 지울 수 있어요!</span></span>		
+					</c:when>
+					<c:otherwise>
+						<span class="cart-icon icon" onclick="addRecomCart()"><span class="cart-tooltip">장바구니에 담아보세요!</span></span>
+					</c:otherwise>
+			</c:choose></span> --%>
+>>>>>>> branch 'recomCart' of https://github.com/YeeunJ/COTO.git
 		</div>
 	</c:forEach>
 </div>
