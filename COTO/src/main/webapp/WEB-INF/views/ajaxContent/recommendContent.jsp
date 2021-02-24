@@ -25,7 +25,7 @@
 			<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
 			<span class="like-col tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
 			<span class="comment-col tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
-			<c:if test = "${!empty userID}">
+<%-- 			<c:if test = "${!empty userID}">
 			
 				<c:forEach items="${recomCarts}" var="recomCarts" varStatus="status">		
 					<c:set value="${recoms.id}" var="id"/>
@@ -52,7 +52,7 @@
 				</c:choose>					
 				</c:forEach>
 
-			</c:if>		
+			</c:if> --%>		
 		</div>
 	</c:forEach>
 </div>
