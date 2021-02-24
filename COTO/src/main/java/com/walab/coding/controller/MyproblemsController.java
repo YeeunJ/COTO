@@ -31,6 +31,7 @@ import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.GoalService;
 import com.walab.coding.service.GoalServiceImpl;
+import com.walab.coding.service.ProblemService;
 import com.walab.coding.service.RecomCartService;
 import com.walab.coding.service.RecomCommentService;
 import com.walab.coding.service.RecomCountService;
@@ -59,6 +60,9 @@ public class MyproblemsController {
 	CodingSiteService codingSiteService;
 	
 	@Autowired
+	ProblemService problemService;
+  
+  @Autowired
 	RecommendService recommendService;
 	
 	@Autowired
@@ -75,6 +79,7 @@ public class MyproblemsController {
 	
 	@Autowired
 	RecomCartService recomCartService;
+
 	/**
 	 * Create problem zip 
 	 */
@@ -206,10 +211,8 @@ public class MyproblemsController {
 		int userSolvedP = userProblemService.readSolvedP(userID);
 		List<UserProblemDTO> countSolvedProblemEachDay = userProblemService.countSolvedProblemEachDay(userID);
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<ProblemDTO> readOtherUserProblemName = problemService.readOtherUserProblemName(userID);
 		List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
-		
-
-		System.out.println(recomCart);
 		
 		GoalDTO g = null;
 		int goalNum = -1;
@@ -217,13 +220,13 @@ public class MyproblemsController {
 			g = goal.get(0);
 			goalNum = g.getGoalNum();
 		}
-		
 
 		mv.addObject("goal", goal);
 		model.addAttribute("userSolvedP", userSolvedP);
 		model.addAttribute("goalNum", goalNum);
 		mv.addObject("countSolvedProblemEachDay", countSolvedProblemEachDay);
 		mv.addObject("CodingSite", codingSite);
+		mv.addObject("readOtherUserProblemName", readOtherUserProblemName);
 		mv.addObject("recomCarts", recomCart);
 
 		/* pagination */

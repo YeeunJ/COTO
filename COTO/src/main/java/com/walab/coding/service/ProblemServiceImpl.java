@@ -44,7 +44,6 @@ public class ProblemServiceImpl implements ProblemService {
 		return problems;
 	}
 	
-	
 	@Override
 	public List<Map<String, Object>> readRatioBySiteid() {
 		return problemDAO.readRatioBySiteid();
@@ -72,6 +71,11 @@ public class ProblemServiceImpl implements ProblemService {
 		}
 		
 		return ratio;
+	}
+	
+	@Override
+	public List<ProblemDTO> readOtherUserProblemName(int userID){
+		return problemDAO.readOtherUserProblemName(userID);
 	}
 	
 }

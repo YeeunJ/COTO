@@ -26,4 +26,6 @@ public interface GoalService {
 	 * usage: MyinformationController	 
 	 */	
 	int updateGoal(GoalDTO goalDTO);
+	
+	int deleteGoal(int id);
 }

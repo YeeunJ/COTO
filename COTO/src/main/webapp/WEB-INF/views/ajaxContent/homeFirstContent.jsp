@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <!-- container -->
 <div id="container">
 	<!-- slide_wrap -->
@@ -17,7 +18,9 @@
 							<h5 class="small-title">오늘의 랭킹</h5>
 							<ul class="fs-18 textList">
 							<c:forEach items="${ranksToday}" var="rankToday" varStatus="status">
-							<li class="ranking"><span class="bold">${status.count}.</span> ${rankToday.nickName} [${rankToday.cnt}문제]</li>
+							<li class="ranking f_ranking" onclick="moveUserPage('${rankToday.nickName}')">
+								<span class="bold">${status.count}.</span> ${rankToday.nickName} [${rankToday.cnt}문제]
+							</li>
 							</c:forEach>
 							</ul>
 						</div>
@@ -57,7 +60,9 @@
 							<h5 class="small-title">누적 랭킹</h5>
 							<ul class="fs-18 textList">
 							<c:forEach items="${ranks}" var="rank" varStatus="status">
-							<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName} [${rank.cnt}문제]</li>
+							<li class="ranking f_ranking" onclick="moveUserPage('${rank.nickName}')">
+								<span class="bold">${status.count}.</span> ${rank.nickName} [${rank.cnt}문제]
+							</li>
 							</c:forEach>
 							</ul>
 						</div>
@@ -103,7 +108,14 @@
 </div>
 <!-- //container -->
 
+<style>
+.f_ranking:hover { color: orange; font-weight:bold;}
+</style>
  <script>
+
+function moveUserPage(nickName){
+	location.href='./'+encodeURI(encodeURIComponent(nickName));
+};
 
  (function () {
      const slideList = document.querySelector('.slide_list');  // Slide parent dom

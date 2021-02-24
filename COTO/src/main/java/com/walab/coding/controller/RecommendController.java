@@ -278,6 +278,7 @@ public class RecommendController {
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemByID(recomID);
 		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		
 		int commentCount = recomComment.size();
 		RecomCountDTO rcd;
 		int userID = -1;
@@ -338,8 +339,6 @@ public class RecommendController {
 
 		return mv;
 	}
-
-
 
 	/**
 	 * Update recommend zip

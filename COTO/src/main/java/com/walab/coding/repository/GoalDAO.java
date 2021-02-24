@@ -9,4 +9,5 @@ public interface GoalDAO {
 	public List<GoalDTO> readGoalAll(int userID, int s_point, int list);
 	public int readGoalCnt(int userID);
 	public int updateGoal(GoalDTO goalDTO);
+	public int deleteGoal(int id);
 }

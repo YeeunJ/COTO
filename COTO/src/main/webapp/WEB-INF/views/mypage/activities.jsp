@@ -11,6 +11,15 @@
 
 <link href="../resources/css/activities.css" rel="stylesheet">
 <script src="../resources/js/activities.js"></script>
+<script>
+$(document).on("click", ".deleteBtn", function(){
+	var id = $(this).val();
+
+	if (confirm("정말로 삭제하겠습니까?")){
+		location.href = './activities/delete/' + id;
+	}
+});  
+</script>
 
 <div id="SiteContainer" class="container">
 	<div id="activities">
@@ -22,8 +31,11 @@
 
 	<div class="table center">
 		<div class="tableRow">
-			<span class="tableCell th1">No.</span> <span class="tableCell th3">기간</span>
-			<span class="tableCell th3">달성률</span> <span class="tableCell th2">상태</span>
+			<span class="tableCell th1">No.</span> 
+			<span class="tableCell th3">기간</span>
+			<span class="tableCell th3">달성률</span> 
+			<span class="tableCell th1">상태</span>
+			<span class="tableCell th1">삭제</span>
 		</div>
 
 		<c:forEach items="${goalList}" var="goals" varStatus="status">
@@ -51,11 +63,14 @@
 						<span class="tableCell td2 readStatus" style="color: #e69138ff;">진행중</span>
 					</c:when>
 					<c:otherwise>
-						<span class="tableCell td2 readStatus">종료</span>
+						<span class="tableCell td1 readStatus">종료</span>
 					</c:otherwise>
 				</c:choose>
+				<span class="tableCell td1"><button value="${goals.id}" class="deleteBtn" type="button">삭제</button></span>
+				
 			</div>
 		</c:forEach>
+		
 	</div>
 	
 

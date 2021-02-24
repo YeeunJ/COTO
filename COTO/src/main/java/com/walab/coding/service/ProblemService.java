@@ -20,7 +20,7 @@ public interface ProblemService {
 	 * read the problem that uploaded today
 	 * usage: HomeController
 	 */
-	List<ProblemDTO> readRecentProblem();
+	public List<ProblemDTO> readRecentProblem();
 	
 	/**
 	 * read by the page
@@ -39,6 +39,12 @@ public interface ProblemService {
 	 * usage: Problemlist controller
 	 */
 	public List<Map<String, Object>> makeRatioBySiteid(List<Map<String, Object>> ratioBySite, List<CodingSiteDTO> codingSite);
+	
+	/**
+	 * read other user solved problems name
+	 * usage: UserPageController
+	 */
+	public List<ProblemDTO> readOtherUserProblemName(int userID);
 
 
 }
