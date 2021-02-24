@@ -160,8 +160,13 @@ public class MyproblemsController {
 
 		System.out.println(recomCart);
 		
-		GoalDTO g = goal.get(0);
-		int goalNum = g.getGoalNum();
+		GoalDTO g = null;
+		int goalNum = -1;
+		if(goal.size() != 0) {
+			g = goal.get(0);
+			goalNum = g.getGoalNum();
+		}
+		
 
 		mv.addObject("goal", goal);
 		model.addAttribute("userSolvedP", userSolvedP);
