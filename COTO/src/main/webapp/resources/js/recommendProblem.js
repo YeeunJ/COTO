@@ -82,24 +82,33 @@ function addajax(){
 	var content = $('.sweet-modal-content #createContent').val();
 	
 	$('.sweet-modal-content .problem').each(function(){
+		
 		var s_id = 0;
 		var l = "";
 		var p;
+		
 		var valueSplit = $(this).val().split(' (');
 		
-		if($(this).attr('name') == 0){
+		if($(this).attr('name') == 0){ // link로 설정하는 경우
 			l = valueSplit[0].trim();
+			console.log("link: "+l);
 			
 			var split = l.split('/');
 			p = split[split.length-1].trim();
-		} else {
+			console.log("problem: "+split[split.length-1].trim());
+
+		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
 			p = valueSplit[0].trim();
+			len = $(this).val().split(' - ');
+			if(len.length != 0)
+				l = len[len.length-1].trim();
 		}
 		
 		siteId.push(s_id);
 		problem.push(p);
 		link.push(l);
+		
 	});
 	
 	probs = {"siteId":siteId, "problem":problem, "link":link};
@@ -158,6 +167,7 @@ function insertProblems(){
         },
         success: function(data){
             console.log(data);
+             count += valueSplit.length+1;
             var data2 = $('.sweet-modal-content #confirmSite').html()+data;
         	$('.sweet-modal-content #confirmSite').html(data2);
         },
@@ -167,7 +177,7 @@ function insertProblems(){
     });
 	}else{
 		for(var i in valueSplit){
-			data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/></div>';
+			data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><i class="small smaller material-icons checkIcon" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/></div>';
 			count++;
 		}
 		$('.sweet-modal-content #confirmSite').html(data);
@@ -274,25 +284,34 @@ function updateAjax (){
 	var problem = [];
 	var link = [];
 	
-	$('.sweet-modal-content .updateConfirmProblem').each(function(){
+	$('.sweet-modal-content .problem').each(function(){
+		
 		var s_id = 0;
 		var l = "";
 		var p;
+		
 		var valueSplit = $(this).val().split(' (');
 		
-		if($(this).attr('name') == 0){
+		if($(this).attr('name') == 0){ // link로 설정하는 경우
 			l = valueSplit[0].trim();
+			console.log("link: "+l);
 			
 			var split = l.split('/');
 			p = split[split.length-1].trim();
-		} else { 
+			console.log("problem: "+split[split.length-1].trim());
+
+		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
 			p = valueSplit[0].trim();
+			len = $(this).val().split(' - ');
+			if(len.length != 0)
+				l = len[len.length-1].trim();
 		}
 		
 		siteId.push(s_id);
 		problem.push(p);
 		link.push(l);
+		
 	});
 	
 	var tag_data= $('.sweet-modal-content #updateProblemTag').text(); //$('.sweet-modal-content #problemTag').material_chip('data');
@@ -324,7 +343,7 @@ function updateAjax (){
         }
 	});
 }
-
+var count = 0;
 //update modal에서 problem입력할 때
 function updateProblems(){
 	var siteName = $(".sweet-modal-content #siteName option:selected").text();
@@ -338,7 +357,6 @@ function updateProblems(){
 	$(".sweet-modal-content #problems").val("");
 	console.log(count);
 	if(siteId == 1){
-		//count += valueSplit.length;
 		$.ajax({
         url : './crawling/'+siteName,
         type: 'POST',
