@@ -35,8 +35,7 @@
 				) as recom left outer join user as us on recom.userID = us.id
 		) AS recom, recomCart AS RC
 		WHERE recom.id=RC.recomID AND RC.userID=#{userID};
-	</select>	
-
+	</select>
 	
 	<delete id="deleteCart" parameterType="hashmap">
 		DELETE FROM recomCart where recomID=#{recomID} AND userID=#{userID}

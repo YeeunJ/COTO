@@ -573,7 +573,7 @@ public class RecommendController {
 		}
 
 		List<RecommendDTO> recoms = recommendService.readRecomByPage(searchValue, orderValue, s_point, list);
-
+		
 		ModelAndView mv = new ModelAndView();
 		
 		int userID = -1;
@@ -582,7 +582,9 @@ public class RecommendController {
 			
 			mv.addObject("userID", userID);
 		}
-
+		
+		List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
+		
 		mv.addObject("pagename", "recommendProblem");
 		mv.addObject("page", page);
 		mv.addObject("s_page", s_page);
@@ -590,6 +592,8 @@ public class RecommendController {
 
 		mv.addObject("recoms", recoms);
 		mv.addObject("codingSite", codingSite);
+		mv.addObject("recomCarts", recomCart);
+
 		mv.setViewName("ajaxContent/recommendContent");
 
 		return mv;

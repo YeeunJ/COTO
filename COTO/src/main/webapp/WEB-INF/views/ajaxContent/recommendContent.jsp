@@ -19,6 +19,10 @@
 			<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
 			<span class="like-col tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
 			<span class="comment-col tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
+			<c:choose>
+				<c:when test = "${recoms.id} == ${recomCarts.recomID}">
+								</c:when>
+			</c:choose>			
 		</div>
 	</c:forEach>
 </div>
