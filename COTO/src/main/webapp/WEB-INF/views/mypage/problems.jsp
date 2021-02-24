@@ -23,7 +23,7 @@
 		</div>
 	</div>
 <c:choose>
-	<c:when test = "${goals == null}">
+	<c:when test = "${goal == null}">
 		<script>alert("목표를 입력해주세요~:)\n목표를 입력하시면 더 많은 정보를 확인하실 수 있습니다!\n 목표는 마이페이지의 내 정보 페이지에서 입력하실 수 있습니다.");</script>
 	</c:when>
 	<c:otherwise>
