@@ -3,6 +3,9 @@
 
 <div class="details">
 				<c:choose>
+					<c:when test = "${loginID ==-1}">
+						<span class="like-icon icon" onclick="guestUser()"></span><span id="readRecommends" class="bold">${countInfo.recommendCount}</span><span></span>		
+					</c:when>
 					<c:when test = "${countInfo.recommendYN ==true}">
 						<span class="clicked-icon icon" onclick="deleteRecomCount()"></span><span id="readRecommends" class="bold">${countInfo.recommendCount}</span><span></span>		
 					</c:when>

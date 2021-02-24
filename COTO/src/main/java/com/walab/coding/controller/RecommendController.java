@@ -289,7 +289,6 @@ public class RecommendController {
 			mv.addObject("adminID", admin);
 		}
 		
-		int admin = ((UserDTO)request.getSession().getAttribute("user")).getIsAdmin();
 		int cartYN = recomCartService.readCartByID(recomID, userID);
 
 		//if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0) {
