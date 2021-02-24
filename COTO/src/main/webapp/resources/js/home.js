@@ -115,6 +115,7 @@ function insertProblems(){
         },
         success: function(data){
             console.log(data);
+            count += valueSplit.length+1;
             var data2 = $('.sweet-modal-content #confirmSite').html()+data;
         	$('.sweet-modal-content #confirmSite').html(data2);
             /*

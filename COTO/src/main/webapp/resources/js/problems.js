@@ -2,9 +2,10 @@ $(document).ready(function() {
 	$('#searchButton').on('click', function() {
 		search();
 	});
-	
-	drawChart1();
-	drawChart2();
+	if(gN != -1){
+		drawChart1();
+		drawChart2();
+	}
 });
 
 function drawChart1() {

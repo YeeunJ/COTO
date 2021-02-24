@@ -36,6 +36,11 @@
 .tableCell {
  	border-bottom: none !important;
 } 
+#dupCheck{
+	margin-left: 8px !important;
+    right: 0 !important;
+    background: #e69138ff !important;
+}
 @media screen and (max-width: 650px){
 	.area{
 		margin-left: 5% !important;

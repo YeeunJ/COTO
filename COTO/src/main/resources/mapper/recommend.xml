@@ -42,7 +42,7 @@
 		    <when test="orderValue eq 'recom.title'">recom.title</when>
 		    <when test="orderValue eq 'recom.recomCount desc'">recom.recomCount desc</when>
 		    <when test="orderValue eq 'recom.regdate desc'">recom.regdate desc</when>
-		    <otherwise>recom.regdate desc</otherwise>
+		    <otherwise>recom.regdate</otherwise>
 		</choose>
 		LIMIT #{s_point}, #{list}
 	</select>

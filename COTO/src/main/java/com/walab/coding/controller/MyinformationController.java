@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -49,8 +50,10 @@ public class MyinformationController {
 		mv.setViewName("mypage/information");
 		
 		List<GoalDTO> goals = goalService.readGoal(userID);
+		System.out.println(goals.size());
 		mv.addObject("goals", goals);
 		mv.setViewName("mypage/information");
+		
 		
 		return mv;
 	}
@@ -79,8 +82,11 @@ public class MyinformationController {
 		updateGoal.setEndDate(edate);
 		updateGoal.setGoalNum(goalNum);
 		updateGoal.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
-		
-		goalService.updateGoal(updateGoal);
+		if(updateGoal.getId() == -1) {
+			userService.createUsergoal(updateGoal);
+		}else {
+			goalService.updateGoal(updateGoal);
+		}
 		
 		List<GoalDTO> goals = goalService.readGoal(userID);
 		mv.addObject("goals", goals);
@@ -115,5 +121,18 @@ public class MyinformationController {
 		
 		return mvNew;
 
+	}
+	
+	/**
+	 * Return the number of duplicate email
+	 */
+	@RequestMapping(value = "/dupCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public int dupCheck(HttpServletRequest httpServeletRequest) throws ParseException {
+		
+		String nickName = httpServeletRequest.getParameter("nickName");
+		int result = userService.readUserCountByNickname(nickName);
+		
+		return result;
 	}
 }

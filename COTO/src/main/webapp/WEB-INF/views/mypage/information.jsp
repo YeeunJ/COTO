@@ -41,7 +41,7 @@
 					<div class = "left">
 						<h5 class="orange-text" style = "margin: 0;">내 정보 수정</h5>
 					</div>
-					<div class="right">
+					<div class="right" id="userInfoBtn">
 						<input id="submit" type="submit" value="수정하기 " class="mybtn" /> <input
 							id="add" type="button" value="취소하기 "
 							onclick="showInfo(); hideInfoEdit()" class="mybtn" />
