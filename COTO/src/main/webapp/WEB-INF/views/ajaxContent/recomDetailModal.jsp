@@ -7,7 +7,7 @@
 <span id="readLoginID" style="display: none;">${loginID}</span>
 <span id="readUserID" style="display: none;">${recom.userID}</span>
 <span id="readAdminID" style="display: none;">${adminID}</span>
-
+<script>var count = 0;</script>
 <!-- 세부 정보 모달 -->
 <div id="readRecommendProblem" style="display:none;">
 	<span id="readRecomID" style="display:none;">${ recomID }</span>
@@ -189,6 +189,7 @@
 								<c:if test="${!empty rp.siteName}">
 									<div id = "confirmProblemValue${ count }" onClick="deleteThis('confirmProblemValue${ count }')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="${ rp.siteID }" value="${rp.name} (${rp.siteName})" id="last_name disabled" type="text" class="updateConfirmProblem validate" style="width:90%;padding-left: 10px;"/></div>
 									<c:set var="count" value="${count + 1}"/>
+									<script>var count = ${count};</script>
 								</c:if>
 							</c:if>
 						</c:forEach>
@@ -197,4 +198,3 @@
 			</div>
 	</form>		
 </div>
-<script>var count = ${count}</script>
