@@ -2,14 +2,93 @@ $(document).ready(function() {
 	$('#searchButton').on('click', function() {
 		search();
 	});
-	
-	drawChart1();
-	drawChart2();
+	if(gN != -1){
+		drawChart1();
+		drawChart2();
+	}
 });
 
 function drawChart1() {
 	<!-- Bar cahrt -->
-	var ctx1 = document.getElementById("myBarChart"); 
+	var ctx1 = document.getElementById("myBarChart").getContext("2d");
+	
+	// stores the number of bars you have at the beginning.
+	var length = -1;
+	
+	// creates a new plugin
+	Chart.pluginService.register({
+	
+	  // before the update ..
+	  beforeUpdate: function(chart) {
+	    var data = chart.config.data;
+	    for (var i = data.labels.length; i < data.maxBarNumber; i++) {
+	      length = (length == -1) ? i : length;
+	      // populates both arrays with default values, you can put anything though
+	      data.labels[i] = i;
+	      data.datasets[0].data[i] = 0;
+	    }
+	  },
+	
+	  // after the update ..
+	  afterUpdate: function(chart) {
+	    //console.log(chart);
+	    var data = chart.config.data;
+	    if (length == -1) return;
+	
+	    // prevents new charts to be drawn
+	    for (var i = length; i < data.maxBarNumber; i++) {
+	      data.datasets[0]._meta[0].data[i].draw = function() {
+	        return
+	      };
+	    }
+	  }
+	});
+	
+	var data = {
+	
+	  // change here depending on how many bar charts you can have
+	  maxBarNumber: 20,
+	  labels: labels,
+	  datasets: [{
+	    label: "푼 문제수",
+	    backgroundColor: 'rgba(255, 201, 14, 0.5)',
+	    borderColor: 'rgba(255, 201, 14, 1)',
+	    borderWidth: 1,
+	    data: dataForBar,
+	  }]
+	};
+	
+	var myBarChart = new Chart(ctx1, {
+	  type: 'bar',
+	  data: data,
+	  options: {
+	  	responsive: false,
+	    scales: {
+	      xAxes: [{
+	        display: true,
+	        
+	        afterTickToLabelConversion: function(data){
+            	let xLabels = data.ticks;
+            	
+            	for(let i = 0; i<xLabels.length;i++){
+            		if(0<=xLabels[i] && xLabels[i]<20) xLabels[i] = '';
+              	}
+         	} 
+	      }],
+	      yAxes: [{
+	        stacked: true,
+	        ticks: {
+	        	suggestedMin: 0,
+	            stepSize: 1,
+	        }
+	      }]
+	    }
+	  }
+	});
+
+
+	
+	/*var ctx1 = document.getElementById("myBarChart"); 
 	var myBarChart = new Chart(ctx1 , {
 	    type: 'bar',
 	    data: {
@@ -23,7 +102,7 @@ function drawChart1() {
 	        }]
 	    },
 	    options: {
-	        responsive: true,
+	        responsive: false,
 	        hover: {
 	            mode: 'nearest',
 	            intersect: true
@@ -31,12 +110,14 @@ function drawChart1() {
 	        scales: {
 	            xAxes: [{
 	                display: true,
+	                //barThickness: 20,
+	                maxBarThickness: 20,
 	                scaleLabel: {
 	                    display: true,
 	                },
 	                ticks: {
-	                    autoSkip: false,
-	                    maxTicksLimit:4
+	                    //autoSkip: false,
+	                    //maxTicksLimit:4
 	                }
 	            }],
 	            yAxes: [{
@@ -51,7 +132,7 @@ function drawChart1() {
 	            }]
 	        }
 	    }
-	});
+	});*/
 }
 
 function drawChart2() {

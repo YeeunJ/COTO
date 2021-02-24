@@ -4,14 +4,16 @@ $('.chip').on('click', function() {
 						});
 
 function deletechip(id) {
-	id.remove();
+	$(id).remove();
 }
 
 function createModel(content, titleValue, actionFunction, closeFunction){
+	var insCount = 0;
+	content = "<div style='height: 600px !important; overflow: scroll;'>" + $(content).html() + "</div>";
 		var variant = {
 			args: [
 				{
-					content: $(content).html(),
+					content: content,
 					title: titleValue,
 					showCloseButton: true,
 					onClose: function(){
@@ -35,18 +37,38 @@ function createModel(content, titleValue, actionFunction, closeFunction){
 								//console.log($(this));
 							}
 						});
+						
+						$('.sweet-modal-content #createTitle').change( function() {
+							if($('.sweet-modal-content #createTitle').val() != "") insCount++;
+							
+							//alert("제목 입력");
+							
+							if(insCount == 2) $('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+						});
+						
+						$('.sweet-modal-content #problems').change( function() {
+							//if($('.sweet-modal-content #confirmSite').html() != "") {
+								insCount++;
+								//alert("문제 입력");
+							
+								if(insCount == 2) $('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+							//}
+						});
 					},
 					theme: $.sweetModal.THEME_MIXED,
 					buttons: [
 						{
 							label: '등록',
-							classes: 'modal_button',
+							classes: 'modal_button disableCheck',
 							action: function() {
 								actionFunction();
 								return $.sweetModal({
 									content: '<p style = "font-weight:800;font-size:15px;padding-top: 15px;text-align: center;">데이터가 등록 되었습니다~:)</p>',
 									theme: $.sweetModal.THEME_MIXED,
-									icon: $.sweetModal.ICON_SUCCESS
+									icon: $.sweetModal.ICON_SUCCESS,
+									onClose: function(){
+										if(closeFunction != null) closeFunction();
+									}
 								});
 							}
 						}
@@ -84,11 +106,14 @@ function insertProblems(){
 };
 
 
-function rudModel(readContent, updateContent, titleValue, titleValue2, updateFunction, deleteFunction, closeFunction){
+function rudModel(readContent, updateContent, titleValue, titleValue2, updateFunction, deleteFunction, closeFunction, tagCnt){
+		var insCount = 0;
+		readContent = "<div style='height: 600px !important; overflow: scroll;'>" + $(readContent).html() + "</div>";
+		updateContent = "<div style='height: 600px !important; overflow: scroll;'>" + $(updateContent).html() + "</div>";
 		var variant = {
 			args: [
 				{
-					content: $(readContent).html(),
+					content: readContent,
 					title: titleValue,
 					showCloseButton: true,
 					onOpen: function(){
@@ -104,7 +129,7 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 							action: function() {
 								return $.sweetModal({
 									title: titleValue2,
-									content: $(updateContent).html(),
+									content: updateContent,
 									onClose: function(){
 										closeFunction();
 									},
@@ -116,8 +141,8 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 											onChipAdd: function(){
 												var text = $('.sweet-modal-content .chips input').val();
 												$('.sweet-modal-content .chips .chip:last').remove();
-												$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close">close</i></div>');
-												count++;
+												$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+tagCnt+'">'+text+'<i class = "material-icons close" onclick="deletechip(tabindex'+tagCnt+')">close</i></div>');
+												tagCnt++;
 											},
 											onChipSelect: function(){
 											},
@@ -125,12 +150,29 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 												//console.log($(this));
 											}
 										});
+										
+										$('.sweet-modal-content #createTitle').change( function() {
+											if($('.sweet-modal-content #createTitle').val() == "") insCount++;
+											
+											//alert("제목 입력");
+											
+											if(insCount == 0) $('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+										});
+										
+										$('.sweet-modal-content #problems').change( function() {
+											//if($('.sweet-modal-content #confirmSite').html() != "") {
+												//insCount++;
+												//alert("문제 입력");
+											
+												if(insCount == 0) $('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+											//}
+										});
 									},
 									theme: $.sweetModal.THEME_MIXED,
 									buttons: [
 										{
 											label: '등록',
-											classes: 'modal_button',
+											classes: 'modal_button disableCheck',
 											action: function() {
 												updateFunction();
 												return $.sweetModal({
@@ -173,13 +215,33 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 }
 
 function readModel(readContent, titleValue){
+	readContent = "<div style='height: 600px !important; overflow: scroll;'>" + $(readContent).html() + "</div>";
+		var variant = {
+			args: [
+				{
+					content: readContent,
+					title: titleValue,
+					theme: $.sweetModal.THEME_MIXED,
+					showCloseButton: true,
+				}
+			]
+		};
+		
+		variant.fn = variant.fn || $.sweetModal;
+		variant.fn.apply(this, variant.args);
+}
+
+function readCartModel(readContent, titleValue, closeFunction){
 		var variant = {
 			args: [
 				{
 					content: $(readContent).html(),
 					title: titleValue,
 					theme: $.sweetModal.THEME_MIXED,
-					showCloseButton: true
+					showCloseButton: true,
+					onClose: function(){
+						closeFunction();
+					}
 				}
 			]
 		};

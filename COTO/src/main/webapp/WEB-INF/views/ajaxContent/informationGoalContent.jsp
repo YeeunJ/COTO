@@ -6,27 +6,45 @@
 
 
 <div class="table">
-	<c:forEach items="${goals}" var="goal" varStatus="status">
-		<div class="tableRow">
-			<span class="tableCell th3">목표 내용</span> <span
-				class="tableCell td8">${goal.goal}
-			</span>
-		</div>
-		<div class="tableRow">
-			<span class="tableCell th3">목표 기간</span> <span
-				class="tableCell td8"><fmt:formatDate
-					pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
-					pattern="yyyy-MM-dd" value="${goal.endDate}" />
-			</span>
-			<fmt:formatDate pattern="yyyy-MM-dd" value="${goal.startDate}"
-				var="sDate" />
-			<fmt:formatDate pattern="yyyy-MM-dd" var="eDate"
-				value="${goal.endDate}" />
-		</div>
-		<div class="tableRow">
-			<span class="tableCell th3">목표 개수</span> <span
-				class="tableCell td8">${goal.goalNum}
-			</span>
-		</div>
-	</c:forEach>
+	<c:choose>
+		<c:when test = "${goals.size() == 0}">
+			<div class="tableRow">
+				<span class="tableCell th3">목표 내용</span> 
+				<span class="tableCell td8"></span>
+			</div>
+			<div class="tableRow">
+				<span class="tableCell th3">목표 기간</span> 
+				<span class="tableCell td8"></span>
+			</div>
+			<div class="tableRow">
+				<span class="tableCell th3">목표 개수</span> 
+				<span class="tableCell td8"></span>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<c:forEach items="${goals}" var="goal" varStatus="status">
+				<div class="tableRow">
+					<span class="tableCell th3">목표 내용</span> <span
+						class="tableCell td8">${goal.goal}
+					</span>
+				</div>
+				<div class="tableRow">
+					<span class="tableCell th3">목표 기간</span> <span
+						class="tableCell td8"><fmt:formatDate
+							pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
+							pattern="yyyy-MM-dd" value="${goal.endDate}" />
+					</span>
+					<fmt:formatDate pattern="yyyy-MM-dd" value="${goal.startDate}"
+						var="sDate" />
+					<fmt:formatDate pattern="yyyy-MM-dd" var="eDate"
+						 value="${goal.endDate}" />
+				</div>
+				<div class="tableRow">
+					<span class="tableCell th3">목표 개수</span> <span
+						class="tableCell td8"> ${goal.goalNum}
+					</span>
+				</div>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
 </div>

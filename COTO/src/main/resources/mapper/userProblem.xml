@@ -31,6 +31,10 @@
 		delete from userProblem where id = #{problemID}
 	</delete>
 	
+	<delete id="deleteUserProblemByProblemID" parameterType="hashmap">
+		delete from userProblem where problemID = #{problemID}
+	</delete>
+	
 	<update id="updateUserProblem" parameterType="hashmap">
 		update userProblem set difficulty='${difficulty}', memo='${memo}' where id = #{id}
 	</update>
@@ -46,7 +50,7 @@
  	</select>
  
  	<select id = "readTodayRank" resultType="com.walab.coding.model.RankDTO">
- 		SELECT (SELECT nickName FROM user WHERE A.userID = id) AS nickName, count(userID) AS cnt 
+ 		SELECT (SELECT id FROM user WHERE A.userID = id) AS id, (SELECT nickName FROM user WHERE A.userID = id) AS nickName, count(userID) AS cnt 
 		FROM userProblem
 		AS A 
 		WHERE DATE_FORMAT(regdate, "%Y-%m-%d") = CURDATE()
@@ -60,11 +64,14 @@
 	</insert>
 	
 	<select id="countUserProblemEachDay" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
-		SELECT count(A.userID) as countSolvedP, date_format(A.regdate,'%Y-%m-%d') as regDate From YeeunJ.userProblem as A, 
+		(SELECT count(A.userID) as countSolvedP, date_format(A.regdate,'%Y-%m-%d') as regDate From YeeunJ.userProblem as A, 
 		(SELECT startdate, enddate FROM YeeunJ.goal WHERE userID=#{userID} order by startdate Desc limit 1) as B 
 		WHERE A.userID = #{userID} and 
 		<![CDATA[date_format(A.regdate,'%Y-%m-%d') >= B.startdate and date_format(A.regdate,'%Y-%m-%d') <= B.enddate]]>
 		group by date_format(A.regdate,'%Y-%m-%d')
+		ORDER BY date_format(A.regdate,'%Y-%m-%d') DESC
+		LIMIT 20)
+		ORDER BY regDate;
 	</select>
 	
 	<select id="readProblemActivities" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
@@ -103,7 +110,7 @@
 	   		  from YeeunJ.userProblem as up where up.userID=#{userID}) as subquery 
 		join YeeunJ.problem as p on subquery.problemID=p.id 
 		join YeeunJ.codingSite as c on p.siteID=c.id
-		ORDER BY id DESC LIMIT #{s_point}, #{list}
+		ORDER BY id LIMIT #{s_point}, #{list}
 	</select>
 	<select id="readProblemCnt" resultType="int" parameterType="hashmap">
 		select COUNT(*) 

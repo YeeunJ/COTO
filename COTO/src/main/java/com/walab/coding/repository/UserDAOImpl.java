@@ -86,7 +86,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 	
 	/**
-	 * RegisterController
+	 * RegisterController, MyinformationController
 	 * Return the number of duplicate email
 	 */
 	@Override

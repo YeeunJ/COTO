@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?asd" />
 
 <script src="./resources/js/home.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -24,6 +25,19 @@
 		<br> <br>
 	</div>
 </div>
+
+<c:forEach items="${ranksToday}" var="rankToday" varStatus="status">
+	<c:if test="${status.first}">
+		<c:set var="count" value="${rankToday.cnt}"/>
+	</c:if>
+	<c:if test="${rankToday.id eq userID && rankToday.cnt eq count}">
+		<div class="container center celeb">
+			<p class="congraturation">CONGRATURATION</p>
+			<p class="congraturation2">${rankToday.nickName}님 오늘의 1등입니다!</p>
+		</div>
+	</c:if>
+	
+</c:forEach>
 
 <div id = "first"> 
 	<%@ include file="./ajaxContent/homeFirstContent.jsp"%> 

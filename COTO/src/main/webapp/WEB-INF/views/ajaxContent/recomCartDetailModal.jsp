@@ -7,7 +7,7 @@
 <span id="readLoginID" style="display: none;">${loginID}</span>
 <span id="readUserID" style="display: none;">${recom.userID}</span>
 <span id="readAdminID" style="display: none;">${adminID}</span>
-<script>var count = 0;</script>
+
 <!-- 세부 정보 모달 -->
 <div id="readRecommendProblem" style="display:none;">
 	<span id="readRecomID" style="display:none;">${ recomID }</span>
@@ -27,12 +27,12 @@
 				<div class="readBox">
 					<span id="readDifficulties">
 					<c:choose>
-						<c:when test="${recom.difficulty eq 0}"><img style="width: 60px;" alt="0" src="./resources/img/difficulty0.png"></c:when>
-						<c:when test="${recom.difficulty eq 1}"><img style="width: 60px;" alt="1" src="./resources/img/difficulty1.png"></c:when>
-						<c:when test="${recom.difficulty eq 2}"><img style="width: 60px;" alt="2" src="./resources/img/difficulty2.png"></c:when>
-						<c:when test="${recom.difficulty eq 3}"><img style="width: 60px;" alt="3" src="./resources/img/difficulty3.png"></c:when>
-						<c:when test="${recom.difficulty eq 4}"><img style="width: 60px;" alt="4" src="./resources/img/difficulty4.png"></c:when>
-						<c:when test="${recom.difficulty eq 5}"><img style="width: 60px;" alt="5" src="./resources/img/difficulty5.png"></c:when>
+						<c:when test="${recom.difficulty eq 0}"><img style="width: 60px;" alt="0" src="../resources/img/difficulty0.png"></c:when>
+						<c:when test="${recom.difficulty eq 1}"><img style="width: 60px;" alt="1" src="../resources/img/difficulty1.png"></c:when>
+						<c:when test="${recom.difficulty eq 2}"><img style="width: 60px;" alt="2" src="../resources/img/difficulty2.png"></c:when>
+						<c:when test="${recom.difficulty eq 3}"><img style="width: 60px;" alt="3" src="../resources/img/difficulty3.png"></c:when>
+						<c:when test="${recom.difficulty eq 4}"><img style="width: 60px;" alt="4" src="../resources/img/difficulty4.png"></c:when>
+						<c:when test="${recom.difficulty eq 5}"><img style="width: 60px;" alt="5" src="../resources/img/difficulty5.png"></c:when>
 						<c:otherwise></c:otherwise>
 					</c:choose>
 					</span>
@@ -150,7 +150,6 @@
 					<div class = "chip" id="tabindex${ count }">${rpt.tag}<i class = "material-icons close" onclick="deletechip(tabindex${ count })">close</i></div>
 					<c:set var="count" value="${count + 1}"/>
 				</c:forEach>
-				<span id="updateTagCount" style="display: none;">${count}</span>
 				
 				</div>
 				<br><br>
@@ -187,9 +186,8 @@
 						<c:forEach items="${recomProblem}" var="rp">
 							<c:if test="${!empty rp.name}">
 								<c:if test="${!empty rp.siteName}">
-									<div id = "confirmProblemValue${ count }" onClick="deleteThis('confirmProblemValue${ count }')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="${ rp.siteID }" value="${rp.name} (${rp.siteName})" id="last_name disabled" type="text" class="updateConfirmProblem validate problem" style="width:90%;padding-left: 10px;"/></div>
+									<div id = "confirmProblemValue${ count }" onClick="deleteThis('confirmProblemValue${ count }')"><input disabled name="${ rp.siteID }" value="${rp.name} (${rp.siteName})" id="last_name disabled" type="text" class="updateConfirmProblem validate"/></div>
 									<c:set var="count" value="${count + 1}"/>
-									<script>count++;</script>
 								</c:if>
 							</c:if>
 						</c:forEach>

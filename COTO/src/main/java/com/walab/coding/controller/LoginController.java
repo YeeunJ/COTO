@@ -101,7 +101,7 @@ public class LoginController {
 		UserDTO ud = new UserDTO();
 		ud.setEmail(userInfo.get("email"));
 		ud.setName(userInfo.get("name"));
-		session.setAttribute("user", ud);
+		session.setAttribute("tempUser", ud);
 		session.setAttribute("token", result.getAccessToken());
 		model.setView(new RedirectView("/register",true));
 		

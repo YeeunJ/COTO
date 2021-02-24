@@ -12,6 +12,8 @@ public class RecommendDTO {
 	private String content;
 	private int recomCount;
 	private int recomCommentCount;
+	private int totalProbCnt;
+	private int userProbCnt;
 	private Date deleteDate;
 	private Date regDate;
 	
@@ -62,6 +64,18 @@ public class RecommendDTO {
 	}
 	public void setRecomCommentCount(int recomCommentCount) {
 		this.recomCommentCount = recomCommentCount;
+	}
+	public int getTotalProbCnt() {
+		return totalProbCnt;
+	}
+	public void setTotalProbCnt(int totalProbCnt) {
+		this.totalProbCnt = totalProbCnt;
+	}
+	public int getUserProbCnt() {
+		return userProbCnt;
+	}
+	public void setUserProbCnt(int userProbCnt) {
+		this.userProbCnt = userProbCnt;
 	}
 	public Date getDeleteDate() {
 		return deleteDate;

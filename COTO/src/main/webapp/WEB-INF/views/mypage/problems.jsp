@@ -10,9 +10,12 @@
 
 <link href="../resources/css/problems.css" rel="stylesheet">
 <link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
+<link href="../resources/css/recommendProblem.css?asd" rel="stylesheet">
+<script src="../resources/js/createModal.js"></script>
 <script src="../resources/js/problems.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+<script src="../resources/js/recomCart.js"></script>
 
 <div id="SiteContainer" class="container">
 	<div id="problem">
@@ -21,7 +24,11 @@
 			<p>지금까지 자신이 푼 문제와 목표 현황을 확인해 보세요!</p>
 		</div>
 	</div>
-
+<c:choose>
+	<c:when test = "${goal.size() == 0}">
+		<script>alert("목표를 입력해주세요~:)\n목표를 입력하시면 더 많은 정보를 확인하실 수 있습니다!\n 목표는 마이페이지의 내 정보 페이지에서 입력하실 수 있습니다.");</script>
+	</c:when>
+	<c:otherwise>
 	<!-- Content Row -->
 	<div class="card-wrap">
 		<div class="card-content1">
@@ -49,9 +56,31 @@
 						</div>
 					</c:forEach>
 				</div>
+					<div id="table">
+							<c:forEach items="${goal}" var="goal" varStatus="status">
+								<div class="tableRow">
+									<span class="tableCell td2">목표</span> <span
+										class="tableCell td4">${goal.goal}</span>
+								</div>
+								<div class="tableRow">
+									<span class="tableCell td2">기간</span> 
+									<span class="tableCell td4" style="font-size: 14px;"> <fmt:formatDate
+											pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
+											pattern="yyyy-MM-dd" value="${goal.endDate}" />
+									</span>
+								</div>
+								<div class="tableRow">
+									<span class="tableCell td2">총 문제수</span> <span
+										class="tableCell td4">${goal.goalNum}문제</span>
+								</div>
+								<div class="tableRow">
+									<span class="tableCell td2" style="font-size: 13px;">현재 푼 문제수</span> <span
+										class="tableCell td4">${userSolvedP}문제</span>
+								</div>
+							</c:forEach>
+					</div>
 			</div>
 		</div>
-
 		<div class="card-content2">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">하루의 기록</div>
@@ -73,7 +102,8 @@
 			</div>
 		</div>
 	</div>
-
+	</c:otherwise>
+</c:choose>
 	<!-- Content Row -->
 	<div>
 		<br>
@@ -228,8 +258,16 @@
 		</div>
 
 	</div>
+	<div>
+		<div class="table" id="recomCartContent">
+			<%@ include file="../ajaxContent/recomCartContent.jsp"%>
+		</div>
+	
+	</div>
 </div>
-
+<div id="modalContent">
+<%@ include file="../ajaxContent/recomDetailModal.jsp"%>
+</div>
 <script>
 	var labels = new Array();
 	var dataForBar = new Array();

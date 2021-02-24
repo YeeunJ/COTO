@@ -74,6 +74,7 @@ public interface UserProblemService {
 	// RecommendController
 	public int delete(int userProblemID);
 	
+	public int deleteUserProblemByProblemID(int userProblemID);
 	/**
 	 * For chart, count user solvedProblem Each day
 	 * usage: MyproblemsController

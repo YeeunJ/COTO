@@ -20,7 +20,7 @@
 	
 	<select id="readEachProblem" resultType="com.walab.coding.model.RecomProblemDTO" parameterType="hashmap">
 		SELECT p.name as name, up.problemID as problemID, p.id as id, up.regdate as date FROM userProblem as up 
-		join problem as p on up.problemID = p.id where up.userID= ${userID} and up.problemID = ${rpID};
+		right join problem as p on up.problemID = p.id where up.userID= ${userID} and p.id = ${rpID}
 	</select>
 	
 	<delete id="deleteRecomProblem" parameterType="hashmap">

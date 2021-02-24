@@ -16,7 +16,5 @@ public interface RecomProblemDAO {
 	
 	public int deleteRecomProblem(int recomID);
 	
-	
-	
 	public int readProblemID(int siteID, String problem);
 }

@@ -37,9 +37,11 @@ function searchF(){
 
 /* create */
 //추천집 create modal 부르
-function callModal() {
+function callModal(userID) {
 	selectHtml = $('#selectHtml').html();
-	createModel("#createProblems", "문제집 등록", addajax, searchF);
+	
+	if(userID > 0) createModel("#createProblems", "문제집 등록", addajax, searchF);
+	else alert("로그인을 해야 글쓰기가 가능합니다.");
 }
 
 //comment create
@@ -56,6 +58,7 @@ function addComment() {
 				content : $('.sweet-modal-content #comment-textarea').val()
 			},
 			success : function(data) {
+				count += valueSplit.length+1;
 				$('.sweet-modal-content #recomCountCommentContent').html(data);
 				$('.sweet-modal-content #comment-textarea').val("");
 			},
@@ -79,24 +82,33 @@ function addajax(){
 	var content = $('.sweet-modal-content #createContent').val();
 	
 	$('.sweet-modal-content .problem').each(function(){
+		
 		var s_id = 0;
 		var l = "";
 		var p;
+		
 		var valueSplit = $(this).val().split(' (');
 		
-		if($(this).attr('name') == 0){
+		if($(this).attr('name') == 0){ // link로 설정하는 경우
 			l = valueSplit[0].trim();
+			console.log("link: "+l);
 			
 			var split = l.split('/');
 			p = split[split.length-1].trim();
-		} else {
+			console.log("problem: "+split[split.length-1].trim());
+
+		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
 			p = valueSplit[0].trim();
+			len = $(this).val().split(' - ');
+			if(len.length != 0)
+				l = len[len.length-1].trim();
 		}
 		
 		siteId.push(s_id);
 		problem.push(p);
 		link.push(l);
+		
 	});
 	
 	probs = {"siteId":siteId, "problem":problem, "link":link};
@@ -134,6 +146,7 @@ var count=0;
 
 //create modal에서 problem입력할 때
 function insertProblems(){
+	
 	var siteName = $(".sweet-modal-content #siteName option:selected").text();
 	var siteId = $('.sweet-modal-content #siteName').val();
 	console.log("siteId: "+siteId);
@@ -142,13 +155,54 @@ function insertProblems(){
 	console.log(value);
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #confirmSite').html();
-	for(var i in valueSplit){
-		data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate"/></div>';
-		count++;
-	}
-	$('.sweet-modal-content #confirmSite').html(data);
 	$(".sweet-modal-content #problems").val("");
+	if(siteId == 1){
+		$.ajax({
+        url : './crawling/'+siteName,
+        type: 'POST',
+        data: {
+        	"problem": valueSplit,
+        	"siteID": siteId,
+        	"count": count
+        },
+        success: function(data){
+            console.log(data);
+             count += valueSplit.length+1;
+            var data2 = $('.sweet-modal-content #confirmSite').html()+data;
+        	$('.sweet-modal-content #confirmSite').html(data2);
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+	}else{
+		for(var i in valueSplit){
+			data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><i class="small smaller material-icons checkIcon" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/></div>';
+			count++;
+		}
+		$('.sweet-modal-content #confirmSite').html(data);
+//		$('#confirmSite').html(data);
+	}
 };
+
+function baekjoon(){
+	var siteSelect = document.getElementById("siteName");
+	var selectValue = siteSelect.options[siteSelect.selectedIndex].value;
+	var inputValue = $(".sweet-modal-content #problems").val();
+	var value = parseFloat(inputValue.replace(/,/gi, " "));
+
+	if(selectValue=='1'){
+		if(isNaN(value) == true){ 
+			alert("백준 문제를 등록할때는 숫자만 입력할 수 있습니다.");
+			
+		}else{
+			insertProblems();
+		}
+		
+	}else{
+		insertProblems();
+	}
+}
 
 //read modal에서 recom count
 function addRecomCount(){
@@ -183,6 +237,7 @@ function readDetailModalContent(recomID, count) {
 	var logID;
 	var uID;
 	var adminID;
+	var tCnt;
 	
 	$.ajax({
 		url : "recommendProblem/readModalInfo",
@@ -200,10 +255,12 @@ function readDetailModalContent(recomID, count) {
 				else if(dataSplit[i].indexOf("readLoginID") != -1) logID = $( dataSplit[i] ).text();
 				else if(dataSplit[i].indexOf("readUserID") != -1) uID = $( dataSplit[i] ).text();
 				else if(dataSplit[i].indexOf("readAdminID") != -1) adminID = $( dataSplit[i] ).text();
+				else if(dataSplit[i].indexOf("updateTagCount") != -1) tCnt = $( dataSplit[i] ).text();
+				
 			}
 			
 			$("#modalContent").html(data);
-			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search);
+			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search, tCnt);
 			else readModel("#readRecommendProblem", title);
 		},
 		error : function(request, status, error) {
@@ -227,25 +284,34 @@ function updateAjax (){
 	var problem = [];
 	var link = [];
 	
-	$('.sweet-modal-content .updateConfirmProblem').each(function(){
+	$('.sweet-modal-content .problem').each(function(){
+		
 		var s_id = 0;
 		var l = "";
 		var p;
+		
 		var valueSplit = $(this).val().split(' (');
 		
-		if($(this).attr('name') == 0){
+		if($(this).attr('name') == 0){ // link로 설정하는 경우
 			l = valueSplit[0].trim();
+			console.log("link: "+l);
 			
 			var split = l.split('/');
 			p = split[split.length-1].trim();
-		} else { 
+			console.log("problem: "+split[split.length-1].trim());
+
+		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
 			p = valueSplit[0].trim();
+			len = $(this).val().split(' - ');
+			if(len.length != 0)
+				l = len[len.length-1].trim();
 		}
 		
 		siteId.push(s_id);
 		problem.push(p);
 		link.push(l);
+		
 	});
 	
 	var tag_data= $('.sweet-modal-content #updateProblemTag').text(); //$('.sweet-modal-content #problemTag').material_chip('data');
@@ -277,7 +343,7 @@ function updateAjax (){
         }
 	});
 }
-
+var count = 0;
 //update modal에서 problem입력할 때
 function updateProblems(){
 	var siteName = $(".sweet-modal-content #siteName option:selected").text();
@@ -285,15 +351,39 @@ function updateProblems(){
 	console.log("siteId: "+siteId);
 	var site = $(".sweet-modal-content #siteName option:selected").val();
 	var value = $(".sweet-modal-content #updateConfirmProblems").val();
-	console.log(value);
+	
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #updateConfirmSite').html();
-	for(var i in valueSplit){
-		data += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="'+siteId+'" value="'+valueSplit[i]+' ('+siteName+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
-		count++;
+	$(".sweet-modal-content #problems").val("");
+	console.log(count);
+	if(siteId == 1){
+		$.ajax({
+        url : './crawling/'+siteName,
+        type: 'POST',
+        data: {
+        	"problem": valueSplit,
+        	"siteID": siteId,
+        	"count": count
+        },
+        success: function(data){
+            console.log(count);
+            count += valueSplit.length+1;
+            console.log(count);
+            var data2 = $('.sweet-modal-content #updateConfirmSite').html()+data;
+        	$('.sweet-modal-content #updateConfirmSite').html(data2);
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+	}else{
+		for(var i in valueSplit){
+			data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/></div>';
+			count++;
+		}
+		$('.sweet-modal-content #updateConfirmSite').html(data);
+		$('#updateConfirmSite').html(data);
 	}
-	$('.sweet-modal-content #updateConfirmSite').html(data);
-	$('#updateConfirmSite').html(data);
 	$(".sweet-modal-content #updateConfirmProblems").val("");
 };
 
@@ -342,6 +432,46 @@ function deleteRecomCount(){
 	});
 }
 
+function addRecomCart(){
+	if(confirm("문제집을 장바구니에 담으시겠습니까?")) {
+		$.ajax({
+			url: "./recommendProblem/addRecomCart",
+			type: "POST",
+			async: false,
+			data: {
+				recomID:$('#readRecomID').html()
+			},
+			success: function(data){
+				$('.sweet-modal-content #recomCountCommentContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+	}
+
+}
+
+function deleteRecomCart(){
+	if(confirm("문제집을 장바구니에서 지우시겠습니까?")) {
+		$.ajax({
+			url: "./recommendProblem/deleteRecomCart",
+			type: "POST",
+			async: false,
+			data: {
+				recomID:$('#readRecomID').html()
+			},
+			success: function(data){
+				$('.sweet-modal-content #recomCountCommentContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+	}
+
+}
+
 
 
 
@@ -367,13 +497,14 @@ function checkProblem(id){
 		}
 	});
 }
-function uncheckProblem(id){
+function uncheckProblem(id, name){
 	$.ajax({
 		url : "recommendProblem/deleteRecomCheck",
 		type : "POST",
 		async : false,
 		data : {
 			rpID : id,
+			problemName: name
 		},
 		success : function(data) {
 			console.log(data);
@@ -389,14 +520,16 @@ function uncheckProblem(id){
 	});
 }
 
+function guestUser() {
+	alert("로그인 후 이용할 수 있는 기능입니다.");
+	if(confirm("로그인 창으로 이동하시겠습니까?")) location.href="./login";
+}
+
 function resetContent() {
 	$('#createProblems #confirmSite').html("");
 	$('#selectHtml').html(selectHtml);
 	$('.sweet-modal-content .chip').remove();
 }
-
-
-
 
 
 

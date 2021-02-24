@@ -33,7 +33,7 @@ $(document).ready(function(){
 	});
 	
 	$('#skipBtn').click(function(){
-		if(confirm("초기 목표 등록을 건너뛰시겠습니까?")){
+		if(confirm("---초기 목표 등록을 건너뛰시겠습니까?")){
 			location.href="./";
 		}
 	});

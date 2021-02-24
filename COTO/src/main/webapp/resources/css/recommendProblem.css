@@ -7,7 +7,7 @@ footer.page-footer {
 }
 .custom-button {
 	background-color: white;
-	margin-top: 15%; ! important;
+	margin-top: 15% ! important;
 	border: 2px solid #666666;
 	height: 31px;
 	border-radius: 20px;
@@ -157,6 +157,44 @@ fieldset {
 .comment-icon {
 	background: url("../img/comment.png");
 }
+.cart-icon {
+	margin-top: -3px;
+	position:relative;
+	cursor:pointer;
+	background: url("../img/cart.png");
+}
+.cart-icon:hover {
+	background: url("../img/clicked-cart.png");
+}
+.cart-icon:hover .cart-tooltip {
+	display:block;
+}
+.clicked-cart {
+	margin-top: -3px;
+	position:relative;
+	cursor:pointer;
+	background: url("../img/clicked-cart.png");
+}
+.clicked-cart:hover .clicked-tooltip {
+	display:block;
+}
+.clicked-tooltip {
+	position: absolute;
+    display: none;
+    top: 31px;
+    width: 127px;
+    font-size: 10px;
+    left: -42px;
+}
+.cart-tooltip {
+	position: absolute;
+	display:none;
+	top: 31px;
+	width: 105px;
+    font-size: 10px;
+    left: -31px;
+}
+
 .diff-icon {
 /* 	background: url("../img/.png");*/
 }

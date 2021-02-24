@@ -5,7 +5,7 @@
 <jsp:include page= "./inc/logoutHeader.jsp" />
 
 <link rel="stylesheet" href="./resources/css/register.css?aa" />
-<script src="./resources/js/register.js"></script>
+<script src="./resources/js/register.js?ght"></script>
 
 
 <div id="SiteContainer" class="container">
@@ -15,11 +15,11 @@
 		<div id="table">
 			<div class="row">
 				<span class="cell td1">이름</span> <span class="cell td1"><input
-					type="text" name="userName" placeholder="이름을 입력하세요. "  value="${user.name}" readonly/></span>
+					type="text" name="userName" placeholder="이름을 입력하세요. "  value="${tempUser.name}" readonly/></span>
 			</div>
 			<div class="row">
 				<span class="cell td2">이메일</span> <span class="cell td2"><input
-					type="email" name="email" placeholder="이메일을 입력하세요. " value="${user.email}" readonly/> </span>
+					type="email" name="email" placeholder="이메일을 입력하세요. " value="${tempUser.email}" readonly/> </span>
 			</div>
 			<div class="row nicknameRow">
 				<span class="cell td3">닉네임</span><span class = "red-text">*</span> <br>

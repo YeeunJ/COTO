@@ -80,10 +80,15 @@
 	<select id="readRatioBySiteid" parameterType="hashmap" resultMap="ratioBySite">
 		SELECT siteID, COUNT(*)/#{ count } AS ratio FROM problem GROUP BY siteID
 	</select>
+  
 	<select id="readOtherUserProblemName" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
 		SELECT problem.id, userProblem.problemID, problem.name, problem.link, problem.siteID, codingSite.siteName, codingSite.siteUrl, problem.regdate
 		FROM ((problem 
 		INNER JOIN codingSite ON problem.siteID = codingSite.id)
 		INNER JOIN userProblem ON problem.id = userProblem.problemID) where userProblem.userID=#{userID};
+  </select>
+	
+	<select id="readMyLastInsertProblem" resultType="int">
+		SELECT LAST_INSERT_ID()
 	</select>
 </mapper>

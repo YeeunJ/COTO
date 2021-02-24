@@ -12,22 +12,27 @@
 			<span class="tableCell th3">이름</span> 
 			<span class="tableCell td8">
 				<input type="text" name="name" value="${user.name}"
-					placeholder="${user.name}" /> </span>
+					placeholder="${user.name}" disabled/> </span>
 		</div>
 		<div class="tableRow">
-			<span class="tableCell th3">이메일</span> <span class="tableCell td8"><input
+			<span class="tableCell th3">이메일</span> 
+			<span class="tableCell td8"><input
 				type="text" name="email" value="${user.email}"
-				placeholder="${user.email}" /> </span>
+				placeholder="${user.email}" disabled/> </span>
 		</div>
-		<div class="tableRow">
-			<span class="tableCell th3">닉네임</span> <span
-				class="tableCell td8"><input type="text" name="nickName"
-				value="${user.nickName}" placeholder="${user.nickName}" /> </span>
-		</div>
+<%-- 		<div class="tableRow">
+			<span class="tableCell th3">닉네임</span>
+			<span class="tableCell td8">
+			<input type="text" name="nickName" placeholder="닉네임을 입력하세요." 
+					value="${user.nickName}" required style="display:inline-block;"/>
+			<button id="dupCheck" class="btn-small waves-effect waves-light" 
+			style="display:inline-block;">중복확인</button>
+			</span>
+		</div> --%>		
 		<div class="tableRow">
 			<span class="tableCell th3">자기소개</span> <span
 				class="tableCell td8"><input type="text" name="intro"
-				value="${user.intro}" placeholder="${user.intro}" /> </span>
+				value="${user.intro}" placeholder="자기소개를 입력해 주세요" /> </span>
 		</div>
 	</c:forEach>
 </div>
