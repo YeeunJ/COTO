@@ -141,6 +141,57 @@ public class MyproblemsController {
 
 		return mv;
 	}
+	
+	@RequestMapping(value = "/addRecomCheck", method = RequestMethod.POST)
+	public ModelAndView createRecomCheck(HttpServletRequest httpServletRequest) {
+		int userID = -1;
+		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		UserProblemDTO upd = new UserProblemDTO();
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			upd.setProblemID(rpID);
+			upd.setUserID(userID);
+			userProblemService.createUserProblembyID(upd);
+		}
+
+		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("rp", rp);
+		mv.setViewName("ajaxContent/recomCheckContent");
+
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomProblem", method = RequestMethod.POST)
+	public ModelAndView deleteRecomProblem(HttpServletRequest httpServletRequest) {
+		int recomID = Integer.parseInt(httpServletRequest.getParameter("id"));
+
+		recommendService.deleteRecom(recomID);
+
+		List<RecommendDTO> recoms = recommendService.readRecommendList();
+		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemList();
+		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
+
+		for(int i=0;i<recomProblem.size();i++) {
+			for(int j=0;j<codingSite.size();j++) {
+				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
+					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
+			}
+		}
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("recoms", recoms);
+		mv.addObject("commentCount", commentCount);
+		mv.addObject("recomProblem", recomProblem);
+		mv.addObject("recomProblemTag", recomProblemTag);
+		mv.setViewName("ajaxContent/recommendContent");
+
+		return mv;
+	}
+
 
 	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
