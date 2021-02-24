@@ -16,5 +16,6 @@ public interface UserDAO {
 	public int readUserCountByNickname(String nickname);
 	public int updateUser(UserDTO updateUser);
 	public void updateUserAdmin(int isAdmin, int userID);
-
+	public int selectedUserTotalProblem(String nickName);
+	public String selectedUserintro(String nickName);
 }

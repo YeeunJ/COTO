@@ -21,7 +21,7 @@
 	<c:forEach items="${recomCarts}" var="recomCart" varStatus="status">
 		<c:choose>
 			<c:when test = "${recomCart.totalProbCnt == recomCart.userProbCnt && recomCart.totalProbCnt != 0}">
-				<div class="tableRow" style="background:#e592391a;" id="recoms${recomCart.id}" onclick="printAllContent(${recomCart.id})">			
+				<div class="tableRow" style="background:#e592391a;" id="recoms${recomCart.id}" onclick="printCartAllContent(${recomCart.id})">			
 			</c:when>
 			<c:otherwise>
 				<div class="tableRow" id="recoms${recomCart.id}" onclick="printCartAllContent(${recomCart.id})">			

@@ -19,6 +19,5 @@ public interface ProblemDAO {
 
 	public List<ProblemDTO> readProblem();
 	
-
-	
+	public List<ProblemDTO> readOtherUserProblemName(int userID);	
 }

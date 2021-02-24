@@ -86,4 +86,16 @@ public interface UserProblemService {
 	 * usage: MyproblemsController
 	 */
 	List<UserProblemDTO> search(int userID, String searchValue);
+	
+	/**
+	 * read other User Page
+	 * usage: UserPageController
+	 */
+	public List<UserProblemDTO> readOtherUserPage(int userID);
+	
+	/**
+	 * count other User total Solved Problem
+	 * usage: UserPageController
+	 */
+	public int countOtherUserProblem(int userID);
 }

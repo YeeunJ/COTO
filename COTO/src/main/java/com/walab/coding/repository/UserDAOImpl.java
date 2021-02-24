@@ -126,5 +126,18 @@ public class UserDAOImpl implements UserDAO{
 		userParam.put("userID", userID);
 		return sqlSession.selectOne(namespace+".readIsAdminByUserID", userParam);
 	}
+	
+	public int selectedUserTotalProblem(String nickName) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("nickName", nickName);
+	
+		return sqlSession.selectOne("user.selectedUserTotalProblem", param);
+	}
+	public String selectedUserintro(String nickName) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("nickName", nickName);
+	
+		return sqlSession.selectOne("user.selectedUserintro", param);
+	}
 }
 
