@@ -17,6 +17,7 @@
  		<span class="like-col tableCell th1">추천수</span> <span class="comment-col tableCell th1">댓글수</span>
 	</div>
 	
+	
 	<c:forEach items="${recomCarts}" var="recomCart" varStatus="status">
 		<c:choose>
 			<c:when test = "${recomCart.totalProbCnt == recomCart.userProbCnt && recomCart.totalProbCnt != 0}">
