@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import com.walab.coding.model.RecomCartDTO;
 import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.repository.RecomCartDAO;
+import com.walab.coding.repository.RecommendDAO;
 
 @Service
 public class RecomCartServiceImpl implements RecomCartService {
 	
 	@Autowired
 	RecomCartDAO recomCartDAO;
+	
+	@Autowired
+	RecommendDAO recommendDAO;
 	
 	@Override
 	public void createRecomCart(RecomCartDTO cart) {
@@ -48,6 +52,27 @@ public class RecomCartServiceImpl implements RecomCartService {
 	@Override
 	public int readCartByID(int recomID, int userID) {
 		return recomCartDAO.readCartByID(recomID, userID);
+	}
+	
+	@Override
+	public int readCartByRecommend(int recomID, int userID) {
+		//int result = 0;
+		
+		List<RecommendDTO> recomList = recommendDAO.readRecommendList();
+		List<RecommendDTO> myList = recomCartDAO.readCartRecommendList(userID);
+	
+		for(int i=0 ; i<recomList.size() ; i++) {
+			for(int j=0 ; j<myList.size() ; j++) {
+				int reID = recomList.get(i).getId();
+				int myCartID = myList.get(j).getId();
+				if( reID == myCartID) {
+					RecommendDTO recom = recomList.get(i);
+					recom.setUserCart('1');
+				}
+			}
+		}
+
+		return 0;
 	}
 
 	@Override

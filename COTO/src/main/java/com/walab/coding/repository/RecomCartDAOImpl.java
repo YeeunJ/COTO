@@ -82,5 +82,14 @@ public class RecomCartDAOImpl implements RecomCartDAO {
 		return sqlSession.selectOne(namespace+".readUserProbCnt", param);
 		
 	}
+	
+	@Override
+	public int readCartByRecommend(int recomID, int userID) {
+		int result = 0;
+
+		return result;
+	}
+
+
 
 }

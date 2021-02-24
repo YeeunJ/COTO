@@ -13,5 +13,6 @@ public interface RecomCartService {
 	 */
 	public List<RecommendDTO> readCartRecommendList(int userID);
 	int readCartByID(int recomID, int userID);
+	int readCartByRecommend(int recomID, int userID);
 	void deleteRecomCart(RecomCartDTO cart);
 }

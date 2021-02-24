@@ -9,11 +9,15 @@
 		<span class="index-col tableCell th1">No.</span> <span class="tableCell th4">제목</span>
 		<span class="tableCell th2">등록자</span> <span class="tableCell th1">난이도</span>
 		<span class="like-col tableCell th1">추천수</span> <span class="comment-col tableCell th1">댓글수</span>
-<!-- 		<span class="like-col tableCell th1">담기</span>  -->
+		<c:if test = "${!empty userID}">
+			<span class="like-col tableCell th1">담기</span>
+		</c:if>
+		
 		
 	</div>
 	
 	<c:forEach items="${recoms}" var="recoms" varStatus="status">
+	
 		<div class="tableRow" id="recoms${recoms.id}" onclick="printAllContent(${recoms.id})">
 			<span class="index-col tableCell td1 alignCenter">${status.count}</span> 
 			<span class="tableCell td4 alignCenter readTitle">${recoms.title}</span> 
@@ -21,23 +25,34 @@
 			<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
 			<span class="like-col tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
 			<span class="comment-col tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
-			<c:choose>
-				<c:when test = "${recoms.id} == ${recomCarts.recomID}">
-								</c:when>
-			</c:choose>			
-
-<%-- 			<span class="tableCell dt1 alignCenter">				
-			<c:choose>
-					<c:when test = "${cartYN > 0}">
-						<%! int cart = 0;%>
-						<%= cart %>						
-						<span class="clicked-cart icon" onclick="deleteRecomCart()"><span class="clicked-tooltip">장바구니에서 지울 수 있어요!</span></span>		
+			<c:if test = "${!empty userID}">
+			
+				<c:forEach items="${recomCarts}" var="recomCarts" varStatus="status">		
+					<c:set value="${recoms.id}" var="id"/>
+					<c:set value="${recomCarts.id}" var="recomID"/>
+					<c:choose>
+						<c:when test = "${id == recomID}">
+							<c:set value="1" var="re"/>
+						</c:when>
+						<c:otherwise>
+							<c:set value="0" var="re"/>
+						</c:otherwise>				
+					</c:choose>	
+				<c:choose>
+					<c:when test="${re eq '1'}">
+						<span class="tableCell td1 alignCenter">
+						<span class="clicked-cart icon" onclick="deleteRecomCart()"><span class="clicked-tooltip">장바구니에서 지울 수 있어요!</span></span>
+						</span>
 					</c:when>
 					<c:otherwise>
+						<span class="tableCell td1 alignCenter">
 						<span class="cart-icon icon" onclick="addRecomCart()"><span class="cart-tooltip">장바구니에 담아보세요!</span></span>
-					</c:otherwise>
-			</c:choose></span> --%>
->>>>>>> branch 'recomCart' of https://github.com/YeeunJ/COTO.git
+						</span>
+					</c:otherwise>	
+				</c:choose>					
+				</c:forEach>
+
+			</c:if>		
 		</div>
 	</c:forEach>
 </div>

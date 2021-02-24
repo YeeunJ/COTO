@@ -14,6 +14,7 @@ public class RecommendDTO {
 	private int recomCommentCount;
 	private int totalProbCnt;
 	private int userProbCnt;
+	private int userCart;
 	private Date deleteDate;
 	private Date regDate;
 	
@@ -76,6 +77,12 @@ public class RecommendDTO {
 	}
 	public void setUserProbCnt(int userProbCnt) {
 		this.userProbCnt = userProbCnt;
+	}
+	public int getUserCart() {
+		return userCart;
+	}
+	public void setUserCart(int userCart) {
+		this.userCart = userCart;
 	}
 	public Date getDeleteDate() {
 		return deleteDate;
