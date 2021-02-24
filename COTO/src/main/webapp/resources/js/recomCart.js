@@ -149,7 +149,7 @@ function addRecomCount(){
 
 /* read */
 //문제 list에서 클릭 시, detail modal 불러오기
-function printAllContent(recomId){
+function printCartAllContent(recomId){
 	selectHtml = $('#selectHtml').html();
 	
 	readDetailModalContent(recomId);

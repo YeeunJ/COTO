@@ -23,7 +23,7 @@
 				<div class="tableRow" style="background:#e592391a;" id="recoms${recomCart.id}" onclick="printAllContent(${recomCart.id})">			
 			</c:when>
 			<c:otherwise>
-				<div class="tableRow" id="recoms${recomCart.id}" onclick="printAllContent(${recomCart.id})">			
+				<div class="tableRow" id="recoms${recomCart.id}" onclick="printCartAllContent(${recomCart.id})">			
 			</c:otherwise>
 		</c:choose>
 			<span class="index-col tableCell td1 alignCenter">${status.count}</span> 
