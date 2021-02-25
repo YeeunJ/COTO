@@ -81,6 +81,8 @@ public class HomeController {
 		mv.addObject("tags", tagList);
 		mv.addObject("recoms", recentRecomList);
 		mv.addObject("CodingSite", codingSiteList);
+		
+		System.out.println(recentProblemList);
 
 		mv.setViewName("home");
 	

@@ -2,6 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!-- container -->
@@ -47,7 +48,16 @@
 							<ul class="fs-18 textList">
 							<c:forEach items="${recentProblems}" var="recentProblem" varStatus="status">
 							<li class="ranking" style = "font-size: 14px;">
-							<span class="bold" style = "font-size: 14px;">${status.count}.</span>${recentProblem.name}<br>[${recentProblem.siteName}]</li>
+							<span class="bold" style = "font-size: 14px;">${status.count}.</span>
+							<c:set var="link" value="${recentProblem.link}"/>							
+							<c:choose>				
+								<c:when test="${fn:substring(link,0,4) eq 'http'}">
+									<a href="${recentProblem.link}" target="_blank">${recentProblem.name}</a><br>[${recentProblem.siteName}]
+								</c:when>
+								<c:otherwise>
+									${recentProblem.name}<br>[${recentProblem.siteName}]
+								</c:otherwise>
+							</c:choose></li>
 							</c:forEach>
 							</ul>
 						</div>

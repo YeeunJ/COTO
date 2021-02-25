@@ -60,4 +60,10 @@ public class ProblemDTO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
+	
+	@Override
+	public String toString() {
+		return "ProblemDTO [id=" + id + ", siteName=" + siteName + ", siteID=" + siteID + ", siteUrl=" + siteUrl + ", name=" + name
+				+ ", link=" + link + ", regDate=" + regdate + "]";
+	}
 }
