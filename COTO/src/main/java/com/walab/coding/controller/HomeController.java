@@ -82,8 +82,6 @@ public class HomeController {
 		mv.addObject("recoms", recentRecomList);
 		mv.addObject("CodingSite", codingSiteList);
 		
-		System.out.println(recentProblemList);
-
 		mv.setViewName("home");
 	
 		return mv;
