@@ -253,7 +253,7 @@ html, body { box-sizing: border-box;  }
     	font-size: 15px;
 	}
 }
-@media screen and (max-width: 992px){
+@media screen and (max-width: 900px){
 	.celeb {
 		width: 60% !important;
 	}

@@ -90,7 +90,16 @@
 						</h5>
 						<ul class="fs-18 textList">
 						<c:forEach items="${problems}" var="problem" varStatus="status">
-						<li class="ranking"><span class="bold">${status.count}.</span>${problem.problem} [${problem.site}]</li>
+						<li class="ranking"><span class="bold">${status.count}.</span>
+						<c:set var="link" value="${problem.link}"/>							
+						<c:choose>				
+							<c:when test="${fn:substring(link,0,4) eq 'http'}">
+								<a href="${problem.link}" target="_blank">${problem.problem}</a> [${problem.site}]
+							</c:when>
+							<c:otherwise>
+								${problem.problem} [${problem.site}]
+							</c:otherwise>
+						</c:choose></li>
 						</c:forEach>
 						</ul>
 					</div>
