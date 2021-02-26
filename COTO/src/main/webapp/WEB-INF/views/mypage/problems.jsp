@@ -10,7 +10,6 @@
 
 <link href="../resources/css/problems.css" rel="stylesheet">
 <link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
-<link href="../resources/css/recommendProblem.css?asd" rel="stylesheet">
 <script src="../resources/js/createModal.js"></script>
 <script src="../resources/js/problems.js"></script>
 <script
