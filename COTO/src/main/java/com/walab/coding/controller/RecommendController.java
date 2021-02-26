@@ -571,7 +571,6 @@ public class RecommendController {
 		}
 
 		List<RecommendDTO> recoms = recommendService.readRecomByPage(searchValue, orderValue, s_point, list);
-		System.out.println(recoms);
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -581,10 +580,7 @@ public class RecommendController {
 			
 			mv.addObject("userID", userID);
 			List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
-			mv.addObject("recomCarts", recomCart);
-						
-//			int recomID = recoms.get(0).getId();
-//			int cartID = recomCart.get(0).getRecomID();
+			mv.addObject("recomCarts", recomCart);						
 
 		}
 				

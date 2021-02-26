@@ -2,6 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  
 <!-- container_second -->
 <div id="container_second">
@@ -19,7 +20,16 @@
 							</h5>
 							<ul class="fs-18 textList">
 							<c:forEach items="${problems}" var="problem" varStatus="status">
-							<li class="ranking"><span class="bold">${status.count}.</span>${problem.problem} [${problem.site}]</li>
+							<li class="ranking"><span class="bold">${status.count}.</span>
+							<c:set var="link" value="${problem.link}"/>							
+							<c:choose>				
+								<c:when test="${fn:substring(link,0,4) eq 'http'}">
+									<a href="${problem.link}" target="_blank">${problem.problem}</a> [${problem.site}]
+								</c:when>
+								<c:otherwise>
+									${problem.problem} [${problem.site}]
+								</c:otherwise>
+							</c:choose></li>
 							</c:forEach>
 							</ul>
 						</div>
@@ -30,7 +40,9 @@
 							<h5 class="small-title">오늘의 랭킹</h5>
 							<ul class="fs-18 textList">
 							<c:forEach items="${ranksToday}" var="rankToday" varStatus="status">
-							<li class="ranking"><span class="bold">${status.count}.</span> ${rankToday.nickName} [${rankToday.cnt}문제]</li>
+							<li class="ranking f_ranking" onclick="moveUserPage('${rankToday.nickName}')" style="cursor: pointer">
+								<span class="bold">${status.count}.</span> ${rankToday.nickName} [${rankToday.cnt}문제]
+							</li>
 							</c:forEach>
 							</ul>
 						</div>
@@ -58,7 +70,17 @@
 							</h5>
 							<ul class="fs-18 textList">
 							<c:forEach items="${recentProblems}" var="recentProblem" varStatus="status">
-							<li class="ranking" style = "font-size: 14px;"><span class="bold" style = "font-size: 14px;">${status.count}.</span>${recentProblem.name}<br>[${recentProblem.siteName}]</li>
+							<li class="ranking" style = "font-size: 14px;">
+							<span class="bold" style = "font-size: 14px;">${status.count}.</span>
+							<c:set var="link" value="${recentProblem.link}"/>							
+							<c:choose>				
+								<c:when test="${fn:substring(link,0,4) eq 'http'}">
+									<a href="${recentProblem.link}" target="_blank">${recentProblem.name}</a><br>[${recentProblem.siteName}]
+								</c:when>
+								<c:otherwise>
+									${recentProblem.name}<br>[${recentProblem.siteName}]
+								</c:otherwise>
+							</c:choose></li>
 							</c:forEach>
 							</ul>
 						</div>
@@ -71,7 +93,9 @@
 							<h5 class="small-title">누적 랭킹</h5>
 							<ul class="fs-18 textList">
 							<c:forEach items="${ranks}" var="rank" varStatus="status">
-							<li class="ranking"><span class="bold">${status.count}.</span> ${rank.nickName} [${rank.cnt}문제]</li>
+							<li class="ranking f_ranking" onclick="moveUserPage('${rank.nickName}')" style="cursor: pointer">
+								<span class="bold">${status.count}.</span> ${rank.nickName} [${rank.cnt}문제]
+							</li>
 							</c:forEach>
 							</ul>
 						</div>
