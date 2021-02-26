@@ -65,7 +65,7 @@
 	</select>
 	
 	<select id="readRecentProblem" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT problem.name, problem.siteID, problem.link, codingSite.siteName
+		SELECT problem.name, problem.siteID, problem.link, codingSite.siteName, problem.regdate
 		FROM problem
 		INNER JOIN codingSite ON problem.siteID = codingSite.id
 		ORDER BY problem.regdate DESC

@@ -393,5 +393,9 @@ html, body { box-sizing: border-box;  }
 		font-size: 12px !important;
 	}
 }
-
+.recentPregdate{
+	font-size:x-small;
+	padding:0px;
+	margin:0px;
+}
 
