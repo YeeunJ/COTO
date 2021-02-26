@@ -86,7 +86,7 @@
 		FROM ((problem 
 		INNER JOIN codingSite ON problem.siteID = codingSite.id)
 		INNER JOIN userProblem ON problem.id = userProblem.problemID) where userProblem.userID=#{userID};
-  </select>
+    </select>
 	
 	<select id="readMyLastInsertProblem" resultType="int">
 		SELECT LAST_INSERT_ID()

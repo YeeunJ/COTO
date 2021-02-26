@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -309,23 +310,32 @@ public class MyproblemsController {
 	/**
 	 * Delete user solvedProblem List
 	 */
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public ModelAndView deleteProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
+//	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+//	public ModelAndView deleteProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
+//
+//		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+//		int userProblemID = Integer.parseInt(httpServletRequest.getParameter("id"));
+//
+//		if (userProblemService.delete(userProblemID) > 0) {
+//			System.out.println("success");
+//		} else {
+//			System.out.println("fail");
+//		}
+//
+//		List<UserProblemDTO> problems = userProblemService.read(userID);
+//		mv.addObject("problems", problems);
+//		mv.setViewName("ajaxContent/problemsContent");
+//
+//		return mv;
+//	}
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public String deletePostOK(@PathVariable("id") int id, HttpServletRequest request) {
 
-		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
-		int userProblemID = Integer.parseInt(httpServletRequest.getParameter("id"));
+		userProblemService.delete(id);
 
-		if (userProblemService.delete(userProblemID) > 0) {
-			System.out.println("success");
-		} else {
-			System.out.println("fail");
-		}
-
-		List<UserProblemDTO> problems = userProblemService.read(userID);
-		mv.addObject("problems", problems);
-		mv.setViewName("ajaxContent/problemsContent");
-
-		return mv;
+		String referer = request.getHeader("Referer");
+		return "redirect:" + referer;
 	}
 
 	/**
