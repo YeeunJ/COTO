@@ -21,7 +21,7 @@
 	</select>
 	
 	<select id="searchProblemOrderByCount" resultType="com.walab.coding.model.UserProblemDTO">
-		select cs.siteName as site, problem.name as problem 
+		select cs.siteName as site, problem.name as problem, problem.link as link
 		from (SELECT problemID, count(*) FROM userProblem group by problemID order by count(*) desc limit 4) as pID
 		join problem on pID.problemID=problem.id
 		join codingSite as cs on problem.siteID = cs.id;

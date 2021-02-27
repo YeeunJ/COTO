@@ -81,7 +81,7 @@ public class HomeController {
 		mv.addObject("tags", tagList);
 		mv.addObject("recoms", recentRecomList);
 		mv.addObject("CodingSite", codingSiteList);
-
+		
 		mv.setViewName("home");
 	
 		return mv;
