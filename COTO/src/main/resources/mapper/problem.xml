@@ -91,4 +91,20 @@
 	<select id="readMyLastInsertProblem" resultType="int">
 		SELECT LAST_INSERT_ID()
 	</select>
+	
+	<select id="totalProblemCnt" resultType="int">
+		SELECT COUNT(*) FROM problem
+	</select>
+	
+	<resultMap type="HashMap" id="countBySite">
+		<id column="siteID" property="siteID"/>
+		<id column="problemCnt" property="problemCnt"/>
+	</resultMap>
+	
+	<select id="countBySite" parameterType="hashmap" resultMap="countBySite">
+		SELECT siteID, COUNT(siteID) AS problemCnt FROM problem AS P, codingSite AS C
+		WHERE P.siteID = C.id
+		GROUP BY siteID
+	</select>
+	
 </mapper>

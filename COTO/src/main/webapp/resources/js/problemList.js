@@ -38,9 +38,11 @@ function DrawChart1() {
 					window.chartColors.purple,
 					window.chartColors.grey,
 					];
+	
+	//newLabels.push("전체 문제 수: " + totalProbCnt);
 	for (var i=0 ; i< ratioBySite.length ; i++){
-		newData.push(ratioBySite[i].ratio);
-		newLabels.push(ratioBySite[i].siteName);
+		newData.push(ratioBySite[i].ratio*100);
+		newLabels.push(ratioBySite[i].siteName+" ("+ratioBySite[i].count+")");
 		newColor.push(chartColors[i]);
 	}
 	
@@ -54,14 +56,22 @@ function DrawChart1() {
 			}],
 			labels: newLabels
 		},
+		layout: {
+            padding: {
+                left: 0,
+                right: 30,
+                top: 0,
+                bottom: 0
+            }
+        },
 		options: {
 			responsive: false,
 			legend: {
 				display:true,
-				position:'bottom',
+				position:'right',
 				labels: {
-	                fontSize: 8,
-	                padding:5
+	                fontSize: 10,
+	                padding:6
 	                
 	            }
 			},

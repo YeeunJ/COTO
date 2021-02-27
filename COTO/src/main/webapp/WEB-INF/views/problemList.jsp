@@ -22,6 +22,11 @@
 		</div>
 	</div>
 	
+	<div class="p-wrapper">
+		<p><span class="countTitle">전체 문제 수</span> <span>${totalProblemCnt}</span></p>
+		<p><span class="countTitle">오늘 문제를 푼 사용자</span> <span>${todayUserCnt}</span></p>
+	</div>
+	
 	<div id="chart-wrapper">
 		<div id="canvas-holder" class="card shadow card-body chart-div">
 			<canvas id="chartBySite" class="chart-canvas" height="185px"></canvas>
@@ -72,12 +77,13 @@
 
 var ratioBySite = new Array();
 var averageWeek = new Array();
-
+var totalProbCnt = ${totalProblemCnt};
 <c:forEach items="${ratio}" var="r">
 	var list = new Object();
 	list.siteName = "${r.siteName}";
 	list.siteID = ${r.siteID};
 	list.ratio = ${r.ratio};
+	list.count = ${r.count};
 	
 	ratioBySite.push(list);
 </c:forEach>

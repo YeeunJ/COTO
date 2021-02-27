@@ -219,7 +219,6 @@ html, body { box-sizing: border-box;  }
 	background-size: 100% 100%;
 	margin-top: 2% !important;
 	padding: 1%;
-	border: 3px solid rgb(255, 215, 0);
 }
 .congraturation {
 	font-weight: 900;

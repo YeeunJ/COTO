@@ -82,5 +82,15 @@ public class ProblemDAOImpl implements ProblemDAO {
 		
 		return sqlSession.selectList(namespace+".readOtherUserProblemName", param);
 	}
+
+	@Override
+	public int readTotalProblemCnt() {
+		return sqlSession.selectOne(namespace+".totalProblemCnt");
+	}
+
+	@Override
+	public List<Map<String, Object>> readCountBySite() {
+		return sqlSession.selectList(namespace+".countBySite");
+	}
 	
 }
