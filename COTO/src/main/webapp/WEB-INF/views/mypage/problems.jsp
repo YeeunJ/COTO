@@ -10,6 +10,8 @@
 
 <link href="../resources/css/problems.css" rel="stylesheet">
 <link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
+<link rel="stylesheet" href="../resources/css/problemsCart.css?asd" />
+
 <script src="../resources/js/createModal.js"></script>
 <script src="../resources/js/problems.js"></script>
 <script
