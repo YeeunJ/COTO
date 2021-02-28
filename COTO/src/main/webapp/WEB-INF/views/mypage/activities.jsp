@@ -73,7 +73,6 @@ $(document).on("click", ".deleteBtn", function(){
 		
 	</div>
 	
-
 	<div id="readGoalList" hidden>
 		<%@ include file="../ajaxContent/activitiesContent.jsp"%>
 	</div>

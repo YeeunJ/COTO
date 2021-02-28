@@ -13,7 +13,7 @@ $(document).ready(function() {
 	
 	var posts = new Array();
 	
-	<c:forEach items="${posts}" var="u">
+	<c:forEach items="${CodingSite}" var="u">
 		
 		var list = new Object();
 		list.siteName = "${u.getSiteName()}";
@@ -49,15 +49,12 @@ $(document).ready(function() {
 		$("input#siteName").focus();
 	});
 	
-  	
-  	
   	$('#addcancel').click(function() {
   		$('#siteName').val("");
   		$('#siteUrl').val("");
   		$('#new').hide();
   	});
   
-	
 	$('#editbtn').click(function() {
 		if ($(".edit").css("display") == "none") {
 			$('.edit').show();
@@ -70,7 +67,6 @@ $(document).ready(function() {
 			$(this).html('편집완료');
 		}
 	});
-	
 	
 	$(document).on("click", ".editSite", function(){
 		var form = document.form1;
@@ -86,14 +82,12 @@ $(document).ready(function() {
 		$(editCell[3]).html('<button id="submitbtn" class="submitbtn waves-effect waves-light btn-small green" type="submit">수정</button>');
 	});
 	
-	
 	$(document).on("click", ".deleteBtn", function(){
 		var id = $(this).val();
 		if (confirm("정말로 삭제하겠습니까?")){
 			location.href = './manageCodingsite/deleteok/' + id;
 		}
 	});
-	
 	
 	$(document).on("click", "#cancelbtn", function() {
 		var tableRow = $(this).closest('.tableRow');
@@ -107,13 +101,8 @@ $(document).ready(function() {
 		$(cancelCell[1]).html('<a href="'+posts[index-1].siteUrl+'">'+posts[index-1].siteUrl+'</a>');
 		$(cancelCell[2]).html('<button type="button" id="change" class="editSite edit waves-effect waves-light btn-small green">수정</button>');
 		$(cancelCell[3]).html('<button value="'+posts[index-1].id+'" class="deleteBtn edit waves-effect waves-light btn-small green" type="button">삭제</button>');
-	
-
 	});
-	
 })
-
-	
 </script>
 
 
@@ -151,8 +140,4 @@ $(document).ready(function() {
 		</div>
 	</form>
 </div>
-
-
-
-
 <%@ include file="./inc/footer.jsp"%>

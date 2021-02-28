@@ -279,56 +279,25 @@ public class MyproblemsController {
 
 		return mv;
 	}
-	
+		
 	/**
 	 * Update user solvedProblem List
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ModelAndView updateProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
-
-		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
-
+	public String updateProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
 		UserProblemDTO upd = new UserProblemDTO();
-		upd.setDifficulty(httpServletRequest.getParameter("difficulty"));
 		upd.setMemo(httpServletRequest.getParameter("memo"));
+		upd.setDifficulty(httpServletRequest.getParameter("difficulty"));
 		upd.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
 
-		if (userProblemService.update(upd) > 0) {
-			System.out.println("success");
-		} else {
-			System.out.println("fail");
-		}
-
-		List<UserProblemDTO> problems = userProblemService.read(userID);
-		ModelAndView mvNew = new ModelAndView();
-		mvNew.addObject("problems", problems);
-		mvNew.setViewName("ajaxContent/problemsContent");
-
-		return mvNew;
+		userProblemService.update(upd);
+		
+		return "redirect:../problems";
 	}
-
+	
 	/**
 	 * Delete user solvedProblem List
 	 */
-//	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-//	public ModelAndView deleteProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
-//
-//		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
-//		int userProblemID = Integer.parseInt(httpServletRequest.getParameter("id"));
-//
-//		if (userProblemService.delete(userProblemID) > 0) {
-//			System.out.println("success");
-//		} else {
-//			System.out.println("fail");
-//		}
-//
-//		List<UserProblemDTO> problems = userProblemService.read(userID);
-//		mv.addObject("problems", problems);
-//		mv.setViewName("ajaxContent/problemsContent");
-//
-//		return mv;
-//	}
-	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deletePostOK(@PathVariable("id") int id, HttpServletRequest request) {
 
@@ -337,7 +306,7 @@ public class MyproblemsController {
 		String referer = request.getHeader("Referer");
 		return "redirect:" + referer;
 	}
-
+	
 	/**
 	 * Search user solvedProblem List
 	 */
