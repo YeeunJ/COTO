@@ -7,7 +7,7 @@ footer.page-footer {
 }
 .custom-button {
 	background-color: white;
-	margin-top: 15% ! important;
+	/*margin-top: 15% ! important;*/
 	border: 2px solid #666666;
 	height: 31px;
 	border-radius: 20px;

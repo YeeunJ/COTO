@@ -258,8 +258,9 @@ public class RecommendController {
 	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
 		
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-
+		List<RecomTagDTO> tags = recomTagService.readProblemTag();
 		mv.addObject("codingSite", codingSite);
+		mv.addObject("tags", tags);
 		mv.setViewName("recommendProblem");
 
 		return mv;
@@ -547,7 +548,8 @@ public class RecommendController {
 	public ModelAndView searchProblem(HttpServletRequest httpServletRequest,
 			@RequestParam(value="page", defaultValue="1") int page,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
-			@RequestParam(value="orderValue", defaultValue="") String orderValue) {
+			@RequestParam(value="orderValue", defaultValue="") String orderValue,
+			@RequestParam(value="orderValue", defaultValue="") ArrayList<String> tagValue) {
 		
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 
