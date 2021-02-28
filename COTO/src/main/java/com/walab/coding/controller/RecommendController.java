@@ -573,7 +573,6 @@ public class RecommendController {
 		}
 
 		List<RecommendDTO> recoms = recommendService.readRecomByPage(searchValue, orderValue, s_point, list);
-		System.out.println(recoms);
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -582,11 +581,9 @@ public class RecommendController {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 			
 			mv.addObject("userID", userID);
-			List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
-			mv.addObject("recomCarts", recomCart);
-						
-//			int recomID = recoms.get(0).getId();
-//			int cartID = recomCart.get(0).getRecomID();
+
+			List<RecommendDTO> recomCart = recomCartService.readCartByRecommend(userID);
+			mv.addObject("recoms", recomCart);
 
 		}
 				
@@ -594,8 +591,10 @@ public class RecommendController {
 		mv.addObject("page", page);
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
-
-		mv.addObject("recoms", recoms);
+		
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") == null) {
+			mv.addObject("recoms", recoms);
+		}
 		mv.addObject("codingSite", codingSite);
 
 		mv.setViewName("ajaxContent/recommendContent");

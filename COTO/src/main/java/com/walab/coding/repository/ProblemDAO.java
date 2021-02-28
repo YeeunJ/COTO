@@ -19,5 +19,9 @@ public interface ProblemDAO {
 
 	public List<ProblemDTO> readProblem();
 	
-	public List<ProblemDTO> readOtherUserProblemName(int userID);	
+	public List<ProblemDTO> readOtherUserProblemName(int userID);
+
+	public int readTotalProblemCnt();
+
+	public List<Map<String, Object>> readCountBySite();	
 }

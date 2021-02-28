@@ -24,35 +24,20 @@
 			<span class="tableCell td2 alignCenter">${recoms.nickname}</span> 
 			<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
 			<span class="like-col tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
-			<span class="comment-col tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
-			<c:if test = "${!empty userID}">
-			
-				<c:forEach items="${recomCarts}" var="recomCarts" varStatus="status">		
-					<c:set value="${recoms.id}" var="id"/>
-					<c:set value="${recomCarts.id}" var="recomID"/>
-					<c:choose>
-						<c:when test = "${id == recomID}">
-							<c:set value="1" var="re"/>
-						</c:when>
-						<c:otherwise>
-							<c:set value="0" var="re"/>
-						</c:otherwise>				
-					</c:choose>	
-				<c:choose>
-					<c:when test="${re eq '1'}">
-						<span class="tableCell td1 alignCenter">
-						<span class="clicked-cart icon" onclick="deleteRecomCart()"><span class="clicked-tooltip">장바구니에서 지울 수 있어요!</span></span>
-						</span>
-					</c:when>
-					<c:otherwise>
-						<span class="tableCell td1 alignCenter">
-						<span class="cart-icon icon" onclick="addRecomCart()"><span class="cart-tooltip">장바구니에 담아보세요!</span></span>
-						</span>
-					</c:otherwise>	
-				</c:choose>					
-				</c:forEach>
 
-			</c:if>		
+			<span class="comment-col tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
+ 			<c:if test = "${!empty userID}">
+ 					<span class="tableCell td1 alignCenter like-col">	
+						<c:choose>
+							<c:when test = "${recoms.userCart == '1'}">
+								<span class="clicked-cart icon" onclick="deleteRecomCart()"><span class="clicked-tooltip">장바구니에서 지울 수 있어요!</span></span>
+							</c:when>
+							<c:otherwise>							
+								<span class="cart-icon icon" onclick="addRecomCart()"><span class="cart-tooltip">장바구니에 담아보세요!</span></span>
+							</c:otherwise>	
+						</c:choose>		
+					</span>										
+			</c:if>	 				
 		</div>
 	</c:forEach>
 </div>

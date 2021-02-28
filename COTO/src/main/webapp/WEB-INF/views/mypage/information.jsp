@@ -34,22 +34,23 @@
 		</div>
 
 		<div id=infoEdit style="display: none">
-			<form:form id="updateInfo" method="post"
-				action="information/updateUser">
+			<%-- <form:form id="updateInfo" method="post"
+				action="information/updateUser"> --%>
 				<br><br>
 				<div id="headerButton">
 					<div class = "left">
 						<h5 class="orange-text" style = "margin: 0;">내 정보 수정</h5>
 					</div>
-					<div class="right">
-						<input id="submit" type="submit" value="수정하기 " class="mybtn" /> <input
-							id="add" type="button" value="취소하기 "
-							onclick="showInfo(); hideInfoEdit()" class="mybtn" />
+					<div class="right" id = "button">
+						<button id="cancel" class="mybtn" onclick="showInfo(); hideInfoEdit()" >취소하기</button>
 					</div>
+					<div class="right" id = "button">
+						<button id="userInfoBtn" class="mybtn">수정하기</button>
+					</div>					
 				</div>
 				<br><br>
 				<%@ include file="../ajaxContent/informationUserUpdateContent.jsp"%>
-			</form:form>
+			<%--  </form:form> --%>
 		</div>
 
 		<div id="goal">

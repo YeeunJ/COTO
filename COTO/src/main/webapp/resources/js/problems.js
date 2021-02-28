@@ -295,7 +295,7 @@ function updateAjax(){
 	});
 }
 
-function deleteAjax (){
+/*function deleteAjax (){
 	$.ajax({
 		url: "./problems/delete",
 		type: "POST",
@@ -310,7 +310,7 @@ function deleteAjax (){
 			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
 	});
-}
+}*/
 
 function deleteThis(id){
 	var allid = "#"+id;
@@ -359,4 +359,23 @@ function resetContent() {
 	$('#createProblem #confirmSite').html("");
 	$('#selectHtml').html(selectHtml);
 	
-}
+};
+
+function baekjoon(){
+	var siteSelect = document.getElementById("siteName");
+	var selectValue = siteSelect.options[siteSelect.selectedIndex].value;
+	var inputValue = $(".sweet-modal-content #problems").val();
+	var value = parseFloat(inputValue.replace(/,/gi, " "));
+
+	if(selectValue=='1'){
+		if(isNaN(value) == true){ 
+			alert("백준 문제를 등록할때는 숫자만 입력할 수 있습니다.");
+			
+		}else{
+			insertProblems();
+		}
+		
+	}else{
+		insertProblems();
+	}
+};

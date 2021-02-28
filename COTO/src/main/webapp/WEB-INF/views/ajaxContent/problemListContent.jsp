@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="table center" id="problemContent">
 	<div class="tableRow">
@@ -15,16 +15,17 @@
 	
 	<c:forEach items="${problems}" var="problem" varStatus="status">
 	<div class="tableRow" id="problem${problem.id}">
-		<span class="tableCell td1 mobile">${status.count}</span> 
+		<span class="tableCell td1 mobile">${(page-1)*10+status.count}</span> 
 		<span class="tableCell td3 probname"> 
+				<c:set var="link" value="${problem.link}"/>							
 				<c:choose>
-					<c:when test = "${!empty problem.link}">
+					<c:when test="${fn:substring(link,0,4) eq 'http'}">
 						<a href="${problem.link}">${problem.name}</a>
 					</c:when>
 					<c:otherwise>
 						${problem.name}
 					</c:otherwise>
-				</c:choose>		
+				</c:choose>	
 		</span> 
 		<span class="tableCell td1"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
 		<span class="tableCell td1">${problem.count}</span> 

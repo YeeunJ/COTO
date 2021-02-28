@@ -12,7 +12,7 @@
 	</select>
 	
 	<select id="readProblemByID" resultType="com.walab.coding.model.RecomProblemDTO" parameterType="hashmap">
-		SELECT rp.id as id, rp.problemID as problemID, rp.recomID as recomID, p.name as name, p.siteID as siteID, up.regdate as date
+		SELECT rp.id as id, rp.problemID as problemID, rp.recomID as recomID, p.name as name, p.siteID as siteID, up.regdate as date, p.link as link
 		FROM recomProblem as rp left join problem as p on rp.problemID = p.id
 		left join userProblem as up on up.problemID = p.id
 		WHERE rp.recomID = ${recomID};
