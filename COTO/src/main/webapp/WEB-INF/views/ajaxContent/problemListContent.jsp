@@ -15,7 +15,7 @@
 	
 	<c:forEach items="${problems}" var="problem" varStatus="status">
 	<div class="tableRow" id="problem${problem.id}">
-		<span class="tableCell td1 mobile">${status.count}</span> 
+		<span class="tableCell td1 mobile">${(page-1)*10+status.count}</span> 
 		<span class="tableCell td3 probname"> 
 				<c:set var="link" value="${problem.link}"/>							
 				<c:choose>
@@ -25,7 +25,7 @@
 					<c:otherwise>
 						${problem.name}
 					</c:otherwise>
-				</c:choose>		
+				</c:choose>	
 		</span> 
 		<span class="tableCell td1"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
 		<span class="tableCell td1">${problem.count}</span> 

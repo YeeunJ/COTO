@@ -101,6 +101,15 @@
 		GROUP BY date
  	</select>
  	
+	
+ 	<select id = "totalUserToday" resultType="int">
+		SELECT COUNT(*)
+		FROM (SELECT * FROM userProblem
+			WHERE DATE_FORMAT(regdate, '%Y/%m/%d') = DATE_FORMAT(NOW(), '%Y/%m/%d') 
+		    GROUP BY userID) problem
+ 	</select>
+ 	
+ 	
 	<select id="readProblemByPage" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
 		select subquery.id, subquery.problemID, subquery.difficulty as difficulty, subquery.memo as memo, subquery.regdate as regdate,
 	   		   p.name as problem, p.link as link, p.siteID,

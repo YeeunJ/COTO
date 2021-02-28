@@ -65,6 +65,10 @@ public interface UserProblemService {
 	// ProblemlistController
 	public List<Map<String, Object>> readAvgForaWeek();
 
+	
+	// ProblemlistController
+	public int readUserCountToday();
+
 	/**
 	 * update user solvedProblem List
 	 * usage: MyproblemsController

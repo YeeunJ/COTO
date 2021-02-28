@@ -44,7 +44,12 @@ public class ProblemlistController {
 		List<Map<String,Object>> ratioBySite = problemService.readRatioBySiteid();
 		List<Map<String,Object>> ratio = problemService.makeRatioBySiteid(ratioBySite, codingSite);
 		List<Map<String,Object>> average = userProblemService.readAvgForaWeek();
-	
+		
+		int totalProblemCnt = problemService.readTotalProblemCnt();
+		int todayUserCnt = userProblemService.readUserCountToday();
+		
+		mv.addObject("todayUserCnt", todayUserCnt);
+		mv.addObject("totalProblemCnt", totalProblemCnt);
 		mv.addObject("codingSite", codingSite);
 		mv.addObject("ratio", ratio);
 		mv.addObject("averageForWeek", average);

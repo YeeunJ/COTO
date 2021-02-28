@@ -46,6 +46,9 @@ public interface UserProblemDAO {
 	// ProblemlistController
 	public List<Map<String,Object>> readAvgForaWeek();
 	
+	// ProblemlistController
+	public int readUserCountToday();
+		
 	// MyproblemsController
 	public List<UserProblemDTO> readProblemByPage(int userID, int s_point, int list);
 	

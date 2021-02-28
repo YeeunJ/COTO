@@ -194,4 +194,9 @@ public class UserProblemDAOImpl implements UserProblemDAO{
 		
 		return sqlSession.selectOne(namespace+".countOtherUserProblem", param);
 	}
+
+	@Override
+	public int readUserCountToday() {
+		return sqlSession.selectOne(namespace+".totalUserToday");
+	}
 }

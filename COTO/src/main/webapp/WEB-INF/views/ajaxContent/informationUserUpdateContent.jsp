@@ -20,11 +20,12 @@
 			<input type="text" name="email" value="${user.email}" disabled />
 			</span>
 		</div>				
-  		<div class="tableRow">
-			<span class="tableCell th3">닉네임</span>
-			<span class="tableCell td8">
-			<input type="text" name="nickName" placeholder="닉네임을 입력하세요." 
+  		<div class="tableRow" style = "position: relative;">
+			<span class="tableCell th3" style = "position: relative;">닉네임</span>
+			<span class="tableCell td8" style = "position: relative;">
+			<input type="text" name="nickName" placeholder="닉네임을 입력하세요." style="display:inline-block; position: relative;"
 					value="${user.nickName}" required />
+			<button id="dupCheck" type = "button" class="btn-small waves-effect waves-light">중복확인</button>					
 			</span>
 		</div>	 		
 		<div class="tableRow">

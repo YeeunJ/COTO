@@ -193,4 +193,9 @@ public class UserProblemServiceImpl implements UserProblemService{
 	public int countOtherUserProblem(int userID) {
 		return userProblemDAO.countOtherUserProblem(userID);
 	}
+
+	@Override
+	public int readUserCountToday() {
+		return userProblemDAO.readUserCountToday();
+	}
 }
