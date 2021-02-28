@@ -11,7 +11,7 @@
 <div class="table center" id="recomCartContent">
 	
 	<div class="tableRow">
-		<span class="index-col tableCell th1">No.</span> <span class="tableCell th3">제목</span>
+		<span class="index-col tableCell th1">No.</span> <span class="tableCell th2">제목</span>
 		<span class="tableCell th2">등록자</span> <span class="tableCell th1">난이도</span>
 		<span class="like-col tableCell th1">전체 문제 수</span> <span class="like-col tableCell th1">푼 문제 수</span>
  		<span class="like-col tableCell th1">추천수</span> <span class="comment-col tableCell th1">댓글수</span>
@@ -28,7 +28,7 @@
 			</c:otherwise>
 		</c:choose>
 			<span class="index-col tableCell td1 alignCenter">${status.count}</span> 
-			<span class="tableCell td3 alignCenter readTitle">${recomCart.title}</span> 
+			<span class="tableCell td2 alignCenter readTitle">${recomCart.title}</span> 
 			<span class="tableCell td2 alignCenter">${recomCart.nickname}</span> 
 			<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recomCart.difficulty}" src="../resources/img/difficulty${recomCart.difficulty}.png"></span> 
  			<span class="tableCell td1 alignCenter">${recomCart.totalProbCnt}</span> 

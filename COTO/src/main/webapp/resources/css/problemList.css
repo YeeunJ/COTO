@@ -57,7 +57,7 @@ fieldset {
 	border-bottom: 1px solid #bdbdbd;
 }
 #chart-wrapper {
-	padding: 0 10px;
+	/* padding: 0 10px; */
 }
 .chart-div{
 	width: 48%;
@@ -71,6 +71,21 @@ fieldset {
 
 .right{
 	float: right;
+}
+
+.countTitle {
+	font-size: 17px;
+    font-weight: 600;
+    color: #555454;
+}
+.countBySite {
+	font-size: 13px;
+}
+.p-wrapper {
+	padding: 10px 0 20px 0;
+}
+.p-wrapper p {
+	margin:0;
 }
 
 /* 반응형 */

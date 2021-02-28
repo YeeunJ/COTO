@@ -10,10 +10,12 @@
 
 <link href="../resources/css/problems.css" rel="stylesheet">
 <link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
-<link href="../resources/css/recommendProblem.css?asd" rel="stylesheet">
+<link rel="stylesheet" href="../resources/css/problemsCart.css?asd" />
+
 <script src="../resources/js/createModal.js"></script>
 <script src="../resources/js/problems.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 <script src="../resources/js/recomCart.js"></script>
 
@@ -24,63 +26,66 @@
 			<p>지금까지 자신이 푼 문제와 목표 현황을 확인해 보세요!</p>
 		</div>
 	</div>
-<c:choose>
-	<c:when test = "${goal.size() == 0}">
-		<script>alert("목표를 입력해주세요~:)\n목표를 입력하시면 더 많은 정보를 확인하실 수 있습니다!\n 목표는 마이페이지의 내 정보 페이지에서 입력하실 수 있습니다.");</script>
-	</c:when>
-	<c:otherwise>
-	<!-- Content Row -->
-	<div class="card-wrap">
-		<div class="card-content1">
-			<div class="card shadow card-body">
-				<div class="font-color card-title">나의 목표</div>
-				<div id="table">
-					<c:forEach items="${goal}" var="goal" varStatus="status">
-						<div class="tableRow">
-							<span class="tableCell td2">목표</span> <span class="tableCell td4">${goal.goal}</span>
+	<c:choose>
+		<c:when test="${goal.size() == 0}">
+			<script>
+				alert("목표를 입력해주세요~:)\n목표를 입력하시면 더 많은 정보를 확인하실 수 있습니다!\n 목표는 마이페이지의 내 정보 페이지에서 입력하실 수 있습니다.");
+			</script>
+		</c:when>
+		<c:otherwise>
+			<!-- Content Row -->
+			<div class="card-wrap">
+				<div class="card-content1">
+					<div class="card shadow card-body">
+						<div class="font-color card-title">나의 목표</div>
+						<div id="table">
+							<c:forEach items="${goal}" var="goal" varStatus="status">
+								<div class="tableRow">
+									<span class="tableCell td2">목표</span> <span
+										class="tableCell td4">${goal.goal}</span>
+								</div>
+								<div class="tableRow">
+									<span class="tableCell td2">기간</span> <span
+										class="tableCell td4" style="font-size: 14px;"> <fmt:formatDate
+											pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
+											pattern="yyyy-MM-dd" value="${goal.endDate}" />
+									</span>
+								</div>
+								<div class="tableRow">
+									<span class="tableCell td2">목표 문제수</span> <span
+										class="tableCell td4">${goal.goalNum}문제</span>
+								</div>
+								<div class="tableRow">
+									<span class="tableCell td2" style="font-size: 13px;">현재
+										푼 문제수</span> <span class="tableCell td4">${userSolvedP}문제</span>
+								</div>
+							</c:forEach>
 						</div>
-						<div class="tableRow">
-							<span class="tableCell td2">기간</span> <span class="tableCell td4"
-								style="font-size: 14px;"> <fmt:formatDate
-									pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
-									pattern="yyyy-MM-dd" value="${goal.endDate}" />
-							</span>
-						</div>
-						<div class="tableRow">
-							<span class="tableCell td2">목표 문제수</span> <span
-								class="tableCell td4">${goal.goalNum}문제</span>
-						</div>
-						<div class="tableRow">
-							<span class="tableCell td2" style="font-size: 13px;">현재 푼
-								문제수</span> <span class="tableCell td4">${userSolvedP}문제</span>
-						</div>
-					</c:forEach>
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="card-content2">
-			<div class="card shadow card-body">
-				<div class="font-color card-title">하루의 기록</div>
-				<div class="myChart"
-					style="overflow-x: scroll; width: 310px; height: 200;">
-					<div class="chartAreaWrapper"
-						style="overflow-x: scroll; width: 900px; height: 200">
-						<canvas id="myBarChart" width="900px" height="200"></canvas>
+				<div class="card-content2">
+					<div class="card shadow card-body">
+						<div class="font-color card-title">하루의 기록</div>
+						<div class="myChart"
+							style="overflow-x: scroll; width: 310px; height: 200;">
+							<div class="chartAreaWrapper"
+								style="overflow-x: scroll; width: 900px; height: 200">
+								<canvas id="myBarChart" width="900px" height="200"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card-content3">
+					<div class="card shadow card-body">
+						<div class="font-color card-title">현재 상황</div>
+						<canvas id="myDoughnutChart" width="300vw" height="180px">
+				</canvas>
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="card-content3">
-			<div class="card shadow card-body">
-				<div class="font-color card-title">현재 상황</div>
-				<canvas id="myDoughnutChart" width="300vw" height="180px">
-				</canvas>
-			</div>
-		</div>
-	</div>
-	</c:otherwise>
-</c:choose>
+		</c:otherwise>
+	</c:choose>
 	<!-- Content Row -->
 	<div>
 		<br>
@@ -100,18 +105,23 @@
 		<div class="table" id="problemsContent">
 			<%@ include file="../ajaxContent/problemsContent.jsp"%>
 		</div>
-		
-		<%@ include file="../inc/pagination.jsp"%><br><br>
+
+		<%@ include file="../inc/pagination.jsp"%><br>
+		<br>
 
 		<!-- table2 -->
 		<div class="table center" id="problemContent">
 			<div class="tableRow">
-				<span class="tableCell th3" style="text-align:left !important">전체 푼 문제</span>
+				<span class="tableCell th3" style="text-align: left !important">전체
+					푼 문제</span>
 			</div>
 
-			<span class="tableCell td3 probname tc"> 
-				<c:forEach items="${readOtherUserProblemName}" var="problem" varStatus="status">
-					<nobr><a href="${problem.link}" target="_blank">${problem.name}, </a></nobr>
+			<span class="tableCell td3 probname tc"> <c:forEach
+					items="${readOtherUserProblemName}" var="problem"
+					varStatus="status">
+					<nobr>
+						<a href="${problem.link}" target="_blank">${problem.name}, </a>
+					</nobr>
 				</c:forEach>
 			</span>
 		</div>
@@ -171,6 +181,7 @@
 			<p class="title">메모</p>
 			<span id="memo" class="box"></span>
 		</div>
+
 		<div id="updateSolvedProblem" hidden>
 			<form>
 				<span id="UuserProblemID" hidden></span>
@@ -234,16 +245,18 @@
 			</form>
 		</div>
 
-	</div><br><br>
+	</div>
+	<br>
+	<br>
 	<div>
 		<div class="table" id="recomCartContent">
 			<%@ include file="../ajaxContent/recomCartContent.jsp"%>
 		</div>
-	
+
 	</div>
 </div>
 <div id="modalContent">
-<%@ include file="../ajaxContent/recomDetailModal.jsp"%>
+	<%@ include file="../ajaxContent/recomDetailModal.jsp"%>
 </div>
 <script>
 	var labels = new Array();
@@ -280,13 +293,17 @@
 	opacity: 0.4;
 	z-index: -1;
 }
-.tc{
+
+.tc {
 	word-break: break-all;
 	text-align: left !important;
 	border-left: 1px solid #DDD !important;
 	border-right: 1px solid #DDD !important;
 }
-.probname{ font-size: 0.8rem; }
+
+.probname {
+	font-size: 0.8rem;
+}
 </style>
 
 <%@ include file="../inc/footer.jsp"%>

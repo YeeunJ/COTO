@@ -1,0 +1,310 @@
+/* 문제 추천 - 전체 페이지 css */
+.row {
+	margin-bottom: 0px !important;
+}
+footer.page-footer {
+	padding-top: 0px !important;
+}
+.custom-button {
+	background-color: white;
+	margin-top: 15% ! important;
+	border: 2px solid #666666;
+	height: 31px;
+	border-radius: 20px;
+	float: left;
+}
+fieldset {
+	background: #fff;
+	border: none;
+}
+.search {
+	padding: 0px;
+	margin-left: 10px;
+	display: flex;
+	float: right;
+	width: 25% !important;
+}
+.search_bt {
+	all: unset;
+}
+.custom-button:hover {
+	background-color: #e69138ff;
+	color: white;
+	border: 1px solid #e69138ff;
+}
+.custom-button:focus{
+	background-color: white !important;
+	color: black;
+	border: 2px solid #666666;
+}
+.order {
+	width: 13%;
+	float: right;
+}
+.title {
+	border: 0;
+	background-color: Transparent;
+}
+.comment {
+	border-bottom: 1px solid #bdbdbd;
+}
+
+
+/* 문제 추천 - 문제집 등록 모달 */
+.title {
+	color: #e69238;
+    font-size: 25px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+#createProblems input {
+	width: 500px;
+}
+#createProblems textarea {
+	height: 70px;
+	width: 500px;
+	border: 1px solid #bdbdbd;
+}
+#createProblems #confirmSite {
+	height: 150px;
+}
+/* 문제집 세부 모달 */
+.desc {
+	margin-top: 28px;
+}
+#detailRecom {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 35px;
+}
+#readProblems {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	row-gap: 15px;
+}
+#readProblems p {
+	margin: 5px 0;
+}
+.details {
+	margin: 8px 0 20px 0;
+}
+.sitetitle {
+	font-weight: 600;
+	margin: auto 0 auto 30px;
+}
+#commentDetail{
+	background: #f3f3f3;
+	min-height: 470px;
+}
+#commentDetail textarea {
+	background: white;
+    display: inline-block;
+    margin: 15px 0;
+    line-height: 38px;
+    padding: 15px;
+    height: 70px;
+    border-radius: 10px;
+}
+.comment-wrapper{
+	padding: 0 15px 12px 15px;
+}
+.comment-add {
+	display: grid;
+    grid-template-columns: 4fr 1fr;
+    padding: 10px 15px;
+    border-bottom: 1px solid #bdbdbd;
+    margin-bottom: 15px;
+}
+.add-btn {
+	height: 35px;
+    width: 40px;
+    margin: auto 0 auto 15px;
+}
+.commentdate {
+	color: grey;
+	float: right;
+}
+.username {
+	font-weight: 600;
+}
+.comment {
+	margin: 12px 0 0 0;
+	border-bottom: 1px solid #bdbdbd;
+	padding-bottom: 12px;
+}
+.icon {
+	display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-size: cover !important;
+}
+.like-icon {
+	background: url("../img/emptyheart.png");
+	cursor: pointer;
+}
+.like-icon:hover {
+	background: url("../img/clickheart.png");
+	cursor: pointer;
+}
+.clicked-icon {
+	background: url("../img/clickheart.png");
+	cursor: pointer;
+}
+.wrapper {
+	height: 305px;
+    overflow-y: scroll;
+}
+.comment-icon {
+	background: url("../img/comment.png");
+}
+.cart-icon {
+	margin-top: -3px;
+	position:relative;
+	cursor:pointer;
+	background: url("../img/cart.png");
+}
+.cart-icon:hover {
+	background: url("../img/clicked-cart.png");
+}
+.cart-icon:hover .cart-tooltip {
+	display:block;
+}
+.clicked-cart {
+	margin-top: -3px;
+	position:relative;
+	cursor:pointer;
+	background: url("../img/clicked-cart.png");
+}
+.clicked-cart:hover .clicked-tooltip {
+	display:block;
+}
+.clicked-tooltip {
+	position: absolute;
+    display: none;
+    top: 31px;
+    width: 127px;
+    font-size: 10px;
+    left: -42px;
+}
+.cart-tooltip {
+	position: absolute;
+	display:none;
+	top: 31px;
+	width: 105px;
+    font-size: 10px;
+    left: -31px;
+}
+
+.diff-icon {
+/* 	background: url("../img/.png");*/
+}
+.details {
+	display: grid;
+	grid-template-columns: 0.5fr 0.5fr 0.3fr 0.5fr 0.5fr 0.3fr 2fr;
+}
+.bold {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.radioMrg {
+	margin-left: 3%;
+}
+input[type='radio']:checked {
+  background-color: #e69238 !important;
+}
+.diffCont {
+	margin-left: 5%;
+	color: #e69238;
+    font-size: 16px;
+    font-weight: 500;
+}
+.readBox {
+	border-left: thick solid #e69238;
+	padding: 1% 3%;
+}
+#detailRecomUpdate {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 35px;
+}
+.readTitle{
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 150px;
+}
+.index-col{
+ 	display:none;
+ }
+ 
+/* 반응형 */
+@media only screen and (max-width: 1002px) {
+  #detailRecom{
+  	grid-template-columns: 1fr;
+    column-gap: 0;
+    row-gap: 30px;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .index-col{
+  	display:none!important;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .comment-col{
+  	display:none!important;
+  }
+}
+
+@media only screen and (max-width: 602px) {
+  .index-col{
+  	display:none!important;
+  }
+  .comment-col{
+  	display:none!important;
+  }
+
+}
+@media only screen and (max-width: 510px) {
+  .like-col{
+  	display:none!important;
+  }
+}
+
+/* jsp에서 가져 */
+#recommend {
+	position: relative;
+	padding: 80px 0;
+	margin-bottom: 3%;
+}
+#recommend:before {
+	content: "";
+	background-image: url("../img/recommendimg.jpg");
+	background-size: cover;
+	top: 0;
+	left: 0;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
+	opacity: 0.4;
+	z-index: -1;
+}
+.readTagChips {
+	height: 32px;
+	font-size: 15px;
+	font-weight: 500;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 32px;
+	padding: 8px 12px;
+    border-radius: 16px;
+    background-color: #e4e4e4;
+    margin-right: 2%;
+}
+.alignCenter {
+	text-align: center;
+}
+
+.disableCheck {
+  pointer-events: none; 
+}

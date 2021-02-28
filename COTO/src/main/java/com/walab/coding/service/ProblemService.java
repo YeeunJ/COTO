@@ -46,5 +46,11 @@ public interface ProblemService {
 	 */
 	public List<ProblemDTO> readOtherUserProblemName(int userID);
 
+	/**
+	 * read total problem count
+	 * usage: problem Controller
+	 */
+	public int readTotalProblemCnt();
+	
 
 }

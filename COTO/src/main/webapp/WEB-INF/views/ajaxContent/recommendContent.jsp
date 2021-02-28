@@ -24,6 +24,7 @@
 			<span class="tableCell td2 alignCenter">${recoms.nickname}</span> 
 			<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
 			<span class="like-col tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
+
 			<span class="comment-col tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
  			<c:if test = "${!empty userID}">
  					<span class="tableCell td1 alignCenter like-col">	

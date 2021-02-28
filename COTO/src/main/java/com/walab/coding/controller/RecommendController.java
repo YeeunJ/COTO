@@ -579,6 +579,7 @@ public class RecommendController {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 			
 			mv.addObject("userID", userID);
+
 			List<RecommendDTO> recomCart = recomCartService.readCartByRecommend(userID);
 			mv.addObject("recoms", recomCart);
 
