@@ -257,7 +257,7 @@ public class RecommendController {
 	@RequestMapping(value = "", method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
 		
-		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSitebyYN();
 
 		mv.addObject("codingSite", codingSite);
 		mv.setViewName("recommendProblem");
