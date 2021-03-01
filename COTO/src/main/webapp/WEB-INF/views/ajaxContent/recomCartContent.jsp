@@ -15,18 +15,12 @@
 		<span class="tableCell th2">등록자</span> <span class="tableCell th1">난이도</span>
 		<span class="like-col tableCell th1">전체 문제 수</span> <span class="like-col tableCell th1">푼 문제 수</span>
  		<span class="like-col tableCell th1">추천수</span> <span class="comment-col tableCell th1">댓글수</span>
+ 		<span class="comment-col tableCell th1">상태</span>
 	</div>
 	
 	
 	<c:forEach items="${recomCarts}" var="recomCart" varStatus="status">
-		<c:choose>
-			<c:when test = "${recomCart.totalProbCnt == recomCart.userProbCnt && recomCart.totalProbCnt != 0}">
-				<div class="tableRow" style="background:#e592391a;" id="recoms${recomCart.id}" onclick="printCartAllContent(${recomCart.id})">			
-			</c:when>
-			<c:otherwise>
-				<div class="tableRow" id="recoms${recomCart.id}" onclick="printCartAllContent(${recomCart.id})">			
-			</c:otherwise>
-		</c:choose>
+		<div class="tableRow" id="recoms${recomCart.id}" onclick="printCartAllContent(${recomCart.id})">			
 			<span class="index-col tableCell td1 alignCenter">${status.count}</span> 
 			<span class="tableCell td2 alignCenter readTitle">${recomCart.title}</span> 
 			<span class="tableCell td2 alignCenter">${recomCart.nickname}</span> 
@@ -35,6 +29,14 @@
  			<span class="tableCell td1 alignCenter">${recomCart.userProbCnt}</span> 
  			<span class="like-col tableCell td1 alignCenter readRecommend">${recomCart.recomCount}</span> 
 			<span class="comment-col tableCell td1 alignCenter readCommentCount">${recomCart.recomCommentCount}</span>
+			<c:choose>
+				<c:when test = "${recomCart.totalProbCnt == recomCart.userProbCnt && recomCart.totalProbCnt != 0}">
+					<span class="tableCell td1 alignCenter" style="color: #039be5;">완료</span>
+				</c:when>
+				<c:otherwise>
+					<span class="tableCell td1 alignCenter">진행중</span>			
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</c:forEach>
 </div>
