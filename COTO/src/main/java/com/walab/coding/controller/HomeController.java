@@ -72,7 +72,7 @@ public class HomeController {
 		List<ProblemDTO> recentProblemList = problemService.readRecentProblem();
 		List<RecomTagDTO> tagList = recomTagService.readTagList();
 		List<RecommendDTO> recentRecomList = recommendService.readRecentRecommendList();
-		List<CodingSiteDTO> codingSiteList = codingSiteService.readCodingSite();
+		List<CodingSiteDTO> codingSiteList = codingSiteService.readCodingSitebyYN();
 
 		mv.addObject("ranks", totalRankList);
 		mv.addObject("ranksToday", todayRankList);
