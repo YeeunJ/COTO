@@ -363,7 +363,7 @@ public class MyproblemsController {
 
 		int recomID = Integer.parseInt(request.getParameter("recomID"));
 
-		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSitebyYN();
 		RecommendDTO recom = recommendService.readRecommend(recomID);
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemByID(recomID);
 		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);

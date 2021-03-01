@@ -32,7 +32,6 @@ public class CodingsiteController {
 		mv.setViewName("manageCodingsite");
 		return mv;
 	}
-
 	@RequestMapping(value = "/editok", method = RequestMethod.POST)
 	public String editPostOK(HttpServletRequest request) {
 

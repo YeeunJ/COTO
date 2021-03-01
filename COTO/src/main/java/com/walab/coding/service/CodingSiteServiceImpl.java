@@ -31,6 +31,12 @@ public class CodingSiteServiceImpl implements CodingSiteService {
 
 		return result;
 	}
+	@Override
+	public List<CodingSiteDTO> readCodingSitebyYN() {
+		List<CodingSiteDTO> result = codingDAO.readCodingSitebyYN();
+
+		return result;
+	}
 	/**
 	 * Codingsite Controller
 	 */

@@ -47,5 +47,6 @@ public class CodingSiteDTO {
 	public void setMappingUrl(String mappingUrl) {
 		this.mappingUrl = mappingUrl;
 	}
+
 	
 }
