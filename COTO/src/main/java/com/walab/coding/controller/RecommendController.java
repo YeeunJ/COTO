@@ -590,7 +590,11 @@ public class RecommendController {
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
 		
+		System.out.println(searchValue);
+		System.out.println(orderValue);
+		
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") == null) {
+			System.out.println("recom Size: "+recoms.size());
 			mv.addObject("recoms", recoms);
 		}
 		mv.addObject("codingSite", codingSite);

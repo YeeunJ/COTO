@@ -8,8 +8,7 @@
 <h5 class="font-color">내가 찜한 문제들</h5>
 <br>	
 
-<div class="table center" id="recomCartContent">
-	
+<div class="table center">
 	<div class="tableRow">
 		<span class="index-col tableCell th1">No.</span> <span class="tableCell th2">제목</span>
 		<span class="tableCell th2">등록자</span> <span class="tableCell th1">난이도</span>
@@ -17,8 +16,8 @@
  		<span class="like-col tableCell th1">추천수</span> <span class="comment-col tableCell th1">댓글수</span>
  		<span class="comment-col tableCell th1">상태</span>
 	</div>
-	
-	
+</div>
+<div class="table center table-wrapper">
 	<c:forEach items="${recomCarts}" var="recomCart" varStatus="status">
 		<div class="tableRow" id="recoms${recomCart.id}" onclick="printCartAllContent(${recomCart.id})">			
 			<span class="index-col tableCell td1 alignCenter">${status.count}</span> 
@@ -39,6 +38,8 @@
 			</c:choose>
 		</div>
 	</c:forEach>
+
 </div>
+	
 
 <br> <br>

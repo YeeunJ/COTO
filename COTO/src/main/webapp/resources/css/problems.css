@@ -175,6 +175,10 @@ input[type='radio']:checked {
 .sweet-modal-content {
 	padding-left: 45px !important;
 }
+.table-wrapper{
+	overflow-y:auto;
+	max-height: 250px;
+}
 
 /* 반응형 */
 @media only screen and (max-width: 910px) {

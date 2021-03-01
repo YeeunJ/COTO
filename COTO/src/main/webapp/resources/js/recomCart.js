@@ -43,7 +43,7 @@ function addComment() {
 //read modal에서 recom count
 function addRecomCount(){
 	$.ajax({
-		url: "./recommendProblem/addRecomCount",
+		url: "../mypage/problems/addRecomCount",
 		type: "POST",
 		async: false,
 		data: {

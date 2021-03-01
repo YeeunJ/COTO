@@ -4,31 +4,60 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<div class="tableRow">
-	<span class="tableCell th05">No.</span>
-	<span class="tableCell th2">문제 제목</span>
-	<span class="tableCell th2">사이트</span>
-	<span class="tableCell th2 pMemo">메모</span>
-	<span class="tableCell th1 pRegdate">날짜</span>
-	<span class="tableCell th1 pDifficulty">난이도</span>
-	<span class="tableCell th1"></span>
-</div>
-									
-<c:forEach items="${problems}" var="problem" varStatus="status">
-	<div class="tableRow center" id="problem${problem.id}" onclick="printAllContent('#problem${problem.id}')">
-		<span class ="tableCell td05">${status.count}</span>
-		<span class ="tableCell td2 pTitle"><a href="${problem.link}" target="_blank">${problem.problem}</a></span>
-		<span class ="tableCell td2 pSite">${problem.site}</a></span>
-		<span class ="tableCell td2 pMemo">${problem.memo}</span>
-		<span class ="tableCell td2 pRegdate">${problem.regDate}</span>
-		<span class ="tableCell td1 pDifficulty"><img style="width: 60px;" alt="${problem.difficulty}" src="../resources/img/difficulty${problem.difficulty}.png"></span>
-		<span class="tableCell td">
-			<button value="${problem.id}" class="editBtn" type="button"><i class="fas fa-pen"></i></button>
-			<button value="${problem.id}" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button>
-		</span>
-		<span class="pSiteUrl" style="display:none;">${problem.siteUrl}</span>
+<div class="table">
+	<div class="tableRow">
+		<span class="tableCell th05">No.</span>
+		<span class="tableCell th2">문제 제목</span>
+		<span class="tableCell th2">사이트</span>
+		<span class="tableCell th2 pMemo">메모</span>
+		<span class="tableCell th1 pRegdate">날짜</span>
+		<span class="tableCell th1 pDifficulty">난이도</span>
+		<span class="tableCell th1"></span>
 	</div>
-</c:forEach>
+									
+	<c:forEach items="${problems}" var="problem" varStatus="status">
+		<div class="tableRow center" id="problem${problem.id}" onclick="printAllContent('#problem${problem.id}')">
+			<span class ="tableCell td05">${(page-1)*list+status.count}</span>
+			<span class ="tableCell td2 pTitle"><a href="${problem.link}" target="_blank">${problem.problem}</a></span>
+			<span class ="tableCell td2 pSite">${problem.site}</a></span>
+			<span class ="tableCell td2 pMemo">${problem.memo}</span>
+			<span class ="tableCell td2 pRegdate">${problem.regDate}</span>
+			<span class ="tableCell td1 pDifficulty"><img style="width: 60px;" alt="${problem.difficulty}" src="../resources/img/difficulty${problem.difficulty}.png"></span>
+			<span class="tableCell td">
+				<button value="${problem.id}" class="editBtn" type="button"><i class="fas fa-pen"></i></button>
+				<button value="${problem.id}" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button>
+			</span>
+			<span class="pSiteUrl" style="display:none;">${problem.siteUrl}</span>
+		</div>
+	</c:forEach>
+</div>
+
+<!-- pagination -->
+<div class="table" style="text-align: center">
+	<ul class="pagination ">
+		<c:if test="${ page eq 1 }">
+			<li class="disable-button"><span class="arrow-button"><i class="material-icons">chevron_left</i></span></li>
+		</c:if>
+		<c:if test="${ page != 1 }">
+			<li class="waves-effect"><span class="arrow-button" onclick="search(${page-1})"><i class="material-icons">chevron_left</i></span></li>
+		</c:if>
+		<c:forEach var="p" begin="${s_page}" end="${e_page}">
+			<c:if test="${ p eq page }">
+				<li id="recentPage" class="active orange" value="${p}"><span class="pagination-button" >${p}</span></li>
+			</c:if>
+			<c:if test="${ p != page }">
+				<li class="waves-effect"><span class="pagination-button" onclick="search(${p})">${p}</span></li>
+			</c:if>
+		</c:forEach>
+		<c:if test="${ page eq e_page }">
+			<li class="disable-button"><span class="arrow-button"><i class="material-icons">chevron_right</i></span></li>
+		</c:if>
+		<c:if test="${ page != e_page }">
+			<li class="waves-effect"><span class="arrow-button" onclick="search(${page+1})"><i class="material-icons">chevron_right</i></span></li>
+		</c:if>
+	</ul>
+</div> 
+
 
 <script>
 $(document).ready(function() {

@@ -345,10 +345,33 @@ public class MyproblemsController {
 	public ModelAndView searchProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
 
 		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+		int page = Integer.parseInt(httpServletRequest.getParameter("page"));
 		String searchValue = httpServletRequest.getParameter("searchValue");
+		
+		int listCnt = recommendService.readRecomListCnt();
+		int list = 5;
+		int block = 10;
 
-		List<UserProblemDTO> problems = userProblemService.search(userID, searchValue);
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block);
 
+		int s_point = (page-1)*list;
+
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
+
+			
+		List<UserProblemDTO> problems = userProblemService.search(userID, searchValue, s_point, list);
+		mv.addObject("list", list);
+		mv.addObject("page", page);
+		mv.addObject("e_page", e_page);
+		mv.addObject("s_page", s_page);
 		mv.addObject("problems", problems);
 		mv.setViewName("ajaxContent/problemsContent");
 
