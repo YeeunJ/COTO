@@ -7,7 +7,7 @@ $(document).ready(function(){
 	$('#orderValue').on('change', function() {
 		search();
 	});
-	search(1);
+	search();
 });
 
 var selectHtml="";
@@ -19,6 +19,10 @@ function search(page){
 		console.log(this.value);
 	});
 
+	if($('#recentPage').val() == null) {
+		page=1;
+	}	
+	
 	$.ajax({
 			url: "recommendProblem/search",
 			type: "POST",
@@ -65,6 +69,7 @@ function addComment() {
 				content : $('.sweet-modal-content #comment-textarea').val()
 			},
 			success : function(data) {
+//				count += valueSplit.length+1;
 				$('.sweet-modal-content #recomCountCommentContent').html(data);
 				$('.sweet-modal-content #comment-textarea').val("");
 			},

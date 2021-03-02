@@ -101,12 +101,10 @@
 		<button onclick="callModal()" id="register-button" class="mybtn"
 			style="margin-top: 2%; float: left;">문제 등록하기</button>
 
-		<!-- table1 -->
-		<div class="table" id="problemsContent">
-			<%@ include file="../ajaxContent/problemsContent.jsp"%>
+		
+		<div id="problemsContent">
 		</div>
 
-		<%@ include file="../inc/pagination.jsp"%><br>
 		<br>
 
 		<!-- table2 -->

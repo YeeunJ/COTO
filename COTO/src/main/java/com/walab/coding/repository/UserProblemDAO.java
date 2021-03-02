@@ -32,7 +32,7 @@ public interface UserProblemDAO {
 	public void createUserProblem(UserProblemDTO p);
 	
 	// MyproblemsController
-	public List<UserProblemDTO> searchProblemByContent(int userID, String searchValue);
+	public List<UserProblemDTO> searchProblemByContent(int userID, String searchValue, int s_point, int list);
 	
 	// HomeController
 	public List<UserProblemDTO> readProblemOrderByCount();

@@ -55,7 +55,7 @@
 		</c:if>
 		<c:forEach var="p" begin="${s_page}" end="${e_page}">
 			<c:if test="${ p eq page }">
-				<li id="recentPage" class="active orange"><span class="pagination-button" >${p}</span></li>
+				<li id="recentPage" class="active orange" value="${p}"><span class="pagination-button" >${p}</span></li>
 			</c:if>
 			<c:if test="${ p != page }">
 				<li class="waves-effect"><span class="pagination-button" onclick="search(${p})">${p}</span></li>
