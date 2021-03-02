@@ -1,3 +1,37 @@
+$(document).ready(function(){
+	$('#orderValue').formSelect();
+	$('#searchButton').on('click', function() {
+		search();
+	});
+	$('#orderValue').on('change', function() {
+		search();
+	});
+	search();
+});
+
+function search(page){
+	if($('#recentPage').val() == null) {
+		page=1;
+	}	
+	
+	$.ajax({
+			url: "./usermanage/search",
+			type: "POST",
+			async: false,
+			data: {
+				page: page,
+				searchValue:$('#searchValue').val(),
+				orderValue:$('#orderValue option:selected').val()
+			},
+			success: function(data){
+				$('#pageajaxContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+	});
+}
+
 $('select').formSelect();
 $('.adminSelect').change(function(){
 	var tableRow = $(this).closest('.tableRow');
