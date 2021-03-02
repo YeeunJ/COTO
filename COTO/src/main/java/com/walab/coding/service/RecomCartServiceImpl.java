@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.walab.coding.model.RecomCartDTO;
 import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.repository.RecomCartDAO;
+import com.walab.coding.repository.RecomCommentDAO;
+import com.walab.coding.repository.RecomCountDAO;
 import com.walab.coding.repository.RecommendDAO;
 
 @Service
@@ -18,6 +20,12 @@ public class RecomCartServiceImpl implements RecomCartService {
 	
 	@Autowired
 	RecommendDAO recommendDAO;
+	
+	@Autowired
+	RecomCountDAO recomCountDAO;
+	
+	@Autowired
+	RecomCommentDAO recomCommentDAO;
 	
 	@Override
 	public void createRecomCart(RecomCartDTO cart) {
@@ -59,21 +67,24 @@ public class RecomCartServiceImpl implements RecomCartService {
 		
 		List<RecommendDTO> recomList = recommendDAO.readRecommendList();
 		List<RecommendDTO> myList = recomCartDAO.readCartRecommendList(userID);
+		
 	
 		for(int i=0 ; i<recomList.size() ; i++) {
+			recomList.get(i).setRecomCount(recomCountDAO.readRecomCount(recomList.get(i).getId()));
+			
+			int recomID = recomList.get(i).getId();
+			recomList.get(i).setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));
 			for(int j=0 ; j<myList.size() ; j++) {
-				int reID = recomList.get(i).getId();
 				int myCartID = myList.get(j).getId();
-				RecommendDTO recom = recomList.get(i);
-				if( reID == myCartID) {
-					recom.setUserCart(1);
+				if( myCartID == recomID) {
+					recomList.get(i).setUserCart(1);
+					break;
 				}
 				else {
-					recom.setUserCart(0);
+					recomList.get(i).setUserCart(0);
 				}
 			}
 		}
-
 		return recomList;
 	}
 
