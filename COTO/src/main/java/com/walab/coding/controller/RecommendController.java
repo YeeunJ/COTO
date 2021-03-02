@@ -304,6 +304,10 @@ public class RecommendController {
 				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
 					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
 			}
+			
+			String str = recomProblem.get(i).getLink();
+			if(str.length() < 5 || !(str.substring(0, 5).equals("https"))) recomProblem.get(i).setLink(null);
+			//else if(!(str.substring(0, 5).equals("https"))) recomProblem.get(i).setLink(null);
 		}
 		
 		mv.addObject("cartYN", cartYN);
