@@ -86,8 +86,6 @@ function drawChart1() {
 	  }
 	});
 
-
-	
 	/*var ctx1 = document.getElementById("myBarChart"); 
 	var myBarChart = new Chart(ctx1 , {
 	    type: 'bar',

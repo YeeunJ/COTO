@@ -7,24 +7,24 @@
 <form name="form1" method="post">
 <div id="table">
 <div class="tableRow">
-	<span class="tableCell th05">No.</span>
+	<span class="tableCell th05 pIndex">No.</span>
 	<span class="tableCell th2">문제 제목</span>
 	<span class="tableCell th2">사이트</span>
 	<span class="tableCell th2 pMemo">메모</span>
 	<span class="tableCell th1 pRegdate">날짜</span>
 	<span class="tableCell th1 pDifficulty">난이도</span>
-	<span class="tableCell th1"></span>
+	<span class="tableCell th1 pButton"></span>
 </div>
 				
 <c:forEach items="${problems}" var="problem" varStatus="status">
 	<div class="tableRow center" id="problem${problem.id}">
-		<span class ="tableCell td05">${status.count}</span>
+		<span class ="tableCell td05 pIndex">${status.count}</span>
 		<span class ="tableCell td2 pTitle"><a href="${problem.link}" target="_blank">${problem.problem}</a></span>
 		<span class ="tableCell td2 pSite"><a href="${problem.siteUrl}" target="_blank">${problem.site}</a></span>
 		<span class ="tableCell td2 pMemo">${problem.memo}</span>
 		<span class ="tableCell td2 pRegdate">${problem.regDate}</span>
 		<span class ="tableCell td1 pDifficulty"><img style="width: 60px;" alt="${problem.difficulty}" src="../resources/img/difficulty${problem.difficulty}.png"></span>
-		<span class="tableCell td">
+		<span class="tableCell td pButton">
 			<button value="${problem.id}" class="editBtn" type="button"><i class="fas fa-pen"></i></button>
 			<button value="${problem.id}" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button>
 		</span>
@@ -104,9 +104,11 @@ $(document).ready(function() {
 .fa-times, .fa-pen {color: orange;}
 button{border:0; outling:0; cursor:pointer; background-color: white;}
 .th05 {
+	width: 3%;
 	font-weight: bold !important;
 	background-color: #e69138ff !important;
 	color: white;
 	text-align: center;
 }
+.td05 {width: 3%;}
 </style>

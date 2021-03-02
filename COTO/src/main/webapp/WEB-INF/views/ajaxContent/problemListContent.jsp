@@ -30,7 +30,7 @@
 		<span class="tableCell td1"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
 		<span class="tableCell td1">${problem.count}</span> 
 		<fmt:formatDate value="${problem.regdate}" var="formattedDate" type="date" pattern="yyyy-MM-dd" />
-		<span class="tableCell td1 mobile">12</span> 
+		<span class="tableCell td1 mobile">${formattedDate}</span> 
 	</div>
 	</c:forEach>	
 </div>

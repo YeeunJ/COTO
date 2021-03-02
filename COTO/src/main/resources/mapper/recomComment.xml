@@ -21,7 +21,7 @@
 	</insert>
 	
 	<select id="readRecomComment" resultMap="Comment" parameterType="hashmap">
-		SELECT R.id, U.id, U.name, U.nickName,DATE_ADD(R.regdate, INTERVAL -9 HOUR), R.content 
+		SELECT R.id, U.id, U.name, U.nickName,date_format(R.regdate, '%Y-%m-%d') as regDate, R.content 
 		FROM recomComment AS R, user AS U 
 		WHERE R.userId = U.id AND R.recomID=#{recomID}
 		ORDER BY R.regDate DESC

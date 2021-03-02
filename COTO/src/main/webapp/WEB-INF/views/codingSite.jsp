@@ -16,14 +16,13 @@ $(document).ready(function() {
 	<c:forEach items="${CodingSite}" var="u">
 		
 		var list = new Object();
+		list.id = "${u.getId()}";
 		list.siteName = "${u.getSiteName()}";
 		list.siteUrl = "${u.getSiteUrl()}";
-		list.id = ${u.getId()};
-		
+
 		posts.push(list);
-	
 	</c:forEach>
-	
+
 	$('#submitbtn').click(function() {
 		var form = document.form1;
 		console.log(form.action+"/"+$("#siteName").val()+"/"+$("#siteUrl").val());
@@ -75,7 +74,7 @@ $(document).ready(function() {
 		var index = $('.tableRow').index(tableRow);
 		form.action="manageCodingsite/editok";
 		console.log(posts[index-1]);
-		
+
 		$(editCell[0]).html('<input id="editonly" type="hidden" name="id" value="'+ posts[index-1].id +'" /> <input id="siteName" type="text" name="siteName" value="'+posts[index-1].siteName+'">');
 		$(editCell[1]).html('<input id="siteUrl" type="text" name="siteUrl" value="'+ posts[index-1].siteUrl +'">');
 		$(editCell[2]).html('<button id="cancelbtn" class="cancelbtn waves-effect waves-light btn-small green" type="button">취소</button>');

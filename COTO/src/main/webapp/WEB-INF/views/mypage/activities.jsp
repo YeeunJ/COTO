@@ -66,7 +66,7 @@ $(document).on("click", ".deleteBtn", function(){
 						<span class="tableCell td1 readStatus">종료</span>
 					</c:otherwise>
 				</c:choose>
-				<span class="tableCell td1"><button value="${goals.id}" class="deleteBtn" type="button">삭제</button></span>
+				<span class="tableCell td1"><button value="${goals.id}" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>
 				
 			</div>
 		</c:forEach>

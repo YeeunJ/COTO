@@ -55,7 +55,7 @@
 									<span class="tableCell td2">목표 문제수</span> <span
 										class="tableCell td4">${goal.goalNum}문제</span>
 								</div>
-								<div class="tableRow">
+								<div class="tableRow pNow" style="visibility: hidden;">
 									<span class="tableCell td2" style="font-size: 13px;">현재
 										푼 문제수</span> <span class="tableCell td4">${userSolvedP}문제</span>
 								</div>
@@ -110,18 +110,14 @@
 		<br>
 
 		<!-- table2 -->
-		<div class="table center" id="problemContent">
+		<div class="table">
 			<div class="tableRow">
-				<span class="tableCell th3" style="text-align: left !important">전체
-					푼 문제</span>
+				<span class="tableCell th3" style="text-align: left !important">전체 푼 문제</span>
 			</div>
 
-			<span class="tableCell td3 probname tc"> <c:forEach
-					items="${readOtherUserProblemName}" var="problem"
-					varStatus="status">
-					<nobr>
-						<a href="${problem.link}" target="_blank">${problem.name}, </a>
-					</nobr>
+			<span class="tableCell td3 probname tc"> 
+				<c:forEach items="${readOtherUserProblemName}" var="problem" varStatus="status">
+					<nobr><a href="${problem.link}" target="_blank">${problem.name}, </a></nobr>
 				</c:forEach>
 			</span>
 		</div>
