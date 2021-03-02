@@ -34,6 +34,7 @@ public class RecomCartServiceImpl implements RecomCartService {
 		
 	}
 	
+	@Override
 	public List<RecommendDTO> readCartRecommendList(int userID){
 		List<RecommendDTO> result = recomCartDAO.readCartRecommendList(userID);
 		
@@ -63,9 +64,10 @@ public class RecomCartServiceImpl implements RecomCartService {
 	}
 	
 	@Override
-	public List<RecommendDTO> readCartByRecommend(int userID) {
+	public List<RecommendDTO> readCartByRecommend(String searchValue, String orderValue, int s_point, int list, int userID) {
+		List<RecommendDTO> recomList = recommendDAO.readRecomByPage(searchValue, orderValue, s_point, list);
 		
-		List<RecommendDTO> recomList = recommendDAO.readRecommendList();
+		//List<RecommendDTO> recomList = recommendDAO.readRecommendList();
 		List<RecommendDTO> myList = recomCartDAO.readCartRecommendList(userID);
 		
 	
@@ -87,6 +89,8 @@ public class RecomCartServiceImpl implements RecomCartService {
 		}
 		return recomList;
 	}
+
+
 
 	@Override
 	public void deleteRecomCart(RecomCartDTO cart) {
