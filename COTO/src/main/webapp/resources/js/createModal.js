@@ -40,19 +40,36 @@ function createModel(content, titleValue, actionFunction, closeFunction){
 						
 						$('.sweet-modal-content #createTitle').change( function() {
 							if($('.sweet-modal-content #createTitle').val() != "") insCount++;
+							else insCount--;
 							
-							//alert("제목 입력");
-							
-							if(insCount == 2) $('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+							if(insCount == 2) {
+								$('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+								$('.sweet-modal-buttons .disableCheck').addClass('originBg');
+							}
+							else if(insCount < 2) {
+								$('.sweet-modal-buttons .disableCheck').removeAttr('style');
+								$('.sweet-modal-buttons .disableCheck').removeClass('originBg');
+							}
+							console.log(insCount);
 						});
 						
 						$('.sweet-modal-content #problems').change( function() {
+							if( $('.sweet-modal-content #confirmSite').length ) {
 							//if($('.sweet-modal-content #confirmSite').html() != "") {
 								insCount++;
 								//alert("문제 입력");
 							
-								if(insCount == 2) $('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
-							//}
+								if(insCount == 2) {
+									$('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+									$('.sweet-modal-buttons .disableCheck').addClass('originBg');
+									//$('.sweet-modal-buttons .disableCheck').css('background-color','');
+								}
+								else if(insCount < 2) {
+									$('.sweet-modal-buttons .disableCheck').removeAttr('style');
+									$('.sweet-modal-buttons .disableCheck').removeClass('originBg');
+								}
+							}
+							console.log(insCount);
 						});
 					},
 					theme: $.sweetModal.THEME_MIXED,
@@ -151,16 +168,22 @@ function rudModel(readContent, updateContent, titleValue, titleValue2, updateFun
 											}
 										});
 										
-										$('.sweet-modal-content #createTitle').change( function() {
-											if($('.sweet-modal-content #createTitle').val() == "") insCount++;
-											
-											//alert("제목 입력");
-											
-											if(insCount == 0) $('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+										$('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+										$('.sweet-modal-buttons .disableCheck').addClass('originBg');
+										
+										$('.sweet-modal-content #updateTitle').change( function() {
+											if($('.sweet-modal-content #updateTitle').val() == "") {
+												$('.sweet-modal-buttons .disableCheck').removeAttr('style');
+												$('.sweet-modal-buttons .disableCheck').removeClass('originBg');
+											}
+											else  {
+												$('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+												$('.sweet-modal-buttons .disableCheck').addClass('originBg');
+											}
 										});
 										
-										$('.sweet-modal-content #problems').change( function() {
-											//if($('.sweet-modal-content #confirmSite').html() != "") {
+										$('.sweet-modal-content #updateConfirmProblems').change( function() {
+											//if($('.sweet-modal-content #updateConfirmSite').html() != "") {
 												//insCount++;
 												//alert("문제 입력");
 											

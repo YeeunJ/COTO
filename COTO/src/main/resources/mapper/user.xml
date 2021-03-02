@@ -44,4 +44,20 @@
 		resultType="string" parameterType="hashmap">
 		SELECT intro FROM YeeunJ.user where nickName=#{nickName}
 	</select>
+	<select id="readUserListCnt" resultType="int">
+		SELECT COUNT(*) as listCnt FROM user
+	</select>
+	<select id="readUserByPage" resultType="com.walab.coding.model.UserDTO" parameterType="hashmap">
+		SELECT * FROM user
+		WHERE (name like CONCAT('%',#{searchValue},'%') OR email like CONCAT('%',#{searchValue},'%') OR nickName like CONCAT('%',#{searchValue},'%'))
+		<choose>
+			<when test="orderValue eq 'regdate'.toString()">ORDER BY regdate</when>
+		    <when test="orderValue eq 'name'">ORDER BY name</when>
+		    <when test="orderValue eq '1'.toString()"> AND isAdmin = 1</when>
+		    <when test="orderValue eq '0'.toString()"> AND isAdmin = 0</when>
+		    <otherwise>ORDER BY regdate</otherwise>
+		</choose>
+		LIMIT #{s_point}, #{list}
+	</select>
+	
 </mapper>
