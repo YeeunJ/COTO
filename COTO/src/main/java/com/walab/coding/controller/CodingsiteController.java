@@ -39,6 +39,7 @@ public class CodingsiteController {
 		String siteUrl = request.getParameter("siteUrl");
 		int id = Integer.parseInt(request.getParameter("id"));
 
+	
 		CodingSiteDTO dto = new CodingSiteDTO();
 		dto.setId(id);
 		dto.setSiteName(siteName);
