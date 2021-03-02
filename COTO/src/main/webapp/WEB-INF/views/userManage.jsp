@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="./resources/css/userManage.css?a" />
 <link href="./resources/css/problemList.css?qwe" rel="stylesheet">
 <link href="./resources/css/userManage.css?asd" rel="stylesheet">
+<script src="./resources/js/userManage.js"></script>
 
 <div id="SiteContainer" class="container">
 	<div id="problem">
