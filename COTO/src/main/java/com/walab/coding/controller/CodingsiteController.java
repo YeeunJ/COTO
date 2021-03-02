@@ -28,7 +28,7 @@ public class CodingsiteController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView CodingSiteList(ModelAndView mv) {
-		mv.addObject("CodingSite", codingSiteService.readCodingSitebyYN());
+		mv.addObject("CodingSite", codingSiteService.readCodingSite());
 		mv.setViewName("manageCodingsite");
 		return mv;
 	}
