@@ -88,8 +88,10 @@ public interface UserProblemService {
 	/**
 	 * search user solvedProblem List
 	 * usage: MyproblemsController
+	 * @param list 
+	 * @param s_point 
 	 */
-	List<UserProblemDTO> search(int userID, String searchValue);
+	List<UserProblemDTO> search(int userID, String searchValue, int s_point, int list);
 	
 	/**
 	 * read other User Page

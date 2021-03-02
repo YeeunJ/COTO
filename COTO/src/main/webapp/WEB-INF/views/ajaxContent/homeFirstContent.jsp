@@ -84,7 +84,7 @@
 							<h5 class="small-title">인기 태그</h5>
 							<ul class="fs-18 list">
 							<c:forEach items="${tags}" var="tag">
-							<li class="tag"><span class="bold">#</span>${tag.tag}</li>
+							<li class="tag" id = "tag" onclick="tagSearch()"><span class="bold">#</span>${tag.tag}</li>
 							</c:forEach>
 							</ul>
 						</div>

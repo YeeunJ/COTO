@@ -7,12 +7,22 @@ $(document).ready(function(){
 	$('#orderValue').on('change', function() {
 		search();
 	});
-	search(1);
+	search();
 });
 
 var selectHtml="";
 
 function search(page){
+	var tagArray = [];
+	$('.tagCheck:checked').each(function(){
+		tagArray.push(this.value);
+		console.log(this.value);
+	});
+
+	if($('#recentPage').val() == null) {
+		page=1;
+	}	
+	
 	$.ajax({
 			url: "recommendProblem/search",
 			type: "POST",
@@ -20,7 +30,8 @@ function search(page){
 			data: {
 				page: page,
 				searchValue:$('#searchValue').val(),
-				orderValue:$('#orderValue option:selected').val()
+				orderValue:$('#orderValue option:selected').val(),
+				tag: tagArray
 			},
 			success: function(data){
 				$('#pageajaxContent').html(data);
@@ -58,7 +69,7 @@ function addComment() {
 				content : $('.sweet-modal-content #comment-textarea').val()
 			},
 			success : function(data) {
-				count += valueSplit.length+1;
+//				count += valueSplit.length+1;
 				$('.sweet-modal-content #recomCountCommentContent').html(data);
 				$('.sweet-modal-content #comment-textarea').val("");
 			},

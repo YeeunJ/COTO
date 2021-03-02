@@ -19,9 +19,18 @@
 		<h3 class="main-title">혼자서는 힘든 코딩 연습, 친구들과 함께 해보세요!</h3>
 		<h5 class="sub-title">매일 푼 문제를 등록하고 설정한 목표를 달성해보세요.</h5>
 		<br>
-		<div class="row center">
-			<button id="register-button" class="probBtn" onclick="callModal()">문제 등록하러 가기 ></button>
-		</div>
+		<c:choose>
+			<c:when test = "${!empty userID}">
+				<div class="row center">	
+					<button id="register-button" class="probBtn" onclick="callModal()">문제 등록하러 가기 ></button>
+				</div>				
+			</c:when>
+			<c:otherwise>
+				<div class="row center">	
+					<button  class="probBtn" onclick="login()">문제 등록하러 가기 ></button>
+				</div>				
+			</c:otherwise>
+		</c:choose>	
 		<br> <br>
 	</div>
 </div>

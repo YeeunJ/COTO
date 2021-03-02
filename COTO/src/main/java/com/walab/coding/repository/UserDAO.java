@@ -18,4 +18,6 @@ public interface UserDAO {
 	public void updateUserAdmin(int isAdmin, int userID);
 	public int selectedUserTotalProblem(String nickName);
 	public String selectedUserintro(String nickName);
+	public int readUserListCnt();
+	public List<UserDTO> readUserByPage(String searchValue, String orderValue, int s_point, int list);
 }

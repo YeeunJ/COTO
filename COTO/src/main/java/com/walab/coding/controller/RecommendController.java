@@ -257,9 +257,11 @@ public class RecommendController {
 	@RequestMapping(value = "", method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView readRecommendProblemList(HttpServletRequest request, ModelAndView mv) {
 		
+		List<RecomTagDTO> tags = recomTagService.readProblemTag();
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSitebyYN();
 
 		mv.addObject("codingSite", codingSite);
+		mv.addObject("tags", tags);
 		mv.setViewName("recommendProblem");
 
 		return mv;
@@ -547,7 +549,8 @@ public class RecommendController {
 	public ModelAndView searchProblem(HttpServletRequest httpServletRequest,
 			@RequestParam(value="page", defaultValue="1") int page,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
-			@RequestParam(value="orderValue", defaultValue="") String orderValue) {
+			@RequestParam(value="orderValue", defaultValue="") String orderValue,
+			@RequestParam(value="orderValue", defaultValue="") ArrayList<String> tagValue) {
 		
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 
@@ -590,7 +593,11 @@ public class RecommendController {
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
 		
+		System.out.println(searchValue);
+		System.out.println(orderValue);
+		
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") == null) {
+			System.out.println("recom Size: "+recoms.size());
 			mv.addObject("recoms", recoms);
 		}
 		mv.addObject("codingSite", codingSite);

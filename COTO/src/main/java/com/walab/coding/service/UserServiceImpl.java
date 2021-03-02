@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.walab.coding.model.GoalDTO;
+import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.model.UserDTO;
 import com.walab.coding.repository.UserDAO;
 
@@ -104,4 +105,23 @@ public class UserServiceImpl implements UserService{
 	public String selectedUserintro(String nickName) {
 		return userDAO.selectedUserintro(nickName);
 	}
+	
+	/**
+	 * UsermanageController
+	 * Read all user count.
+	 */
+	@Override
+	public int readUserListCnt() {
+		return userDAO.readUserListCnt();
+	}
+	
+	/**
+	 * UsermanageController
+	 * Read all users' information by page.
+	 */
+	@Override
+	public List<UserDTO> readUserByPage(String searchValue, String orderValue, int s_point, int list) {
+		return userDAO.readUserByPage(searchValue, orderValue, s_point, list);
+	}
+	
 }

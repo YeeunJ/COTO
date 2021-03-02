@@ -252,12 +252,17 @@ function addajax(){
     });
 }
 
-function search(){
+function search(page){
+	if($('#recentPage').val() == null) {
+		page=1;
+	}	
+	
 	$.ajax({
 		url: "./problems/search",
 		type: "POST",
 		async: false,
 		data: {
+			page: page,
 			searchValue:$('#searchValue').val()
 		},
 		success: function(data){
@@ -295,7 +300,7 @@ function updateAjax(){
 	});
 }
 
-/*function deleteAjax (){
+function deleteAjax (){
 	$.ajax({
 		url: "./problems/delete",
 		type: "POST",
@@ -310,7 +315,7 @@ function updateAjax(){
 			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
 	});
-}*/
+}
 
 function deleteThis(id){
 	var allid = "#"+id;

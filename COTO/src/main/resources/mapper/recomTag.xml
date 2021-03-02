@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="readProblemTagList" resultType="com.walab.coding.model.RecomTagDTO" >
-		SELECT recomID, tag FROM recomTag
+		SELECT tag FROM YeeunJ.recomTag group by tag order by tag;
 	</select>
 	
 	<delete id="deleteRecomTag" parameterType="hashmap">

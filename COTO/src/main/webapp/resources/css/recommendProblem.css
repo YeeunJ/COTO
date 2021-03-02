@@ -7,7 +7,7 @@ footer.page-footer {
 }
 .custom-button {
 	background-color: white;
-	margin-top: 15% ! important;
+	/*margin-top: 15% ! important;*/
 	border: 2px solid #666666;
 	height: 31px;
 	border-radius: 20px;
@@ -308,4 +308,9 @@ input[type='radio']:checked {
 
 .disableCheck {
   pointer-events: none; 
+  background-color: #f7cfa6 !important;
+}
+
+.originBg {
+  background-color: #e69138ff !important;
 }
