@@ -29,4 +29,3 @@
 	</div>
 	<c:set var ="index" value = "${ index+1 }"/>
 </c:forEach>		
-
