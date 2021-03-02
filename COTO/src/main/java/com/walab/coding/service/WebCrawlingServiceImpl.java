@@ -38,8 +38,8 @@ public class WebCrawlingServiceImpl implements WebCrawlingService {
 				System.out.println("----------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>===========");
 				try {
 					Document doc = Jsoup.connect(url).get();
-					System.out.println(doc.select("#problem_title").text());
-					pd.setName(doc.select("#problem_title").text());
+					System.out.println(prob+". "+doc.select("#problem_title").text());
+					pd.setName(prob+". "+doc.select("#problem_title").text());
 					pd.setLink(url);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
