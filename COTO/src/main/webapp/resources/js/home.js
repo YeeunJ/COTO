@@ -23,7 +23,8 @@ function callModal() {
 }
 
 function login() {
-	alert("로그인 후 이용하실 수 있습니다!");
+	alert("로그인 후 이용할 수 있는 기능입니다.");
+	if(confirm("로그인 창으로 이동하시겠습니까?")) location.href="./login";
 }
 
 function addajax(){
@@ -185,4 +186,11 @@ function baekjoon(){
 	}else{
 		insertProblems();
 	}
+}
+
+function tagSearch() {
+
+var tag=$("#tag").val();
+	alert(tag);
+
 }
