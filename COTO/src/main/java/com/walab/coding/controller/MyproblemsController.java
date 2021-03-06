@@ -168,7 +168,36 @@ public class MyproblemsController {
 
 		return mv;
 	}
-	
+	/**
+	 * Create recommend ???
+	 */
+	@RequestMapping(value = "/addRecomCount", method = RequestMethod.POST)
+	public ModelAndView createRecomCount(HttpServletRequest httpServletRequest) {
+		RecomCountDTO rcd;
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+
+			rcd = new RecomCountDTO();
+			rcd.setRecomID(recomID);
+			rcd.setUserID(userID);
+			recomCountService.createRecomCount(rcd);
+		}
+		rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+		int cartYN = recomCartService.readCartByID(recomID, userID);
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("cartYN", cartYN);
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
+
+		return mv;
+	}	
 	@RequestMapping(value = "/deleteRecomProblem", method = RequestMethod.POST)
 	public ModelAndView deleteRecomProblem(HttpServletRequest httpServletRequest) {
 		int recomID = Integer.parseInt(httpServletRequest.getParameter("id"));
@@ -198,6 +227,36 @@ public class MyproblemsController {
 		return mv;
 	}
 
+
+	/**
+	 * (미완성) Delete recommend
+	 */
+	@RequestMapping(value = "/deleteRecomCount", method = RequestMethod.POST)
+	public ModelAndView deleteRecomCount(HttpServletRequest httpServletRequest) {
+		RecomCountDTO rcd;
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+
+			rcd = new RecomCountDTO();
+			rcd.setRecomID(recomID);
+			rcd.setUserID(userID);
+			recomCountService.deleteRecomCount(recomID);
+		}
+		rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
+
+		return mv;
+	}
+	
 
 	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
