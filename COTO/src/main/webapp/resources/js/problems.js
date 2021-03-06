@@ -2,11 +2,31 @@ $(document).ready(function() {
 	$('#searchButton').on('click', function() {
 		search();
 	});
+	
 	if(gN != -1){
 		drawChart1();
 		drawChart2();
 	}
 });
+
+function updateAjax(){	
+	$.ajax({
+		url: "problems/update",
+		type: "POST",
+		async: false,
+		data: {
+			id: $('#Uid').val(),
+			difficulty: $('#Udifficulty').val(),
+			memo: $('#Umemo').val()
+		},
+		success: function(data){
+			$('#problemsContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
+}
 
 function drawChart1() {
 	<!-- Bar cahrt -->
@@ -85,54 +105,6 @@ function drawChart1() {
 	    }
 	  }
 	});
-
-
-	
-	/*var ctx1 = document.getElementById("myBarChart"); 
-	var myBarChart = new Chart(ctx1 , {
-	    type: 'bar',
-	    data: {
-	        labels: labels,
-	        datasets: [{
-	            label: '푼 문제수',
-	            data: dataForBar,
-	            borderColor: "rgba(255, 201, 14, 1)",
-	            backgroundColor: "rgba(255, 201, 14, 0.5)",
-	            fill: false,
-	        }]
-	    },
-	    options: {
-	        responsive: false,
-	        hover: {
-	            mode: 'nearest',
-	            intersect: true
-	        },
-	        scales: {
-	            xAxes: [{
-	                display: true,
-	                //barThickness: 20,
-	                maxBarThickness: 20,
-	                scaleLabel: {
-	                    display: true,
-	                },
-	                ticks: {
-	                    //autoSkip: false,
-	                    //maxTicksLimit:4
-	                }
-	            }],
-	            yAxes: [{
-	                display: true,
-	                ticks: {
-	                    suggestedMin: 0,
-	                    stepSize: 1,
-	                },
-	                scaleLabel: {
-	                    display: true,
-	                }
-	            }]
-	        }
-	    }
-	});*/
 }
 
 function drawChart2() {
@@ -174,25 +146,6 @@ function drawChart2() {
 	       cutoutPercentage: 65
 	    },
 	 });
-}
-
-function printAllContent(id){
-	$('#site').html($(id+' .pSite').html());
-	$('#problemName').html($(id+' .pTitle').html());
-	$('#memo').html($(id+' .pMemo').html());
-	$('#regdate').html($(id+' .pRegdate').html());
-	$('#difficulty').html($(id+' .pDifficulty').html());
-	
-	$('#UuserProblemID').html(id.substring(8, id.length));
-	$('#Usite').html($(id+' .pSite').html());
-	$('#UproblemName').html($(id+' .pTitle').html());
-	$('#Umemo').html($(id+' .pMemo').html());
-	$('#Uregdate').html($(id+' .pRegdate').html());
-	
-	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
-	$("#ud"+d).attr('checked', 'checked');
-	
-	rudModel("#readSolvedProblem", "#updateSolvedProblem", "문제 상세보기", "문제 수정하기", updateAjax, deleteAjax, search);
 }
 
 function callModal() {
@@ -271,49 +224,6 @@ function search(page){
 		error:function(request, status, error){
 			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		}
-	});
-}
-
-function updateAjax(){
-	var difficulty_cnt = document.getElementsByName("difficulty").length;
-	
-	for(var i=0;i<difficulty_cnt;i++) {
-		if(document.getElementsByName("difficulty")[i].checked == true)
-			var difficulty = document.getElementsByName("difficulty")[i].value;
-	}
-	
-	$.ajax({
-		url: "problems/update",
-		type: "POST",
-		async: false,
-		data: {
-			id:$('.sweet-modal-content #UuserProblemID').html(),
-			difficulty:difficulty,
-			memo: $('.sweet-modal-content #Umemo').val()
-		},
-		success: function(data){
-			$('#problemsContent').html(data);
-		}, 
-		error:function(request, status, error){
-			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
-	});
-}
-
-function deleteAjax (){
-	$.ajax({
-		url: "./problems/delete",
-		type: "POST",
-		async: false,
-		data: {
-			id:$('#UuserProblemID').html()
-		},
-		success: function(data){
-			$('#problemsContent').html(data);
-		}, 
-		error:function(request, status, error){
-			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
 	});
 }
 
