@@ -282,29 +282,51 @@ public class MyproblemsController {
 		
 	/**
 	 * Update user solvedProblem List
-	 */
+	 */	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updateProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
+	public ModelAndView updateProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
+
+		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+
 		UserProblemDTO upd = new UserProblemDTO();
-		upd.setMemo(httpServletRequest.getParameter("memo"));
 		upd.setDifficulty(httpServletRequest.getParameter("difficulty"));
+		upd.setMemo(httpServletRequest.getParameter("memo"));
 		upd.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
 
-		userProblemService.update(upd);
-		
-		return "redirect:../problems";
+		if (userProblemService.update(upd) > 0) {
+			System.out.println("success");
+		} else {
+			System.out.println("fail");
+		}
+
+		List<UserProblemDTO> problems = userProblemService.read(userID);
+		ModelAndView mvNew = new ModelAndView();
+		mvNew.addObject("problems", problems);
+		mvNew.setViewName("ajaxContent/problemsContent");
+
+		return mvNew;
 	}
 	
 	/**
 	 * Delete user solvedProblem List
-	 */
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public String deletePostOK(@PathVariable("id") int id, HttpServletRequest request) {
+	 */	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public ModelAndView deleteProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
 
-		userProblemService.delete(id);
+		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+		int userProblemID = Integer.parseInt(httpServletRequest.getParameter("id"));
 
-		String referer = request.getHeader("Referer");
-		return "redirect:" + referer;
+		if (userProblemService.delete(userProblemID) > 0) {
+			System.out.println("success");
+		} else {
+			System.out.println("fail");
+		}
+
+		List<UserProblemDTO> problems = userProblemService.read(userID);
+		mv.addObject("problems", problems);
+		mv.setViewName("ajaxContent/problemsContent");
+
+		return mv;
 	}
 	
 	/**
@@ -314,10 +336,33 @@ public class MyproblemsController {
 	public ModelAndView searchProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
 
 		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+		int page = Integer.parseInt(httpServletRequest.getParameter("page"));
 		String searchValue = httpServletRequest.getParameter("searchValue");
+		
+		int listCnt = recommendService.readRecomListCnt();
+		int list = 5;
+		int block = 10;
 
-		List<UserProblemDTO> problems = userProblemService.search(userID, searchValue);
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block);
 
+		int s_point = (page-1)*list;
+
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
+
+			
+		List<UserProblemDTO> problems = userProblemService.search(userID, searchValue, s_point, list);
+		mv.addObject("list", list);
+		mv.addObject("page", page);
+		mv.addObject("e_page", e_page);
+		mv.addObject("s_page", s_page);
 		mv.addObject("problems", problems);
 		mv.setViewName("ajaxContent/problemsContent");
 
@@ -332,7 +377,7 @@ public class MyproblemsController {
 
 		int recomID = Integer.parseInt(request.getParameter("recomID"));
 
-		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSitebyYN();
 		RecommendDTO recom = recommendService.readRecommend(recomID);
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemByID(recomID);
 		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);

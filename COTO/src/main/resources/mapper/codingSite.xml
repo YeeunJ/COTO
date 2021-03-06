@@ -7,8 +7,13 @@
 		(#{siteName}, #{siteUrl})
 	</insert>
 	
-	<select id="readCodingSite" resultType="com.walab.coding.model.CodingSiteDTO">
+	<select id="readCodingSite"
+		resultType="com.walab.coding.model.CodingSiteDTO">
 		select id, siteName, siteUrl, regDate FROM codingSite
+	</select>
+	<select id="readCodingSitebyYN"
+		resultType="com.walab.coding.model.CodingSiteDTO">
+		SELECT id, siteName, siteUrl, regDate FROM codingSite where deleteYN='0';
 	</select>
 	<select id="readCodingSiteById" resultType="com.walab.coding.model.CodingSiteDTO">
 		select id, siteName, siteUrl, mappingUrl, regDate FROM codingSite where id = ${siteID}
@@ -19,8 +24,10 @@
 		siteUrl=#{siteUrl}
 		where id=#{id}
 	</update>
-	<delete id="deleteCodingSite">
-		delete from codingSite where id=#{id}
-	</delete>
+	<update id="deleteCodingSite">
+		update codingSite
+		set deleteYN='1'
+		where id=#{id};
+	</update>
 
 </mapper>

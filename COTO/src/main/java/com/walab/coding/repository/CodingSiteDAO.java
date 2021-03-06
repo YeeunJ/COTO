@@ -9,6 +9,7 @@ public interface CodingSiteDAO {
 	
 	public int insertCodingSite(CodingSiteDTO dto);
 	public List<CodingSiteDTO> readCodingSite();
+	public List<CodingSiteDTO> readCodingSitebyYN();
 	public CodingSiteDTO readCodingSiteById(int siteId);
 	public int updateCodingSite(CodingSiteDTO dto);
 	public int deleteCodingSite(int seq);

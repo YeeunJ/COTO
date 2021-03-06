@@ -55,8 +55,7 @@ public class RecomCartServiceImpl implements RecomCartService {
 	}
 	
 	@Override
-	public int readCartByRecommend(int recomID, int userID) {
-		//int result = 0;
+	public List<RecommendDTO> readCartByRecommend(int userID) {
 		
 		List<RecommendDTO> recomList = recommendDAO.readRecommendList();
 		List<RecommendDTO> myList = recomCartDAO.readCartRecommendList(userID);
@@ -65,14 +64,17 @@ public class RecomCartServiceImpl implements RecomCartService {
 			for(int j=0 ; j<myList.size() ; j++) {
 				int reID = recomList.get(i).getId();
 				int myCartID = myList.get(j).getId();
+				RecommendDTO recom = recomList.get(i);
 				if( reID == myCartID) {
-					RecommendDTO recom = recomList.get(i);
-					recom.setUserCart('1');
+					recom.setUserCart(1);
+				}
+				else {
+					recom.setUserCart(0);
 				}
 			}
 		}
 
-		return 0;
+		return recomList;
 	}
 
 	@Override

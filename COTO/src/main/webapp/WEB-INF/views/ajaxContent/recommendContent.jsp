@@ -24,7 +24,20 @@
 			<span class="tableCell td2 alignCenter">${recoms.nickname}</span> 
 			<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
 			<span class="like-col tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
-			<span class="comment-col tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 		
+
+			<span class="comment-col tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
+ 			<c:if test = "${!empty userID}">
+ 					<span class="tableCell td1 alignCenter like-col">	
+						<c:choose>
+							<c:when test = "${recoms.userCart == '1'}">
+								<span class="clicked-cart icon" onclick="deleteRecomCart()"><span class="clicked-tooltip">장바구니에서 지울 수 있어요!</span></span>
+							</c:when>
+							<c:otherwise>							
+								<span class="cart-icon icon" onclick="addRecomCart()"><span class="cart-tooltip">장바구니에 담아보세요!</span></span>
+							</c:otherwise>	
+						</c:choose>		
+					</span>										
+			</c:if>	 				
 		</div>
 	</c:forEach>
 </div>
@@ -42,7 +55,7 @@
 		</c:if>
 		<c:forEach var="p" begin="${s_page}" end="${e_page}">
 			<c:if test="${ p eq page }">
-				<li id="recentPage" class="active orange"><span class="pagination-button" >${p}</span></li>
+				<li id="recentPage" class="active orange" value="${p}"><span class="pagination-button" >${p}</span></li>
 			</c:if>
 			<c:if test="${ p != page }">
 				<li class="waves-effect"><span class="pagination-button" onclick="search(${p})">${p}</span></li>

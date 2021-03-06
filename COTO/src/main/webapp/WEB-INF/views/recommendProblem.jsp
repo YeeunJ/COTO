@@ -10,10 +10,34 @@
 <link href="./resources/css/recommendProblem.css?asd" rel="stylesheet">
 <script src="./resources/js/recommendProblem.js"></script>
 
+<script>
+function clickTag(tag){
+	console.log($('#'+tag).is(":checked"));
+	if($('#'+tag).is(":checked") == false) {
+		console.log("1");
+		$('#'+tag).attr('checked', true);
+		$('#'+tag+'Button').css('background-color', '#e69138ff');
+		$(this).css('color', 'white');
+	} else if($('#'+tag).is(":checked") == true) {
+		console.log("2");
+		$('#'+tag).attr('checked', false);
+		$(this).css('background', 'none');
+		$(this).css('color', 'black');
+	}
+	search(1);
+}
+/*rgb(254 214 171)*/
+</script>
 <style>
-
+.tag-bar > button{
+	float: right;
+}
+.tag-bar:before{
+	content:"";
+	clear: both;
+	display: block;
+}
 </style>
-
 <div id="SiteContainer" class="container">
 	<div id="recommend">
 		<div class="content">
@@ -40,6 +64,12 @@
 				<option value="recom.regdate desc">최신순</option>
 			</select>
 		</div>
+	</div>
+	<div class = "tag-bar">
+		<c:forEach items="${tags}" var="tag" varStatus="status">
+			<input type="checkbox" class = "tagCheck" id = "check${status.index}" disabled="disabled" value = "${tag.tag}" hidden/>
+			<button class="input-field custom-button" id = "check${status.index}Button" style="border: 1px solid #e69138e0;" onclick="clickTag('check${status.index}')"># ${tag.tag}</button>
+		</c:forEach>
 	</div>
 	
 	<div id="pageajaxContent">

@@ -34,6 +34,12 @@ public class CodingSiteDAOImpl implements CodingSiteDAO {
 
 		return codingSitelist;
 	}
+	public List<CodingSiteDTO> readCodingSitebyYN() {
+		List<CodingSiteDTO> codingSitelist = new ArrayList<CodingSiteDTO>();
+		codingSitelist = sqlSession.selectList("CodingSite.readCodingSitebyYN");
+
+		return codingSitelist;
+	}
 	
 	public CodingSiteDTO readCodingSiteById(int siteID) {
 		Map<String, Object> codingSiteParam = new HashMap<String, Object>();

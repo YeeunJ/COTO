@@ -86,6 +86,8 @@ function drawChart1() {
 	  }
 	});
 
+
+	
 	/*var ctx1 = document.getElementById("myBarChart"); 
 	var myBarChart = new Chart(ctx1 , {
 	    type: 'bar',
@@ -174,6 +176,25 @@ function drawChart2() {
 	 });
 }
 
+function printAllContent(id){
+	$('#site').html($(id+' .pSite').html());
+	$('#problemName').html($(id+' .pTitle').html());
+	$('#memo').html($(id+' .pMemo').html());
+	$('#regdate').html($(id+' .pRegdate').html());
+	$('#difficulty').html($(id+' .pDifficulty').html());
+	
+	$('#UuserProblemID').html(id.substring(8, id.length));
+	$('#Usite').html($(id+' .pSite').html());
+	$('#UproblemName').html($(id+' .pTitle').html());
+	$('#Umemo').html($(id+' .pMemo').html());
+	$('#Uregdate').html($(id+' .pRegdate').html());
+	
+	var d = jQuery($(id+' .readDifficulty').html()).attr("alt");
+	$("#ud"+d).attr('checked', 'checked');
+	
+	rudModel("#readSolvedProblem", "#updateSolvedProblem", "문제 상세보기", "문제 수정하기", updateAjax, deleteAjax, search);
+}
+
 function callModal() {
 	selectHtml = $('#selectHtml').html();
 	
@@ -231,12 +252,17 @@ function addajax(){
     });
 }
 
-function search(){
+function search(page){
+	if($('#recentPage').val() == null) {
+		page=1;
+	}	
+	
 	$.ajax({
 		url: "./problems/search",
 		type: "POST",
 		async: false,
 		data: {
+			page: page,
 			searchValue:$('#searchValue').val()
 		},
 		success: function(data){
@@ -245,6 +271,49 @@ function search(){
 		error:function(request, status, error){
 			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		}
+	});
+}
+
+function updateAjax(){
+	var difficulty_cnt = document.getElementsByName("difficulty").length;
+	
+	for(var i=0;i<difficulty_cnt;i++) {
+		if(document.getElementsByName("difficulty")[i].checked == true)
+			var difficulty = document.getElementsByName("difficulty")[i].value;
+	}
+	
+	$.ajax({
+		url: "problems/update",
+		type: "POST",
+		async: false,
+		data: {
+			id:$('.sweet-modal-content #UuserProblemID').html(),
+			difficulty:difficulty,
+			memo: $('.sweet-modal-content #Umemo').val()
+		},
+		success: function(data){
+			$('#problemsContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
+}
+
+function deleteAjax (){
+	$.ajax({
+		url: "./problems/delete",
+		type: "POST",
+		async: false,
+		data: {
+			id:$('#UuserProblemID').html()
+		},
+		success: function(data){
+			$('#problemsContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
 	});
 }
 

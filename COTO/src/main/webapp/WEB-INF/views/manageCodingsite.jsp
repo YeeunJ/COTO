@@ -112,7 +112,7 @@ $(document).ready(function() {
 		
 		var buttons = '<span class="btns wide"><button id="cancelbtn" class="cancelbtn whitebtn" type="button">취소</button><button id="submitbtn" class="submitbtn whitebtn" type="submit">수정</button></span>';
 
-		$(editCell[0]).html('<input id="editonly" type="hidden" name="id" value="'+  [index-1].id +'" /> <input id="siteName"  class="siteName" type="text" name="siteName" value="'+posts[index-1].siteName+'">');
+		$(editCell[0]).html('<input id="editonly" type="hidden" name="id" value="'+  posts[index-1].id +'" /> <input id="siteName"  class="siteName" type="text" name="siteName" value="'+posts[index-1].siteName+'">');
 		$(editCell[1]).html('<input id="siteUrl" class="siteUrl" type="text" name="siteUrl" value="'+ posts[index-1].siteUrl +'">');
 		$(editCell[1]).append(buttons);
 		
@@ -187,7 +187,8 @@ $(document).ready(function() {
 				
 		 		<span class="tableCell td3 sub ">${u.getSiteName()}</span> 
 				<span class="tableCell td7 sub "><a href="${u.getSiteUrl()}" target="_blank">${u.getSiteUrl()}</a>
-				 <span class='btns'>
+				
+				<span class='btns'>
                        <button type="button" id="change" class="editSite edit whitebtn">수정</button>
                        <button type="button" class="deleteBtn edit whitebtn" value="${u.getId()}">삭제</button>
                     </span>

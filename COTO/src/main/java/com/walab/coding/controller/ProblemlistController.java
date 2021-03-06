@@ -40,7 +40,7 @@ public class ProblemlistController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewProblems(ModelAndView mv, 
 										@RequestParam(value="page", defaultValue="1") int page) {
-		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSitebyYN();
 		List<Map<String,Object>> ratioBySite = problemService.readRatioBySiteid();
 		List<Map<String,Object>> ratio = problemService.makeRatioBySiteid(ratioBySite, codingSite);
 		List<Map<String,Object>> average = userProblemService.readAvgForaWeek();

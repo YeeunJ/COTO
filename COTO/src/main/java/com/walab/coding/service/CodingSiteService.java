@@ -13,6 +13,8 @@ public interface CodingSiteService {
 	 */
 	List<CodingSiteDTO> readCodingSite();
 	
+	List<CodingSiteDTO> readCodingSitebyYN();
+	
 	public int updateCodingSite(CodingSiteDTO dto);
 
 	public int deleteCodingSite(int seq);
