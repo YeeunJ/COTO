@@ -101,24 +101,8 @@
 		<button onclick="callModal()" id="register-button" class="mybtn"
 			style="margin-top: 2%; float: left;">문제 등록하기</button>
 		
-		<!-- table1 -->
 		<div class="table" id="problemsContent">
 			<%@ include file="../ajaxContent/problemsContent.jsp"%>
-		</div>
-
-		<br><br>
-		
-		<!-- table2 -->
-		<div class="table">
-			<div class="tableRow">
-				<span class="tableCell th3" style="text-align: left !important">전체 푼 문제</span>
-			</div>
-
-			<span class="tableCell td3 probname tc"> 
-				<c:forEach items="${readOtherUserProblemName}" var="problem" varStatus="status">
-					<nobr><a href="${problem.link}" target="_blank">${problem.name}, </a></nobr>
-				</c:forEach>
-			</span>
 		</div>
 
 		<!-- 문제등록 모달 -->

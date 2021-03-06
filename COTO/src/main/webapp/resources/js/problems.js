@@ -9,7 +9,7 @@ $(document).ready(function() {
 	}
 });
 
-function updateAjax(){	
+function updateAjax(pageV){	
 	$.ajax({
 		url: "problems/update",
 		type: "POST",
@@ -17,7 +17,8 @@ function updateAjax(){
 		data: {
 			id: $('#Uid').val(),
 			difficulty: $('#Udifficulty').val(),
-			memo: $('#Umemo').val()
+			memo: $('#Umemo').val(),
+			page: pageV
 		},
 		success: function(data){
 			$('#problemsContent').html(data);
@@ -196,6 +197,7 @@ function addajax(){
         },
         success: function(data){
         	resetContent();
+        	$('#problemsContent').html(data);
         	console.log("success");
         },
         error:function(request,status,error){

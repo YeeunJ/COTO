@@ -271,7 +271,7 @@ public class MyproblemsController {
 		int userSolvedP = userProblemService.readSolvedP(userID);
 		List<UserProblemDTO> countSolvedProblemEachDay = userProblemService.countSolvedProblemEachDay(userID);
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-		List<ProblemDTO> readOtherUserProblemName = problemService.readOtherUserProblemName(userID);
+		//List<ProblemDTO> readOtherUserProblemName = problemService.readOtherUserProblemName(userID);
 		List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
 		
 		GoalDTO g = null;
@@ -286,7 +286,7 @@ public class MyproblemsController {
 		model.addAttribute("goalNum", goalNum);
 		mv.addObject("countSolvedProblemEachDay", countSolvedProblemEachDay);
 		mv.addObject("CodingSite", codingSite);
-		mv.addObject("readOtherUserProblemName", readOtherUserProblemName);
+		//mv.addObject("readOtherUserProblemName", readOtherUserProblemName);
 		mv.addObject("recomCarts", recomCart);
 
 		/* pagination */
@@ -351,6 +351,25 @@ public class MyproblemsController {
 		upd.setDifficulty(httpServletRequest.getParameter("difficulty"));
 		upd.setMemo(httpServletRequest.getParameter("memo"));
 		upd.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
+		int page = Integer.parseInt(httpServletRequest.getParameter("page"));
+		
+		int listCnt = recommendService.readRecomListCnt();
+		int list = 10;
+		int block = 10;
+
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block);
+
+		int s_point = (page-1)*list;
+
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
 
 		if (userProblemService.update(upd) > 0) {
 			System.out.println("success");
@@ -361,6 +380,9 @@ public class MyproblemsController {
 		List<UserProblemDTO> problems = userProblemService.read(userID);
 		ModelAndView mvNew = new ModelAndView();
 		mvNew.addObject("problems", problems);
+		mvNew.addObject("page", page);
+		mvNew.addObject("e_page", e_page);
+		mvNew.addObject("s_page", s_page);
 		mvNew.setViewName("ajaxContent/problemsContent");
 
 		return mvNew;
@@ -374,7 +396,26 @@ public class MyproblemsController {
 
 		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
 		int userProblemID = Integer.parseInt(httpServletRequest.getParameter("id"));
+		int page = Integer.parseInt(httpServletRequest.getParameter("page"));
+		
+		int listCnt = recommendService.readRecomListCnt();
+		int list = 10;
+		int block = 10;
 
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block);
+
+		int s_point = (page-1)*list;
+
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
+		
 		if (userProblemService.delete(userProblemID) > 0) {
 			System.out.println("success");
 		} else {
@@ -382,6 +423,9 @@ public class MyproblemsController {
 		}
 
 		List<UserProblemDTO> problems = userProblemService.read(userID);
+		mv.addObject("page", page);
+		mv.addObject("e_page", e_page);
+		mv.addObject("s_page", s_page);
 		mv.addObject("problems", problems);
 		mv.setViewName("ajaxContent/problemsContent");
 
