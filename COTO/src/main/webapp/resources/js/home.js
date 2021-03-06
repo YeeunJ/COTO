@@ -187,10 +187,8 @@ function baekjoon(){
 		insertProblems();
 	}
 }
-
-function tagSearch() {
-
-var tag=$("#tag").val();
-	alert(tag);
-
-}
+$(document).on("click", ".tag", function(){
+		var tags=$(this).text();
+		var tag = tags.replace(/#/g, '');
+		alert(tag);
+	});
