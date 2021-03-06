@@ -295,7 +295,7 @@ public class MyproblemsController {
 		int block = 10;
 
 		int pageNum = (int) Math.ceil((float) listCnt / list); 
-		int blockNum = (int) Math.ceil((float) pageNum / block);
+		//int blockNum = (int) Math.ceil((float) pageNum / block);
 		int nowBlock = (int) Math.ceil((float) page / block);
 		int s_point = (page - 1) * list;
 
@@ -408,7 +408,7 @@ public class MyproblemsController {
 		String searchValue = httpServletRequest.getParameter("searchValue");
 		
 		int listCnt = recommendService.readRecomListCnt();
-		int list = 5;
+		int list = 10;
 		int block = 10;
 
 		int pageNum = (int) Math.ceil((float)listCnt/list);
