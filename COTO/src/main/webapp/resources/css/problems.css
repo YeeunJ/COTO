@@ -176,8 +176,11 @@ input[type='radio']:checked {
 	padding-left: 45px !important;
 }
 .table-wrapper{
-	overflow-y:auto;
-	max-height: 250px;
+	width:100%;
+    overflow-y: auto;
+    height: 200px;
+    display: inline-block;
+    max-height: 100%;
 }
 
 /* 반응형 */
