@@ -54,7 +54,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-		request.setAttribute("codingSite", codingSite);
+		request.setAttribute("codingSiteFooter", codingSite);
 		
 		super.postHandle(request, response, handler, modelAndView);
 	}

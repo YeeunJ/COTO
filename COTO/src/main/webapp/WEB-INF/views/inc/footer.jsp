@@ -21,7 +21,7 @@
 			</div> -->
 			
 			<ul id="codingSite" class="codingSites" style="list-style:none;text-align:center;">
-			<c:forEach items="${codingSite}" var="cs" varStatus="vs">
+			<c:forEach items="${codingSiteFooter}" var="cs" varStatus="vs">
 			<c:if test="${vs.index eq '0'}"> | </c:if>
 				<li style="display:inline-block">
 					 <a href='${cs.siteUrl}' target=”_blank” >${cs.siteName}</a> | </li>
