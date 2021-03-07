@@ -44,6 +44,7 @@
 						<li id = "list" onclick="location.href='../mypage/problems'"><span id = "listspan">내가 푼 문제</span></li>
 						<li id = "list" onclick="location.href='../mypage/information'"><span id = "listspan">내 정보</span></li>
 						<li id = "list" onclick="location.href='../mypage/activities'"><span id = "listspan">내 기록</span></li>
+						<li id = "list" onclick="location.href='../mypage/groups'"><span id = "listspan">내 그룹</span></li>
 					</ul>
 				</li>
 				<li class = "right">
@@ -62,6 +63,7 @@
 				<li><a href="../mypage/problems">마이 페이지 - 내가 푼 문제</a></li>
 				<li><a href="../mypage/information">마이 페이지 - 내 정보</a></li>
 				<li><a href="../mypage/activities">마이 페이지 - 내 기록</a></li>
+				<li><a href="../mypage/groups">마이 페이지 - 내 그룹</a></li>				
 			</ul>
 	    </div>
 	</div>

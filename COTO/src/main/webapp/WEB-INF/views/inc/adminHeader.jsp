@@ -53,6 +53,7 @@ $(document).ready(function(){
 						<li id = "list" onclick="location.href='./mypage/problems'"><span id = "listspan" onclick="location.href='./mypage/problems'">내가 푼 문제</span></li>
 						<li id = "list" onclick="location.href='./mypage/information'"><span id = "listspan">내 정보</span></li>
 						<li id = "list" onclick="location.href='./mypage/activities'"><span id = "listspan">내 기록</span></li>
+						<li id = "list" onclick="location.href='./mypage/groups'"><span id = "listspan">내 그룹</span></li>
 					</ul>
 				</li>
 				<li class = "right">
