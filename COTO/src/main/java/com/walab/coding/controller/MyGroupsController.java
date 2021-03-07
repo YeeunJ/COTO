@@ -19,29 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.CodingSiteDTO;
-import com.walab.coding.model.GoalDTO;
-import com.walab.coding.model.ProblemDTO;
-import com.walab.coding.model.RecomCartDTO;
-import com.walab.coding.model.RecomCommentDTO;
-import com.walab.coding.model.RecomCountDTO;
-import com.walab.coding.model.RecomProblemDTO;
-import com.walab.coding.model.RecomTagDTO;
-import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.model.UserDTO;
-import com.walab.coding.model.UserProblemDTO;
+import com.walab.coding.model.GroupDTO;
+
 import com.walab.coding.service.CodingSiteService;
-import com.walab.coding.service.GoalService;
-import com.walab.coding.service.GoalServiceImpl;
-import com.walab.coding.service.ProblemService;
-import com.walab.coding.service.RecomCartService;
-import com.walab.coding.service.RecomCommentService;
-import com.walab.coding.service.RecomCountService;
-import com.walab.coding.service.RecomProblemService;
-import com.walab.coding.service.RecomTagService;
-import com.walab.coding.service.RecommendService;
-import com.walab.coding.service.UserProblemService;
-import com.walab.coding.service.UserProblemServiceImpl;
-import com.walab.coding.service.UserService;
+import com.walab.coding.service.GroupService;
+
 
 /**
  * Handles requests for the application Mypage-groups page.
@@ -52,34 +35,11 @@ import com.walab.coding.service.UserService;
 public class MyGroupsController {
 
 	@Autowired
-	UserProblemService userProblemService;
-
-	@Autowired
-	GoalService goalService;
-
-	@Autowired
 	CodingSiteService codingSiteService;
-	
-	@Autowired
-	ProblemService problemService;
   
-  @Autowired
-	RecommendService recommendService;
-	
 	@Autowired
-	RecomProblemService recomProblemsService;
-	
-	@Autowired
-	RecomTagService recomTagService;
-	
-	@Autowired
-	RecomCountService recomCountService;
-	
-	@Autowired
-	RecomCommentService recomCommentService;
-	
-	@Autowired
-	RecomCartService recomCartService;
+	GroupService groupService;
+
 
 	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
@@ -91,10 +51,15 @@ public class MyGroupsController {
 		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
 
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<GroupDTO> myGroups = groupService.readMyGroups(userID);
 
 		mv.addObject("CodingSite", codingSite);
+		mv.addObject("groups", myGroups);
+		
+		
 
-		/* pagination */
+		
+		/* pagination 
 		int listCnt = userProblemService.readProblemCnt(userID); 
 		int list = 10; 
 		int block = 10;
@@ -117,7 +82,8 @@ public class MyGroupsController {
 		mv.addObject("page", page);
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
-		/* pagination end */
+		 pagination end */
+		
 
 		mv.setViewName("mypage/groups");
 

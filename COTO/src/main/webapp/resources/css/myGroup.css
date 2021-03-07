@@ -191,12 +191,12 @@ input[type='radio']:checked {
   }
 }
 @media only screen and (max-width: 802px) {
-  .pRegdate{
+  .pNumber{
   	display:none!important;
   }
 }
 @media only screen and (max-width: 600px) {
-  .pMemo{
+  .pAdmin{
   	display:none!important;
   }
 }
@@ -206,7 +206,7 @@ input[type='radio']:checked {
 	}
 }
 @media only screen and (max-width: 450px) {
-  .pDifficulty, .pButton{
+  .pNow{
   	display:none!important;
   }
 }
