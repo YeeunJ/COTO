@@ -26,6 +26,7 @@ $(document).ready(function() {
 	</c:forEach>
 	
 
+
 	$('#editbtn').click(function() {
 		if ($("span.btns").css("display") == "none") {
 			$('span.btns').show();
@@ -110,6 +111,7 @@ $(document).ready(function() {
 		var index = $('.tableRow').index(tableRow);
 		form.action="manageCodingsite/editok";
 		
+		console.log("check!");
 		var buttons = '<span class="btns wide"><button id="cancelbtn" class="cancelbtn whitebtn" type="button">취소</button><button id="submitbtn" class="submitbtn whitebtn" type="submit">수정</button></span>';
 
 		$(editCell[0]).html('<input id="editonly" type="hidden" name="id" value="'+  posts[index-1].id +'" /> <input id="siteName"  class="siteName" type="text" name="siteName" value="'+posts[index-1].siteName+'">');
