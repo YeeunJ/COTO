@@ -1,0 +1,213 @@
+#myDoughnutChart {margin: auto !important;}
+#myBarChart {width: 700px !important;}
+
+@media screen and (max-width: 1458px) {
+	.myChart {width: 250px !important; }
+}
+@media screen and (max-width: 1187px) {
+	#myDoughnutChart {width: 200px !important;}
+	.myChart {width: 200px !important; }
+}
+@media screen and (max-width: 992px) {
+	.card-content2 { display: none; }
+}
+@media screen and (max-width: 550px) {
+	.card-content2, .card-content3 { display: none; } 
+	.card-content1 {width: 100%; margin:0;}
+	.pNow {visibility: visible !important;}
+}
+.box{
+	border: 0;
+}
+.search{
+	display: flex;
+	float: right;
+	border: none;
+	padding: 0px !important;
+}
+.search_bt{
+	all:unset;
+}
+.font-color {
+	color: #e69138ff;
+}
+
+.card-wrap {
+	width: 100%;
+	display: inline-flex;
+	/* grid-template-columns: 1fr 1fr 1fr; */
+}
+
+ .card-content1, .card-content2, .card-content3 {
+	flex: 1;
+	width: 200px;
+} 
+
+.card-content1, .card-content2 {
+	margin-right: 15px;
+}
+
+.card-body {
+	border-radius: 10%;
+	height: 250px;
+	padding: 10px;
+	/* overflow: hidden;
+    position: relative;
+    resize: both; */
+}
+
+.card-title {
+	font-size: 20px !important;
+	padding: 2% 2% 4% 2%;
+}
+
+.radioMrg {
+	margin-left: 3%;
+}
+input[type='radio']:checked {
+  background-color: #e69238 !important;
+}
+.diffCont {
+	margin-left: 5%;
+	color: #e69238;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#solvedProblemH {
+	display: inline-block;
+    line-height: 2;
+}
+.addButton i {
+	line-height: 1;
+}
+
+.modal_button {
+	display: inline-block;
+    background: #09c;
+    border: 1px solid #a6b86e;
+    color: #fff;
+    font-size: 13px;
+    font-family: "Roboto","Open Sans",sans-serif;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin: 4px;
+    margin-top: 28px;
+    margin-left: 5%;
+    min-width: 64px;
+    transition: all 0.2s;
+    outline: 0;
+}
+
+.modal_button :hover {
+	background: #677e52;
+}
+
+#confirmSite{
+	height: 300px;
+    overflow: scroll;
+}
+
+.pMemo{
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 150px;
+}
+
+
+/* 등록 모달 */
+.title {
+	color: #e69238;
+    font-size: 20px;
+    margin-bottom: 2%;
+    font-weight: 500;
+}
+/* #detailSolvedProblem {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 35px;
+} */
+.mrg {
+	margin-bottom: 5%;
+}
+.box {
+	border-left: thick solid #e69238;
+	padding: 1% 2%;
+	width: 100%;
+}
+.sweet-modal-buttons a.button, .sweet-modal-buttons button {
+	display: inline-block;
+    color: #fff;
+    background: #e69138ff !important;
+    border: none !important;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 9px 12px;
+    margin: 4px;
+    margin-top: 28px;
+    margin-left: 20px;
+    min-width: 64px;
+    transition: all 0.2s;
+}
+.sweet-modal-title-wrap{
+	background: #e69138ff;
+	padding-left: 45px !important;
+}
+.sweet-modal-title h2 {
+	font-size: 30px !important;
+    font-weight: 500 !important;
+    color: white !important;
+}
+.sweet-modal-title h2 a {
+	color: white !important;
+}
+.sweet-modal-content {
+	padding-left: 45px !important;
+}
+.table-wrapper{
+	width:100%;
+    overflow-y: auto;
+    height: 200px;
+    display: inline-block;
+    max-height: 100%;
+}
+
+/* 반응형 */
+@media only screen and (max-width: 910px) {
+  .pIndex{
+  	display:none!important;
+  }
+}
+@media only screen and (max-width: 802px) {
+  .pNumber{
+  	display:none!important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .pAdmin{
+  	display:none!important;
+  }
+}
+@media only screen and (max-width: 500px) {
+ 	.card-wrap {
+		grid-template-columns: 1fr;
+	}
+}
+@media only screen and (max-width: 450px) {
+  .pNow{
+  	display:none!important;
+  }
+}
+
