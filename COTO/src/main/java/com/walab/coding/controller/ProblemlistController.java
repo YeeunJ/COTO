@@ -93,7 +93,6 @@ public class ProblemlistController {
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
 		mv.addObject("problems", problems);
-		System.out.println("시간은 = "+ problems.get(0).getRegdate());
 		
 		mv.setViewName("ajaxContent/problemListContent");
 		

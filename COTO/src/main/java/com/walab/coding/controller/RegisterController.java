@@ -86,8 +86,6 @@ public class RegisterController {
 		g.setGoalNum(goalNum);
 
 		userService.createUsergoal(g);
-		System.out.println("시작날짜는: "+g.getStartDate());
-		System.out.println("종료날짜는: "+g.getEndDate());
 	}
 	
 	/**

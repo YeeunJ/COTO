@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <div class="details">
 	<c:choose>
@@ -54,7 +55,7 @@
 		<c:forEach items="${recomComment}" var="r" varStatus="status">
 			<div class="comment-wrapper">
 				<span class="username" onclick="moveUserPage('${r.nickName}')">${ r.name }</span>
-				<span class="commentdate">${ r.regDate }</span>
+				<span class="commentdate">${r.regDate}</span>
 				<p class="comment">${ r.content }</p>
 				<%-- <c:choose>
 					<c:when test = "${loginID ==-1}">
@@ -81,7 +82,7 @@
 	</div>
 </div>
 <style>
-.username:hover{ color: #e69138ff; font-weight:bold;}
+.username:hover{ color: #e69138ff; font-weight:bold; cursor: pointer;}
 </style>
 <script>
 function moveUserPage(nickName){
