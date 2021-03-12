@@ -87,8 +87,8 @@ public class RecommendServiceImpl implements RecommendService {
 	 * usage: RecommendController
 	 */
 	@Override
-	public List<RecommendDTO> readRecomByPage(String searchValue, String orderValue, int s_point, int list) {
-		List<RecommendDTO> recoms = recommendDAO.readRecomByPage(searchValue, orderValue, s_point, list);
+	public List<RecommendDTO> readRecomByPage(String searchValue, String orderValue, List<String> tagValue, int s_point, int list) {
+		List<RecommendDTO> recoms = recommendDAO.readRecomByPage(searchValue, orderValue, tagValue, s_point, list);
 		
 		for(int i=0;i<recoms.size();i++) {
 			recoms.get(i).setRecomCount(recomCountDAO.readRecomCount(recoms.get(i).getId()));

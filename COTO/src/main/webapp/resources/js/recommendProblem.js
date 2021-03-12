@@ -31,7 +31,7 @@ function search(page){
 				page: page,
 				searchValue:$('#searchValue').val(),
 				orderValue:$('#orderValue option:selected').val(),
-				tag: tagArray
+				tagValue: JSON.stringify(tagArray)
 			},
 			success: function(data){
 				$('#pageajaxContent').html(data);

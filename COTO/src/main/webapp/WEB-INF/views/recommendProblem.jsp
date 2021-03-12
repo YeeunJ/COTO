@@ -17,13 +17,13 @@ function clickTag(tag){
 		console.log("1");
 		$('#'+tag).attr('checked', true);
 		$('#'+tag+'Button').css('background-color', '#e69138ff');
-		$(this).css('color', 'white');
+		$('#'+tag+'Button').css('color', 'white');
 	} else if($('#'+tag).is(":checked") == true) {
-		console.log("2");
 		$('#'+tag).attr('checked', false);
-		$(this).css('background', 'none');
-		$(this).css('color', 'black');
+		$('#'+tag+'Button').css('background', 'none');
+		$('#'+tag+'Button').css('color', 'black');
 	}
+	$('#'+tag+'Button').blur();
 	search(1);
 }
 /*rgb(254 214 171)*/
@@ -31,6 +31,7 @@ function clickTag(tag){
 <style>
 .tag-bar > button{
 	float: right;
+	margin: 1px;
 }
 .tag-bar:before{
 	content:"";
@@ -68,7 +69,7 @@ function clickTag(tag){
 	<div class = "tag-bar">
 		<c:forEach items="${tags}" var="tag" varStatus="status">
 			<input type="checkbox" class = "tagCheck" id = "check${status.index}" disabled="disabled" value = "${tag.tag}" hidden/>
-			<button class="input-field custom-button" id = "check${status.index}Button" style="border: 1px solid #e69138e0;" onclick="clickTag('check${status.index}')"># ${tag.tag}</button>
+			<button class="input-field custom-button tag-button" id = "check${status.index}Button" style="border: 1px solid #e69138e0;" onclick="clickTag('check${status.index}')"># ${tag.tag}</button>
 		</c:forEach>
 	</div>
 	

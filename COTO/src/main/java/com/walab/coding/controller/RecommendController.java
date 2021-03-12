@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.cj.xdevapi.JsonArray;
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.RecomCartDTO;
 import com.walab.coding.model.RecomProblemDTO;
@@ -550,10 +551,19 @@ public class RecommendController {
 			@RequestParam(value="page", defaultValue="1") int page,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
 			@RequestParam(value="orderValue", defaultValue="") String orderValue,
-			@RequestParam(value="orderValue", defaultValue="") ArrayList<String> tagValue) {
-		
-		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+			@RequestParam(value="tagValue", defaultValue="") List<String> tagValue) {
 
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<String> tagData = new ArrayList<String>();
+		
+		if(!tagValue.get(0).equalsIgnoreCase("[]")) {
+			tagValue.stream().forEach(tag -> {
+				String [] tagSplit = tag.split("\"");
+				System.out.println(tagSplit[1]);
+				tagData.add(tagSplit[1]);
+			});
+		}
+		
 		// pagination
 		int listCnt = recommendService.readRecomListCnt();
 		int list = 10;
@@ -573,7 +583,7 @@ public class RecommendController {
 				e_page = pageNum;
 		}
 
-		List<RecommendDTO> recoms = recommendService.readRecomByPage(searchValue, orderValue, s_point, list);
+		List<RecommendDTO> recoms = recommendService.readRecomByPage(searchValue, orderValue, tagData, s_point, list);
 		
 		ModelAndView mv = new ModelAndView();
 		

@@ -237,7 +237,6 @@ input[type='radio']:checked {
 .index-col{
  	display:none;
  }
- 
 /* 반응형 */
 @media only screen and (max-width: 1002px) {
   #detailRecom{
