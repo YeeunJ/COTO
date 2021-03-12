@@ -1,4 +1,8 @@
 
+.fa-times{color: orange;}
+
+button{border:0; outling:0; cursor:pointer; background-color: white;}
+
 .prog {
 	background: #e3e3e3;
 	border-radius: 10px;

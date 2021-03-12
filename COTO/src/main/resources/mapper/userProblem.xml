@@ -36,8 +36,8 @@
 		delete from userProblem where problemID = #{problemID}
 	</delete>
 	
-	<update id="updateUserProblem" parameterType="hashmap">
-		update userProblem set difficulty='${difficulty}', memo='${memo}' where id = #{id}
+	<update id="updateUserProblem">
+		update userProblem set difficulty=#{difficulty}, memo=#{memo} where id = #{id}
 	</update>
 	
 	<select id="readSovledUserProblem" resultType="int" parameterType="hashmap">

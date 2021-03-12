@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="./resources/css/home.css?asd" />
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?asd" />
 
-<script src="./resources/js/home.js"></script>
+<script src="./resources/js/home.js?ver=2"></script>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

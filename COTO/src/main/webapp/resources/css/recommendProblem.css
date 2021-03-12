@@ -307,4 +307,9 @@ input[type='radio']:checked {
 
 .disableCheck {
   pointer-events: none; 
+  background-color: #f7cfa6 !important;
+}
+
+.originBg {
+  background-color: #e69138ff !important;
 }

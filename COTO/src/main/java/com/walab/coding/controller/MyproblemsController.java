@@ -168,7 +168,36 @@ public class MyproblemsController {
 
 		return mv;
 	}
-	
+	/**
+	 * Create recommend ???
+	 */
+	@RequestMapping(value = "/addRecomCount", method = RequestMethod.POST)
+	public ModelAndView createRecomCount(HttpServletRequest httpServletRequest) {
+		RecomCountDTO rcd;
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+
+			rcd = new RecomCountDTO();
+			rcd.setRecomID(recomID);
+			rcd.setUserID(userID);
+			recomCountService.createRecomCount(rcd);
+		}
+		rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+		int cartYN = recomCartService.readCartByID(recomID, userID);
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("cartYN", cartYN);
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
+
+		return mv;
+	}	
 	@RequestMapping(value = "/deleteRecomProblem", method = RequestMethod.POST)
 	public ModelAndView deleteRecomProblem(HttpServletRequest httpServletRequest) {
 		int recomID = Integer.parseInt(httpServletRequest.getParameter("id"));
@@ -200,6 +229,36 @@ public class MyproblemsController {
 
 
 	/**
+	 * (미완성) Delete recommend
+	 */
+	@RequestMapping(value = "/deleteRecomCount", method = RequestMethod.POST)
+	public ModelAndView deleteRecomCount(HttpServletRequest httpServletRequest) {
+		RecomCountDTO rcd;
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+
+			rcd = new RecomCountDTO();
+			rcd.setRecomID(recomID);
+			rcd.setUserID(userID);
+			recomCountService.deleteRecomCount(recomID);
+		}
+		rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		int commentCount = recomComment.size();
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
+
+		return mv;
+	}
+	
+
+	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
 	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
@@ -212,7 +271,7 @@ public class MyproblemsController {
 		int userSolvedP = userProblemService.readSolvedP(userID);
 		List<UserProblemDTO> countSolvedProblemEachDay = userProblemService.countSolvedProblemEachDay(userID);
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-		List<ProblemDTO> readOtherUserProblemName = problemService.readOtherUserProblemName(userID);
+		//List<ProblemDTO> readOtherUserProblemName = problemService.readOtherUserProblemName(userID);
 		List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
 		
 		GoalDTO g = null;
@@ -227,7 +286,7 @@ public class MyproblemsController {
 		model.addAttribute("goalNum", goalNum);
 		mv.addObject("countSolvedProblemEachDay", countSolvedProblemEachDay);
 		mv.addObject("CodingSite", codingSite);
-		mv.addObject("readOtherUserProblemName", readOtherUserProblemName);
+		//mv.addObject("readOtherUserProblemName", readOtherUserProblemName);
 		mv.addObject("recomCarts", recomCart);
 
 		/* pagination */
@@ -236,7 +295,7 @@ public class MyproblemsController {
 		int block = 10;
 
 		int pageNum = (int) Math.ceil((float) listCnt / list); 
-		int blockNum = (int) Math.ceil((float) pageNum / block);
+		//int blockNum = (int) Math.ceil((float) pageNum / block);
 		int nowBlock = (int) Math.ceil((float) page / block);
 		int s_point = (page - 1) * list;
 
@@ -279,10 +338,10 @@ public class MyproblemsController {
 
 		return mv;
 	}
-	
+		
 	/**
 	 * Update user solvedProblem List
-	 */
+	 */	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ModelAndView updateProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
 
@@ -292,6 +351,25 @@ public class MyproblemsController {
 		upd.setDifficulty(httpServletRequest.getParameter("difficulty"));
 		upd.setMemo(httpServletRequest.getParameter("memo"));
 		upd.setId(Integer.parseInt(httpServletRequest.getParameter("id")));
+		int page = Integer.parseInt(httpServletRequest.getParameter("page"));
+		
+		int listCnt = recommendService.readRecomListCnt();
+		int list = 10;
+		int block = 10;
+
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block);
+
+		int s_point = (page-1)*list;
+
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
 
 		if (userProblemService.update(upd) > 0) {
 			System.out.println("success");
@@ -302,42 +380,58 @@ public class MyproblemsController {
 		List<UserProblemDTO> problems = userProblemService.read(userID);
 		ModelAndView mvNew = new ModelAndView();
 		mvNew.addObject("problems", problems);
+		mvNew.addObject("page", page);
+		mvNew.addObject("e_page", e_page);
+		mvNew.addObject("s_page", s_page);
 		mvNew.setViewName("ajaxContent/problemsContent");
 
 		return mvNew;
 	}
-
+	
 	/**
 	 * Delete user solvedProblem List
-	 */
-//	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-//	public ModelAndView deleteProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
-//
-//		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
-//		int userProblemID = Integer.parseInt(httpServletRequest.getParameter("id"));
-//
-//		if (userProblemService.delete(userProblemID) > 0) {
-//			System.out.println("success");
-//		} else {
-//			System.out.println("fail");
-//		}
-//
-//		List<UserProblemDTO> problems = userProblemService.read(userID);
-//		mv.addObject("problems", problems);
-//		mv.setViewName("ajaxContent/problemsContent");
-//
-//		return mv;
-//	}
-	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public String deletePostOK(@PathVariable("id") int id, HttpServletRequest request) {
+	 */	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public ModelAndView deleteProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
 
-		userProblemService.delete(id);
+		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+		int userProblemID = Integer.parseInt(httpServletRequest.getParameter("id"));
+		int page = Integer.parseInt(httpServletRequest.getParameter("page"));
+		
+		int listCnt = recommendService.readRecomListCnt();
+		int list = 10;
+		int block = 10;
 
-		String referer = request.getHeader("Referer");
-		return "redirect:" + referer;
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block);
+
+		int s_point = (page-1)*list;
+
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
+		
+		if (userProblemService.delete(userProblemID) > 0) {
+			System.out.println("success");
+		} else {
+			System.out.println("fail");
+		}
+
+		List<UserProblemDTO> problems = userProblemService.read(userID);
+		mv.addObject("page", page);
+		mv.addObject("e_page", e_page);
+		mv.addObject("s_page", s_page);
+		mv.addObject("problems", problems);
+		mv.setViewName("ajaxContent/problemsContent");
+
+		return mv;
 	}
-
+	
 	/**
 	 * Search user solvedProblem List
 	 */
@@ -349,7 +443,7 @@ public class MyproblemsController {
 		String searchValue = httpServletRequest.getParameter("searchValue");
 		
 		int listCnt = recommendService.readRecomListCnt();
-		int list = 5;
+		int list = 10;
 		int block = 10;
 
 		int pageNum = (int) Math.ceil((float)listCnt/list);

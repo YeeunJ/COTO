@@ -11,8 +11,9 @@ public interface RecomCartService {
 	 * read the recommend list that user picked
 	 * usage: MyproblemController
 	 */
-	public List<RecommendDTO> readCartRecommendList(int userID);
-	int readCartByID(int recomID, int userID);
-	List<RecommendDTO> readCartByRecommend(int recomID);
+	List<RecommendDTO> readCartByRecommend(String searchValue, String orderValue, int s_point, int list, int userID);
+	public int readCartByID(int recomID, int userID);
+	//List<RecommendDTO> readCartByRecommend(int userID);
 	void deleteRecomCart(RecomCartDTO cart);
+	List<RecommendDTO> readCartRecommendList(int userID);
 }
