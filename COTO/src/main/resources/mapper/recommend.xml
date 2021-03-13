@@ -35,6 +35,9 @@
 			) as recom left outer join recomComment as rcm ON recom.id = rcm.recomID
             GROUP BY recom.id
 		) as recom left outer join user as us on recom.userID = us.id
+		<foreach item="item" index="index" collection="tagValue" open=" join  (select distinct recomID from recomTag where tag like " separator=" or tag like " close=" ) as tag ON recom.id = tag.recomID ">
+			#{item}
+		</foreach>
 		where recom.title like CONCAT('%',#{searchValue},'%') AND recom.deletedate IS NULL
 		order by
 		<choose>
