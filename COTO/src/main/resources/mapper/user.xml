@@ -10,6 +10,10 @@
 		SELECT id FROM user WHERE email=#{email}
 	</select>
 	
+	<select id="readUserIDByNickname" resultType="int" parameterType="hashmap">
+		SELECT id FROM user WHERE nickName=#{nickName}
+	</select>
+	
 	<select id="readIsAdminByUserID" resultType="int" parameterType="hashmap">
 		SELECT isAdmin FROM user WHERE id=${userID}
 	</select>
