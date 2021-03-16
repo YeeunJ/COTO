@@ -1,6 +1,7 @@
 package com.walab.coding.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -309,12 +310,14 @@ public class MyproblemsController {
 		}
 
 		List<UserProblemDTO> problems = userProblemService.readProblemByPage(userID, s_point, list);
-
+		List<UserProblemDTO> AllProblems = userProblemService.read(userID);
+		
 		mv.addObject("pagename", "problems");
 		mv.addObject("page", page);
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
 		mv.addObject("problems", problems);
+		mv.addObject("Allproblems", AllProblems);
 		/* pagination end */
 
 		mv.setViewName("mypage/problems");
@@ -378,8 +381,10 @@ public class MyproblemsController {
 		}
 
 		List<UserProblemDTO> problems = userProblemService.read(userID);
+		List<UserProblemDTO> AllProblems = userProblemService.read(userID);
 		ModelAndView mvNew = new ModelAndView();
 		mvNew.addObject("problems", problems);
+		mvNew.addObject("Allproblems", AllProblems);
 		mvNew.addObject("page", page);
 		mvNew.addObject("e_page", e_page);
 		mvNew.addObject("s_page", s_page);
@@ -423,6 +428,8 @@ public class MyproblemsController {
 		}
 
 		List<UserProblemDTO> problems = userProblemService.read(userID);
+		List<UserProblemDTO> AllProblems = userProblemService.read(userID);
+		mv.addObject("Allproblems", AllProblems);
 		mv.addObject("page", page);
 		mv.addObject("e_page", e_page);
 		mv.addObject("s_page", s_page);
@@ -436,13 +443,14 @@ public class MyproblemsController {
 	 * Search user solvedProblem List
 	 */
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView searchProblem(ModelAndView mv, HttpServletRequest httpServletRequest) {
+	public ModelAndView searchProblem(ModelAndView mv, 
+			HttpServletRequest httpServletRequest,
+			@RequestParam(value="page", defaultValue="1") int page,
+			@RequestParam(value="searchValue", defaultValue="") String searchValue) {
 
 		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
-		int page = Integer.parseInt(httpServletRequest.getParameter("page"));
-		String searchValue = httpServletRequest.getParameter("searchValue");
 		
-		int listCnt = recommendService.readRecomListCnt();
+		int listCnt = userProblemService.readProblemCnt(userID);
 		int list = 10;
 		int block = 10;
 
@@ -460,8 +468,9 @@ public class MyproblemsController {
 				e_page = pageNum;
 		}
 
-			
 		List<UserProblemDTO> problems = userProblemService.search(userID, searchValue, s_point, list);
+		List<UserProblemDTO> AllProblems = userProblemService.read(userID);
+		mv.addObject("Allproblems", AllProblems);
 		mv.addObject("list", list);
 		mv.addObject("page", page);
 		mv.addObject("e_page", e_page);

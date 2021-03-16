@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<div id="pTable">
 <div class="table">
 	<div class="tableRow">
 		<span class="tableCell th05">No.</span> <span class="tableCell th2">문제
@@ -35,6 +36,7 @@
 			</span>
 		</div>
 	</c:forEach>
+</div>
 </div>
 
 <!-- pagination -->
@@ -72,15 +74,19 @@
 <br>
 <div class="table">
 	<div class="tableRow">
-		<span class="tableCell th3" style="text-align: left !important">전체 푼 문제</span>
+		<span class="tableCell th3" style="text-align: left !important">전체
+			푼 문제</span>
 	</div>
-
-	<span class="tableCell td3 probname tc"> 
-		<c:forEach items="${problems}" var="problem" varStatus="status">
-			<nobr><a href="${problem.link}" target="_blank">${problem.problem}, </a></nobr>
+	<span class="tableCell td3 probname tc"> <c:forEach
+			items="${Allproblems}" var="problem" varStatus="status">
+			<nobr>
+				<a href="${problem.link}" target="_blank">${problem.problem}, </a>
+			</nobr>
 		</c:forEach>
 	</span>
 </div>
+
+
 
 <style>
 .fa-times, .fa-pen {
