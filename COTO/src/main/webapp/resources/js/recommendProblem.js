@@ -443,14 +443,14 @@ function deleteRecomCount(){
 	});
 }
 
-function addRecomCart(){
+function addRecomCart(recom){
 	if(confirm("문제집을 장바구니에 담으시겠습니까?")) {
 		$.ajax({
 			url: "./recommendProblem/addRecomCart",
 			type: "POST",
 			async: false,
 			data: {
-				recomID:$('#readRecomID').html()
+				recomID:recom
 			},
 			success: function(data){
 				$('.sweet-modal-content #recomCountCommentContent').html(data);

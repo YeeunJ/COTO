@@ -513,7 +513,7 @@ public class RecommendController {
 		mv.setViewName("ajaxContent/recomCommentCountContent");
 
 		return mv;
-	}
+	} 
 	
 	@RequestMapping(value = "/deleteRecomCart", method = RequestMethod.POST)
 	public ModelAndView deleteRecomCart(HttpServletRequest httpServletRequest) {
