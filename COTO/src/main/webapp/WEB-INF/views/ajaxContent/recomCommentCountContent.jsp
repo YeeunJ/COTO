@@ -20,7 +20,7 @@
 			<span class="clicked-cart icon" onclick="deleteRecomCart()"><span class="clicked-tooltip">장바구니에서 지울 수 있어요!</span></span>		
 		</c:when>
 		<c:otherwise>
-			<span class="cart-icon icon" onclick="addRecomCart()"><span class="cart-tooltip">장바구니에 담아보세요!</span></span>
+			<span class="cart-icon icon" onclick="addRecomCart(${ recomID })"><span class="cart-tooltip">장바구니에 담아보세요!</span></span>
 		</c:otherwise>
 	</c:choose>
 	
