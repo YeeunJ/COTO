@@ -500,7 +500,7 @@ public class RecommendController {
 			rcd = new RecomCountDTO();
 			rcd.setRecomID(recomID);
 			rcd.setUserID(userID);
-			recomCountService.deleteRecomCount(recomID);
+			recomCountService.deleteRecomCount(rcd);
 		}
 		rcd = recomCountService.readRecomCount(recomID, userID);
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
