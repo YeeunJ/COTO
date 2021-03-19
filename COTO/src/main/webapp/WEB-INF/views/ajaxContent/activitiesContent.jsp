@@ -15,7 +15,7 @@
 			<span class="tableCell td5" id="term"></span>
 		</div>
 		<div class="tableRow">
-			<span class="tableCell th2_">총 문제수</span>
+			<span class="tableCell th2_">목표 문제수</span>
 			<span class="tableCell td5" id="goalNum"></span>
 		</div>
 		<div class="tableRow">
@@ -48,3 +48,7 @@
 		</c:forEach>
 	</div>
 </div>
+
+<style>
+.tableCell {text-align: center;}
+</style>
