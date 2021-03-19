@@ -16,6 +16,9 @@
 	.card-content1 {width: 100%; margin:0;}
 	.pNow {visibility: visible !important;}
 }
+#pTable{
+	min-height: 438px;
+}
 .box{
 	border: 0;
 }
