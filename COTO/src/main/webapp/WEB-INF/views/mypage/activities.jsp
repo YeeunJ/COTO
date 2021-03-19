@@ -51,9 +51,17 @@ $(document).on("click", ".deleteBtn", function(){
 				<span class="tableCell td3">
 					<div class="prog">
 						<fmt:formatNumber value="${goals.rate}" pattern=".0" var="userRate"/>
+						<c:if test="${userRate <= 100.0 }">
 						<div class="progs" style="width: ${userRate}%;">
 							<span class="rate readRate"> ${userRate}%</span>	
 						</div>
+						</c:if>
+						<c:if test="${userRate > 100.0 }">
+						<div class="progs" style="width: 100%;">
+							<span class="rate readRate"> ${userRate}%</span>	
+						</div>
+						</c:if>
+						
 					</div>
 				</span>
 				<fmt:formatDate value="${goals.endDate}" pattern="yyyy-MM-dd"
