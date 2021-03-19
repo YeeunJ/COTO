@@ -221,7 +221,84 @@ public class RecommendController {
 	}
 	
 	@RequestMapping(value = "/addRecomCart", method = RequestMethod.POST)
-	public ModelAndView createRecomCart(HttpServletRequest httpServletRequest) {
+	public ModelAndView createRecomCart(HttpServletRequest httpServletRequest,
+			@RequestParam(value="page", defaultValue="1") int page,
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam(value="orderValue", defaultValue="") String orderValue,
+			@RequestParam(value="tagValue", defaultValue="") List<String> tagValue) {
+		RecomCartDTO cart = new RecomCartDTO();
+		
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			cart.setRecomID(recomID);
+			cart.setUserID(userID);
+			recomCartService.createRecomCart(cart);
+			
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<String> tagData = new ArrayList<String>();
+		
+		if(!tagValue.get(0).equalsIgnoreCase("[]")) {
+			tagValue.stream().forEach(tag -> {
+				String [] tagSplit = tag.split("\"");
+				System.out.println(tagSplit[1]);
+				tagData.add(tagSplit[1]);
+			});
+		}
+		
+		// pagination
+		int listCnt = recommendService.readRecomListCnt();
+		int list = 10;
+		int block = 10;
+
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block);
+
+		int s_point = (page-1)*list;
+
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
+
+		List<RecommendDTO> recoms = recommendService.readRecomByPage(searchValue, orderValue, tagData, s_point, list);
+		
+		mv.addObject("userID", userID);
+		List<RecommendDTO> recomCart = recomCartService.readCartByRecommend(searchValue, orderValue, tagData, s_point, list, userID);
+		
+		mv.addObject("recoms", recomCart);
+				
+		mv.addObject("pagename", "recommendProblem");
+		mv.addObject("page", page);
+		mv.addObject("s_page", s_page);
+		mv.addObject("e_page", e_page);
+		
+		System.out.println(searchValue);
+		System.out.println(orderValue);
+		
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") == null) {
+			System.out.println("recom Size: "+recoms.size());
+			mv.addObject("recoms", recoms);
+		}
+		mv.addObject("codingSite", codingSite);
+
+		mv.setViewName("ajaxContent/recommendContent");
+
+		return mv;
+	}
+	
+	@RequestMapping(value = "/addRecomCartinModal", method = RequestMethod.POST)
+	public ModelAndView createRecomCartinModal(HttpServletRequest httpServletRequest) {
 		RecomCartDTO cart = new RecomCartDTO();
 		
 		int userID = -1;
@@ -516,7 +593,84 @@ public class RecommendController {
 	} 
 	
 	@RequestMapping(value = "/deleteRecomCart", method = RequestMethod.POST)
-	public ModelAndView deleteRecomCart(HttpServletRequest httpServletRequest) {
+	public ModelAndView deleteRecomCart(HttpServletRequest httpServletRequest,
+			@RequestParam(value="page", defaultValue="1") int page,
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@RequestParam(value="orderValue", defaultValue="") String orderValue,
+			@RequestParam(value="tagValue", defaultValue="") List<String> tagValue) {
+		RecomCartDTO cart = new RecomCartDTO();
+		
+		int userID = -1;
+		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			cart.setRecomID(recomID);
+			cart.setUserID(userID);
+			recomCartService.deleteRecomCart(cart);
+			
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<String> tagData = new ArrayList<String>();
+		
+		if(!tagValue.get(0).equalsIgnoreCase("[]")) {
+			tagValue.stream().forEach(tag -> {
+				String [] tagSplit = tag.split("\"");
+				System.out.println(tagSplit[1]);
+				tagData.add(tagSplit[1]);
+			});
+		}
+		
+		// pagination
+		int listCnt = recommendService.readRecomListCnt();
+		int list = 10;
+		int block = 10;
+
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block);
+
+		int s_point = (page-1)*list;
+
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
+
+		List<RecommendDTO> recoms = recommendService.readRecomByPage(searchValue, orderValue, tagData, s_point, list);
+		
+		mv.addObject("userID", userID);
+		List<RecommendDTO> recomCart = recomCartService.readCartByRecommend(searchValue, orderValue, tagData, s_point, list, userID);
+		
+		mv.addObject("recoms", recomCart);
+				
+		mv.addObject("pagename", "recommendProblem");
+		mv.addObject("page", page);
+		mv.addObject("s_page", s_page);
+		mv.addObject("e_page", e_page);
+		
+		System.out.println(searchValue);
+		System.out.println(orderValue);
+		
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") == null) {
+			System.out.println("recom Size: "+recoms.size());
+			mv.addObject("recoms", recoms);
+		}
+		mv.addObject("codingSite", codingSite);
+
+		mv.setViewName("ajaxContent/recommendContent");
+
+		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteRecomCartinModal", method = RequestMethod.POST)
+	public ModelAndView deleteRecomCartinModal(HttpServletRequest httpServletRequest) {
 		RecomCartDTO cart = new RecomCartDTO();
 		
 		int userID = -1;
