@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="groupInfo">
+
+	<insert id="createGroupInfo" parameterType="com.walab.coding.model.GroupInfoDTO">
+		INSERT INTO groupInfo (groupName, goal, groupDesc, startDate, endDate, userID) 
+		VALUES (#{groupName}, #{goal}, #{groupDesc}, #{startDate}, #{endDate}, #{userID});
+	</insert>
+	
+	<insert id="createGroupUser" parameterType="hashmap">
+		INSERT INTO groupUser (userID, isAdmin, groupID) 
+		VALUES (#{userID}, #{isAdmin}, #{groupID});
+	</insert>
+	
+	<select id="readGroupID" resultType="int">
+		SELECT MAX(id) FROM groupInfo
+	</select>
+</mapper>

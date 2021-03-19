@@ -1,6 +1,10 @@
 package com.walab.coding.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +24,12 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.UserDTO;
+import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.GroupDTO;
-
+import com.walab.coding.model.GroupInfoDTO;
 import com.walab.coding.service.CodingSiteService;
+import com.walab.coding.service.GroupGoalService;
+import com.walab.coding.service.GroupInfoService;
 import com.walab.coding.service.GroupService;
 
 
@@ -39,7 +46,11 @@ public class MyGroupsController {
   
 	@Autowired
 	GroupService groupService;
-
+	
+	@Autowired
+	GroupInfoService groupInfoService;
+	@Autowired
+	GroupGoalService groupGoalService;
 
 	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
@@ -52,7 +63,8 @@ public class MyGroupsController {
 
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<GroupDTO> myGroups = groupService.readMyGroups(userID);
-
+		
+		mv.addObject("userID", userID);
 		mv.addObject("CodingSite", codingSite);
 		mv.addObject("groups", myGroups);
 		
@@ -90,4 +102,66 @@ public class MyGroupsController {
 		return mv;
 	}
 
+	
+
+	@RequestMapping(value = "/createGroup", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView createGroup(HttpServletRequest httpServletRequest, ModelAndView mv,
+			@RequestParam(value="groupTitle") String groupTitle,
+			@RequestParam(value="groupDesc") String groupDesc,
+			@RequestParam(value="groupGoal") String groupGoal,
+			@RequestParam(value="startDate") String startDate,
+			@RequestParam(value="endDate") String endDate,
+			@RequestParam(value="users[]") List<String> users,
+			@RequestParam(value="siteId[]") List<String> siteId, 
+			@RequestParam(value="problem[]") List<String> problem, 
+			@RequestParam(value="link[]") List<String> link
+			) throws UnsupportedEncodingException, ParseException {
+		
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+//		String groupTitle = httpServletRequest.getParameter("groupTitle");
+//		String groupDesc = httpServletRequest.getParameter("groupDesc");
+//		String groupGoal = httpServletRequest.getParameter("groupGoal");
+//		String startDate = httpServletRequest.getParameter("startDtae");
+//		String endDate = httpServletRequest.getParameter("endDate");
+//		Date startDate = transFormat.parse(httpServletRequest.getParameter("startDtae"));
+//		Date endDate = transFormat.parse(httpServletRequest.getParameter("endDate"));
+		
+		
+		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+		GroupInfoDTO info = new GroupInfoDTO();
+		info.setGroupName(groupTitle);
+		info.setGoal(groupGoal);
+		info.setGroupDesc(groupDesc);
+		info.setStartDate(startDate);
+		info.setEndDate(endDate);
+		info.setUserID(userID);
+
+		info.toString();
+		groupInfoService.createGroupInfo(info);
+		int groupID = groupInfoService.readGroupID();
+		
+		groupInfoService.createGroupUsers(users, groupID);
+		groupGoalService.createGoal(startDate, endDate, groupID);
+		
+		int goalID = groupGoalService.readGoalID();
+		groupGoalService.createGoalProblems(goalID, problem, siteId, link);
+		
+		
+//		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+//		List<GroupDTO> myGroups = groupService.readMyGroups(userID);
+//		
+//		mv.addObject("userID", userID);
+//		mv.addObject("CodingSite", codingSite);
+//		mv.addObject("groups", myGroups);
+//		
+//		
+//		
+//
+//		mv.setViewName("ajaxContent/groupContent");
+
+		return mv;
+	}
+	
 }

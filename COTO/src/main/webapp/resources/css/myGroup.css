@@ -16,6 +16,28 @@
 	.card-content1 {width: 100%; margin:0;}
 	.pNow {visibility: visible !important;}
 }
+.custom-button {
+	background-color: white;
+	/*margin-top: 15% ! important;*/
+	border: 2px solid #666666;
+	height: 31px;
+	border-radius: 20px;
+	float: left;
+}
+.custom-button:hover {
+	background-color: #e69138ff;
+	color: white;
+	border: 1px solid #e69138ff;
+}
+.custom-button:focus{
+	background-color: white !important;
+	color: black;
+	border: 2px solid #666666;
+}
+.groupDate {
+	width: auto!important;
+}
+
 .box{
 	border: 0;
 }
