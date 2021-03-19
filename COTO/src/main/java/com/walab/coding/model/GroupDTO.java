@@ -6,6 +6,12 @@ public class GroupDTO {
 	int id;
 	String groupName;
 	String groupGoal;
+	String goal;
+	String groupDesc;
+	int adminID;
+	int isAdmin;
+	String name;
+	String nickName;	
 	Date startDate;
 	Date endDate;
 	Date regdate;
@@ -22,12 +28,35 @@ public class GroupDTO {
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-
 	public String getGroupGoal() {
 		return groupGoal;
 	}
 	public void setGroupGoal(String groupGoal) {
 		this.groupGoal = groupGoal;
+	}
+	public String getGoal() {
+		return goal;
+	}
+	public void setGoal(String goal) {
+		this.goal = goal;
+	}
+	public String getGroupDesc(String groupDesc) {
+		return groupDesc;
+	}
+	public void setGroupDesc(String groupDesc) {
+		this.groupDesc = groupDesc;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getNickName(String nickName) {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	public Date getStartDate() {
 		return startDate;
@@ -47,10 +76,15 @@ public class GroupDTO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
+
 	
 	@Override
 	public String toString() {
-		return "GroupDTO [id=" + id + ", groupName=" + groupName + ", groupGoal=" + groupGoal + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", regdate=" + regdate + "]";
+		return "GroupDTO [id=" + id + ", groupName=" + groupName + ", groupGoal=" + groupGoal + ", goal=" + goal
+				+ ", groupDesc=" + groupDesc + ", adminID=" + adminID + ", isAdmin=" + isAdmin + ", name=" + name
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", regdate=" + regdate + ", getId()=" + getId()
+				+ ", getGroupName()=" + getGroupName() + ", getGroupGoal()=" + getGroupGoal() + ", getStartDate()="
+				+ getStartDate() + ", getEndDate()=" + getEndDate() + ", getRegdate()=" + getRegdate() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 }

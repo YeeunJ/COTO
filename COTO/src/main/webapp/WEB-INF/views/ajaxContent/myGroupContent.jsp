@@ -7,19 +7,19 @@
 
 <div class="table">
 	<div class="tableRow">
-		<span class="tableCell th1">No.</span> <span class="tableCell th4">그룹명</span>
-		<span class="tableCell th1">인원</span> <span class="tableCell th1">그룹장</span>
-		<span class="tableCell th1">출석</span> <span class="tableCell th1">진행률</span>
-	</div>
+		<span class="tableCell th1">No.</span> <span class="tableCell th3">그룹명</span>
+		<span class="tableCell th3">목표</span> <span class="tableCell th2">그룹장</span>
+<!-- 		<span class="tableCell th1">출석</span> <span class="tableCell th1">진행률</span>
+ -->	</div>
 	
  	<c:forEach items="${groups}" var="group" varStatus="status">
  	<div class="tableRow center" id="recoms${group.id}">
- 		<span class = "tableCell th1 pIndex">${status.count}</span>
-  		<span class = "tableCell th4 pName">${group.groupName}</span>
-  		<span class = "tableCell th1 pNumber"></span>
- 		<span class = "tableCell th1 pAdmin"></span>
- 		<span class = "tableCell th1 pToday"></span>
-  		<span class = "tableCell th1 pNow"></span>
+ 		<span class = "tableCell td1 pIndex">${status.count}</span>
+  		<span class = "tableCell td3 pName">${group.groupName}</span>
+  		<span class = "tableCell td3 pNumber">${group.goal}</span>
+ 		<span class = "tableCell td2 pAdmin">${group.name}</span>
+<!--  		<span class = "tableCell td1 pToday"></span>
+  		<span class = "tableCell td1 pNow"></span> -->
  	</div>
 	</c:forEach>
 </div>

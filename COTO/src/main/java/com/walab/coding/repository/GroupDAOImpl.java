@@ -1,7 +1,9 @@
 package com.walab.coding.repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,9 @@ public class GroupDAOImpl implements GroupDAO {
 	@Override
 	public List<GroupDTO> readMyGroups(int UserID){ 
 		List<GroupDTO> readMyGroupsList = new ArrayList<GroupDTO>();
-		readMyGroupsList  = sqlSession.selectList(namespace+".readMyGroups");
+		Map<String, Object> groupsList = new HashMap<String, Object>();
+		groupsList.put("userID", UserID);
+		readMyGroupsList  = sqlSession.selectList(namespace+".readMyGroups", groupsList);
 		return readMyGroupsList;
 		
 	}

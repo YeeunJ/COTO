@@ -3,6 +3,10 @@
 
 <mapper namespace="groups">
 	<select id="readMyGroups" resultType="com.walab.coding.model.GroupDTO" parameterType="hashmap">
-		SELECT id, groupName, goal as groupGoal, groupDesc FROM groupInfo
+		SELECT groupInfo.id, groupName, goal, groupDesc, groupInfo.userID as adminID, groupUser.isAdmin, user.name, user.nickName
+		FROM ((groupInfo
+		INNER JOIN groupUser ON groupInfo.id = groupUser.groupID)
+		INNER JOIN user ON groupInfo.userID = user.id)
+		WHERE groupUser.userID = #{userID};
 	</select>
 </mapper>
