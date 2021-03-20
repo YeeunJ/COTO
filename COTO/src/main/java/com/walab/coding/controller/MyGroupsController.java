@@ -69,8 +69,6 @@ public class MyGroupsController {
 		mv.addObject("groups", myGroups);
 		
 		
-
-		
 		/* pagination 
 		int listCnt = userProblemService.readProblemCnt(userID); 
 		int list = 10; 
