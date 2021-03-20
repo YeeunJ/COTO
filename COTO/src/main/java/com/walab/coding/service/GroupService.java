@@ -11,5 +11,7 @@ public interface GroupService {
 	 * usage: MyGroupsController
 	 */
 	public List<GroupDTO> readMyGroups(int UserID);
+
+	public List<GroupDTO> readAdminGroups(int userID);
 	
 	}

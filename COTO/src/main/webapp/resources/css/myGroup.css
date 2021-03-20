@@ -18,11 +18,11 @@
 }
 .custom-button {
 	background-color: white;
-	/*margin-top: 15% ! important;*/
 	border: 2px solid #666666;
 	height: 31px;
 	border-radius: 20px;
-	float: left;
+	float: right;
+	margin: 15px 0;
 }
 .custom-button:hover {
 	background-color: #e69138ff;
@@ -233,3 +233,7 @@ input[type='radio']:checked {
   }
 }
 
+/* adminGroup */
+#adminGroupContent{
+	margin-top: 40px;
+}

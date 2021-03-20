@@ -38,12 +38,42 @@
 		<div class="table" id="problemsContent">
 			<%@ include file="../ajaxContent/myGroupContent.jsp"%>
 		</div>
+				
+		
+		<div id="adminGroupContent">
+			<button class="input-field custom-button" onclick="groupCreateModal(${userID})">그룹 만들기</button>
+			<h5 class="font-color">내가 관리하는 그룹</h5>
+			
+			<div class="table">
+				<div class="tableRow">
+					<span class="tableCell th1">No.</span> 
+					<span class="tableCell th2">그룹명</span>
+					<span class="tableCell th1">시작일</span> 
+					<span class="tableCell th1">종료일</span>
+				    <span class="tableCell th1">출석</span> 
+				    <span class="tableCell th1">진행률</span>
+			 	</div>
+				
+			 	<c:forEach items="${adminGroups}" var="group" varStatus="status">
+			 	<fmt:formatDate value="${group.startDate}" var="startDate" pattern="yyyy-MM-dd"/>
+			 	<fmt:formatDate value="${group.endDate}" var="endDate" pattern="yyyy-MM-dd"/>
+			 	
+			 	<div class="tableRow center" id="recoms${group.id}">
+			 		<span class = "tableCell td1 pIndex">${status.count}</span>
+			  		<span class = "tableCell td2 pName"><a href="./groups/${ group.id }">${group.groupName}</a></span>
+			  		<span class = "tableCell td1">${startDate}</span>
+			 		<span class = "tableCell td1">${endDate}</span>
+			  		<span class = "tableCell td1 pToday"></span>
+			  		<span class = "tableCell td1 pNow"></span>
+			 	</div>
+				</c:forEach>
+			</div>
+		</div>
+		
 	</div>
-	<button class="input-field custom-button" onclick="groupCreateModal(${userID})">그룹 만들기</button>
-
 </div>
 
-<div id="createGroup" class="container" style="">
+<div id="createGroup" class="container" style="display:none;">
 	<form class="col s12">
 		<p class="title" style="display:inline-block">그룹 이름</p><p class = "red-text" style="display:inline-block; padding-bottom: 10px;">&nbsp;*</p>
 		<input id="groupTitle" type="text" placeholder="그룹명을 입력해주세요." required></input>

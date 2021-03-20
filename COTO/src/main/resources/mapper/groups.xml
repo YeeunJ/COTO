@@ -9,4 +9,9 @@
 		INNER JOIN user ON groupInfo.userID = user.id)
 		WHERE groupUser.userID = #{userID};
 	</select>
+	
+	<select id="readAdminGroups" resultType="com.walab.coding.model.GroupDTO" parameterType="hashmap">
+		SELECT * FROM groupInfo WHERE userID=#{userID}
+	</select>
+	
 </mapper>

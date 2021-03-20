@@ -7,5 +7,7 @@ import com.walab.coding.model.GroupDTO;
 public interface GroupDAO {
 	
 	public List<GroupDTO> readMyGroups(int UserID);
+
+	public List<GroupDTO> readAdminGroups(int userID);
 	
 }

@@ -29,4 +29,14 @@ public class GroupDAOImpl implements GroupDAO {
 		
 	}
 
+
+	@Override
+	public List<GroupDTO> readAdminGroups(int userID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userID", userID);
+		
+		
+		return sqlSession.selectList(namespace+".readAdminGroups", param);
+	}
+
 }
