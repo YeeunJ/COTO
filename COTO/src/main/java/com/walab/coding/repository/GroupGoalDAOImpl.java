@@ -52,7 +52,6 @@ public class GroupGoalDAOImpl implements GroupGoalDAO {
 			
 			sqlSession.insert("problem.createProblem", p);
 			problemID = sqlSession.selectOne("problem.readMyLastInsertProblem");
-			//problemID++;
 			
 			System.out.println("problem에 없음! 새로운 problem 만들었음");
 		}else {
@@ -61,8 +60,8 @@ public class GroupGoalDAOImpl implements GroupGoalDAO {
 		}
 		
 		Map<String, Object> groupP = new HashMap<String, Object>();
-		param.put("goalID", goalID);
-		param.put("problemID", problemID);
+		groupP.put("goalID", goalID);
+		groupP.put("problemID", problemID);
 		
 		sqlSession.insert(namespace+".createGroupProblem", groupP);
 	

@@ -107,6 +107,8 @@ function addajax(){
 	var startDate = $(".sweet-modal-content #startDate").val();
 	var endDate = $(".sweet-modal-content #endDate").val();
 	var groupDesc = $(".sweet-modal-content #groupDesc").val();
+	var probStartDate = $(".sweet-modal-content #probStartDate").val();
+	var probEndDate = $(".sweet-modal-content #probEndDate").val();
 	var users = [];
 	var siteId = [];
 	var link = [];
@@ -151,14 +153,7 @@ function addajax(){
 		users.push(chipSplit[0]);
 	});
 	console.log(users);
-	return;
 	
-        	/*
-        	users : users,
-        	siteId : siteId,
-        	link : link,
-        	problem : problem
-        	*/
 	$.ajax({
         url : "./groups/createGroup",
         type: 'POST',
@@ -168,12 +163,18 @@ function addajax(){
         	startDate : startDate,
         	endDate : endDate,
         	groupDesc : groupDesc,
-        	users : users
+        	users : users,
+        	siteId : siteId,
+        	problem: problem,
+        	probStartDate : probStartDate,
+        	probEndDate : probEndDate,
+        	link : link
         },
         success: function(data) {
-        	alert("success");
+        	$('#adminGroupContent').html(data);
         },
         error:function(request,status,error){
+        	alert("error");
             console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
     });

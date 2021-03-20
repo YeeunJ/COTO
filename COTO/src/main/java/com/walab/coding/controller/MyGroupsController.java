@@ -16,13 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.UserDTO;
@@ -114,22 +112,13 @@ public class MyGroupsController {
 			@RequestParam(value="groupGoal") String groupGoal,
 			@RequestParam(value="startDate") String startDate,
 			@RequestParam(value="endDate") String endDate,
+			@RequestParam(value="probStartDate") String probStartDate,
+			@RequestParam(value="probEndDate") String probEndDate,
 			@RequestParam(value="users[]") List<String> users,
 			@RequestParam(value="siteId[]") List<String> siteId, 
 			@RequestParam(value="problem[]") List<String> problem, 
 			@RequestParam(value="link[]") List<String> link
 			) throws UnsupportedEncodingException, ParseException {
-		
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-//		String groupTitle = httpServletRequest.getParameter("groupTitle");
-//		String groupDesc = httpServletRequest.getParameter("groupDesc");
-//		String groupGoal = httpServletRequest.getParameter("groupGoal");
-//		String startDate = httpServletRequest.getParameter("startDtae");
-//		String endDate = httpServletRequest.getParameter("endDate");
-//		Date startDate = transFormat.parse(httpServletRequest.getParameter("startDtae"));
-//		Date endDate = transFormat.parse(httpServletRequest.getParameter("endDate"));
-		
 		
 		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
 		GroupInfoDTO info = new GroupInfoDTO();
@@ -143,26 +132,18 @@ public class MyGroupsController {
 		info.toString();
 		groupInfoService.createGroupInfo(info);
 		int groupID = groupInfoService.readGroupID();
-		
+				
 		groupInfoService.createGroupUsers(users, groupID);
-		groupGoalService.createGoal(startDate, endDate, groupID);
+		groupGoalService.createGoal(probStartDate, probEndDate, groupID);
 		
 		int goalID = groupGoalService.readGoalID();
 		groupGoalService.createGoalProblems(goalID, problem, siteId, link);
 		
 		
-//		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-//		List<GroupDTO> myGroups = groupService.readMyGroups(userID);
-//		
-//		mv.addObject("userID", userID);
-//		mv.addObject("CodingSite", codingSite);
-//		mv.addObject("groups", myGroups);
-//		
-//		
-//		
-//
-//		mv.setViewName("ajaxContent/groupContent");
-
+		List<GroupDTO> adminGroups = groupService.readAdminGroups(userID);
+		mv.addObject("adminGroups", adminGroups);
+		mv.setViewName("ajaxContent/adminGroupContent");
+		
 		return mv;
 	}
 	
