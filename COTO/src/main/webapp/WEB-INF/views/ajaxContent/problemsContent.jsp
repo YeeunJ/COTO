@@ -82,9 +82,7 @@
 	</div>
 	<span class="tableCell td3 probname tc"> <c:forEach
 			items="${Allproblems}" var="problem" varStatus="status">
-			<nobr>
-				<a href="${problem.link}" target="_blank">${problem.problem}, </a>
-			</nobr>
+				<a href="${problem.link}" target="_blank" id="p_link">${problem.problem}, </a>
 		</c:forEach>
 	</span>
 </div>
@@ -93,20 +91,19 @@
 .fa-times, .fa-pen {
 	color: orange;
 }
-
 button {
 	border: 0;
 	outling: 0;
 	cursor: pointer;
 	background-color: white;
 }
-
 .th05 {
 	font-weight: bold !important;
 	background-color: #e69138ff !important;
 	color: white;
 	text-align: center;
 }
+#p_link:hover { text-decoration: underline;}
 </style>
 <script>
 $(document).ready(function() {
