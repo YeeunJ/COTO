@@ -25,15 +25,16 @@
 	<!-- Content Row -->
 	<div>
 		<br>
+		<button class="input-field custom-button" onclick="">그룹 관리하기</button>
 		<h5 class="font-color">내가 속한 그룹</h5>
 
-		<fieldset class="search" style="float: right;">
+<!-- 		<fieldset class="search" style="float: right;">
 			<input id="searchValue" class="search_problem" type="search"
 				placeholder="검색어를 입력해주세요." />
 			<button id="searchButton" class="search_bt" type="submit">
 				<i class="fa fa-search"></i>
 			</button>
-		</fieldset>
+		</fieldset> -->
 		
 		<div class="table" id="problemsContent">
 			<%@ include file="../ajaxContent/myGroupContent.jsp"%>

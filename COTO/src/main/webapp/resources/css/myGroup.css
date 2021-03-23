@@ -16,6 +16,9 @@
 	.card-content1 {width: 100%; margin:0;}
 	.pNow {visibility: visible !important;}
 }
+.tableCell{
+	vertical-align: middle !important;
+}
 .custom-button {
 	background-color: white;
 	border: 2px solid #666666;
@@ -34,6 +37,10 @@
 	color: black;
 	border: 2px solid #666666;
 }
+.leave{
+	margin: 0 !important;
+}
+
 .groupDate {
 	width: auto!important;
 }
