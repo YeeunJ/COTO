@@ -38,8 +38,6 @@
 				<li id = "list"><span id = "listspan" onclick="location.href='../recommendProblem'">문제 추천</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='../problemList'">문제 리스트</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='../groupList'">그룹 리스트</span></li>				
-				<li id = "list"><span id = "listspan" onclick="location.href='../manageCodingsite'">코딩 사이트 관리</span></li>
-				<li id = "list"><span id = "listspan" onclick="location.href='../usermanage'">사용자 관리</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='../mypage/problems'">마이 페이지<i class="material-icons right">arrow_drop_down</i></span>
 					<ul class = "submenu">
 						<li id = "list" onclick="location.href='../mypage/problems'"><span id = "listspan">내가 푼 문제</span></li>
@@ -48,6 +46,12 @@
 						<li id = "list" onclick="location.href='../mypage/groups'"><span id = "listspan">내 그룹</span></li>
 					</ul>
 				</li>
+				<li id = "list"><span id = "listspan" onclick="location.href='../usermanage'">사이트 관리<i class="material-icons right">arrow_drop_down</i></span>
+					<ul class = "submenu">
+						<li id = "list"><span id = "listspan" onclick="location.href='../manageCodingsite'">코딩 사이트 관리</span></li>
+						<li id = "list"><span id = "listspan" onclick="location.href='../usermanage'">사용자 관리</span></li>
+					</ul>
+				</li>				
 				<li class = "right">
 					<span class = "center" style = "display: inline-block !important;">
 						<span id = "listspan" class="gray-text"><span class="w1350">안녕하세요, <span class="orange-text">${user.name}</span> 님</span>
