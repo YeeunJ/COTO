@@ -29,7 +29,6 @@ public class GroupDAOImpl implements GroupDAO {
 		
 	}
 
-
 	@Override
 	public List<GroupDTO> readAdminGroups(int userID) {
 		Map<String, Object> param = new HashMap<String, Object>();
@@ -38,5 +37,11 @@ public class GroupDAOImpl implements GroupDAO {
 		
 		return sqlSession.selectList(namespace+".readAdminGroups", param);
 	}
+	
+	@Override	
+	public List<GroupDTO> readAllGroups(){
+		return sqlSession.selectList(namespace+".readAllGroups");
+	}
+
 
 }

@@ -13,5 +13,7 @@ public interface GroupService {
 	public List<GroupDTO> readMyGroups(int UserID);
 
 	public List<GroupDTO> readAdminGroups(int userID);
+
+	public List<GroupDTO> readAllGroups();
 	
 	}

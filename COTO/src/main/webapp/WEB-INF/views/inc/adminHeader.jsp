@@ -46,6 +46,7 @@ $(document).ready(function(){
 			<ul class = "hide-on-med-and-down mymenu">
 				<li id = "list"><span id = "listspan" onclick="location.href='./recommendProblem'">문제 추천</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='./problemList'">문제 리스트</span></li>
+				<li id = "list"><span id = "listspan" onclick="location.href='./groupList'">그룹 리스트</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='./manageCodingsite'">코딩 사이트 관리</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='./usermanage'">사용자 관리</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='./mypage/problems'">마이 페이지<i class="material-icons right">arrow_drop_down</i></span>
@@ -67,11 +68,13 @@ $(document).ready(function(){
 				<li><a href="./login/cancel">로그아웃</a></li>
 				<li><a href="./recommendProblem">문제 추천</a></li>
 				<li><a href="./problemList">문제 리스트</a></li>
+				<li><a href="./groupList">그룹 리스트</a></li>
 				<li><a href="./manageCodingsite">코딩 사이트 관리</a></li>
 				<li><a href="./usermanage">사용자 관리</a></li>
 				<li><a href="./mypage/problems">마이 페이지 - 내가 푼 문제</a></li>
 				<li><a href="./mypage/information">마이 페이지 - 내 정보</a></li>
 				<li><a href="./mypage/activities">마이 페이지 - 내 기록</a></li>
+				<li><a href="./mypage/groups">마이 페이지 - 내 그룹</a></li>				
 			</ul>
 	    </div>
 	</div>

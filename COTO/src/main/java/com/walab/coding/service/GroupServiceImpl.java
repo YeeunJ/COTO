@@ -27,6 +27,9 @@ public class GroupServiceImpl implements GroupService {
 		return groupDAO.readAdminGroups(userID);
 	}
 	
-
+	@Override
+	public List<GroupDTO> readAllGroups(){
+		return groupDAO.readAllGroups();
+	}
 	
 }

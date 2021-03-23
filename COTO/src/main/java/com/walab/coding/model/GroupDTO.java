@@ -82,9 +82,7 @@ public class GroupDTO {
 	public String toString() {
 		return "GroupDTO [id=" + id + ", groupName=" + groupName + ", groupGoal=" + groupGoal + ", goal=" + goal
 				+ ", groupDesc=" + groupDesc + ", adminID=" + adminID + ", isAdmin=" + isAdmin + ", name=" + name
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", regdate=" + regdate + ", getId()=" + getId()
-				+ ", getGroupName()=" + getGroupName() + ", getGroupGoal()=" + getGroupGoal() + ", getStartDate()="
-				+ getStartDate() + ", getEndDate()=" + getEndDate() + ", getRegdate()=" + getRegdate() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", nickName=" + nickName + ", startDate=" + startDate + ", endDate=" + endDate + ", regdate="
+				+ regdate + "]";
 	}
 }
