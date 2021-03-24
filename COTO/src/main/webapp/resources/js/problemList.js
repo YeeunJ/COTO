@@ -20,7 +20,6 @@ $(document).ready(function(){
 	DrawChart1();
 	DrawChart2();
 
-	
 });
 
 

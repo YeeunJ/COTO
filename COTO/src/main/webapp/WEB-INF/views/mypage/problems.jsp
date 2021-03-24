@@ -104,7 +104,7 @@
 		<div class="table" id="problemsContent">
 			<%@ include file="../ajaxContent/problemsContent.jsp"%>
 		</div>
-
+		
 		<!-- 문제등록 모달 -->
 		<div id="createProblem" class="container" style="display: none">
 			<form class="col s12">
@@ -125,12 +125,12 @@
 					<div class="input-field col s6">
 						<input id="problems" type="text" class="validate"> <label
 							for="problems">Problems</label> <span class="helper-text">문제들을
-							입력할 때 ,로 구분해주세요!!</span>
+							입력할 때 ,로 구분해주세요!!(띄워쓰기X)</span>
 					</div>
 					<button type="button" id="add" class="modal_button lighten-1"
 						onClick="insertProblems()">추가</button>
 				</div>
-				<div class="input-field col s10">
+				<div class="input-field col s10 input-field-custom">
 					<label for="last_name">입력한 Problems</label><br> <label
 						class="helper-text">문제를 누르면 삭제할 수 있습니다.</label><br>
 					<br>
@@ -241,6 +241,7 @@
 	var dataForBar = new Array();
 	var dataForDoughnut = new Array();
 	var gN = ${goalNum};
+	var diff = ${goalNum}-${userSolvedP};
 	var uP = ${userSolvedP};
 
 	<c:forEach items="${countSolvedProblemEachDay}" var="countList" >
@@ -249,7 +250,11 @@
 	dataForBar.push("${countList.countSolvedP}");
 	</c:forEach>
 
-	dataForDoughnut.push(gN);
+	if(diff >=0) dataForDoughnut.push(diff);
+	else {
+		diff = 0;
+		dataForDoughnut.push(diff);
+	}
 	dataForDoughnut.push(uP);
 </script>
 <style>

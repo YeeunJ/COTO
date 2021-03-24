@@ -16,6 +16,12 @@
 	.card-content1 {width: 100%; margin:0;}
 	.pNow {visibility: visible !important;}
 }
+#pTable{
+	min-height: 438px;
+}
+.input-field-custom.col label {
+    left: 0 !important;
+}
 .box{
 	border: 0;
 }
@@ -186,17 +192,17 @@ input[type='radio']:checked {
 
 /* 반응형 */
 @media only screen and (max-width: 910px) {
-  .pIndex{
+  .pIndex, .tIndex{
   	display:none!important;
   }
 }
 @media only screen and (max-width: 802px) {
-  .pRegdate{
+  .pRegdate, .tRegdate{
   	display:none!important;
   }
 }
 @media only screen and (max-width: 600px) {
-  .pMemo{
+  .pMemo, .tMemo{
   	display:none!important;
   }
 }
@@ -206,7 +212,7 @@ input[type='radio']:checked {
 	}
 }
 @media only screen and (max-width: 450px) {
-  .pDifficulty, .pButton{
+  .pDifficulty, .pButton, .tDifficulty, .tButton{
   	display:none!important;
   }
 }

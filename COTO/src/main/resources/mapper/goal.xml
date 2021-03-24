@@ -7,7 +7,9 @@
 	</insert>
 	
 	<select id="readGoal" resultType="com.walab.coding.model.GoalDTO" parameterType="hashmap">
-		SELECT * FROM goal WHERE userID=#{userID} ORDER BY startDate DESC limit 1	
+		SELECT * FROM YeeunJ.goal WHERE userID=#{userID} 
+		and enddate > now()
+		ORDER BY startDate DESC limit 1	
 	</select>
 	 
 	<select id="readGoalList" resultType="com.walab.coding.model.GoalDTO" parameterType="hashmap">

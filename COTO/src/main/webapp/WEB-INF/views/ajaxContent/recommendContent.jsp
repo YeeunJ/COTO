@@ -18,22 +18,22 @@
 	
 	<c:forEach items="${recoms}" var="recoms" varStatus="status">
 	
-		<div class="tableRow" id="recoms${recoms.id}" onclick="printAllContent(${recoms.id})">
-			<span class="index-col tableCell td1 alignCenter">${status.count}</span> 
-			<span class="tableCell td4 alignCenter readTitle">${recoms.title}</span> 
-			<span class="tableCell td2 alignCenter">${recoms.nickname}</span> 
-			<span class="tableCell td1 alignCenter"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
-			<span class="like-col tableCell td1 alignCenter readRecommend">${recoms.recomCount}</span> 
+		<div class="tableRow" id="recoms${recoms.id}">
+			<span class="index-col tableCell td1 alignCenter" onclick="printAllContent(${recoms.id})">${status.count}</span> 
+			<span class="tableCell td4 alignCenter readTitle" onclick="printAllContent(${recoms.id})">${recoms.title}</span> 
+			<span class="tableCell td2 alignCenter" onclick="printAllContent(${recoms.id})">${recoms.nickname}</span> 
+			<span class="tableCell td1 alignCenter" onclick="printAllContent(${recoms.id})"><img style="width: 60px;" alt="${recoms.difficulty}" src="./resources/img/difficulty${recoms.difficulty}.png"></span> 
+			<span class="like-col tableCell td1 alignCenter readRecommend" onclick="printAllContent(${recoms.id})">${recoms.recomCount}</span> 
 
-			<span class="comment-col tableCell td1 alignCenter readCommentCount">${recoms.recomCommentCount}</span> 
+			<span class="comment-col tableCell td1 alignCenter readCommentCount" onclick="printAllContent(${recoms.id})">${recoms.recomCommentCount}</span> 
  			<c:if test = "${!empty userID}">
  					<span class="tableCell td1 alignCenter like-col">	
 						<c:choose>
 							<c:when test = "${recoms.userCart == '1'}">
-								<span class="clicked-cart icon" onclick="deleteRecomCart()"><span class="clicked-tooltip">장바구니에서 지울 수 있어요!</span></span>
+								<span class="clicked-cart icon" onclick="deleteRecomCart(${recoms.id})"><span class="clicked-tooltip">장바구니에서 지울 수 있어요!</span></span>
 							</c:when>
 							<c:otherwise>							
-								<span class="cart-icon icon" onclick="addRecomCart()"><span class="cart-tooltip">장바구니에 담아보세요!</span></span>
+								<span class="cart-icon icon" onclick="addRecomCart(${recoms.id})"><span class="cart-tooltip">장바구니에 담아보세요!</span></span>
 							</c:otherwise>	
 						</c:choose>		
 					</span>										

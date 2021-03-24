@@ -19,6 +19,9 @@
     opacity:0.4;
     z-index:-1;
 }
+.input-field-custom.col label {
+    left: 0 !important;
+}
 .second {
 	padding: 65px 0 !important;
 }
