@@ -1,5 +1,6 @@
 package com.walab.coding.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,8 @@ public class RecomCartServiceImpl implements RecomCartService {
 	
 	@Override
 	public List<RecommendDTO> readCartByRecommend(String searchValue, String orderValue, int s_point, int list, int userID) {
-		List<RecommendDTO> recomList = recommendDAO.readRecomByPage(searchValue, orderValue, s_point, list);
+		List<String> tagValue = new ArrayList<String> ();
+		List<RecommendDTO> recomList = recommendDAO.readRecomByPage(searchValue, orderValue, tagValue, s_point, list);
 		
 		//List<RecommendDTO> recomList = recommendDAO.readRecommendList();
 		List<RecommendDTO> myList = recomCartDAO.readCartRecommendList(userID);
