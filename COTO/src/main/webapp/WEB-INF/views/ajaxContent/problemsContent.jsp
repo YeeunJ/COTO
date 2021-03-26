@@ -5,12 +5,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<div id="pTable">
 <div class="table">
 	<div class="tableRow">
-		<span class="tableCell th05">No.</span> <span class="tableCell th2">문제
-			제목</span> <span class="tableCell th2">사이트</span> <span class="tableCell th2">메모</span>
-		<span class="tableCell th1">날짜</span> <span class="tableCell th1">난이도</span>
-		<span class="tableCell th1"></span>
+		<span class="tableCell th05 tIndex">No.</span> 
+		<span class="tableCell th2">문제 제목</span> 
+		<span class="tableCell th2">사이트</span> 
+		<span class="tableCell th2 tMemo">메모</span>
+		<span class="tableCell th1 tRegdate">날짜</span> 
+		<span class="tableCell th1 tDifficulty">난이도</span>
+		<span class="tableCell th1 tButton"></span>
 	</div>
 
 	<c:forEach items="${problems}" var="problem" varStatus="status">
@@ -24,8 +28,8 @@
 				class="tableCell td2 pRegdate">${problem.regDate}</span> <span
 				class="tableCell td1 pDifficulty"><img style="width: 60px;"
 				alt="${problem.difficulty}"
-				src="../resources/img/difficulty${problem.difficulty}.png"></span> <span
-				class="tableCell td">
+				src="../resources/img/difficulty${problem.difficulty}.png"></span> 
+				<span class="tableCell td1 pButton">
 				<button value="${problem.id}" class="editBtn" type="button">
 					<i class="fas fa-pen"></i>
 				</button>
@@ -35,6 +39,7 @@
 			</span>
 		</div>
 	</c:forEach>
+</div>
 </div>
 
 <!-- pagination -->
@@ -72,12 +77,12 @@
 <br>
 <div class="table">
 	<div class="tableRow">
-		<span class="tableCell th3" style="text-align: left !important">전체 푼 문제</span>
+		<span class="tableCell th3" style="text-align: left !important">전체
+			푼 문제</span>
 	</div>
-
-	<span class="tableCell td3 probname tc"> 
-		<c:forEach items="${problems}" var="problem" varStatus="status">
-			<nobr><a href="${problem.link}" target="_blank">${problem.problem}, </a></nobr>
+	<span class="tableCell td3 probname tc"> <c:forEach
+			items="${Allproblems}" var="problem" varStatus="status">
+				<a href="${problem.link}" target="_blank" id="p_link">${problem.problem}, </a>
 		</c:forEach>
 	</span>
 </div>
@@ -86,20 +91,19 @@
 .fa-times, .fa-pen {
 	color: orange;
 }
-
 button {
 	border: 0;
 	outling: 0;
 	cursor: pointer;
 	background-color: white;
 }
-
 .th05 {
 	font-weight: bold !important;
 	background-color: #e69138ff !important;
 	color: white;
 	text-align: center;
 }
+#p_link:hover { text-decoration: underline;}
 </style>
 <script>
 $(document).ready(function() {
@@ -108,7 +112,7 @@ $(document).ready(function() {
 	<c:forEach items="${problems}" var="u" varStatus="status">
 		
 		var list = new Object();
-		list.index = "${status.count}";
+		list.index = "${(page-1)*list+status.count}";
 		list.id = "${u.getId()}";
 		list.problem = "${u.getProblem()}";
 		list.link = "${u.getLink()}";
@@ -127,12 +131,12 @@ $(document).ready(function() {
 		var index = $('.tableRow').index(tableRow);
 		var pageV = $("#recentPage").val();
 		
-		$(editCell[0]).html('<input id="Uid" type="hidden" name="id" value="'+ posts[index-5].id +'" /> <p>'+ posts[index-5].index+'</p>');
-		$(editCell[1]).html(posts[index-5].problem);
-		$(editCell[2]).html(posts[index-5].site);
-		$(editCell[3]).html('<input id="Umemo" type="text" name="memo" value="'+posts[index-5].memo+'">');
-		$(editCell[4]).html(posts[index-5].regDate);
-		$(editCell[5]).html('<input id="Udifficulty" type="number" min="0" max="5" name="difficulty" value="'+ posts[index-5].difficulty +'">');
+		$(editCell[0]).html('<input id="Uid" type="hidden" name="id" value="'+ posts[index-1].id +'" /> <p>'+  posts[index-1].index +'</p>');
+		$(editCell[1]).html(posts[index-1].problem);
+		$(editCell[2]).html(posts[index-1].site);
+		$(editCell[3]).html('<input id="Umemo" type="text" name="memo" value="'+posts[index-1].memo+'">');
+		$(editCell[4]).html(posts[index-1].regDate);
+		$(editCell[5]).html('<input id="Udifficulty" type="number" min="0" max="5" name="difficulty" value="'+ posts[index-1].difficulty +'">');
 		$(editCell[6]).html('<button id="cancelbtn" type="button"><i class="fas fa-times"/></i></button><button onclick="updateAjax('+pageV+')" type="button"><i class="fas fa-pen"></i></button>');
 	});
 	
@@ -141,12 +145,12 @@ $(document).ready(function() {
 		var cancelCell = tableRow.find('.tableCell');
 		var index = $('.tableRow').index(tableRow);
 	
-		$(cancelCell[0]).html(posts[index-5].index);
-		$(cancelCell[1]).html('<a href="'+posts[index-5].link+'" target="_blank">'+posts[index-5].problem+'</a>');
-		$(cancelCell[2]).html('<a href="'+posts[index-5].siteUrl+'" target="_blank">'+posts[index-5].site+'</a>');
-		$(cancelCell[3]).html(posts[index-5].memo);
-		$(cancelCell[4]).html(posts[index-5].regDate);
-		$(cancelCell[5]).html('<img style="width: 60px;" alt="${problem.difficulty}" src="../resources/img/difficulty'+posts[index-5].difficulty+'.png">');
+		$(cancelCell[0]).html(posts[index-1].index);
+		$(cancelCell[1]).html('<a href="'+posts[index-1].link+'" target="_blank">'+posts[index-1].problem+'</a>');
+		$(cancelCell[2]).html('<a href="'+posts[index-1].siteUrl+'" target="_blank">'+posts[index-1].site+'</a>');
+		$(cancelCell[3]).html(posts[index-1].memo);
+		$(cancelCell[4]).html(posts[index-1].regDate);
+		$(cancelCell[5]).html('<img style="width: 60px;" alt="${problem.difficulty}" src="../resources/img/difficulty'+posts[index-1].difficulty+'.png">');
 		$(cancelCell[6]).html('<button value="${problem.id}" class="editBtn" type="button"><i class="fas fa-pen"></i></button><button value="${problem.id}" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button>');
 	});
 

@@ -443,14 +443,49 @@ function deleteRecomCount(){
 	});
 }
 
-function addRecomCart(){
+function addRecomCart(recom){
+	var page;
 	if(confirm("문제집을 장바구니에 담으시겠습니까?")) {
+		var tagArray = [];
+		$('.tagCheck:checked').each(function(){
+			tagArray.push(this.value);
+			console.log(this.value);
+		});
+	
+		if($('#recentPage').val() == null) {
+			page=1;
+		}	
+
 		$.ajax({
 			url: "./recommendProblem/addRecomCart",
 			type: "POST",
 			async: false,
 			data: {
-				recomID:$('#readRecomID').html()
+				recomID:recom,
+				page: page,
+				searchValue:$('#searchValue').val(),
+				orderValue:$('#orderValue option:selected').val(),
+				tagValue: JSON.stringify(tagArray)
+			},
+			success: function(data){
+				$('#pageajaxContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+	}
+
+}
+
+function addRecomCartinModal(recom){
+	if(confirm("문제집을 장바구니에 담으시겠습니까?")) {
+		$.ajax({
+			url: "./recommendProblem/addRecomCartinModal",
+			type: "POST",
+			async: false,
+			data: {
+				recomID:recom
 			},
 			success: function(data){
 				$('.sweet-modal-content #recomCountCommentContent').html(data);
@@ -463,10 +498,45 @@ function addRecomCart(){
 
 }
 
-function deleteRecomCart(){
+function deleteRecomCart(recom){
+	var page;
 	if(confirm("문제집을 장바구니에서 지우시겠습니까?")) {
+		var tagArray = [];
+		$('.tagCheck:checked').each(function(){
+			tagArray.push(this.value);
+			console.log(this.value);
+		});
+	
+		if($('#recentPage').val() == null) {
+			page=1;
+		}	
+				
 		$.ajax({
 			url: "./recommendProblem/deleteRecomCart",
+			type: "POST",
+			async: false,
+			data: {
+				recomID:recom,
+				page: page,
+				searchValue:$('#searchValue').val(),
+				orderValue:$('#orderValue option:selected').val(),
+				tagValue: JSON.stringify(tagArray)
+			},
+			success: function(data){
+				$('#pageajaxContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+	}
+
+}
+
+function deleteRecomCartinModal(){
+	if(confirm("문제집을 장바구니에서 지우시겠습니까?")) {
+		$.ajax({
+			url: "./recommendProblem/deleteRecomCartinModal",
 			type: "POST",
 			async: false,
 			data: {

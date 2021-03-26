@@ -30,7 +30,7 @@ function updateAjax(pageV){
 }
 
 function drawChart1() {
-	<!-- Bar cahrt -->
+	/* Bar cahrt */
 	var ctx1 = document.getElementById("myBarChart").getContext("2d");
 	
 	// stores the number of bars you have at the beginning.
@@ -109,7 +109,7 @@ function drawChart1() {
 }
 
 function drawChart2() {
-	<!-- Doughnut cahrt -->		
+	/* Doughnut cahrt */		
 	var ctx = document.getElementById("myDoughnutChart"); 
 	var myDoughnutChart = new Chart(ctx, { 
 	    type: 'doughnut', 
