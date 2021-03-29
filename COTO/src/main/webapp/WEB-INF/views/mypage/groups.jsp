@@ -38,9 +38,7 @@
 		<div class="table" id="problemsContent">
 			<%@ include file="../ajaxContent/myGroupContent.jsp"%>
 		</div>
-				
-		<button id="dropBtn" class="input-field custom-button" onclick="dropGroup()">탈퇴하기</button>
-		
+						
 		<div id="adminGroupContent">
 			<%@ include file="../ajaxContent/adminGroupContent.jsp"%>
 		</div>
