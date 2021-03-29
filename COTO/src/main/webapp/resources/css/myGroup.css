@@ -113,8 +113,8 @@ input[type='radio']:checked {
 
 .modal_button {
 	display: inline-block;
-    background: #09c;
-    border: 1px solid #a6b86e;
+    background: #e69238;
+    border: none;
     color: #fff;
     font-size: 13px;
     font-family: "Roboto","Open Sans",sans-serif;

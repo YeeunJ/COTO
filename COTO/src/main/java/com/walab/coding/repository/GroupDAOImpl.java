@@ -42,13 +42,21 @@ public class GroupDAOImpl implements GroupDAO {
 	public List<GroupDTO> readAllGroups(){
 		return sqlSession.selectList(namespace+".readAllGroups");
 	}
+	
+	@Override	
+	public int readAdminofGroup(int groupID){
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("groupID", groupID);
+		
+		return sqlSession.selectOne(namespace+".readAdminofGroup", param);
+	}
 
 	@Override
 	public void deleteUser(int userID, int groupID) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("userID", userID);
 		param.put("groupID", groupID);
-		
+				
 		sqlSession.delete(namespace+".deleteUser", param);
 	}
 

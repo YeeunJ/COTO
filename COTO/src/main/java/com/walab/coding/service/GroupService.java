@@ -17,5 +17,7 @@ public interface GroupService {
 	public List<GroupDTO> readAllGroups();
 
 	public void deleteUser(int userID, int groupID);
+
+	int readAdminofGroup(int groupID);
 	
 	}

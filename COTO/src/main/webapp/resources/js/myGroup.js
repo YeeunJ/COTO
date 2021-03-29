@@ -100,6 +100,74 @@ function groupCreateModal(userID) {
 	else alert("로그인을 해야 글쓰기가 가능합니다.");
 }
 
+function problemCreateModal(userID) {
+	if(userID > 0) createModel("#createProblem", "새로운 문제 리스트 생성", addProblem, searchF);
+	else alert("로그인을 해야 글쓰기가 가능합니다.");
+}
+
+function addProblem(){
+	
+	var probStartDate = $(".sweet-modal-content #probStartDate").val();
+	var probEndDate = $(".sweet-modal-content #probEndDate").val();
+	var siteId = [];
+	var link = [];
+	var problem = [];	
+	
+	$('.sweet-modal-content .problem').each(function(){
+		
+		var s_id = 0;
+		var l = "";
+		var p;
+		
+		var valueSplit = $(this).val().split(' (');
+		
+		if($(this).attr('name') == 0){ // link로 설정하는 경우
+			l = valueSplit[0].trim();
+			console.log("link: "+l);
+			
+			var split = l.split('/');
+			p = split[split.length-1].trim();
+			console.log("problem: "+split[split.length-1].trim());
+
+		} else { // siteId 존재하는 경우
+			s_id = $(this).attr('name');
+			p = valueSplit[0].trim();
+			len = $(this).val().split(' - ');
+			if(len.length != 0)
+				l = len[len.length-1].trim();
+		}
+		
+		siteId.push(s_id);
+		problem.push(p);
+		link.push(l);
+		
+	});
+	
+	console.log(problem);
+	
+	$.ajax({
+        url : "./groups/createProblem",
+        type: 'POST',
+        data: {
+	        groupID: groupID,
+        	siteId : siteId,
+        	problem: problem,
+        	probStartDate : probStartDate,
+        	probEndDate : probEndDate,
+        	link : link
+        },
+        success: function(data) {
+        	console.log(data);
+        },
+        error:function(request,status,error){
+        	alert("error");
+            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+
+}
+
+
 function addajax(){
 	
 	var groupTitle = $(".sweet-modal-content #groupTitle").val();
@@ -230,24 +298,22 @@ function deleteThis(id){
 }
 
 
-function dropGroup() {
-	$.ajax({
-		url: "./groups/dropGroup",
-		type: "POST",
-		async: false,
-		data: {
-			userID: 18,
-			groupID: 3
-		},
-		success: function(data){
-			$('#problemsContent').html(data);
-		}, 
-		error:function(request, status, error){
-			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
-	});
+function dropGroup(userID, groupID) {
+alert("hello");
+		
+		$.ajax({
+			url: "./groups/dropGroup",
+			type: "POST",
+			async: false,
+			data: {
+				userID: userID,
+				groupID: groupID
+			},
+			success: function(data){
+				console.log("탈퇴 완료!");
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
 }
-
-
-
-

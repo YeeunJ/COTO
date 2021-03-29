@@ -21,6 +21,10 @@
 		INNER JOIN user ON groupInfo.userID = user.id)
 	</select>	
 	
+	<select id="readAdminofGroup" resultType="int" parameterType="hashmap">
+		SELECT userID FROM groupInfo WHERE id = #{groupID}
+	</select>	
+	
 	
 	<delete id="deleteUser" parameterType="hashmap">
 		DELETE FROM groupUser WHERE userID = #{userID} AND groupID=#{groupID};

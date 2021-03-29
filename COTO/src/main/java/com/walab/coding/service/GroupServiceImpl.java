@@ -37,4 +37,8 @@ public class GroupServiceImpl implements GroupService {
 		groupDAO.deleteUser(userID, groupID);
 	}
 	
+	@Override
+	public int readAdminofGroup(int groupID) {
+		return groupDAO.readAdminofGroup(groupID);
+	}
 }

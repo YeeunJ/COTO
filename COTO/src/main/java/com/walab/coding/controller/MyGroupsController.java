@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.UserDTO;
@@ -38,7 +39,7 @@ import com.walab.coding.service.GroupService;
  */
 
 @Controller
-@RequestMapping(value = "/mypage/groups")
+@RequestMapping(value = "")
 public class MyGroupsController {
 
 	@Autowired
@@ -55,7 +56,7 @@ public class MyGroupsController {
 	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
 	 */
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "/mypage/groups", method = RequestMethod.GET)
 	public ModelAndView viewProblems(HttpServletRequest httpServletRequest, ModelAndView mv, Model model,
 			@RequestParam(value = "page", defaultValue = "1") int page) {
 
@@ -104,7 +105,7 @@ public class MyGroupsController {
 
 	
 
-	@RequestMapping(value = "/createGroup", method = RequestMethod.POST)
+	@RequestMapping(value = "/mypage/groups/createGroup", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView createGroup(HttpServletRequest httpServletRequest, ModelAndView mv,
 			@RequestParam(value="groupTitle") String groupTitle,
@@ -147,35 +148,62 @@ public class MyGroupsController {
 		return mv;
 	}
 	
-	
-	
-	@RequestMapping(value = "/eachGroup", method = RequestMethod.GET)
+	@RequestMapping(value = "/mypage/groups/createProblem", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView eachGroup(HttpServletRequest httpServletRequest, ModelAndView mv,
-			@RequestParam(value="groupID") String groupID) {
+	public String createProblem(HttpServletRequest httpServletRequest, ModelAndView mv,
+			@RequestParam(value="probStartDate") String probStartDate,
+			@RequestParam(value="groupID") int groupID,
+			@RequestParam(value="probEndDate") String probEndDate,
+			@RequestParam(value="siteId[]") List<String> siteId, 
+			@RequestParam(value="problem[]") List<String> problem, 
+			@RequestParam(value="link[]") List<String> link
+			) throws UnsupportedEncodingException, ParseException {
 		
 		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
-		int id = Integer.parseInt(groupID);
 		
-		System.out.println(userID +"in conteroller>>>>>>>>>>>>>.");
+		// groupID 보내줘야 함
+		groupGoalService.createGoal(probStartDate, probEndDate, groupID);
 		
+		int goalID = groupGoalService.readGoalID();
+		groupGoalService.createGoalProblems(goalID, problem, siteId, link);
+		
+		return "success";
+	}
+	
+	
+	
+	@RequestMapping(value = "/mypage/eachGroup", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView eachGroup(HttpServletRequest httpServletRequest, ModelAndView mv) {
+		
+		int groupID = Integer.parseInt(httpServletRequest.getParameter("groupID"));
+		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+		int adminID = groupService.readAdminofGroup(groupID);
+		
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+				
+		mv.addObject("CodingSite", codingSite);
 		mv.addObject("userID", userID);
-		mv.addObject("groupID", id);
+		mv.addObject("adminID", adminID);
+		mv.addObject("groupID", groupID);
 		mv.setViewName("/mypage/oneGroup");
 		
 		return mv;
 	}
 	
-	@RequestMapping(value = "/dropGroup", method = RequestMethod.POST)
-	@ResponseBody
-	public ModelAndView dropGroup(HttpServletRequest httpServletRequest) {
+	@RequestMapping(value = "/mypage/groups/dropGroup", method = RequestMethod.POST)
+	public ModelAndView dropGroup(ModelAndView mv, HttpServletRequest httpServletRequest,
+			@RequestParam(value="groupID") int groupID) {
 		
-		int groupID = 3;
-		int userID = 18;
+		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
 		
 		groupService.deleteUser(userID, groupID);
 		
-		return new ModelAndView("redirect:../");
+//		mv.setViewName("redirect:/");
+//
+//		return mv; 
+		mv.setView(new RedirectView("/", true));
+		return mv;
 
 	}
 	
