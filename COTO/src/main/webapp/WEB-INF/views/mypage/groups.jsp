@@ -13,7 +13,6 @@
 
 <script src="../resources/js/myGroup.js"></script>
 
-
 <div id="SiteContainer" class="container">
 	
 	<div id="group">
@@ -40,10 +39,13 @@
 			<%@ include file="../ajaxContent/myGroupContent.jsp"%>
 		</div>
 				
+		<button id="dropBtn" class="input-field custom-button" onclick="dropGroup()">탈퇴하기</button>
 		
 		<div id="adminGroupContent">
 			<%@ include file="../ajaxContent/adminGroupContent.jsp"%>
 		</div>
+		
+		
 		
 	</div>
 </div>

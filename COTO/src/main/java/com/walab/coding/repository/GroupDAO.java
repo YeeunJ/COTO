@@ -11,5 +11,7 @@ public interface GroupDAO {
 	public List<GroupDTO> readAdminGroups(int userID);
 
 	public List<GroupDTO> readAllGroups();
+
+	public void deleteUser(int userID, int groupID);
 	
 }

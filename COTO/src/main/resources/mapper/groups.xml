@@ -22,4 +22,8 @@
 	</select>	
 	
 	
+	<delete id="deleteUser" parameterType="hashmap">
+		DELETE FROM groupUser WHERE userID = #{userID} AND groupID=#{groupID};
+	</delete>
+	
 </mapper>

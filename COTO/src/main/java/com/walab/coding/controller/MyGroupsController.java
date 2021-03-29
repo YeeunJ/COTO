@@ -148,12 +148,35 @@ public class MyGroupsController {
 	}
 	
 	
-	@GetMapping("/{groupID}")
+	
+	@RequestMapping(value = "/eachGroup", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView postDeleteFactory(@PathVariable("groupID") int groupID, ModelAndView mv) {
-		System.out.println("groupID: "+groupID);
-		mv.setViewName("mypage/oneGroup");
+	public ModelAndView eachGroup(HttpServletRequest httpServletRequest, ModelAndView mv,
+			@RequestParam(value="groupID") String groupID) {
+		
+		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+		int id = Integer.parseInt(groupID);
+		
+		System.out.println(userID +"in conteroller>>>>>>>>>>>>>.");
+		
+		mv.addObject("userID", userID);
+		mv.addObject("groupID", id);
+		mv.setViewName("/mypage/oneGroup");
+		
 		return mv;
+	}
+	
+	@RequestMapping(value = "/dropGroup", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView dropGroup(HttpServletRequest httpServletRequest) {
+		
+		int groupID = 3;
+		int userID = 18;
+		
+		groupService.deleteUser(userID, groupID);
+		
+		return new ModelAndView("redirect:../");
+
 	}
 	
 	

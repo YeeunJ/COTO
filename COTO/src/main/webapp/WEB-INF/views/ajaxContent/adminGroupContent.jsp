@@ -22,7 +22,7 @@
  	
  	<div class="tableRow center" id="recoms${group.id}">
  		<span class = "tableCell td1 pIndex">${status.count}</span>
-  		<span class = "tableCell td2 pName"><a href="./groups/${ group.id }">${group.groupName}</a></span>
+  		<span class = "tableCell td2 pName"><a href="./eachGroup?groupID=${ group.id }">${group.groupName}</a></span>
   		<span class = "tableCell td1">${startDate}</span>
  		<span class = "tableCell td1">${endDate}</span>
   		<span class = "tableCell td1 pToday"></span>

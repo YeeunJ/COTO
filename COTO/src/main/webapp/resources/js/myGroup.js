@@ -230,4 +230,24 @@ function deleteThis(id){
 }
 
 
+function dropGroup() {
+	$.ajax({
+		url: "./groups/dropGroup",
+		type: "POST",
+		async: false,
+		data: {
+			userID: 18,
+			groupID: 3
+		},
+		success: function(data){
+			$('#problemsContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
+}
+
+
+
 

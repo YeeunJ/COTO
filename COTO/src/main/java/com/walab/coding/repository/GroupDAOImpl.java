@@ -43,5 +43,14 @@ public class GroupDAOImpl implements GroupDAO {
 		return sqlSession.selectList(namespace+".readAllGroups");
 	}
 
+	@Override
+	public void deleteUser(int userID, int groupID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userID", userID);
+		param.put("groupID", groupID);
+		
+		sqlSession.delete(namespace+".deleteUser", param);
+	}
+
 
 }
