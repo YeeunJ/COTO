@@ -46,12 +46,14 @@ $(document).ready(function(){
 			<ul class = "hide-on-med-and-down mymenu">
 				<li id = "list"><span id = "listspan" onclick="location.href='./recommendProblem'">문제 추천</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='./problemList'">문제 리스트</span></li>
+				<li id = "list"><span id = "listspan" onclick="location.href='./groupList'">그룹 리스트</span></li>
 				<li class = "right"><span class = "center" style = "display: inline-block;"><a href="./login" class="registerA"><button class = "mybtn">로그인</button></a></span></li>
 		  	</ul>
 			<ul id="nav-mobile" class="sidenav">
 				<li><a href="./login">로그인</a></li>
 				<li><a href="./recommendProblem">문제 추천</a></li>
 				<li><a href="./problemList">문제 리스트</a></li>
+				<li><a href="./groupList">그룹 리스트</a></li>
 			</ul>
 	    </div>
 	</div>
