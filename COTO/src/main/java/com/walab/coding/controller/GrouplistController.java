@@ -1,5 +1,6 @@
 package com.walab.coding.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,25 @@ public class GrouplistController {
 										@RequestParam(value="page", defaultValue="1") int page) {
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSitebyYN();
 		List<GroupDTO> myGroups = groupService.readAllGroups();
+		List<GroupDTO> groupList = new ArrayList<GroupDTO>();
+		int n=0, currGroup=myGroups.get(0).getId(), groupUserCnt=0;
+		
+		/*for(int i=0;i<myGroups.size();i++) {
+			if(myGroups.get(i).getIsAdmin()==1) {
+				groupList.get(n).setId(myGroups.get(i).getId());
+				groupList.get(n).setGroupName(myGroups.get(i).getGroupName());
+				groupList.get(n).setGroupGoal(myGroups.get(i).getGroupGoal());
+				groupList.get(n).setNickName(myGroups.get(i).getNickName());
+			}
+			
+			if(currGroup != myGroups.get(i).getId()) {
+				currGroup = myGroups.get(i).getId();
+				groupList.get(n).setUserCnt(groupUserCnt);
+				n++;
+				groupUserCnt = 0;
+			}
+			else groupUserCnt++;
+		}*/
 		
 		System.out.println(myGroups.toString());
 

@@ -14,11 +14,12 @@
 		SELECT * FROM groupInfo WHERE userID=#{userID}
 	</select>
 	
-	<select id="readAllGroups" resultType="com.walab.coding.model.GroupDTO" parameterType="hashmap">
-		SELECT groupInfo.id, groupName, goal, groupDesc, groupInfo.userID as adminID, groupUser.isAdmin, user.name, user.nickName
-		FROM ((groupInfo
-		INNER JOIN groupUser ON groupInfo.id = groupUser.groupID)
-		INNER JOIN user ON groupInfo.userID = user.id)
+	<select id="readAllGroups" resultType="com.walab.coding.model.GroupDTO">
+		SELECT groupInfo.id, groupName, goal, groupUser.isAdmin, user.nickName as nickName
+		FROM ((YeeunJ.groupInfo
+		INNER JOIN YeeunJ.groupUser ON groupInfo.id = groupUser.groupID)
+		INNER JOIN YeeunJ.user ON groupInfo.userID = user.id)
+		ORDER BY groupInfo.regDate;
 	</select>	
 	
 	<select id="readAdminofGroup" resultType="int" parameterType="hashmap">
