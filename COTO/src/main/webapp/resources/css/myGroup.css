@@ -244,3 +244,21 @@ input[type='radio']:checked {
 #adminGroupContent{
 	margin-top: 40px;
 }
+
+#oneGroup {
+	position: relative;
+	padding: 80px 0;
+	margin-bottom: 3%;
+}
+#oneGroup:before {
+	content: "";
+	background-image: url("../img/recommendimg.jpg");
+	background-size: cover;
+	top: 0;
+	left: 0;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
+	opacity: 0.4;
+	z-index: -1;
+}

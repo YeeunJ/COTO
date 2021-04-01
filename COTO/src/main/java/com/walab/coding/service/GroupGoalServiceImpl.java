@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.walab.coding.model.GroupGoalDTO;
 import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.repository.GroupGoalDAO;
@@ -49,6 +50,11 @@ public class GroupGoalServiceImpl implements GroupGoalService {
 			
 			groupGoalDAO.createGoalProblem(goalID, p);
 		}     
+	}
+	
+	@Override
+	public List<GroupGoalDTO> readGoalListByGroupId(int groupID) {
+		return groupGoalDAO.readGoalListByGroupId(groupID);
 	}
 
 }
