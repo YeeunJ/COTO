@@ -27,10 +27,17 @@ import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.model.GroupDTO;
+import com.walab.coding.model.GroupGoalDTO;
 import com.walab.coding.model.GroupInfoDTO;
+import com.walab.coding.model.GroupProblemDTO;
+import com.walab.coding.model.RecomCountDTO;
+import com.walab.coding.model.RecomProblemDTO;
+import com.walab.coding.model.RecomTagDTO;
+import com.walab.coding.model.RecommendDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.GroupGoalService;
 import com.walab.coding.service.GroupInfoService;
+import com.walab.coding.service.GroupProblemService;
 import com.walab.coding.service.GroupService;
 
 
@@ -52,6 +59,8 @@ public class MyGroupsController {
 	GroupInfoService groupInfoService;
 	@Autowired
 	GroupGoalService groupGoalService;
+	@Autowired
+	GroupProblemService groupProblemService;
 
 	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
@@ -181,13 +190,43 @@ public class MyGroupsController {
 		int adminID = groupService.readAdminofGroup(groupID);
 		
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
+		
+		for(int i=0;i<groupGoal.size();i++) {
+			List<GroupProblemDTO> groupProb = groupProblemService.readProblemsByGoalId(groupGoal.get(i).getId());
+			groupGoal.get(i).setProbCount(groupProb.size());
+		}
 				
 		mv.addObject("CodingSite", codingSite);
 		mv.addObject("userID", userID);
 		mv.addObject("adminID", adminID);
 		mv.addObject("groupID", groupID);
+		mv.addObject("groupGoal", groupGoal);
 		mv.setViewName("/mypage/oneGroup");
 		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/mypage/readModalInfo", method = RequestMethod.POST)
+	public ModelAndView readModalInfo(HttpServletRequest request, ModelAndView mv) {
+
+		int goalID = Integer.parseInt(request.getParameter("goalID"));
+		int groupID = Integer.parseInt(request.getParameter("groupID"));
+		
+		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
+		
+		for(int i=0;i<groupGoal.size();i++) {
+			List<GroupProblemDTO> groupProb = groupProblemService.readProblemsByGoalId(groupGoal.get(i).getId());
+			groupGoal.get(i).setProbCount(groupProb.size());
+		}
+
+		List<GroupProblemDTO> groupProbDetail = groupProblemService.readProblemsByGoalId(goalID);
+		System.out.println(groupProbDetail.get(0).getProblemID());
+
+		mv.addObject("groupGoal", groupGoal);
+		mv.addObject("groupProbDetail", groupProbDetail);
+		mv.setViewName("/mypage/oneGroup");
+
 		return mv;
 	}
 	
