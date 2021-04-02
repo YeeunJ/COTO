@@ -21,6 +21,32 @@
 		SELECT * FROM groupInfo WHERE id = #{groupID}
 	</select>
 	
+	<select id="readGroupListCnt" resultType="int">
+		SELECT COUNT(*) FROM
+        (SELECT groupInfo.id FROM (groupInfo
+		INNER JOIN user ON groupInfo.userID = user.id) 
+		WHERE groupInfo.groupName like CONCAT('%',#{searchValue},'%') OR groupInfo.goal like CONCAT('%',#{searchValue},'%') OR user.nickName like CONCAT('%',#{searchValue},'%')
+        GROUP BY groupInfo.id) subquery;
+	</select>
+	
+	<select id="search" resultType="com.walab.coding.model.GroupDTO" parameterType="hashmap">
+		SELECT groupInfo.id AS id, groupInfo.groupName AS groupName, groupInfo.goal AS goal, user.nickName AS nickName, count(groupID) AS userCnt
+		FROM ((YeeunJ.groupUser as groupUser
+		INNER JOIN YeeunJ.groupInfo as groupInfo on groupUser.groupID = groupInfo.id)
+		INNER JOIN YeeunJ.user as user on groupInfo.userID = user.id)
+		WHERE groupInfo.groupName like #{searchValue} OR groupInfo.goal like #{searchValue} OR user.nickName like #{searchValue}
+		GROUP BY YeeunJ.groupUser.groupID
+		ORDER BY 
+		<choose>
+			<when test="orderValue eq 'groupInfo.groupName'">groupInfo.groupName</when>
+			<when test="orderValue eq 'groupInfo.regDate desc'">groupInfo.regDate desc</when>
+		    <when test="orderValue eq 'userCnt desc'">userCnt desc</when>
+		    <!-- <when test="orderValue eq 'COUNT(*) desc'">COUNT(*) desc</when> -->
+		    <otherwise>groupInfo.regDate</otherwise>
+		</choose> 
+		LIMIT #{s_point}, #{list};
+	</select>
+	
 	<delete id="deleteGroup" parameterType="hashmap">
 		DELETE FROM groupInfo WHERE id = #{id}
 	</delete>

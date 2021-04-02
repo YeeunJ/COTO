@@ -46,5 +46,25 @@ public class GroupInfoDAOImpl implements GroupInfoDAO {
 		sqlSession.insert(namespace+".createGroupUser", param);
 		
 	}
+	
+	@Override
+	public int readGroupListCnt(String searchValue, String orderValue) {
+		Map<String, Object> groupListParam = new HashMap<String, Object>();
+		groupListParam.put("searchValue", searchValue);
+		groupListParam.put("orderValue", orderValue);
+		
+		return sqlSession.selectOne(namespace+".readGroupListCnt", groupListParam);
+	}
+	
+	@Override
+	public List<GroupDTO> search(int s_point, int list, String searchValue, String orderValue) {
+		Map<String, Object> groupListParam = new HashMap<String, Object>();
+		groupListParam.put("searchValue", searchValue);
+		groupListParam.put("orderValue", orderValue);
+		groupListParam.put("s_point", s_point);
+		groupListParam.put("list", list);
+		
+		return sqlSession.selectList(namespace+".search", groupListParam);
+	}
 
 }

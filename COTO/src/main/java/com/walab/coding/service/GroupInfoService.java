@@ -13,4 +13,9 @@ public interface GroupInfoService {
 	List<GroupInfoDTO> readGroupInfoById(int groupID);
 
 	void createGroupUsers(List<String> users, int groupID);
+	
+	public int readGroupListCnt(String searchValue, String orderValue);
+
+	List<GroupDTO> search(int s_point, int list, String searchValue, String orderValue);
+	
 }

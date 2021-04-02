@@ -9,7 +9,6 @@
 	<div class="tableRow">
 		<span class="tableCell th1">No.</span> <span class="tableCell th3">그룹명</span>
 		<span class="tableCell th3">목표</span> <span class="tableCell th2">그룹장</span>
-		<span class="tableCell th3">관리</span>
 <!-- 		<span class="tableCell th1">출석</span> <span class="tableCell th1">진행률</span>
  -->	</div>
 	
@@ -19,7 +18,6 @@
   		<span class = "tableCell td3 pName">${group.groupName}</span>
   		<span class = "tableCell td3 pNumber">${group.goal}</span>
  		<span class = "tableCell td2 pAdmin">${group.name}</span>
- 		<span class = "tableCell td2 pLeave"><button class="custom-button leave" onclick="">탈퇴하기</button>
  		</span>
  		
 <!--  		<span class = "tableCell td1 pToday"></span>

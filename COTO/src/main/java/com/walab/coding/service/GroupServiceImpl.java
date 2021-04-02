@@ -41,4 +41,5 @@ public class GroupServiceImpl implements GroupService {
 	public int readAdminofGroup(int groupID) {
 		return groupDAO.readAdminofGroup(groupID);
 	}
+	
 }
