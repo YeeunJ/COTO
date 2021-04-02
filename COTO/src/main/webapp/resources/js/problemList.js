@@ -1,5 +1,4 @@
 
-// Or with jQuery
 $(document).ready(function(){
     $('select').formSelect();
     
@@ -22,8 +21,6 @@ $(document).ready(function(){
 
 });
 
-
-
 //코딩 사이트별 차트
 function DrawChart1() {
 	var newLabels = [];
@@ -38,7 +35,6 @@ function DrawChart1() {
 					window.chartColors.grey,
 					];
 	
-	//newLabels.push("전체 문제 수: " + totalProbCnt);
 	for (var i=0 ; i< ratioBySite.length ; i++){
 		newData.push(ratioBySite[i].ratio*100);
 		newLabels.push(ratioBySite[i].siteName+" ("+ratioBySite[i].count+")");
@@ -86,14 +82,10 @@ function DrawChart1() {
 	};
 	
 	var ctx1 = document.getElementById('chartBySite').getContext('2d');
-	window.myDoughnut = new Chart(ctx1, chartBySite);
-	
-	
-	
+	window.myDoughnut = new Chart(ctx1, chartBySite);	
 };
-
+// 일간 평균 차트
 function DrawChart2() {
-	// 일간 평균 차트
 
 	var dates = [];
 	var averages = [];
@@ -135,7 +127,6 @@ function DrawChart2() {
 }
 
 function search(page){
-	console.log("siteValue: "+$('#siteValue option:selected').val());
 	$.ajax({
 			url: "problemList/search",
 			type: "POST",
@@ -147,9 +138,7 @@ function search(page){
 				siteValue:$('#siteValue option:selected').val()
 			},
 			success: function(data){
-				//console.log(data);
 				$('#pageajaxContent').html(data);
-				//alert(data);
 			}, 
 			error:function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

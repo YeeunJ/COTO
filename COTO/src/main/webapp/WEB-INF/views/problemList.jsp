@@ -11,9 +11,7 @@
 <script src="./resources/js/problemList.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-
-
-<!-- SiteContainer -->
+<%@ include file="./jspData/problemList.jsp"%>
 <div id="SiteContainer" class="container">
 	<div id="problem">
 		<div class="content">
@@ -37,7 +35,6 @@
 		</div>
 	</div>
 
-	<!-- top-bar -->
 	<div class="top-bar">
 		<fieldset class="search">
 			<input id="searchValue" class="search_problem" type="search"
@@ -64,41 +61,12 @@
 			</select>
 		</div>
 	</div>
-	<!-- //top-bar -->
 	
 	<div id="pageajaxContent">
 		<%@ include file="./ajaxContent/problemListContent.jsp"%>
 	</div>
 
 </div>
-<!-- //SiteContainer -->
-
-<script>
-
-var ratioBySite = new Array();
-var averageWeek = new Array();
-var totalProbCnt = ${totalProblemCnt};
-<c:forEach items="${ratio}" var="r">
-	var list = new Object();
-	list.siteName = "${r.siteName}";
-	list.siteID = ${r.siteID};
-	list.ratio = ${r.ratio};
-	list.count = ${r.count};
-	
-	ratioBySite.push(list);
-</c:forEach>
-
-<c:forEach items="${averageForWeek}" var="avg">
-	var list = new Object();
-	
-	list.date = "${avg.date}";
-	list.average = ${avg.average};
-	
-	averageWeek.push(list);
-</c:forEach>
-
-
-</script>
 
 <%@ include file="./inc/footer.jsp"%>
 
