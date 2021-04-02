@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="./resources/js/manageCodingsite.js"></script>
 
-<%@ include file="./jspData/codingsite.jsp"%>
+<%@ include file="./jspData/codingSite.jsp"%>
 
 <div id="SiteContainer" class="container">
 	<div id="manage">

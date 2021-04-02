@@ -1,3 +1,4 @@
+// Or with jQuery
 $(document).ready(function(){
     $('#orderValue').formSelect();
     $('#searchButton').on('click', function() {
@@ -15,6 +16,7 @@ function search(page){
 	var tagArray = [];
 	$('.tagCheck:checked').each(function(){
 		tagArray.push(this.value);
+		console.log(this.value);
 	});
 
 	if($('#recentPage').val() == null) {
@@ -45,7 +47,7 @@ function searchF(){
 }
 
 /* create */
-//추천집 create modal 부르
+//추천집 create modal 부르는것
 function callModal(userID) {
 	selectHtml = $('#selectHtml').html();
 	
@@ -100,9 +102,11 @@ function addajax(){
 		
 		if($(this).attr('name') == 0){ // link로 설정하는 경우
 			l = valueSplit[0].trim();
+			console.log("link: "+l);
 			
 			var split = l.split('/');
 			p = split[split.length-1].trim();
+			console.log("problem: "+split[split.length-1].trim());
 
 		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
@@ -120,7 +124,7 @@ function addajax(){
 	
 	probs = {"siteId":siteId, "problem":problem, "link":link};
 	
-	var tag_data= $('.sweet-modal-content #problemTag').text(); 
+	var tag_data= $('.sweet-modal-content #problemTag').text(); //$('.sweet-modal-content #problemTag').material_chip('data');
 	var tagSplit = tag_data.split("close");
 	for(var i in tagSplit) {
 		tagSplit[i] = tagSplit[i].trim();
@@ -150,6 +154,7 @@ function addajax(){
 }
 
 var count=0;
+var index;
 
 //create modal에서 problem입력할 때
 function insertProblems(){
@@ -174,6 +179,8 @@ function insertProblems(){
             count += valueSplit.length+1;
             var data2 = $('.sweet-modal-content #confirmSite').html()+data;
         	$('.sweet-modal-content #confirmSite').html(data2);
+        	index="success";
+        	checkInsert(index);
         },
         error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -185,6 +192,7 @@ function insertProblems(){
 			count++;
 		}
 		$('.sweet-modal-content #confirmSite').html(data);
+//		$('#confirmSite').html(data);
 	}
 };
 
@@ -297,9 +305,11 @@ function updateAjax (){
 		
 		if($(this).attr('name') == 0){ // link로 설정하는 경우
 			l = valueSplit[0].trim();
+			console.log("link: "+l);
 			
 			var split = l.split('/');
 			p = split[split.length-1].trim();
+			console.log("problem: "+split[split.length-1].trim());
 
 		} else { // siteId 존재하는 경우
 			s_id = $(this).attr('name');
@@ -356,6 +366,7 @@ function updateProblems(){
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #updateConfirmSite').html();
 	$(".sweet-modal-content #problems").val("");
+	console.log(count);
 	if(siteId == 1){
 		$.ajax({
         url : './crawling/'+siteName,
@@ -366,7 +377,9 @@ function updateProblems(){
         	"count": count
         },
         success: function(data){
+            console.log(count);
             count += valueSplit.length+1;
+            console.log(count);
             var data2 = $('.sweet-modal-content #updateConfirmSite').html()+data;
         	$('.sweet-modal-content #updateConfirmSite').html(data2);
         },
@@ -385,6 +398,8 @@ function updateProblems(){
 	$(".sweet-modal-content #updateConfirmProblems").val("");
 };
 
+
+/* delete */
 //read modal을 delete
 function deleteAjax (){
 	$.ajax({
@@ -407,6 +422,7 @@ function deleteAjax (){
 function deleteThis(id){
 	var allid = "#"+id;
 	$(allid).remove();
+	checkDelete(id);
 }
 
 //read modal에서 recom count
@@ -434,6 +450,7 @@ function addRecomCart(recom){
 		var tagArray = [];
 		$('.tagCheck:checked').each(function(){
 			tagArray.push(this.value);
+			console.log(this.value);
 		});
 	
 		if($('#recentPage').val() == null) {
@@ -488,6 +505,7 @@ function deleteRecomCart(recom){
 		var tagArray = [];
 		$('.tagCheck:checked').each(function(){
 			tagArray.push(this.value);
+			console.log(this.value);
 		});
 	
 		if($('#recentPage').val() == null) {
@@ -548,7 +566,9 @@ function checkProblem(id){
 			rpID : id,
 		},
 		success : function(data) {
+			console.log(data);
 			idName = ".sweet-modal-content #eachProblemContent"+id;
+			console.log(idName);
 			$(idName).html(data);
 		},
 		error : function(request, status, error) {
@@ -569,6 +589,7 @@ function uncheckProblem(id, name){
 			problemName: name
 		},
 		success : function(data) {
+			console.log(data);
 			idName = ".sweet-modal-content #eachProblemContent"+ id;
 			$(idName).html(data);
 		},
@@ -591,8 +612,12 @@ function resetContent() {
 	$('#selectHtml').html(selectHtml);
 	$('.sweet-modal-content .chip').remove();
 }
+
+
+
 // 수정 필요 ! -> update 창이 뜨면 보이도록
 /*function updateChipTag(data) {
+	//var tagData = data;
 	var tdSplit = data.split('\n');
 	var cnt=0;
 	var td = "";
@@ -606,10 +631,15 @@ function resetContent() {
 			if(cnt == 0) td += "[{\ntag: \'"+tdSplit[i]+"\',\n}"
 			else td += ", {\ntag: \'"+tdSplit[i]+"\',\n}"
 
+			//console.log(td);
+			//tag[cnt].push()
+			
+			
 			$('#updateProblemTag').html('<div class="chip" id="tabindex"'+cnt+'>'+tdSplit[i]+'<i class="material-icons close">close</i></div>');
 			cnt++;
 		}
 
+		//td = "";
 	}
 	
 	$('#updateProblemTag').html('<input class="input" id="8b9cc387-e450-ef54-bd7b-64f87cf19ba0" placeholder="+Tag">');
@@ -652,6 +682,7 @@ function updateInsertProblems(data){
 	}
 	
 	for(var i in pName){
+		//input name에 site id필요!!!
 		
 		if(sName[i] == site[site.length-1]) result += '<div id = "updateConfirmProblemValue'+count+'" onClick="deleteThis(\'updateConfirmProblemValue'+count+'\')"><input disabled name="0" value="'+pName[i]+' ('+sName[i]+')" id="updateLast_name disabled" type="text" class="updateConfirmProblem validate"/></div>';
 		else {
@@ -669,17 +700,3 @@ function updateInsertProblems(data){
 	$('.sweet-modal-content #updateConfirmSite').html(result);
 	$('#updateConfirmSite').html(result);
 };*/
-
-function clickTag(tag){
-	if($('#'+tag).is(":checked") == false) {
-		$('#'+tag).attr('checked', true);
-		$('#'+tag+'Button').css('background-color', '#e69138ff');
-		$('#'+tag+'Button').css('color', 'white');
-	} else if($('#'+tag).is(":checked") == true) {
-		$('#'+tag).attr('checked', false);
-		$('#'+tag+'Button').css('background', 'none');
-		$('#'+tag+'Button').css('color', 'black');
-	}
-	$('#'+tag+'Button').blur();
-	search(1);
-}

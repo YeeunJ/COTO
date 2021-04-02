@@ -7,8 +7,47 @@ function deletechip(id) {
 	$(id).remove();
 }
 
+var id;
+var insCount = 0;
+var index;
+function checkDelete(id){
+	if(id){
+		insCount--;
+		console.log("delete Count: "+insCount);
+	}
+	
+	if(insCount == 2) {
+		console.log("등록가능");
+		$('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+		$('.sweet-modal-buttons .disableCheck').addClass('originBg');
+	}
+	else if(insCount < 2) {
+		console.log("등록불가능");
+		$('.sweet-modal-buttons .disableCheck').removeAttr('style');
+		$('.sweet-modal-buttons .disableCheck').removeClass('originBg');
+	}
+}
+
+function checkInsert(index){
+	if(index){
+		insCount++;
+		console.log("insert Count: "+insCount);
+	}
+	
+	if(insCount == 2) {
+		console.log("등록가능");
+		$('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+		$('.sweet-modal-buttons .disableCheck').addClass('originBg');
+	}
+	else if(insCount < 2) {
+		console.log("등록불가능");
+		$('.sweet-modal-buttons .disableCheck').removeAttr('style');
+		$('.sweet-modal-buttons .disableCheck').removeClass('originBg');
+	}
+}
+
 function createModel(content, titleValue, actionFunction, closeFunction){
-	var insCount = 0;
+	
 	content = "<div style='height: 600px !important; overflow: scroll;'>" + $(content).html() + "</div>";
 		var variant = {
 			args: [
@@ -53,24 +92,8 @@ function createModel(content, titleValue, actionFunction, closeFunction){
 							console.log(insCount);
 						});
 						
-						$('.sweet-modal-content #problems').change( function() {
-							if( $('.sweet-modal-content #confirmSite').length ) {
-							//if($('.sweet-modal-content #confirmSite').html() != "") {
-								insCount++;
-								//alert("문제 입력");
-							
-								if(insCount == 2) {
-									$('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
-									$('.sweet-modal-buttons .disableCheck').addClass('originBg');
-									//$('.sweet-modal-buttons .disableCheck').css('background-color','');
-								}
-								else if(insCount < 2) {
-									$('.sweet-modal-buttons .disableCheck').removeAttr('style');
-									$('.sweet-modal-buttons .disableCheck').removeClass('originBg');
-								}
-							}
-							console.log(insCount);
-						});
+						checkInsert(index);
+						checkDelete(id);
 					},
 					theme: $.sweetModal.THEME_MIXED,
 					buttons: [

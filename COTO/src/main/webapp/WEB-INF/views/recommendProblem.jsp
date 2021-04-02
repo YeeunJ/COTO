@@ -80,7 +80,7 @@
 			<button type="button" id="add" class="modal_button lighten-1" onClick="insertProblems()">추가</button>
 		</div>
 		<div class="input-field col s10">
-			<label for="last_name">입력한 Problems</label> <br> <br>
+			<label for="last_name" style="left: 0 !important;">입력한 Problems</label> <br> <br>
 			<div class="recom-confirmSite" id="confirmSite"></div>
 		</div>
 		

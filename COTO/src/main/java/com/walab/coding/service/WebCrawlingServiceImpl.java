@@ -56,30 +56,6 @@ public class WebCrawlingServiceImpl implements WebCrawlingService {
 
 		return problemInfo;
 	}
-
-	public List<ProblemDTO> crawlingLeetcodeByName(List<String> problem, int siteID) {
-
-		CodingSiteDTO siteInfo = codingSitedao.readCodingSiteById(siteID);
-		List<ProblemDTO> problemInfo = new ArrayList<ProblemDTO>();
-
-		for (String prob : problem) {
-			ProblemDTO pd = problemdao.readProblembyID(siteID, prob.trim().toLowerCase().replace(" ", "-"));
-
-			if (pd == null) {
-				pd = new ProblemDTO();
-				String url = siteInfo.getMappingUrl().replace("${problem}", prob.trim().toLowerCase().replace(" ", "-"));
-				System.out.println(url);
-				pd.setName(prob);
-				pd.setLink(url);
-				pd.setSiteID(siteID);
-				pd.setSiteName(siteInfo.getSiteName());
-				pd.setSiteUrl(siteInfo.getSiteUrl());
-			}
-			problemInfo.add(pd);
-		}
-
-		return problemInfo;
-	}
 	
 public List<ProblemDTO> crawlingLeetcodeByName(List<String> problem, int siteID) {
 		
@@ -115,4 +91,3 @@ public List<ProblemDTO> crawlingLeetcodeByName(List<String> problem, int siteID)
 		return problemInfo;
 	}
 }
-
