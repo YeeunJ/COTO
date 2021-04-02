@@ -108,7 +108,8 @@ function insertProblems(){
 	$('.sweet-modal-content #confirmSite').html(data);
 	$('#confirmSite').html(data);*/
 	$(".sweet-modal-content #problems").val("");
-	/*if(siteId == 1){*/
+
+	//if(siteId == 1){
 		$.ajax({
         url : './crawling/'+siteName,
         type: 'POST',
