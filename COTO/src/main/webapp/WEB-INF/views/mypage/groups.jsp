@@ -24,7 +24,6 @@
 	<!-- Content Row -->
 	<div>
 		<br>
-		<button class="input-field custom-button" onclick="">그룹 관리하기</button>
 		<h5 class="font-color">내가 속한 그룹</h5>
 
 <!-- 		<fieldset class="search" style="float: right;">
