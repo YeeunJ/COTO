@@ -14,23 +14,23 @@
 		<span class="tableCell th1">출석률</span>	
 	</div>
 	
- 	<c:forEach items="${grouplist}" var="grouplist" varStatus="status">
- 	<div class="tableRow center" id="recoms${grouplist.id}">
+ 	<c:forEach items="${groups}" var="groups" varStatus="status">
+ 	<div class="tableRow center" id="recoms${groups.id}">
  		<span class = "tableCell td1 pIndex mobile">${status.count}</span>
-  		<span class = "tableCell td1 pName">${grouplist.groupName}</span>
-  		<span class = "tableCell td3 pNumber">${grouplist.goal}</span>
-  		<span class = "tableCell td1 pAdmin mobile">${grouplist.nickName}</span> 		
-   		<span class = "tableCell td1 ">(인원)</span> <%-- ${grouplist.userCnt} --%>
+  		<span class = "tableCell td1 pName">${groups.groupName}</span>
+  		<span class = "tableCell td3 pNumber">${groups.goal}</span>
+  		<span class = "tableCell td1 pAdmin mobile">${groups.nickName}</span> 		
+   		<span class = "tableCell td1 ">${groups.userCnt}</span>
    		<span class = "tableCell td1 ">(출석률)</span>  		
 	</div>
 	</c:forEach>	
 </div>
 
-
  	
 <br> <br>
 
-<%-- <!-- pagination -->
+
+<!-- pagination -->
 <div class="table" style="text-align: center">
 	<ul class="pagination ">
 		<c:if test="${ page eq 1 }">
@@ -55,6 +55,6 @@
 		</c:if>
 	</ul>
 </div> 
-<!-- //pagination --> --%>
+<!-- //pagination -->
 
 

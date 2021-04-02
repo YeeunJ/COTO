@@ -1,8 +1,6 @@
 package com.walab.coding.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,12 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.walab.coding.model.CodingSiteDTO;
 import com.walab.coding.model.GroupDTO;
-import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.service.CodingSiteService;
+import com.walab.coding.service.GroupInfoService;
 import com.walab.coding.service.GroupService;
-import com.walab.coding.service.ProblemService;
 import com.walab.coding.service.UserProblemService;
 
 /**
@@ -38,43 +34,61 @@ public class GrouplistController {
 	@Autowired
 	GroupService groupService;
 	
+	@Autowired
+	GroupInfoService groupInfoService;
+	
 	/**
 	 * Reads coding sites and shows by page
 	 */	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView viewProblems(ModelAndView mv, 
 										@RequestParam(value="page", defaultValue="1") int page) {
-		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSitebyYN();
-		List<GroupDTO> myGroups = groupService.readAllGroups();
-		List<GroupDTO> groupList = new ArrayList<GroupDTO>();
-		int n=0, currGroup=myGroups.get(0).getId(), groupUserCnt=0;
 		
-		/*for(int i=0;i<myGroups.size();i++) {
-			if(myGroups.get(i).getIsAdmin()==1) {
-				groupList.get(n).setId(myGroups.get(i).getId());
-				groupList.get(n).setGroupName(myGroups.get(i).getGroupName());
-				groupList.get(n).setGroupGoal(myGroups.get(i).getGroupGoal());
-				groupList.get(n).setNickName(myGroups.get(i).getNickName());
-			}
-			
-			if(currGroup != myGroups.get(i).getId()) {
-				currGroup = myGroups.get(i).getId();
-				groupList.get(n).setUserCnt(groupUserCnt);
-				n++;
-				groupUserCnt = 0;
-			}
-			else groupUserCnt++;
-		}*/
+		List<GroupDTO> groups = groupInfoService.search(0, 10, "", "");
 		
-		System.out.println(myGroups.toString());
-
-		mv.addObject("codingSite", codingSite);
-		mv.addObject("grouplist", myGroups);
+		System.out.println(groups.toString());
+		
+		mv.addObject("groups", groups);
 		
 		mv.setViewName("groupList");
 		
 		return mv;
 	}
 	
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ModelAndView searchGroup(HttpServletRequest httpServletRequest,
+											@RequestParam(value="page", defaultValue="1") int page,
+											@RequestParam(value="searchValue", defaultValue="") String searchValue,
+											@RequestParam(value="orderValue", defaultValue="") String orderValue) {				
+		
+		int listCnt = groupInfoService.readGroupListCnt(searchValue, orderValue); 
+		int list = 10; 
+		int block = 10; 
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block); 
+		int s_point = (page-1)*list;
+		
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+		if (pageNum <= e_page) {
+			e_page = pageNum;
+		}
+		
+		List<GroupDTO> groups = groupInfoService.search(s_point, list, searchValue, orderValue);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("page", page);
+		mv.addObject("s_page", s_page);
+		mv.addObject("e_page", e_page);
+		mv.addObject("groups", groups);
+		
+		mv.setViewName("ajaxContent/groupListContent");
+		
+		return mv;
+	}
 	
 }

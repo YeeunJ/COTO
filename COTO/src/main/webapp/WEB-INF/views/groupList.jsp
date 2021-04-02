@@ -8,7 +8,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?asd" />
 <link href="./resources/css/problemList.css?qwe" rel="stylesheet">
-<script src="./resources/js/problemList.js"></script>
+<link href="./resources/css/groupList.css" rel="stylesheet">
+<!-- <script src="./resources/js/problemList.js"></script> -->
+<script src="./resources/js/groupList.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
@@ -32,26 +34,18 @@
 			</button>
 		</fieldset>
 		<div class="col order" style="margin-right: 10px;">
-			<select id="siteValue">
-				<option value="" selected>사이트 전체</option>
-				<c:forEach items="${codingSite}" var="c" varStatus="status">
-					<option value="${ c.id }">${ c.siteName }</option>
-				</c:forEach>
-			</select>
-		</div>
-		<div class="col order" style="margin-right: 10px;">
 			<select id="orderValue">
-				<option value="problem.regdate" disabled selected>정렬</option>
-				<option value="problem.name">제목순</option>
-				<option value="problem.siteID">사이트순</option>
-				<option value="problem.regdate desc">최신순</option>
-				<option value="COUNT(*) desc">많이 풀어본 문제순</option>
+				<option value="groupInfo.regDate" disabled selected>정렬</option>
+				<option value="groupInfo.groupName">그룹명순</option>
+				<option value="groupInfo.regDate desc">최신순</option>
+				<option value="userCnt desc">인원순</option>
+				<!-- <option value="COUNT(*) desc">출석률순</option> -->
 			</select>
 		</div>
 	</div>
 	<!-- //top-bar -->
 	
-	<div>
+	<div id="pageajaxContent">
 		<%@ include file="./ajaxContent/groupListContent.jsp"%>
 	</div>
 </div>

@@ -31,7 +31,7 @@ public class GroupServiceImpl implements GroupService {
 	public List<GroupDTO> readAllGroups(){
 		return groupDAO.readAllGroups();
 	}
-
+	
 	@Override
 	public void deleteUser(int userID, int groupID) {
 		groupDAO.deleteUser(userID, groupID);
@@ -41,4 +41,5 @@ public class GroupServiceImpl implements GroupService {
 	public int readAdminofGroup(int groupID) {
 		return groupDAO.readAdminofGroup(groupID);
 	}
+	
 }

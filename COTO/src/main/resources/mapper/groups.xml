@@ -15,11 +15,11 @@
 	</select>
 	
 	<select id="readAllGroups" resultType="com.walab.coding.model.GroupDTO">
-		SELECT groupInfo.id, groupName, goal, groupUser.isAdmin, user.nickName as nickName
-		FROM ((YeeunJ.groupInfo
-		INNER JOIN YeeunJ.groupUser ON groupInfo.id = groupUser.groupID)
-		INNER JOIN YeeunJ.user ON groupInfo.userID = user.id)
-		ORDER BY groupInfo.regDate;
+		SELECT groupInfo.id, groupInfo.groupName, groupInfo.goal, user.nickName, count(groupID) as userCnt
+		FROM ((YeeunJ.groupUser as groupUser
+		inner join YeeunJ.groupInfo as groupInfo on groupUser.groupID = groupInfo.id)
+		inner join YeeunJ.user as user on groupInfo.userID = user.id)
+		group by YeeunJ.groupUser.groupID;
 	</select>	
 	
 	<select id="readAdminofGroup" resultType="int" parameterType="hashmap">

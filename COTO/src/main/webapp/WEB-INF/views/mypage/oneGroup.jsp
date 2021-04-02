@@ -7,20 +7,30 @@
 
 <jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
-<link href="../resources/css/problems.css" rel="stylesheet">
 <link rel="stylesheet" href="../resources/css/myGroup.css?asd" />
 <script src="../resources/js/myGroup.js"></script>
 <script src="../resources/js/createModal.js"></script>
-
+<link href="../resources/css/oneGroup.css" rel="stylesheet">
+<!-- <link href="../resources/css/problems.css" rel="stylesheet">
+ -->
 
 <div id="SiteContainer" class="container">
-	<div id="oneGroup">
+
+ 	<c:forEach items="${groupInfo}" var="groupInfo" varStatus="status">
+	<div id="groupTitle">
 		<div class="content">
-			<h4>그룹</h4>
-			<p>기간별 문제집을 등록하고, 그룹 사용자들과 공유해 보세요!</p>
+			<h4 class="">| ${groupInfo.groupName}</h4>
+			<p>${groupInfo.goal}</p>
 		</div>
-	</div>
+	</div>	 	
+	</c:forEach>
 	
+
+	
+	<div id="groupAjaxContent">
+		<%@ include file="../ajaxContent/groupInfoContent.jsp"%>
+	</div> 
+
 	<div class="top-bar">
 		<c:if test = "${adminID == userID}">
 			<button class="input-field custom-button" onclick="problemCreateModal(${userID})">문제 추가</button>
@@ -28,7 +38,7 @@
 		
 		<button id="dropBtn" class="input-field custom-button" onclick="dropGroup(${userID}, ${groupID})">탈퇴하기</button>
 	</div>
-	
+		
 	<div id="groupAjaxContent">
 		<%@ include file="../ajaxContent/groupContent.jsp"%>
 	</div>
