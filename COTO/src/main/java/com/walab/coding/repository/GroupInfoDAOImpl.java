@@ -1,12 +1,14 @@
 package com.walab.coding.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.walab.coding.model.GroupDTO;
 import com.walab.coding.model.GroupInfoDTO;
 
 @Repository
@@ -24,6 +26,14 @@ public class GroupInfoDAOImpl implements GroupInfoDAO {
 	@Override
 	public int readGroupID() {
 		return sqlSession.selectOne(namespace+".readGroupID");
+	}
+	
+	@Override
+	public List<GroupInfoDTO> readGroupInfoById(int groupID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("groupID", groupID);
+		
+		return sqlSession.selectList(namespace+".readGroupInfo", param);
 	}
 
 	@Override

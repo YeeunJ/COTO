@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.walab.coding.model.GroupDTO;
 import com.walab.coding.model.GroupInfoDTO;
 import com.walab.coding.model.UserProblemDTO;
 import com.walab.coding.repository.GroupInfoDAO;
@@ -27,7 +28,12 @@ public class GroupInfoServiceImpl implements GroupInfoService {
 	public int readGroupID() {
 		return groupInfoDAO.readGroupID();
 	}
-
+	
+	@Override
+	public List<GroupInfoDTO> readGroupInfoById(int groupID){
+		return groupInfoDAO.readGroupInfoById(groupID);
+	}
+	
 	@Override
 	public void createGroupUsers(List<String> users, int groupID) {
 		for(int i=0 ; i<users.size() ; i++) {

@@ -191,17 +191,21 @@ public class MyGroupsController {
 		
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
+		List<GroupInfoDTO> groupInfo = groupInfoService.readGroupInfoById(groupID);
 		
 		for(int i=0;i<groupGoal.size();i++) {
 			List<GroupProblemDTO> groupProb = groupProblemService.readProblemsByGoalId(groupGoal.get(i).getId());
 			groupGoal.get(i).setProbCount(groupProb.size());
 		}
+		
+		System.out.println(groupInfo);
 				
 		mv.addObject("CodingSite", codingSite);
 		mv.addObject("userID", userID);
 		mv.addObject("adminID", adminID);
 		mv.addObject("groupID", groupID);
 		mv.addObject("groupGoal", groupGoal);
+		mv.addObject("groupInfo", groupInfo);
 		mv.setViewName("/mypage/oneGroup");
 		
 		return mv;

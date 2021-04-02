@@ -16,6 +16,7 @@
 	<select id="readGroupGoalID" resultType="int">
 		SELECT MAX(id) FROM groupGoal
 	</select>
+	
 	<select id="readGoalListByGroupId" parameterType="int" resultType="com.walab.coding.model.GroupGoalDTO">
 		SELECT * 
 		FROM groupGoal

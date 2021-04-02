@@ -19,5 +19,6 @@ public interface GroupService {
 	public void deleteUser(int userID, int groupID);
 
 	int readAdminofGroup(int groupID);
+
 	
 	}
