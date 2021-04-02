@@ -90,7 +90,7 @@ public class RecommendController {
 		recom.setContent(content);
 		int recomID = recommendService.createRecomProblem(recom);
 
-		for(int i=0 ; i<siteId.size() ; i++) {
+		for(int i = 0 ; i < siteId.size() ; i++) {
 			RecomProblemDTO p = new RecomProblemDTO();
 
 			p.setRecomID(recomID);
@@ -100,7 +100,7 @@ public class RecommendController {
 
 			p.setName(problem.get(i));
 
-			if(link.size()==0) p.setLink(null);
+			if(link.size() == 0) p.setLink(null);
 			else p.setLink(link.get(i));
 
 			recomProbs.add(p);
@@ -109,7 +109,7 @@ public class RecommendController {
 		recomProblemsService.createRecomProblem(recomProbs);
 
 		if(tag != null) {
-			for(int i=0;i<tag.size();i++) {
+			for(int i = 0; i < tag.size(); i++) {
 				RecomTagDTO t = new RecomTagDTO();
 
 				t.setRecomID(recomID);
@@ -135,7 +135,7 @@ public class RecommendController {
 	public ModelAndView addComment(HttpServletRequest httpServletRequest, ModelAndView mv) {
 		RecomCountDTO rcd;
 		int userID = -1;
-		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		int recomID = Integer.parseInt(httpServletRequest.getParameter("recomID"));
 		String content = httpServletRequest.getParameter("content");
 		
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
@@ -171,7 +171,7 @@ public class RecommendController {
 	@RequestMapping(value = "/addRecomCheck", method = RequestMethod.POST)
 	public ModelAndView createRecomCheck(HttpServletRequest httpServletRequest) {
 		int userID = -1;
-		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		int rpID = Integer.parseInt(httpServletRequest.getParameter("rpID"));
 		UserProblemDTO upd = new UserProblemDTO();
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
@@ -196,7 +196,7 @@ public class RecommendController {
 	public ModelAndView createRecomCount(HttpServletRequest httpServletRequest) {
 		RecomCountDTO rcd;
 		int userID = -1;
-		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		int recomID = Integer.parseInt(httpServletRequest.getParameter("recomID"));
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 
@@ -222,14 +222,14 @@ public class RecommendController {
 	
 	@RequestMapping(value = "/addRecomCart", method = RequestMethod.POST)
 	public ModelAndView createRecomCart(HttpServletRequest httpServletRequest,
-			@RequestParam(value="page", defaultValue="1") int page,
-			@RequestParam(value="searchValue", defaultValue="") String searchValue,
-			@RequestParam(value="orderValue", defaultValue="") String orderValue,
-			@RequestParam(value="tagValue", defaultValue="") List<String> tagValue) {
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "searchValue", defaultValue = "") String searchValue,
+			@RequestParam(value = "orderValue", defaultValue = "") String orderValue,
+			@RequestParam(value = "tagValue", defaultValue = "") List<String> tagValue) {
 		RecomCartDTO cart = new RecomCartDTO();
 		
 		int userID = -1;
-		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		int recomID = Integer.parseInt(httpServletRequest.getParameter("recomID"));
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 			
@@ -247,12 +247,10 @@ public class RecommendController {
 		if(!tagValue.get(0).equalsIgnoreCase("[]")) {
 			tagValue.stream().forEach(tag -> {
 				String [] tagSplit = tag.split("\"");
-				System.out.println(tagSplit[1]);
 				tagData.add(tagSplit[1]);
 			});
 		}
 		
-		// pagination
 		int listCnt = recommendService.readRecomListCnt();
 		int list = 10;
 		int block = 10;
@@ -283,11 +281,8 @@ public class RecommendController {
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
 		
-		System.out.println(searchValue);
-		System.out.println(orderValue);
 		
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") == null) {
-			System.out.println("recom Size: "+recoms.size());
 			mv.addObject("recoms", recoms);
 		}
 		mv.addObject("codingSite", codingSite);
@@ -302,7 +297,7 @@ public class RecommendController {
 		RecomCartDTO cart = new RecomCartDTO();
 		
 		int userID = -1;
-		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		int recomID = Integer.parseInt(httpServletRequest.getParameter("recomID"));
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 			
@@ -372,8 +367,6 @@ public class RecommendController {
 		
 		int cartYN = recomCartService.readCartByID(recomID, userID);
 
-		//if(((UserDTO)request.getSession().getAttribute("user")).getIsAdmin() > 0) {
-
 		rcd = recomCountService.readRecomCount(recomID, userID);
 		rcd.setRecomID(recomID);
 
@@ -385,7 +378,6 @@ public class RecommendController {
 			
 			String str = recomProblem.get(i).getLink();
 			if(str.length() < 5 || !(str.substring(0, 5).equals("https"))) recomProblem.get(i).setLink(null);
-			//else if(!(str.substring(0, 5).equals("https"))) recomProblem.get(i).setLink(null);
 		}
 		
 		mv.addObject("cartYN", cartYN);
@@ -444,7 +436,7 @@ public class RecommendController {
 		recomTagService.deleteRecomTag(Integer.parseInt(httpServletRequest.getParameter("recomID")));
 
 		if(tag != null) {
-			for(int i=0;i<tag.size();i++) {
+			for(int i = 0; i < tag.size(); i++) {
 				RecomTagDTO t = new RecomTagDTO();
 
 				t.setRecomID(Integer.parseInt(httpServletRequest.getParameter("recomID")));
@@ -458,8 +450,7 @@ public class RecommendController {
 
 		recomProblemsService.deleteRecomProblem(Integer.parseInt(httpServletRequest.getParameter("recomID")));
 
-		for(int i=0 ; i<siteId.size() ; i++) {
-			System.out.println(siteId.get(i));
+		for(int i = 0 ; i < siteId.size() ; i++) {
 			RecomProblemDTO p = new RecomProblemDTO();
 
 			p.setRecomID(Integer.parseInt(httpServletRequest.getParameter("recomID")));
@@ -469,7 +460,7 @@ public class RecommendController {
 
 			p.setName(problem.get(i));
 
-			if(link.size()==0) p.setLink(null);
+			if(link.size() == 0) p.setLink(null);
 			else p.setLink(link.get(i));
 
 			recomProbs.add(p);
@@ -483,8 +474,8 @@ public class RecommendController {
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemList();
 		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
 
-		for(int i=0;i<recomProblem.size();i++) {
-			for(int j=0;j<codingSite.size();j++) {
+		for(int i = 0; i < recomProblem.size(); i++) {
+			for(int j = 0; j < codingSite.size(); j++) {
 				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
 					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
 			}
@@ -517,8 +508,8 @@ public class RecommendController {
 		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemList();
 		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
 
-		for(int i=0;i<recomProblem.size();i++) {
-			for(int j=0;j<codingSite.size();j++) {
+		for(int i = 0; i < recomProblem.size(); i++) {
+			for(int j = 0; j < codingSite.size(); j++) {
 				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
 					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
 			}
@@ -540,7 +531,7 @@ public class RecommendController {
 	@RequestMapping(value = "/deleteRecomCheck", method = RequestMethod.POST)
 	public ModelAndView deleteRecomCheck(HttpServletRequest httpServletRequest) {
 		int userID = -1;
-		int rpID= Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		int rpID = Integer.parseInt(httpServletRequest.getParameter("rpID"));
 		String problemName = httpServletRequest.getParameter("problemName");
 		UserProblemDTO upd = new UserProblemDTO();
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
@@ -570,7 +561,7 @@ public class RecommendController {
 	public ModelAndView deleteRecomCount(HttpServletRequest httpServletRequest) {
 		RecomCountDTO rcd;
 		int userID = -1;
-		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		int recomID = Integer.parseInt(httpServletRequest.getParameter("recomID"));
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 
@@ -594,14 +585,14 @@ public class RecommendController {
 	
 	@RequestMapping(value = "/deleteRecomCart", method = RequestMethod.POST)
 	public ModelAndView deleteRecomCart(HttpServletRequest httpServletRequest,
-			@RequestParam(value="page", defaultValue="1") int page,
-			@RequestParam(value="searchValue", defaultValue="") String searchValue,
-			@RequestParam(value="orderValue", defaultValue="") String orderValue,
-			@RequestParam(value="tagValue", defaultValue="") List<String> tagValue) {
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "searchValue", defaultValue = "") String searchValue,
+			@RequestParam(value = "orderValue", defaultValue = "") String orderValue,
+			@RequestParam(value = "tagValue", defaultValue = "") List<String> tagValue) {
 		RecomCartDTO cart = new RecomCartDTO();
 		
 		int userID = -1;
-		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		int recomID = Integer.parseInt(httpServletRequest.getParameter("recomID"));
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 			
@@ -619,12 +610,10 @@ public class RecommendController {
 		if(!tagValue.get(0).equalsIgnoreCase("[]")) {
 			tagValue.stream().forEach(tag -> {
 				String [] tagSplit = tag.split("\"");
-				System.out.println(tagSplit[1]);
 				tagData.add(tagSplit[1]);
 			});
 		}
 		
-		// pagination
 		int listCnt = recommendService.readRecomListCnt();
 		int list = 10;
 		int block = 10;
@@ -655,11 +644,7 @@ public class RecommendController {
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
 		
-		System.out.println(searchValue);
-		System.out.println(orderValue);
-		
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") == null) {
-			System.out.println("recom Size: "+recoms.size());
 			mv.addObject("recoms", recoms);
 		}
 		mv.addObject("codingSite", codingSite);
@@ -674,7 +659,7 @@ public class RecommendController {
 		RecomCartDTO cart = new RecomCartDTO();
 		
 		int userID = -1;
-		int recomID= Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		int recomID = Integer.parseInt(httpServletRequest.getParameter("recomID"));
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
 			
@@ -706,10 +691,10 @@ public class RecommendController {
 	 */
 	@RequestMapping(value = "/search", method = {RequestMethod.POST})
 	public ModelAndView searchProblem(HttpServletRequest httpServletRequest,
-			@RequestParam(value="page", defaultValue="1") int page,
-			@RequestParam(value="searchValue", defaultValue="") String searchValue,
-			@RequestParam(value="orderValue", defaultValue="") String orderValue,
-			@RequestParam(value="tagValue", defaultValue="") List<String> tagValue) {
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "searchValue", defaultValue = "") String searchValue,
+			@RequestParam(value = "orderValue", defaultValue = "") String orderValue,
+			@RequestParam(value = "tagValue", defaultValue = "") List<String> tagValue) {
 
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<String> tagData = new ArrayList<String>();
@@ -717,12 +702,10 @@ public class RecommendController {
 		if(!tagValue.get(0).equalsIgnoreCase("[]")) {
 			tagValue.stream().forEach(tag -> {
 				String [] tagSplit = tag.split("\"");
-				System.out.println(tagSplit[1]);
 				tagData.add(tagSplit[1]);
 			});
 		}
 		
-		// pagination
 		int listCnt = recommendService.readRecomListCnt();
 		int list = 10;
 		int block = 10;
@@ -752,7 +735,6 @@ public class RecommendController {
 			mv.addObject("userID", userID);
 			List<RecommendDTO> recomCart = recomCartService.readCartByRecommend(searchValue, orderValue, tagData, s_point, list, userID);
 
-			//List<RecommendDTO> recomCart = recomCartService.readCartByRecommend(userID);
 			mv.addObject("recoms", recomCart);
 
 		}
@@ -762,11 +744,7 @@ public class RecommendController {
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
 		
-		System.out.println(searchValue);
-		System.out.println(orderValue);
-		
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") == null) {
-			System.out.println("recom Size: "+recoms.size());
 			mv.addObject("recoms", recoms);
 		}
 		mv.addObject("codingSite", codingSite);

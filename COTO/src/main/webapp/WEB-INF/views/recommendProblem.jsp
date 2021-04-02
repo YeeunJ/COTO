@@ -10,35 +10,6 @@
 <link href="./resources/css/recommendProblem.css?asd" rel="stylesheet">
 <script src="./resources/js/recommendProblem.js"></script>
 
-<script>
-function clickTag(tag){
-	console.log($('#'+tag).is(":checked"));
-	if($('#'+tag).is(":checked") == false) {
-		console.log("1");
-		$('#'+tag).attr('checked', true);
-		$('#'+tag+'Button').css('background-color', '#e69138ff');
-		$('#'+tag+'Button').css('color', 'white');
-	} else if($('#'+tag).is(":checked") == true) {
-		$('#'+tag).attr('checked', false);
-		$('#'+tag+'Button').css('background', 'none');
-		$('#'+tag+'Button').css('color', 'black');
-	}
-	$('#'+tag+'Button').blur();
-	search(1);
-}
-/*rgb(254 214 171)*/
-</script>
-<style>
-.tag-bar > button{
-	float: right;
-	margin: 1px;
-}
-.tag-bar:before{
-	content:"";
-	clear: both;
-	display: block;
-}
-</style>
 <div id="SiteContainer" class="container">
 	<div id="recommend">
 		<div class="content">
