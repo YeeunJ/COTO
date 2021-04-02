@@ -317,3 +317,38 @@ alert("hello");
 	        }
 		});
 }
+
+function printGoalProblems(goalID, groupID) {
+		var title;
+		console.log(goalID);
+		
+		$.ajax({
+			url : "./readModalInfo",
+			type : "POST",
+			async : false,
+			data : {
+				goalID : goalID,
+				groupID : groupID,
+			},
+			success : function(data) {
+				var dataSplit = data.split("\n");
+				for(var i=0;i<dataSplit.length;i++) {
+					dataSplit[i] = dataSplit[i].trim();
+					
+					if(dataSplit[i].indexOf("readGoalTitle") != -1) {
+						title = $( dataSplit[i] ).text();
+					}
+				}
+				
+				//$("#readGoalProblem").html(data);
+				/* if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search, tCnt);
+				else readModel("#readRecommendProblem", title); */
+				readModel("#readGoalProblem", title);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n"
+						+ "message:" + request.responseText + "\n"
+						+ "error:" + error);
+			}
+		});
+	}

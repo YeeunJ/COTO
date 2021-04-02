@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.walab.coding.model.GroupGoalDTO;
 import com.walab.coding.model.ProblemDTO;
 
 @Repository
@@ -66,6 +67,11 @@ public class GroupGoalDAOImpl implements GroupGoalDAO {
 		sqlSession.insert(namespace+".createGroupProblem", groupP);
 	
 		
+	}
+	
+	@Override
+	public List<GroupGoalDTO> readGoalListByGroupId(int groupID) {
+		return sqlSession.selectList(namespace+".readGoalListByGroupId", groupID);
 	}
 
 }
