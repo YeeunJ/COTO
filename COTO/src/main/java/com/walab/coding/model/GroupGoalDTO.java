@@ -1,11 +1,15 @@
 package com.walab.coding.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class GroupGoalDTO {
 	int id;
 	Date startDate;
 	Date endDate;
+	int groupID;
+	
+	int probCount;
+	
 	
 	public int getId() {
 		return id;
@@ -24,6 +28,18 @@ public class GroupGoalDTO {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	public int getGroupID() {
+		return groupID;
+	}
+	public void setGroupID(int groupID) {
+		this.groupID = groupID;
+	}
+	public int getProbCount() {
+		return probCount;
+	}
+	public void setProbCount(int probCount) {
+		this.probCount = probCount;
 	}
 	
 }

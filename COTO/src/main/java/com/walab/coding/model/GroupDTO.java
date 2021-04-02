@@ -3,18 +3,22 @@ package com.walab.coding.model;
 import java.util.Date;
 
 public class GroupDTO {
-	int id;
-	String groupName;
-	String groupGoal;
-	String goal;
-	String groupDesc;
-	int adminID;
-	int isAdmin;
-	String name;
-	String nickName;	
-	Date startDate;
-	Date endDate;
-	Date regdate;
+	private int id;
+	private String groupName;
+	private String groupGoal;
+	private String goal;
+	private String groupDesc;
+	private int adminID;
+	private int isAdmin;
+	private String name;
+	private String nickName;	
+	private Date startDate;
+	private Date endDate;
+	private Date regdate;
+
+	private int userCnt;
+	private double rate;
+	
 	
 	public int getId() {
 		return id;
@@ -46,13 +50,19 @@ public class GroupDTO {
 	public void setGroupDesc(String groupDesc) {
 		this.groupDesc = groupDesc;
 	}
+	public int getIsAdmin() {
+		return isAdmin;
+	}
+	public void setIsAdmin(int isAdmin) {
+		this.isAdmin = isAdmin;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getNickName(String nickName) {
+	public String getNickName() {
 		return nickName;
 	}
 	public void setNickName(String nickName) {
@@ -75,6 +85,20 @@ public class GroupDTO {
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
+	}
+	
+	
+	public int getUserCnt() {
+		return userCnt;
+	}
+	public void setUserCnt(int userCnt) {
+		this.userCnt = userCnt;
+	}
+	public double getRate() {
+		return rate;
+	}
+	public void setRate(double rate) {
+		this.rate = rate;
 	}
 
 	

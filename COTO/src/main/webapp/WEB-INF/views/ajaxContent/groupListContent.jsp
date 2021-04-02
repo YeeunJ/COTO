@@ -19,8 +19,8 @@
  		<span class = "tableCell td1 pIndex mobile">${status.count}</span>
   		<span class = "tableCell td1 pName">${grouplist.groupName}</span>
   		<span class = "tableCell td3 pNumber">${grouplist.goal}</span>
-  		<span class = "tableCell td1 pAdmin mobile">${grouplist.name}</span> 		
-   		<span class = "tableCell td1 ">(인원)</span>
+  		<span class = "tableCell td1 pAdmin mobile">${grouplist.nickName}</span> 		
+   		<span class = "tableCell td1 ">(인원)</span> <%-- ${grouplist.userCnt} --%>
    		<span class = "tableCell td1 ">(출석률)</span>  		
 	</div>
 	</c:forEach>	
