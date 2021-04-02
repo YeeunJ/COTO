@@ -12,11 +12,14 @@ var insCount = 0;
 var index;
 function checkDelete(id){
 	if(id){
-		insCount--;
+		if(insCount>0){
+			insCount--;
+		}
+		else { insCount == 0;}
 		console.log("delete Count: "+insCount);
 	}
 	
-	if(insCount == 2) {
+	if(insCount >= 2) {
 		console.log("등록가능");
 		$('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
 		$('.sweet-modal-buttons .disableCheck').addClass('originBg');
@@ -34,7 +37,7 @@ function checkInsert(index){
 		console.log("insert Count: "+insCount);
 	}
 	
-	if(insCount == 2) {
+	if(insCount >= 2) {
 		console.log("등록가능");
 		$('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
 		$('.sweet-modal-buttons .disableCheck').addClass('originBg');
@@ -81,7 +84,7 @@ function createModel(content, titleValue, actionFunction, closeFunction){
 							if($('.sweet-modal-content #createTitle').val() != "") insCount++;
 							else insCount--;
 							
-							if(insCount == 2) {
+							if(insCount >= 2) {
 								$('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
 								$('.sweet-modal-buttons .disableCheck').addClass('originBg');
 							}
