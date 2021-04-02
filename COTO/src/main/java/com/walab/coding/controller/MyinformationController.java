@@ -50,10 +50,8 @@ public class MyinformationController {
 		mv.setViewName("mypage/information");
 		
 		List<GoalDTO> goals = goalService.readGoal(userID);
-		System.out.println(goals.size());
 		mv.addObject("goals", goals);
 		mv.setViewName("mypage/information");
-		
 		
 		return mv;
 	}
