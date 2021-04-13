@@ -29,14 +29,19 @@ function DrawChart1() {
 	var newLabels = [];
 	var newData = [];
 	var newColor=[];
-	var chartColors=[window.chartColors.red,
-					window.chartColors.orange,
-					window.chartColors.yellow,
-					window.chartColors.green,
-					window.chartColors.blue,
-					window.chartColors.purple,
-					window.chartColors.grey,
-					];
+	var chartColors=[
+		'rgb(255, 196, 196)',
+		'rgb(255, 221, 196)',
+		'rgb(255, 237, 196)',
+		'rgb(224, 255, 196)',
+		'rgb(196, 240, 255)',
+		'rgb(196, 219, 255)',
+		'rgb(198, 196, 255)',
+		'rgb(231, 196, 255)',
+		'rgb(255, 196, 255)',
+		'rgb(255, 196, 222)',
+		'rgb(255, 196, 200)',
+	];
 	
 	//newLabels.push("전체 문제 수: " + totalProbCnt);
 	for (var i=0 ; i< ratioBySite.length ; i++){
@@ -108,8 +113,8 @@ function DrawChart2() {
 		labels: dates,
 		datasets: [{
 			label: '하루 평균 문제수',
-			backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-			borderColor: window.chartColors.red,
+			//backgroundColor: newColor[2],
+			//borderColor: window.chartColors.red,
 			borderWidth: 1,
 			data: averages,
 		}],

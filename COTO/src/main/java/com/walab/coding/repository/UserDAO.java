@@ -3,6 +3,7 @@ package com.walab.coding.repository;
 import java.util.List;
 
 import com.walab.coding.model.GoalDTO;
+import com.walab.coding.model.GroupUserDTO;
 import com.walab.coding.model.UserDTO;
 
 public interface UserDAO {
@@ -20,4 +21,5 @@ public interface UserDAO {
 	public String selectedUserintro(String nickName);
 	public int readUserListCnt();
 	public List<UserDTO> readUserByPage(String searchValue, String orderValue, int s_point, int list);
+	public List<GroupUserDTO> readUsersByGroup(int groupID);
 }

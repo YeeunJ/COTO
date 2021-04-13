@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../resources/css/myGroup.css?asd" />
 <script src="../resources/js/myGroup.js"></script>
 <script src="../resources/js/createModal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <link href="../resources/css/oneGroup.css" rel="stylesheet">
 <!-- <link href="../resources/css/problems.css" rel="stylesheet">
  -->
@@ -107,26 +108,78 @@
 
 <script>
 	var groupID = ${groupID};
-
-	/* $('#dropBtn').click(function() {
-		alert("groupID: "+${ groupID } + "userID" + ${userID});
+	var chartColors=[
+		'rgb(255, 196, 196)',
+		'rgb(255, 221, 196)',
+		'rgb(255, 237, 196)',
+		'rgb(224, 255, 196)',
+		'rgb(196, 240, 255)',
+		'rgb(196, 219, 255)',
+		'rgb(198, 196, 255)',
+		'rgb(231, 196, 255)',
+		'rgb(255, 196, 255)',
+		'rgb(255, 196, 222)',
+		'rgb(255, 196, 200)',
+	];
+	
+	var progressByUser = new Array();
+	<c:forEach items="${progressByUser}" var="p">
+		var list = new Object();
+		list.userID = ${p.userID};
+		list.count = ${p.count};
+		list.name = '${p.name}';
+		list.email = '${p.email}';
+		list.nickName = '${p.nickName}';
+		//list.userName = ${p.userName};
+		progressByUser.push(list);
+	</c:forEach>
+	
+	$(document).ready(function(){
+		DrawProgressChart();
+	});
+	
+	
+	function DrawProgressChart() {
 		
-		$.ajax({
-			url: "./dropGroup",
-			type: "POST",
-			async: false,
-			data: {
-				userID: ${ userID },
-				groupID: ${ groupID }
-			},
-			success: function(data){
-				$('#problemsContent').html(data);
-			}, 
-			error:function(request, status, error){
-				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	        }
-		});
-	}); */
+		var chartLabels = [];
+		var chartDatas = [];
+		var newColor=[];
+		
+		for (var i=0 ; i< progressByUser.length ; i++){
+			chartDatas.push(progressByUser[i].count);
+			chartLabels.push(progressByUser[i].nickName);
+			newColor.push(chartColors[i])
+		}
+		
+		var ctx = document.getElementById('progressChart').getContext('2d'); 
+		var chart = new Chart(ctx, { 
+			type: 'bar',
+			data: { 
+				labels: chartLabels, 
+				datasets: [{
+					backgroundColor: chartColors,
+					data: chartDatas,
+				}] }, 
+				options: {
+					legend: {
+				         display: false //This will do the task
+				    }, 
+					scales: {
+						xAxes: [{ 
+							ticks: { 
+								fontSize: '15' } 
+						}], 
+						yAxes: [{ 
+							ticks: { 
+								beginAtZero: true, 
+								stepSize: 1,
+								fontSize: '15' } 
+						}] 
+					} 
+				} 
+			});
+	}
+
 	
 	
 
