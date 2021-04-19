@@ -47,7 +47,7 @@ function searchF(){
 }
 
 /* create */
-//추천집 create modal 부르
+//추천집 create modal 부르는것
 function callModal(userID) {
 	selectHtml = $('#selectHtml').html();
 	
@@ -154,16 +154,15 @@ function addajax(){
 }
 
 var count=0;
+var index;
 
 //create modal에서 problem입력할 때
 function insertProblems(){
 	
 	var siteName = $(".sweet-modal-content #siteName option:selected").text();
 	var siteId = $('.sweet-modal-content #siteName').val();
-	console.log("siteId: "+siteId);
 	var site = $(".sweet-modal-content #siteName option:selected").val();
 	var value = $(".sweet-modal-content #problems").val();
-	console.log(value);
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #confirmSite').html();
 	$(".sweet-modal-content #problems").val("");
@@ -177,10 +176,11 @@ function insertProblems(){
         	"count": count
         },
         success: function(data){
-            console.log(data);
-             count += valueSplit.length+1;
+            count += valueSplit.length+1;
             var data2 = $('.sweet-modal-content #confirmSite').html()+data;
         	$('.sweet-modal-content #confirmSite').html(data2);
+        	index="success";
+        	checkInsert(index);
         },
         error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -422,6 +422,7 @@ function deleteAjax (){
 function deleteThis(id){
 	var allid = "#"+id;
 	$(allid).remove();
+	checkDelete(id);
 }
 
 //read modal에서 recom count

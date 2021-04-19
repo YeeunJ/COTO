@@ -175,45 +175,7 @@ function addajax(){
 	var startDate = $(".sweet-modal-content #startDate").val();
 	var endDate = $(".sweet-modal-content #endDate").val();
 	var groupDesc = $(".sweet-modal-content #groupDesc").val();
-	var probStartDate = $(".sweet-modal-content #probStartDate").val();
-	var probEndDate = $(".sweet-modal-content #probEndDate").val();
 	var users = [];
-	var siteId = [];
-	var link = [];
-	var problem = [];
-	
-	
-	$('.sweet-modal-content .problem').each(function(){
-		
-		var s_id = 0;
-		var l = "";
-		var p;
-		
-		var valueSplit = $(this).val().split(' (');
-		
-		if($(this).attr('name') == 0){ // link로 설정하는 경우
-			l = valueSplit[0].trim();
-			console.log("link: "+l);
-			
-			var split = l.split('/');
-			p = split[split.length-1].trim();
-			console.log("problem: "+split[split.length-1].trim());
-
-		} else { // siteId 존재하는 경우
-			s_id = $(this).attr('name');
-			p = valueSplit[0].trim();
-			len = $(this).val().split(' - ');
-			if(len.length != 0)
-				l = len[len.length-1].trim();
-		}
-		
-		siteId.push(s_id);
-		problem.push(p);
-		link.push(l);
-		
-	});
-	
-	console.log(problem);
 	
 	$('.sweet-modal-content .chip').each(function(){
 		var chipSplit = $(this).text().split("close");
@@ -232,11 +194,6 @@ function addajax(){
         	endDate : endDate,
         	groupDesc : groupDesc,
         	users : users,
-        	siteId : siteId,
-        	problem: problem,
-        	probStartDate : probStartDate,
-        	probEndDate : probEndDate,
-        	link : link
         },
         success: function(data) {
         	$('#adminGroupContent').html(data);

@@ -90,21 +90,6 @@
 	</div>
 </div>
 
-<style>
-#information:before {
-	content: "";
-	background-image: url("../resources/img/problem.png");
-	background-size: cover;
-	top: 0;
-	left: 0;
-	right: 0px;
-	bottom: 0px;
-	position: absolute;
-	opacity: 0.4;
-	z-index: -1;
-}
-</style>
-
 <%@ include file="../inc/footer.jsp"%>
 
 

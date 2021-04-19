@@ -35,7 +35,7 @@
 			<ul class = "hide-on-med-and-down mymenu">
 				<li id = "list"><span id = "listspan" onclick="location.href='./recommendProblem'">문제 추천</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='./problemList'">문제 리스트</span></li>
-				<li id = "list"><span id = "listspan" onclick="location.href='./problemList'">그룹 리스트</span></li>
+				<li id = "list"><span id = "listspan" onclick="location.href='./groupList'">그룹 리스트</span></li>
 				<li id = "list"><span id = "listspan" onclick="location.href='./mypage/problems'">마이 페이지<i class="material-icons right">arrow_drop_down</i></span>
 					<ul class = "submenu">
 						<li id = "list" onclick="location.href='./mypage/problems'"><span id = "listspan" onclick="location.href='./mypage/problems'">내가 푼 문제</span></li>

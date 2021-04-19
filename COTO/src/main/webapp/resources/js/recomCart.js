@@ -1,4 +1,3 @@
-// Or with jQuery
 $(document).ready(function(){
     $('#orderValue').formSelect();
     $('#searchButton').on('click', function() {
@@ -11,8 +10,6 @@ $(document).ready(function(){
 });
 
 var selectHtml="";
-
-
 
 //comment create
 function addComment() {	
@@ -58,8 +55,6 @@ function addRecomCount(){
 	});
 }
 
-
-/* read */
 //문제 list에서 클릭 시, detail modal 불러오기
 function printCartAllContent(recomId){
 	selectHtml = $('#selectHtml').html();
@@ -118,7 +113,6 @@ function readRecomCartContent(){
 	});
 }
 
-
 //read modal에서 recom count
 function deleteRecomCount(){
 	$.ajax({
@@ -159,7 +153,6 @@ function addRecomCart(){
 
 }
 
-
 function deleteRecomCart(){
 	if(confirm("문제집을 장바구니에서 지우시겠습니까?")) {
 		$.ajax({
@@ -179,8 +172,6 @@ function deleteRecomCart(){
 	}
 
 }
-
-
 
 function checkProblem(id){
 	$.ajax({
@@ -226,4 +217,3 @@ function uncheckProblem(id){
 		}
 	});
 }
-

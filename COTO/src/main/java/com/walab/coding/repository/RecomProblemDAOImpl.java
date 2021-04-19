@@ -86,8 +86,6 @@ public class RecomProblemDAOImpl implements RecomProblemDAO {
 		Map<String, Object> ProblemIDParam = new HashMap<String, Object>();
 		ProblemIDParam.put("siteID", siteID);
 		ProblemIDParam.put("name", problem);
-		System.out.println(problem);
-		
 		int problemID = sqlSession.selectOne("problem.readProblemID", ProblemIDParam);
 		
 		return problemID;

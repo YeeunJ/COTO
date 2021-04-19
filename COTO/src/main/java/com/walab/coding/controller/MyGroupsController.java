@@ -122,12 +122,7 @@ public class MyGroupsController {
 			@RequestParam(value="groupGoal") String groupGoal,
 			@RequestParam(value="startDate") String startDate,
 			@RequestParam(value="endDate") String endDate,
-			@RequestParam(value="probStartDate") String probStartDate,
-			@RequestParam(value="probEndDate") String probEndDate,
-			@RequestParam(value="users[]") List<String> users,
-			@RequestParam(value="siteId[]") List<String> siteId, 
-			@RequestParam(value="problem[]") List<String> problem, 
-			@RequestParam(value="link[]") List<String> link
+			@RequestParam(value="users[]") List<String> users
 			) throws UnsupportedEncodingException, ParseException {
 		
 		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
@@ -144,10 +139,10 @@ public class MyGroupsController {
 		int groupID = groupInfoService.readGroupID();
 				
 		groupInfoService.createGroupUsers(users, groupID);
-		groupGoalService.createGoal(probStartDate, probEndDate, groupID);
+		//groupGoalService.createGoal(probStartDate, probEndDate, groupID);
 		
-		int goalID = groupGoalService.readGoalID();
-		groupGoalService.createGoalProblems(goalID, problem, siteId, link);
+		//int goalID = groupGoalService.readGoalID();
+		//groupGoalService.createGoalProblems(goalID, problem, siteId, link);
 		
 		
 		List<GroupDTO> adminGroups = groupService.readAdminGroups(userID);

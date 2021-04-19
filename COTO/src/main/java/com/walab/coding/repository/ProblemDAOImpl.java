@@ -62,7 +62,6 @@ public class ProblemDAOImpl implements ProblemDAO {
 		Map<String, Object> ProblemIDParam = new HashMap<String, Object>();
 		ProblemIDParam.put("siteID", siteID);
 		ProblemIDParam.put("problem", problem);
-		System.out.println(problem);
 		
 		
 		return sqlSession.selectOne(namespace+".readProblembyID", ProblemIDParam);
