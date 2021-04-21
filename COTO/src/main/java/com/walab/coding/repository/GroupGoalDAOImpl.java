@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.walab.coding.model.GroupGoalDTO;
+import com.walab.coding.model.GroupUserDTO;
 import com.walab.coding.model.ProblemDTO;
 
 @Repository
@@ -72,6 +73,13 @@ public class GroupGoalDAOImpl implements GroupGoalDAO {
 	@Override
 	public List<GroupGoalDTO> readGoalListByGroupId(int groupID) {
 		return sqlSession.selectList(namespace+".readGoalListByGroupId", groupID);
+	}
+
+	@Override
+	public List<GroupUserDTO> progressByUser(int groupID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("groupID", groupID);
+		return sqlSession.selectList(namespace+".progressByUser", param);
 	}
 
 }

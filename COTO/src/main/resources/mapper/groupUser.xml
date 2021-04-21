@@ -8,4 +8,10 @@
 		VALUES (#{userID}, #{isAdmin}, #{groupID});
 	</insert>
 	
+	<select id="readUsersByGroup" resultType="com.walab.coding.model.GroupUserDTO" parameterType="hashmap">
+		SELECT GU.userID, GU.groupID, U.name, U.email, U.nickName 
+	    FROM groupUser AS GU, user AS U
+		WHERE GU.userID = U.id AND GU.groupID = #{groupID}
+	</select>
+	
 </mapper>

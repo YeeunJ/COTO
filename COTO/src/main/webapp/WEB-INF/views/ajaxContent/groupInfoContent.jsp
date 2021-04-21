@@ -37,8 +37,10 @@
 		<div class="card-content2">
 			<div class="card shadow card-body">
 				<div class="font-color card-title">${grouplist.groupName} 진행도</div>
-				<canvas id="myDoughnutChart" width="340vw" height="130px">
-				</canvas>
+				<div class="chart-container"> 
+					<canvas id="progressChart"></canvas> 
+				</div>
+
 			</div>
 		</div>
 	</div>

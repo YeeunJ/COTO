@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.walab.coding.model.UserDTO;
 import com.walab.coding.model.GoalDTO;
+import com.walab.coding.model.GroupUserDTO;
 
 @Repository
 public class UserDAOImpl implements UserDAO{
@@ -154,6 +155,13 @@ public class UserDAOImpl implements UserDAO{
 		param.put("orderValue", orderValue);
 		
 		return sqlSession.selectList("user.readUserByPage", param);
+	}
+
+	@Override
+	public List<GroupUserDTO> readUsersByGroup(int groupID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("groupID", groupID);
+		return sqlSession.selectList("groupUser.readUsersByGroup", param);
 	}
 }
 

@@ -6,6 +6,10 @@ public class GroupUserDTO {
 	int userID;
 	int groupID;
 	int isAdmin;
+	int count;
+	public String name;
+	public String email;
+	public String nickName;
 	
 	public int getId() {
 		return id;
@@ -31,5 +35,35 @@ public class GroupUserDTO {
 	public void setIsAdmin(int isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	@Override
+	public String toString() {
+		return "GroupUserDTO [userID=" + userID + ", count=" + count + ", name=" + name + ", email=" + email
+				+ ", nickName=" + nickName + "]";
+	}
+	
 	
 }
