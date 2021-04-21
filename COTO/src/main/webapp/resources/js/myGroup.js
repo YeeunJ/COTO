@@ -256,7 +256,7 @@ function deleteThis(id){
 
 
 function dropGroup(userID, groupID) {
-alert("hello");
+		alert("hello");
 		
 		$.ajax({
 			url: "./groups/dropGroup",

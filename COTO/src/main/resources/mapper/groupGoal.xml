@@ -22,4 +22,14 @@
 		FROM groupGoal
 		WHERE groupID = #{goalID}
 	</select>
+	
+	<select id="progressByUser" parameterType="hashmap" resultType="com.walab.coding.model.GroupUserDTO">
+		SELECT GP.userID, GP.count, U.name, U.email, U.nickName FROM (SELECT UP.userID, COUNT(*) AS count FROM userProblem AS UP, groupUser AS GU
+			WHERE GU.groupID = #{groupID} AND GU.userID = UP.userID
+				AND UP.problemID IN (SELECT GP.problemID FROM groupProblem AS GP, groupGoal AS GG
+			WHERE GG.groupID =  #{groupID} AND GP.goalID = GG.id)
+			GROUP BY userID) AS GP, user AS U
+				WHERE GP.userID = U.id
+	</select>
+	
 </mapper>

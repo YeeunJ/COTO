@@ -187,6 +187,8 @@ public class MyGroupsController {
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
 		List<GroupInfoDTO> groupInfo = groupInfoService.readGroupInfoById(groupID);
+		List<Map<String,Object>> progressByUser = groupGoalService.progressByUser(groupID);
+		
 		
 		for(int i=0;i<groupGoal.size();i++) {
 			List<GroupProblemDTO> groupProb = groupProblemService.readProblemsByGoalId(groupGoal.get(i).getId());
@@ -194,7 +196,8 @@ public class MyGroupsController {
 		}
 		
 		System.out.println(groupInfo);
-				
+		
+		mv.addObject("progressByUser", progressByUser);
 		mv.addObject("CodingSite", codingSite);
 		mv.addObject("userID", userID);
 		mv.addObject("adminID", adminID);
