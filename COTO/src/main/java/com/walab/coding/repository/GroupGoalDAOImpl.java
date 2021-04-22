@@ -81,5 +81,14 @@ public class GroupGoalDAOImpl implements GroupGoalDAO {
 		param.put("groupID", groupID);
 		return sqlSession.selectList(namespace+".progressByUser", param);
 	}
+	
+	@Override
+	public GroupGoalDTO readGoalByGroupIdAndGoalId(int groupID, int goalID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("groupID", groupID);
+		param.put("goalID", goalID);
+		
+		return sqlSession.selectOne(namespace+".readGoalByGroupIdAndGoalId", param);
+	}
 
 }

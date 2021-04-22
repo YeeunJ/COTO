@@ -277,7 +277,7 @@ function dropGroup(userID, groupID) {
 
 function printGoalProblems(goalID, groupID) {
 		var title;
-		console.log(goalID);
+		//console.log(goalID);
 		
 		$.ajax({
 			url : "./readModalInfo",
@@ -291,15 +291,18 @@ function printGoalProblems(goalID, groupID) {
 				var dataSplit = data.split("\n");
 				for(var i=0;i<dataSplit.length;i++) {
 					dataSplit[i] = dataSplit[i].trim();
+					console.log(dataSplit[i]);
 					
 					if(dataSplit[i].indexOf("readGoalTitle") != -1) {
 						title = $( dataSplit[i] ).text();
 					}
 				}
+				//console.log(title);
 				
 				//$("#readGoalProblem").html(data);
 				/* if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search, tCnt);
 				else readModel("#readRecommendProblem", title); */
+				$("#modalContent").html(data);
 				readModel("#readGoalProblem", title);
 			},
 			error : function(request, status, error) {

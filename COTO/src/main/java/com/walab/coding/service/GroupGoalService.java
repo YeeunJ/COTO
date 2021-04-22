@@ -12,4 +12,5 @@ public interface GroupGoalService {
 	void createGoalProblems(int goalID, List<String> problem, List<String> siteId, List<String> link);
 	List<GroupGoalDTO> readGoalListByGroupId(int groupID);
 	List<Map<String, Object>> progressByUser(int groupID);
+	GroupGoalDTO readGoalByGroupIdAndGoalId(int groupID, int goalID);
 }

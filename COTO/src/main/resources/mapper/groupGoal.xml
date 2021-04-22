@@ -20,7 +20,7 @@
 	<select id="readGoalListByGroupId" parameterType="int" resultType="com.walab.coding.model.GroupGoalDTO">
 		SELECT * 
 		FROM groupGoal
-		WHERE groupID = #{goalID}
+		WHERE groupID = #{groupID}
 	</select>
 	
 	<select id="progressByUser" parameterType="hashmap" resultType="com.walab.coding.model.GroupUserDTO">
@@ -30,6 +30,12 @@
 			WHERE GG.groupID =  #{groupID} AND GP.goalID = GG.id)
 			GROUP BY userID) AS GP, user AS U
 				WHERE GP.userID = U.id
+	</select>
+	
+	<select id="readGoalByGroupIdAndGoalId" parameterType="hashmap" resultType="com.walab.coding.model.GroupGoalDTO">
+		SELECT * 
+		FROM groupGoal
+		WHERE groupID = #{groupID} AND id = #{goalID}
 	</select>
 	
 </mapper>

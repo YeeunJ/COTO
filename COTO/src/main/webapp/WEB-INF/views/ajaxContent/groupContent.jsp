@@ -14,7 +14,7 @@
  	<c:forEach items="${groupGoal}" var="group" varStatus="status">
  	<div class="tableRow center" id="recoms${group.id}" onclick="printGoalProblems(${group.id}, ${group.groupID})">
  		<span class = "tableCell td1">${status.count}</span>
-  		<span class = "tableCell td5 readGoalTitle">${group.startDate} ~ ${group.endDate}</span>
+  		<span class = "tableCell td5">${group.startDate} ~ ${group.endDate}</span>
   		<span class = "tableCell td2">${group.probCount}</span>
  		<span class = "tableCell td2">진행률(?)</span>
  	</div>
