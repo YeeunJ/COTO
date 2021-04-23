@@ -241,8 +241,8 @@
 	var dataForBar = new Array();
 	var dataForDoughnut = new Array();
 	var gN = ${goalNum};
-	var diff = ${goalNum}-${userSolvedP};
 	var uP = ${userSolvedP};
+	var diff = gN-uP;
 
 	<c:forEach items="${countSolvedProblemEachDay}" var="countList" >
 	var json = new Object();

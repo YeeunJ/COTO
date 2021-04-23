@@ -114,7 +114,7 @@ function drawChart2() {
 	var myDoughnutChart = new Chart(ctx, { 
 	    type: 'doughnut', 
 	    data: {
-	    	labels: ['목표 문제수','푼 문제수'],
+	    	labels: ['남은 문제수','푼 문제수'],
 	        datasets: [{
 	            data: dataForDoughnut,
 	            backgroundColor: ['#e8e8e8','rgba(255, 201, 14, 0.5)'],

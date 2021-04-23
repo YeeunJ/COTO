@@ -132,7 +132,7 @@
 	<select id="readOtherUserPage" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
 		SELECT count(A.userID) as solved, goal, goalNum
 		FROM userProblem as A, (SELECT startDate,endDate,goal,goalNum FROM goal WHERE userID=#{userID} order by startDate DESC limit 1) subquery 
-		WHERE <![CDATA[A.regDate >= subquery.startDate and A.regDate <= subquery.endDate]]> and A.userID = #{userID}
+		WHERE <![CDATA[A.regDate >= subquery.startDate and A.regDate <= subquery.endDate and subquery.endDate > now()]]> and A.userID = #{userID}
 	</select>
 	<select id="countOtherUserProblem" resultType="int" parameterType="hashmap">
 		SELECT count(userID) as solved FROM YeeunJ.userProblem where userID=#{userID};
