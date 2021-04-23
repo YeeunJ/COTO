@@ -87,11 +87,15 @@ public class MyGroupsController {
 		List<GroupDTO> myGroups = groupService.readMyGroups(userID);
 		List<GroupDTO> adminGroups = groupService.readAdminGroups(userID);
 		
+		for(int i=0; i<adminGroups.size(); i++) {
+			adminGroups.get(i).setAttendance(groupUserService.attendanceByGroup(adminGroups.get(i).getId()));
+			adminGroups.get(i).setTotalGroupUser(groupUserService.totalGroupUser(adminGroups.get(i).getId()));
+		}
+		
 		mv.addObject("adminGroups", adminGroups);
 		mv.addObject("userID", userID);
 		mv.addObject("CodingSite", codingSite);
 		mv.addObject("groups", myGroups);
-		
 		
 		/* pagination 
 		int listCnt = userProblemService.readProblemCnt(userID); 

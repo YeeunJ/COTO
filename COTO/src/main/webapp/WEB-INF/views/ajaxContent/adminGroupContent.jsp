@@ -24,7 +24,7 @@
   		<span class = "tableCell td2 pName"><a href="./eachGroup?groupID=${ group.id }">${group.groupName}</a></span>
   		<span class = "tableCell td1">${startDate}</span>
  		<span class = "tableCell td1">${endDate}</span>
-  		<span class = "tableCell td1 pToday">-명</span>
+  		<span class = "tableCell td1 pToday">${group.attendance}명 / ${group.totalGroupUser}명</span>
  	</div>
 	</c:forEach>
 </div>

@@ -10,6 +10,7 @@ public class GroupUserDTO {
 	public String name;
 	public String email;
 	public String nickName;
+	private int attendance;
 	
 	public int getId() {
 		return id;
@@ -63,6 +64,12 @@ public class GroupUserDTO {
 	public String toString() {
 		return "GroupUserDTO [userID=" + userID + ", count=" + count + ", name=" + name + ", email=" + email
 				+ ", nickName=" + nickName + "]";
+	}
+	public int getAttendance() {
+		return attendance;
+	}
+	public void setAttendance(int attendance) {
+		this.attendance = attendance;
 	}
 	
 	

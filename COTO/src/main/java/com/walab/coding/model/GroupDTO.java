@@ -15,6 +15,8 @@ public class GroupDTO {
 	private Date startDate;
 	private Date endDate;
 	private Date regdate;
+	private int attendance;
+	private int totalGroupUser;
 
 	private int userCnt;
 	private double rate;
@@ -86,8 +88,6 @@ public class GroupDTO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	
-	
 	public int getUserCnt() {
 		return userCnt;
 	}
@@ -100,13 +100,25 @@ public class GroupDTO {
 	public void setRate(double rate) {
 		this.rate = rate;
 	}
-
+	public int getAttendance() {
+		return attendance;
+	}
+	public void setAttendance(int attendance) {
+		this.attendance = attendance;
+	}
 	
 	@Override
 	public String toString() {
 		return "GroupDTO [id=" + id + ", groupName=" + groupName + ", groupGoal=" + groupGoal + ", goal=" + goal
 				+ ", groupDesc=" + groupDesc + ", adminID=" + adminID + ", isAdmin=" + isAdmin + ", name=" + name
 				+ ", nickName=" + nickName + ", startDate=" + startDate + ", endDate=" + endDate + ", regdate="
-				+ regdate + "]";
+				+ regdate + ", attendance=" + attendance + "]";
 	}
+	public int getTotalGroupUser() {
+		return totalGroupUser;
+	}
+	public void setTotalGroupUser(int totalGroupUser) {
+		this.totalGroupUser = totalGroupUser;
+	}
+	
 }

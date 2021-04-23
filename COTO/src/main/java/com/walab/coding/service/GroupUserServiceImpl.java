@@ -19,5 +19,15 @@ public class GroupUserServiceImpl implements GroupUserService {
 	public List<GroupUserDTO> readUsersByGroup(int groupID) {
 		return groupUserDAO.readUsersByGroup(groupID);
 	}
+	
+	@Override
+	public int attendanceByGroup(int groupID){
+		return groupUserDAO.attendanceByGroup(groupID);	
+	}
+	
+	@Override
+	public int totalGroupUser(int groupID) {
+		return groupUserDAO.totalGroupUser(groupID);	
+	}
 
 }
