@@ -51,6 +51,13 @@ public interface ProblemService {
 	 * usage: problem Controller
 	 */
 	public int readTotalProblemCnt();
+
+	/**
+	 * read problem by the id
+	 * usage: MyGroupsController
+	 * @param userID 
+	 */
+	public ProblemDTO readProblembyProblemIDAndUserID(int problemID, int userID);
 	
 
 }

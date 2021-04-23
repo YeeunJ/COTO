@@ -108,4 +108,16 @@
 		GROUP BY siteID
 	</select>
 	
+	<select id="readProblembyProblemIDAndUserID" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
+		SELECT p.id as id, p.siteID as siteId, p.name as name, p.link as link, up.regdate as userDate
+		FROM YeeunJ.problem as p left join YeeunJ.userProblem as up on p.id = up.problemID
+		WHERE p.id=#{problemID} AND up.userID=#{userID};
+	</select>
+	
+	<select id="readProblembyProblemID" resultType="com.walab.coding.model.ProblemDTO" parameterType="int">
+		SELECT *
+		FROM YeeunJ.problem
+		WHERE id=#{problemID};
+	</select>
+	
 </mapper>

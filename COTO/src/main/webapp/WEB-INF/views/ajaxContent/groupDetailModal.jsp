@@ -19,9 +19,23 @@
 			<c:forEach items="${groupProbDetail}" var="gp" varStatus="status">
 				<div class="tableRow">
 					<span class="tableCell td1">${status.count}</span> 
-					<span class="tableCell td3">${gp.id}</span> 
-					<span class="tableCell td4">${gp.problemID}</span>
-					<span class="tableCell td2">체킹!</span> 
+					<span class="tableCell td3">${gp.siteName}</span> 
+					<span class="tableCell td4">
+						<c:choose>
+							<c:when test="${gp.link eq null}"><p style="display: inline-block;">${gp.name}</p></c:when>
+							<c:otherwise><p style="display: inline-block;"><a href="${gp.link}" target="_blank">${gp.name}</a></p></c:otherwise>
+						</c:choose>
+					</span>
+					<span class="tableCell td2">
+						<c:choose>
+							<c:when test="${gp.userDate eq null}">
+								<i class="small smaller material-icons" onclick="checkProblem(${gp.problemID})" style="color:lightgray !important; height: 30px; float: right; cursor: pointer;">done</i>
+							</c:when> 
+							<c:otherwise>
+								<i class="small smaller material-icons" onclick = "uncheckProblem(${gp.problemID}, '${gp.name}')" style="color:green; height: 30px; float: right; cursor: pointer;">done</i>
+							</c:otherwise>
+						</c:choose>
+					</span> 
 				</div>
 			</c:forEach>
 		</div>

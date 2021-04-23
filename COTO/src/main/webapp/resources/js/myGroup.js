@@ -299,7 +299,6 @@ function printGoalProblems(goalID, groupID) {
 				}
 				//console.log(title);
 				
-				//$("#readGoalProblem").html(data);
 				/* if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search, tCnt);
 				else readModel("#readRecommendProblem", title); */
 				$("#modalContent").html(data);
@@ -312,3 +311,48 @@ function printGoalProblems(goalID, groupID) {
 			}
 		});
 	}
+	
+	function checkProblem(id){
+	$.ajax({
+		url : "./addProbCheck",
+		type : "POST",
+		async : false,
+		data : {
+			pID : id,
+		},
+		success : function(data) {
+			console.log(data);
+			idName = ".sweet-modal-content #eachProblemContent"+id;
+			console.log(idName);
+			$(idName).html(data);
+		},
+		error : function(request, status, error) {
+			alert("허용되지 않은 접근입니다. 새로고침 후 다시 시도해주세요.");
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}
+function uncheckProblem(id, name){
+	$.ajax({
+		url : "./deleteProbCheck",
+		type : "POST",
+		async : false,
+		data : {
+			pID : id,
+			problemName: name
+		},
+		success : function(data) {
+			console.log(data);
+			idName = ".sweet-modal-content #eachProblemContent"+ id;
+			$(idName).html(data);
+		},
+		error : function(request, status, error) {
+			alert("허용되지 않은 접근입니다. 새로고침 후 다시 시도해주세요.");
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}

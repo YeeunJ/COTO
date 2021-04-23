@@ -30,6 +30,7 @@ import com.walab.coding.model.GroupDTO;
 import com.walab.coding.model.GroupGoalDTO;
 import com.walab.coding.model.GroupInfoDTO;
 import com.walab.coding.model.GroupProblemDTO;
+import com.walab.coding.model.ProblemDTO;
 import com.walab.coding.model.RecomCountDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomTagDTO;
@@ -39,6 +40,7 @@ import com.walab.coding.service.GroupGoalService;
 import com.walab.coding.service.GroupInfoService;
 import com.walab.coding.service.GroupProblemService;
 import com.walab.coding.service.GroupService;
+import com.walab.coding.service.ProblemService;
 
 
 /**
@@ -54,13 +56,15 @@ public class MyGroupsController {
   
 	@Autowired
 	GroupService groupService;
-	
 	@Autowired
 	GroupInfoService groupInfoService;
 	@Autowired
 	GroupGoalService groupGoalService;
 	@Autowired
 	GroupProblemService groupProblemService;
+	
+	@Autowired
+	ProblemService problemService;
 
 	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
@@ -214,11 +218,30 @@ public class MyGroupsController {
 
 		int goalID = Integer.parseInt(request.getParameter("goalID"));
 		int groupID = Integer.parseInt(request.getParameter("groupID"));
+		int userID = ((UserDTO) request.getSession().getAttribute("user")).getId();
 		
 		GroupGoalDTO groupGoal = groupGoalService.readGoalByGroupIdAndGoalId(groupID, goalID);
-		System.out.println("groupGoal: " + groupGoal.getStartDate() + " | " + groupGoal.getEndDate());
+		//System.out.println("groupGoal: " + groupGoal.getStartDate() + " | " + groupGoal.getEndDate());
 
 		List<GroupProblemDTO> groupProbDetail = groupProblemService.readProblemsByGoalId(goalID);
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		
+		for(int i=0;i<groupProbDetail.size();i++) {
+			ProblemDTO prob = problemService.readProblembyProblemIDAndUserID(groupProbDetail.get(i).getProblemID(), userID);
+			
+			groupProbDetail.get(i).setName(prob.getName());
+			groupProbDetail.get(i).setLink(prob.getLink());
+			groupProbDetail.get(i).setUserDate(prob.getUserDate());
+			
+			for(int j=0;j<codingSite.size();j++) {
+				if(prob.getSiteID() == codingSite.get(j).getId()) {
+					groupProbDetail.get(i).setSiteName(codingSite.get(j).getSiteName());
+				}
+			}
+			
+			String str = groupProbDetail.get(i).getLink();
+			if(str.length() < 5 || !(str.substring(0, 5).equals("https"))) groupProbDetail.get(i).setLink(null);
+		}
  
 		mv.addObject("groupGoalDetail", groupGoal);
 		mv.addObject("groupProbDetail", groupProbDetail);

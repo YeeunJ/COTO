@@ -91,4 +91,9 @@ public class ProblemServiceImpl implements ProblemService {
 		return problemDAO.readTotalProblemCnt();
 	}
 	
+	@Override
+	public ProblemDTO readProblembyProblemIDAndUserID(int problemID, int userID) {
+		return problemDAO.readProblembyProblemIDAndUserID(problemID, userID);
+	}
+	
 }

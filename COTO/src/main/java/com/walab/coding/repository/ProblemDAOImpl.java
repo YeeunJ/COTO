@@ -92,4 +92,20 @@ public class ProblemDAOImpl implements ProblemDAO {
 		return sqlSession.selectList(namespace+".countBySite");
 	}
 	
+	@Override
+	public ProblemDTO readProblembyProblemIDAndUserID(int problemID, int userID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("problemID", problemID);
+		param.put("userID", userID);
+		
+		ProblemDTO p = sqlSession.selectOne(namespace+".readProblembyProblemIDAndUserID", param);
+		
+		if(p == null) {
+			p = sqlSession.selectOne(namespace+".readProblembyProblemID", problemID);
+			p.setUserDate(null);
+		}
+		
+		return p;
+	}
+	
 }
