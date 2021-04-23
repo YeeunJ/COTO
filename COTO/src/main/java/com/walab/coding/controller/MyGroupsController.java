@@ -30,6 +30,7 @@ import com.walab.coding.model.GroupDTO;
 import com.walab.coding.model.GroupGoalDTO;
 import com.walab.coding.model.GroupInfoDTO;
 import com.walab.coding.model.GroupProblemDTO;
+import com.walab.coding.model.GroupUserDTO;
 import com.walab.coding.model.RecomCountDTO;
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecomTagDTO;
@@ -39,6 +40,7 @@ import com.walab.coding.service.GroupGoalService;
 import com.walab.coding.service.GroupInfoService;
 import com.walab.coding.service.GroupProblemService;
 import com.walab.coding.service.GroupService;
+import com.walab.coding.service.GroupUserService;
 
 
 /**
@@ -61,6 +63,8 @@ public class MyGroupsController {
 	GroupGoalService groupGoalService;
 	@Autowired
 	GroupProblemService groupProblemService;
+	@Autowired
+	GroupUserService groupUserService;
 
 	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
@@ -188,6 +192,57 @@ public class MyGroupsController {
 		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
 		List<GroupInfoDTO> groupInfo = groupInfoService.readGroupInfoById(groupID);
 		List<Map<String,Object>> progressByUser = groupGoalService.progressByUser(groupID);
+		List<GroupUserDTO> groupUser = groupUserService.readUsersByGroup(groupID);
+		
+		int countGroupUser = groupUser.size();
+		
+		for(int i=0;i<groupGoal.size();i++) {
+			List<GroupProblemDTO> groupProb = groupProblemService.readProblemsByGoalId(groupGoal.get(i).getId());
+			groupGoal.get(i).setProbCount(groupProb.size());
+		}
+		
+		System.out.println(groupInfo);
+		
+		mv.addObject("progressByUser", progressByUser);
+		mv.addObject("CodingSite", codingSite);
+		mv.addObject("userID", userID);
+		mv.addObject("adminID", adminID);
+		mv.addObject("groupID", groupID);
+		mv.addObject("groupGoal", groupGoal);
+		mv.addObject("groupInfo", groupInfo);
+		mv.addObject("countGroupUser", countGroupUser);
+		mv.setViewName("/mypage/oneGroup");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/mypage/update", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView eachGroupEdit(HttpServletRequest httpServletRequest, ModelAndView mv) {
+		
+		int groupID = Integer.parseInt(httpServletRequest.getParameter("id"));
+		
+		//editInfo
+		GroupInfoDTO gid = new GroupInfoDTO();
+		gid.setGroupDesc(httpServletRequest.getParameter("desc"));
+		gid.setStartDate(httpServletRequest.getParameter("startDate"));
+		gid.setEndDate(httpServletRequest.getParameter("endDate"));
+		gid.setId(groupID);		
+		
+		if (groupInfoService.update(gid) > 0) {
+			System.out.println("success");
+		} else {
+			System.out.println("fail");
+		}
+		////
+		
+		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+		int adminID = groupService.readAdminofGroup(groupID);
+		
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
+		List<GroupInfoDTO> groupInfo = groupInfoService.readGroupInfoById(groupID);
+		List<Map<String,Object>> progressByUser = groupGoalService.progressByUser(groupID);
 		
 		
 		for(int i=0;i<groupGoal.size();i++) {
@@ -204,7 +259,7 @@ public class MyGroupsController {
 		mv.addObject("groupID", groupID);
 		mv.addObject("groupGoal", groupGoal);
 		mv.addObject("groupInfo", groupInfo);
-		mv.setViewName("/mypage/oneGroup");
+		mv.setViewName("/ajaxContent/groupInfoContent");
 		
 		return mv;
 	}

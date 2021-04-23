@@ -1,10 +1,10 @@
-package com.walab.coding.service;
+package com.walab.coding.repository;
 
 import java.util.List;
 
 import com.walab.coding.model.GroupUserDTO;
 
-public interface GroupUserService {
+public interface GroupUserDAO {
 	
 	public List<GroupUserDTO> readUsersByGroup(int groupID);
 
