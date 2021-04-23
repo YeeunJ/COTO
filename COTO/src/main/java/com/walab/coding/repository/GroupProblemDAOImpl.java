@@ -1,6 +1,8 @@
 package com.walab.coding.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +20,14 @@ public class GroupProblemDAOImpl implements GroupProblemDAO {
 	@Override
 	public List<GroupProblemDTO> readProblemsByGoalId(int goalID) {
 		return sqlSession.selectList(namespace+".readProblemsByGoalId", goalID);
+	}
+	
+	@Override
+	public int readProbCountByGoalIDAndUserID(int id, int userID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", id);
+		param.put("userID", userID);
+		
+		return sqlSession.selectOne(namespace+".readProbCountByGoalIDAndUserID", param);
 	}
 }

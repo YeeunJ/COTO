@@ -7,4 +7,14 @@
 		FROM groupProblem
 		WHERE goalID = #{goalID}
 	</select>
+	
+	<select id="readProbCountByGoalIDAndUserID" parameterType="hashmap" resultType="int">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM YeeunJ.groupProblem as gp LEFT JOIN (
+			SELECT problemID, userID
+			FROM YeeunJ.userProblem
+		    WHERE userID = #{userID}) as up ON gp.problemID = up.problemID
+		WHERE goalID = #{id};
+	</select>
+	
 </mapper>

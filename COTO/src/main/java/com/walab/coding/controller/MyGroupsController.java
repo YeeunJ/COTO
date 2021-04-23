@@ -207,6 +207,8 @@ public class MyGroupsController {
 		for(int i=0;i<groupGoal.size();i++) {
 			List<GroupProblemDTO> groupProb = groupProblemService.readProblemsByGoalId(groupGoal.get(i).getId());
 			groupGoal.get(i).setProbCount(groupProb.size());
+			int cnt = groupProblemService.readProbCountByGoalIDAndUserID(groupGoal.get(i).getId(), userID);
+			groupGoal.get(i).setProgress(cnt/groupGoal.get(i).getProbCount()*100);
 		}
 		
 		System.out.println(groupInfo);

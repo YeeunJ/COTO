@@ -8,7 +8,7 @@
 		<span class="tableCell th1">No.</span> 
 		<span class="tableCell th5">기간</span>
 		<span class="tableCell th2">문제 수</span> 
-		<span class="tableCell th2">진행률(?)</span>
+		<span class="tableCell th2">진행률</span>
 	</div>
 	
  	<c:forEach items="${groupGoal}" var="group" varStatus="status">
@@ -16,7 +16,7 @@
  		<span class = "tableCell td1">${status.count}</span>
   		<span class = "tableCell td5">${group.startDate} ~ ${group.endDate}</span>
   		<span class = "tableCell td2">${group.probCount}</span>
- 		<span class = "tableCell td2">진행률(?)</span>
+ 		<span class = "tableCell td2">${group.progress}%</span>
  	</div>
 	</c:forEach>
 </div>
