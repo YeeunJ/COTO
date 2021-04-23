@@ -10,31 +10,24 @@
 	<div id="readGoalProblem" class="container" style="display:none;">
 		<p class="title desc">문제 리스트</p>
 		<div id="readProblems" class="table center">
-			<div class="tableRow">
+			<div class="tableRow" style="cursor: default">
 				<span class="tableCell th1">No.</span> 
 				<span class="tableCell th3">사이트</span> 
 				<span class="tableCell th4">문제 제목</span> 
 				<span class="tableCell th2">완료</span>
 			</div>
 			<c:forEach items="${groupProbDetail}" var="gp" varStatus="status">
-				<div class="tableRow" id="eachProblemContent${gp.problemID}">
+				<div class="tableRow" style="cursor: default">
 					<span class="tableCell td1">${status.count}</span> 
 					<span class="tableCell td3">${gp.siteName}</span> 
 					<span class="tableCell td4">
 						<c:choose>
 							<c:when test="${gp.link eq null}"><p style="display: inline-block;">${gp.name}</p></c:when>
-							<c:otherwise><p style="display: inline-block;"><a href="${gp.link}" target="_blank">${gp.name}</a></p></c:otherwise>
+							<c:otherwise><p style="display: inline-block;" style="cursor: pointer"><a href="${gp.link}" target="_blank">${gp.name}</a></p></c:otherwise>
 						</c:choose>
 					</span>
-					<span class="tableCell td2">
-						<c:choose>
-							<c:when test="${gp.userDate eq null}">
-								<i class="small smaller material-icons" onclick="checkProblem(${gp.problemID}, ${groupGoal.id}, ${group.groupID})" style="color:lightgray !important; height: 30px; float: right; cursor: pointer;">done</i>
-							</c:when> 
-							<c:otherwise>
-								<i class="small smaller material-icons" onclick = "uncheckProblem(${gp.problemID}, ${gp.name}, ${groupGoal.id}, ${group.groupID})" style="color:green; height: 30px; float: right; cursor: pointer;">done</i>
-							</c:otherwise>
-						</c:choose>
+					<span class="tableCell td2" id="eachProblemContent${gp.problemID}">
+						<%@ include file="./groupCheckContent.jsp"%>
 					</span> 
 				</div>
 			</c:forEach>

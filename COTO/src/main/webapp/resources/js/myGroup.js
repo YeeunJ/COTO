@@ -313,7 +313,6 @@ function printGoalProblems(goalID, groupID) {
 	}
 	
 function checkProblem(id, goalID, groupID){
-console.log(goalID);
 	$.ajax({
 		url : "./addProbCheck",
 		type : "POST",
@@ -324,7 +323,6 @@ console.log(goalID);
 			groupID : groupID
 		},
 		success : function(data) {
-			console.log(data);
 			idName = ".sweet-modal-content #eachProblemContent"+id;
 			console.log(idName);
 			$(idName).html(data);
@@ -349,7 +347,6 @@ function uncheckProblem(id, name, goalID, groupID){
 			groupID : groupID
 		},
 		success : function(data) {
-			console.log(data);
 			idName = ".sweet-modal-content #eachProblemContent"+ id;
 			$(idName).html(data);
 		},
