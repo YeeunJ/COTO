@@ -215,19 +215,14 @@ public class MyGroupsController {
 		int goalID = Integer.parseInt(request.getParameter("goalID"));
 		int groupID = Integer.parseInt(request.getParameter("groupID"));
 		
-		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
-		
-		for(int i=0;i<groupGoal.size();i++) {
-			List<GroupProblemDTO> groupProb = groupProblemService.readProblemsByGoalId(groupGoal.get(i).getId());
-			groupGoal.get(i).setProbCount(groupProb.size());
-		}
+		GroupGoalDTO groupGoal = groupGoalService.readGoalByGroupIdAndGoalId(groupID, goalID);
+		System.out.println("groupGoal: " + groupGoal.getStartDate() + " | " + groupGoal.getEndDate());
 
 		List<GroupProblemDTO> groupProbDetail = groupProblemService.readProblemsByGoalId(goalID);
-		System.out.println(groupProbDetail.get(0).getProblemID());
-
-		mv.addObject("groupGoal", groupGoal);
+ 
+		mv.addObject("groupGoalDetail", groupGoal);
 		mv.addObject("groupProbDetail", groupProbDetail);
-		mv.setViewName("/mypage/oneGroup");
+		mv.setViewName("/ajaxContent/groupDetailModal");
 
 		return mv;
 	}

@@ -102,5 +102,10 @@ public class GroupGoalServiceImpl implements GroupGoalService {
 		}
 		return progress;
 	}
+	
+	@Override
+	public GroupGoalDTO readGoalByGroupIdAndGoalId(int groupID, int goalID) {
+		return groupGoalDAO.readGoalByGroupIdAndGoalId(groupID, goalID);
+	}
 
 }

@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ page import = "com.walab.coding.model.UserDTO" %>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
@@ -82,25 +82,19 @@
 		</form>
 	</div>
 	
-	<!-- 문제 추가 모달  -->
-	<div id="readGoalProblem" class="container" style="display:none;">
-		<div>
-			<p class="title desc">문제 리스트</p>
-			<div id="readProblems" class="readBox">
-				<c:forEach items="${groupProbDetail}" var="gp" varStatus="status">
-					<div class="recomProblemID${status.index}" style="display:none;">${gp.id}</div>
-					<div class="sitetitle">${gp.problemID}</div>
-					<%-- <div id="eachProblemContent${rp.problemID}">
+
+	
+	<div id="modalContent">
+		<%@ include file="../ajaxContent/groupDetailModal.jsp"%>
+	</div>
+	
+	<%-- <div id="eachProblemContent${rp.problemID}">
 						<c:if test="${!empty rp.name}">
 							<c:if test="${!empty rp.siteName}">
 								<div class="recomProblemID${status.index}" style="display:none;">${rp.id}</div>
 							</c:if>
 						</c:if>
 					</div> --%>
-				</c:forEach>
-			</div>
-		</div>
-	</div>
 	
 </div>
 
