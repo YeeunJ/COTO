@@ -3,6 +3,9 @@
 	.card-content2 { display: none; } 
 	.card-content1 {width: 100%; margin:auto;}
 }
+.input-field-custom.col label {
+    left: 0 !important;
+}
 .card-wrap {
 	width: 100%;
 	display: inline-flex;

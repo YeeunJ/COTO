@@ -13,7 +13,6 @@
 		<span class="tableCell th1">시작일</span> 
 		<span class="tableCell th1">종료일</span>
 	    <span class="tableCell th1">출석</span> 
-	    <span class="tableCell th1">진행률</span>
  	</div>
 	
  	<c:forEach items="${adminGroups}" var="group" varStatus="status">
@@ -25,8 +24,7 @@
   		<span class = "tableCell td2 pName"><a href="./eachGroup?groupID=${ group.id }">${group.groupName}</a></span>
   		<span class = "tableCell td1">${startDate}</span>
  		<span class = "tableCell td1">${endDate}</span>
-  		<span class = "tableCell td1 pToday"></span>
-  		<span class = "tableCell td1 pNow"></span>
+  		<span class = "tableCell td1 pToday">-명</span>
  	</div>
 	</c:forEach>
 </div>

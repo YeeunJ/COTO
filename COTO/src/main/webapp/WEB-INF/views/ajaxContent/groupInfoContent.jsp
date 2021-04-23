@@ -5,23 +5,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
-<style>
-#editBtn{
-	display: inline-block;
-	font-size:13px;
-	text-decoration: underline;
-	float: right;
-	padding: 4% 2% 4% 2%;
-	color: #7a7a7a;
-	cursor: pointer;
-}
-.card-title{
-	display: inline-block;
-}
-#editInfo .td4{
-	padding-bottom:0 !important;
-}
-</style>
 <div id="groupListContent">
 	
  	<c:forEach items="${groupInfo}" var="grouplist" varStatus="status">
@@ -47,7 +30,7 @@
 							</span>
 						</div>
 						<div class="tableRow">
-							<span class="tableCell td2" style="font-size: 13px;">회원 수</span> 
+							<span class="tableCell td2">인원</span> 
 								<span class="tableCell td4">${countGroupUser}명</span>
 						</div>
 				</div>
