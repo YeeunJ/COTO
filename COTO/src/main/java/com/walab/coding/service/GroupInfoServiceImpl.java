@@ -56,5 +56,10 @@ public class GroupInfoServiceImpl implements GroupInfoService {
 		
 		return groups;
 	}
+	
+	@Override
+	public int update(GroupInfoDTO gid) {
+		return groupInfoDAO.update(gid);
+	}
 
 }

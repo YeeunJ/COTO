@@ -47,6 +47,10 @@
 		LIMIT #{s_point}, #{list};
 	</select>
 	
+	<update id="updateGroupInfo">
+		update groupInfo set startDate=#{startDate}, endDate=#{endDate}, groupDesc=#{groupDesc} where id = #{groupID}
+	</update>
+	
 	<delete id="deleteGroup" parameterType="hashmap">
 		DELETE FROM groupInfo WHERE id = #{id}
 	</delete>

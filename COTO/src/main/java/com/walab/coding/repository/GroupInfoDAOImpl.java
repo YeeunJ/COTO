@@ -66,5 +66,16 @@ public class GroupInfoDAOImpl implements GroupInfoDAO {
 		
 		return sqlSession.selectList(namespace+".search", groupListParam);
 	}
+	
+	@Override
+	public int update(GroupInfoDTO gid) {
+		Map<String, Object> groupListParam = new HashMap<String, Object>();
+		groupListParam.put("startDate", gid.getStartDate());
+		groupListParam.put("endDate", gid.getEndDate());
+		groupListParam.put("groupDesc", gid.getGroupDesc());
+		groupListParam.put("groupID", gid.getId());
+		
+		return sqlSession.update(namespace+".updateGroupInfo", groupListParam);
+	}
 
 }

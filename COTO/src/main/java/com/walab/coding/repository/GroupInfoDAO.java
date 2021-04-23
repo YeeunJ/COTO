@@ -17,4 +17,6 @@ public interface GroupInfoDAO {
 	public int readGroupListCnt(String searchValue, String orderValue);
 
 	List<GroupDTO> search(int s_point, int list, String searchValue, String orderValue);
+	
+	public int update(GroupInfoDTO gid);
 }
