@@ -9,8 +9,15 @@ public class GroupGoalDTO {
 	int groupID;
 	
 	int probCount;
+	int progress;
 	
 	
+	public int getProgress() {
+		return progress;
+	}
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
 	public int getId() {
 		return id;
 	}

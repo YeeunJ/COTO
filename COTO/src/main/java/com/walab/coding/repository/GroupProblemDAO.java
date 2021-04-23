@@ -8,4 +8,6 @@ public interface GroupProblemDAO {
 
 	List<GroupProblemDTO> readProblemsByGoalId(int goalID);
 
+	int readProbCountByGoalIDAndUserID(int id, int userID);
+
 }

@@ -8,4 +8,6 @@ public interface GroupProblemService {
 
 	List<GroupProblemDTO> readProblemsByGoalId(int id);
 
+	int readProbCountByGoalIDAndUserID(int id, int userID);
+
 }
