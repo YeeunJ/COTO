@@ -33,8 +33,8 @@
 							<span class="tableCell td2">현재 목표</span> <span class="tableCell td4">${r.goal}</span>
 						</div>
 						<div class="tableRow">
-							<span class="tableCell td2">현재 푼 문제수</span> <span
-								class="tableCell td4">${r.solved}문제</span>
+							<span class="tableCell td2">현재 목표 문제수</span> <span
+								class="tableCell td4">${goalNum}문제</span>
 						</div>
 					</c:forEach>
 						<div class="tableRow">
@@ -72,8 +72,13 @@
 var dataForDoughnut = new Array();
 var gN = ${goalNum};
 var uP = ${solved};
+var diff = gN-uP;
 
-dataForDoughnut.push(gN);
+if(diff >=0) dataForDoughnut.push(diff);
+else {
+	diff = 0;
+	dataForDoughnut.push(diff);
+}
 dataForDoughnut.push(uP);
 </script>
 <style>
