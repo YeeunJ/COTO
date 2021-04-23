@@ -42,6 +42,7 @@ import com.walab.coding.service.GroupInfoService;
 import com.walab.coding.service.GroupProblemService;
 import com.walab.coding.service.GroupService;
 import com.walab.coding.service.ProblemService;
+import com.walab.coding.service.UserProblemService;
 import com.walab.coding.service.GroupUserService;
 
 
@@ -69,6 +70,9 @@ public class MyGroupsController {
 	
 	@Autowired
 	ProblemService problemService;
+	
+	@Autowired
+	UserProblemService userProblemService;
 
 	/**
 	 * Read user goal, solvedProblem, codingSite, solvedProblem List
@@ -196,7 +200,9 @@ public class MyGroupsController {
 		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
 		List<GroupInfoDTO> groupInfo = groupInfoService.readGroupInfoById(groupID);
 		List<Map<String,Object>> progressByUser = groupGoalService.progressByUser(groupID);
-		
+		List<GroupUserDTO> groupUser = groupUserService.readUsersByGroup(groupID);
+
+		int countGroupUser = groupUser.size();
 		
 		for(int i=0;i<groupGoal.size();i++) {
 			List<GroupProblemDTO> groupProb = groupProblemService.readProblemsByGoalId(groupGoal.get(i).getId());
@@ -212,6 +218,7 @@ public class MyGroupsController {
 		mv.addObject("groupID", groupID);
 		mv.addObject("groupGoal", groupGoal);
 		mv.addObject("groupInfo", groupInfo);
+		mv.addObject("countGroupUser", countGroupUser);
 		mv.setViewName("/mypage/oneGroup");
 		
 		return mv;
@@ -316,6 +323,53 @@ public class MyGroupsController {
 		mv.setView(new RedirectView("/", true));
 		return mv;
 
+	}
+	
+	@RequestMapping(value = "/mypage/addProbCheck", method = RequestMethod.POST)
+	public ModelAndView createProbCheck(HttpServletRequest httpServletRequest) {
+		int userID = -1;
+		int pID = Integer.parseInt(httpServletRequest.getParameter("pID"));
+		UserProblemDTO upd = new UserProblemDTO();
+		
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			upd.setProblemID(pID);
+			upd.setUserID(userID);
+			userProblemService.createUserProblembyID(upd);
+		}
+		
+		int goalID = Integer.parseInt(httpServletRequest.getParameter("goalID"));
+		int groupID = Integer.parseInt(httpServletRequest.getParameter("groupID"));
+		
+		GroupGoalDTO groupGoal = groupGoalService.readGoalByGroupIdAndGoalId(groupID, goalID);
+		//System.out.println("groupGoal: " + groupGoal.getStartDate() + " | " + groupGoal.getEndDate());
+
+		List<GroupProblemDTO> groupProbDetail = groupProblemService.readProblemsByGoalId(goalID);
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		
+		for(int i=0;i<groupProbDetail.size();i++) {
+			ProblemDTO prob = problemService.readProblembyProblemIDAndUserID(groupProbDetail.get(i).getProblemID(), userID);
+			
+			groupProbDetail.get(i).setName(prob.getName());
+			groupProbDetail.get(i).setLink(prob.getLink());
+			groupProbDetail.get(i).setUserDate(prob.getUserDate());
+			
+			for(int j=0;j<codingSite.size();j++) {
+				if(prob.getSiteID() == codingSite.get(j).getId()) {
+					groupProbDetail.get(i).setSiteName(codingSite.get(j).getSiteName());
+				}
+			}
+			
+			String str = groupProbDetail.get(i).getLink();
+			if(str.length() < 5 || !(str.substring(0, 5).equals("https"))) groupProbDetail.get(i).setLink(null);
+		}
+ 
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("groupGoalDetail", groupGoal);
+		mv.addObject("groupProbDetail", groupProbDetail);
+		mv.setViewName("ajaxContent/groupDetailModal");
+
+		return mv;
 	}
 	
 	

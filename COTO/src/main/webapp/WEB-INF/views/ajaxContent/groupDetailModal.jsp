@@ -17,7 +17,7 @@
 				<span class="tableCell th2">완료</span>
 			</div>
 			<c:forEach items="${groupProbDetail}" var="gp" varStatus="status">
-				<div class="tableRow">
+				<div class="tableRow" id="eachProblemContent${gp.problemID}">
 					<span class="tableCell td1">${status.count}</span> 
 					<span class="tableCell td3">${gp.siteName}</span> 
 					<span class="tableCell td4">
@@ -29,10 +29,10 @@
 					<span class="tableCell td2">
 						<c:choose>
 							<c:when test="${gp.userDate eq null}">
-								<i class="small smaller material-icons" onclick="checkProblem(${gp.problemID})" style="color:lightgray !important; height: 30px; float: right; cursor: pointer;">done</i>
+								<i class="small smaller material-icons" onclick="checkProblem(${gp.problemID}, ${groupGoal.id}, ${group.groupID})" style="color:lightgray !important; height: 30px; float: right; cursor: pointer;">done</i>
 							</c:when> 
 							<c:otherwise>
-								<i class="small smaller material-icons" onclick = "uncheckProblem(${gp.problemID}, '${gp.name}')" style="color:green; height: 30px; float: right; cursor: pointer;">done</i>
+								<i class="small smaller material-icons" onclick = "uncheckProblem(${gp.problemID}, ${gp.name}, ${groupGoal.id}, ${group.groupID})" style="color:green; height: 30px; float: right; cursor: pointer;">done</i>
 							</c:otherwise>
 						</c:choose>
 					</span> 

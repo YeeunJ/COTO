@@ -312,13 +312,16 @@ function printGoalProblems(goalID, groupID) {
 		});
 	}
 	
-	function checkProblem(id){
+function checkProblem(id, goalID, groupID){
+console.log(goalID);
 	$.ajax({
 		url : "./addProbCheck",
 		type : "POST",
 		async : false,
 		data : {
 			pID : id,
+			goalID : goalID,
+			groupID : groupID
 		},
 		success : function(data) {
 			console.log(data);
@@ -334,14 +337,16 @@ function printGoalProblems(goalID, groupID) {
 		}
 	});
 }
-function uncheckProblem(id, name){
+function uncheckProblem(id, name, goalID, groupID){
 	$.ajax({
 		url : "./deleteProbCheck",
 		type : "POST",
 		async : false,
 		data : {
 			pID : id,
-			problemName: name
+			problemName: name,
+			goalID : goalID,
+			groupID : groupID
 		},
 		success : function(data) {
 			console.log(data);

@@ -49,3 +49,7 @@
 	max-width: 80%;
     overflow-x: scroll;
 }
+
+#readProblems {
+	cursor: none;
+}
