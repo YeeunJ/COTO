@@ -253,6 +253,9 @@ public class MyGroupsController {
 		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
 		List<GroupInfoDTO> groupInfo = groupInfoService.readGroupInfoById(groupID);
 		List<Map<String,Object>> progressByUser = groupGoalService.progressByUser(groupID);
+		List<GroupUserDTO> groupUser = groupUserService.readUsersByGroup(groupID);
+		
+		int countGroupUser = groupUser.size();
 		
 		
 		for(int i=0;i<groupGoal.size();i++) {
@@ -269,6 +272,7 @@ public class MyGroupsController {
 		mv.addObject("groupID", groupID);
 		mv.addObject("groupGoal", groupGoal);
 		mv.addObject("groupInfo", groupInfo);
+		mv.addObject("countGroupUser", countGroupUser);
 		mv.setViewName("/ajaxContent/groupInfoContent");
 		
 		return mv;
