@@ -5,6 +5,8 @@
 
 
 <span class = "readGoalTitle" style="display:none;">${groupGoalDetail.startDate} ~ ${groupGoalDetail.endDate}</span>
+<span class = "userID" style="display:none;">${userID}</span>
+<span class = "groupLeader" style="display:none;">${groupLeader}</span>
 
 <!-- 그룹 디테일 모달  -->
 	<div id="readGoalProblem" class="container" style="display:none;">
@@ -33,3 +35,5 @@
 			</c:forEach>
 		</div>
 	</div>
+
+	

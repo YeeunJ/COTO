@@ -301,7 +301,11 @@ public class MyGroupsController {
 			String str = groupProbDetail.get(i).getLink();
 			if(str.length() < 5 || !(str.substring(0, 5).equals("https"))) groupProbDetail.get(i).setLink(null);
 		}
+		
+		int groupLeader = groupInfoService.readGroupLeaderByGroupID(groupID);
  
+		mv.addObject("userID", userID);
+		mv.addObject("groupLeader", groupLeader);
 		mv.addObject("groupGoalDetail", groupGoal);
 		mv.addObject("groupProbDetail", groupProbDetail);
 		mv.setViewName("/ajaxContent/groupDetailModal");
@@ -327,7 +331,6 @@ public class MyGroupsController {
 	
 	@RequestMapping(value = "/mypage/addProbCheck", method = RequestMethod.POST)
 	public ModelAndView createProbCheck(HttpServletRequest httpServletRequest) {
-		System.out.println("rrr!!!!!!");
 		int userID = -1;
 		int pID = Integer.parseInt(httpServletRequest.getParameter("pID"));
 		UserProblemDTO upd = new UserProblemDTO();
