@@ -277,7 +277,8 @@ function dropGroup(userID, groupID) {
 
 function printGoalProblems(goalID, groupID) {
 		var title;
-		//console.log(goalID);
+		var userID;
+		var groupLeader;
 		
 		$.ajax({
 			url : "./readModalInfo",
@@ -291,18 +292,16 @@ function printGoalProblems(goalID, groupID) {
 				var dataSplit = data.split("\n");
 				for(var i=0;i<dataSplit.length;i++) {
 					dataSplit[i] = dataSplit[i].trim();
-					console.log(dataSplit[i]);
 					
-					if(dataSplit[i].indexOf("readGoalTitle") != -1) {
-						title = $( dataSplit[i] ).text();
-					}
+					if(dataSplit[i].indexOf("readGoalTitle") != -1) title = $( dataSplit[i] ).text();
+					if(dataSplit[i].indexOf("userID") != -1) userID = $( dataSplit[i] ).text();
+					if(dataSplit[i].indexOf("groupLeader") != -1) groupLeader = $( dataSplit[i] ).text();
 				}
-				//console.log(title);
 				
-				//$("#readGoalProblem").html(data);
-				/* if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search, tCnt);
-				else readModel("#readRecommendProblem", title); */
 				$("#modalContent").html(data);
+				//if(userID == groupLeader) rudModel("#readGoalProblem", "#readGoalProblem", title, title, updateAjax, deleteAjax, search, 0);
+				//else readModel("#readGoalProblem", title);
+				
 				readModel("#readGoalProblem", title);
 			},
 			error : function(request, status, error) {
@@ -312,3 +311,50 @@ function printGoalProblems(goalID, groupID) {
 			}
 		});
 	}
+	
+function checkProblem(id, goalID, groupID){
+	$.ajax({
+		url : "./addProbCheck",
+		type : "POST",
+		async : false,
+		data : {
+			pID : id,
+			goalID : goalID,
+			groupID : groupID
+		},
+		success : function(data) {
+			idName = ".sweet-modal-content #eachProblemContent"+id;
+			console.log(idName);
+			$(idName).html(data);
+		},
+		error : function(request, status, error) {
+			alert("허용되지 않은 접근입니다. 새로고침 후 다시 시도해주세요.");
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}
+function uncheckProblem(id, name, goalID, groupID){
+	$.ajax({
+		url : "./deleteProbCheck",
+		type : "POST",
+		async : false,
+		data : {
+			pID : id,
+			problemName: name,
+			goalID : goalID,
+			groupID : groupID
+		},
+		success : function(data) {
+			idName = ".sweet-modal-content #eachProblemContent"+ id;
+			$(idName).html(data);
+		},
+		error : function(request, status, error) {
+			alert("허용되지 않은 접근입니다. 새로고침 후 다시 시도해주세요.");
+			console.log("code:" + request.status + "\n"
+					+ "message:" + request.responseText + "\n"
+					+ "error:" + error);
+		}
+	});
+}
