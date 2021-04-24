@@ -19,7 +19,7 @@
  	<fmt:formatDate value="${group.startDate}" var="startDate" pattern="yyyy-MM-dd"/>
  	<fmt:formatDate value="${group.endDate}" var="endDate" pattern="yyyy-MM-dd"/>
  	
- 	<div class="tableRow center" id="recoms${group.id}">
+ 	<div class="tableRow center" id="recoms${group.id}" onclick="location.href='./eachGroup?groupID=${ group.id }';">
  		<span class = "tableCell td1 pIndex">${status.count}</span>
   		<span class = "tableCell td2 pName"><a href="./eachGroup?groupID=${ group.id }">${group.groupName}</a></span>
   		<span class = "tableCell td1">${startDate}</span>
