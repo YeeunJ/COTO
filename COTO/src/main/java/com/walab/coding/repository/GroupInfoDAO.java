@@ -21,4 +21,6 @@ public interface GroupInfoDAO {
 	public int update(GroupInfoDTO gid);
 
 	int readGroupLeaderByGroupID(int groupID);
+
+	void deleteGroupInfoByGroupId(int groupID);
 }

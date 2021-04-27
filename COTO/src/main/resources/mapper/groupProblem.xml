@@ -17,4 +17,8 @@
 		WHERE goalID = #{id};
 	</select>
 	
+	<delete id="deleteProblemByGoalID" parameterType="int">
+		DELETE FROM groupProblem WHERE goalID = #{id}
+	</delete>
+	
 </mapper>

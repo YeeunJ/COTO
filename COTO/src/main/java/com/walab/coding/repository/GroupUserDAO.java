@@ -9,5 +9,6 @@ public interface GroupUserDAO {
 	public List<GroupUserDTO> readUsersByGroup(int groupID);
 	int attendanceByGroup(int groupID);
 	int totalGroupUser(int groupID);
+	public void deleteUserByGroupId(int groupID);
 
 }

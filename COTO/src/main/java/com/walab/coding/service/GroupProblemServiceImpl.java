@@ -23,4 +23,9 @@ public class GroupProblemServiceImpl implements GroupProblemService {
 	public int readProbCountByGoalIDAndUserID(int id, int userID) {
 		return groupProblemDAO.readProbCountByGoalIDAndUserID(id, userID);
 	}
+	
+	@Override
+	public void deleteProblemByGoalID(int id) {
+		groupProblemDAO.deleteProblemByGoalID(id);
+	}
 }

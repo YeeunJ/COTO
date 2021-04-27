@@ -419,5 +419,43 @@ public class MyGroupsController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/mypage/groups/deleteGroup", method = RequestMethod.POST)
+	public ModelAndView deleteGroup(ModelAndView mv, HttpServletRequest httpServletRequest,
+			@RequestParam(value="groupID") int groupID) {
+		
+		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
+		
+		for(int i=0;i<groupGoal.size();i++) {
+			groupProblemService.deleteProblemByGoalID(groupGoal.get(i).getId());
+		}
+		
+		groupGoalService.deleteGoalByGroupId(groupID);
+		groupUserService.deleteUserByGroupId(groupID);
+		groupInfoService.deleteGroupInfoByGroupId(groupID);
+		
+//		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+//
+//		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+//		List<GroupDTO> myGroups = groupService.readMyGroups(userID);
+//		List<GroupDTO> adminGroups = groupService.readAdminGroups(userID);
+//		
+//		for(int i=0; i<adminGroups.size(); i++) {
+//			adminGroups.get(i).setAttendance(groupUserService.attendanceByGroup(adminGroups.get(i).getId()));
+//			adminGroups.get(i).setTotalGroupUser(groupUserService.totalGroupUser(adminGroups.get(i).getId()));
+//		}
+//		
+//		mv.addObject("adminGroups", adminGroups);
+//		mv.addObject("userID", userID);
+//		mv.addObject("CodingSite", codingSite);
+//		mv.addObject("groups", myGroups);
+		//mv.setView(new RedirectView("/mypage/groups", true));
+		//mv.setViewName("mypage/groups");
+		
+		mv = new ModelAndView("redirect:/mypage/groups");
+		
+		return mv;
+
+	}
+	
 	
 }

@@ -37,7 +37,16 @@
 			<button class="input-field custom-button" onclick="problemCreateModal(${userID})">문제 추가</button>
 		</c:if>
 		
-		<button id="dropBtn" class="input-field custom-button" onclick="dropGroup(${userID}, ${groupID})">탈퇴하기</button>
+		<c:forEach items="${groupInfo}" var="groupInfo" varStatus="status">
+		<c:choose>
+			<c:when test="${groupInfo.userID == userID}">
+				 <button id="deleteBtn" class="input-field custom-button" onclick="deleteGroup(${groupID})">그룹삭제하기</button>
+			</c:when>
+			<c:otherwise>
+				<button id="dropBtn" class="input-field custom-button" onclick="dropGroup(${userID}, ${groupID})">탈퇴하기</button>
+			</c:otherwise>
+		</c:choose>
+		</c:forEach>
 	</div>
 		
 	<div id="groupAjaxContent">
@@ -176,6 +185,25 @@
 			});
 	}
 
+	function deleteGroup(groupID) {
+		console.log("그룹삭제 버튼 클릭!");
+		
+		$.ajax({
+			url: "./groups/deleteGroup",
+			type: "POST",
+			async: false,
+			data: {
+				groupID: groupID
+			},
+			success: function(data){
+				console.log("그룹삭제 완료!");
+				$('#problemsContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+	}
 	
 	
 
