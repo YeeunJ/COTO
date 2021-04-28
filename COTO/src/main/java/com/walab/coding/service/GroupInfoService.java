@@ -22,5 +22,7 @@ public interface GroupInfoService {
 	public int update(GroupInfoDTO gid);
 
 	public int readGroupLeaderByGroupID(int groupID);
+
+	void deleteGroupInfoByGroupId(int groupID);
 	
 }

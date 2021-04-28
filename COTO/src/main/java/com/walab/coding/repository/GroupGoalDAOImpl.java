@@ -90,5 +90,10 @@ public class GroupGoalDAOImpl implements GroupGoalDAO {
 		
 		return sqlSession.selectOne(namespace+".readGoalByGroupIdAndGoalId", param);
 	}
+	
+	@Override
+	public void deleteGoalByGroupId(int groupID) {
+		sqlSession.delete(namespace+".deleteGoalByGroupId", groupID);
+	}
 
 }

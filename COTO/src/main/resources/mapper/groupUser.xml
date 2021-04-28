@@ -31,4 +31,8 @@
 		SELECT count(*) as totalGroupUser FROM YeeunJ.groupUser where groupID = #{groupID}
 	</select>
 	
+	<delete id="deleteUserByGroupId" parameterType="int">
+		DELETE FROM groupUser WHERE groupID = #{groupID}
+	</delete>
+	
 </mapper>

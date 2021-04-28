@@ -66,5 +66,10 @@ public class GroupInfoServiceImpl implements GroupInfoService {
 	public int readGroupLeaderByGroupID(int groupID) {
 		return groupInfoDAO.readGroupLeaderByGroupID(groupID);
 	}
+	
+	@Override
+	public void deleteGroupInfoByGroupId(int groupID) {
+		groupInfoDAO.deleteGroupInfoByGroupId(groupID);
+	}
 
 }

@@ -46,5 +46,9 @@
 		FROM groupGoal
 		WHERE groupID = #{groupID} AND id = #{goalID}
 	</select>
+	
+	<delete id="deleteGoalByGroupId" parameterType="int">
+		DELETE FROM groupGoal WHERE groupID = #{groupID}
+	</delete>
 
 </mapper>

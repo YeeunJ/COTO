@@ -35,5 +35,10 @@ public class GroupUserDAOImpl implements GroupUserDAO {
 		param.put("groupID", groupID);
 		return sqlSession.selectOne(namespace+".totalGroupUser", param);
 	}
+	
+	@Override
+	public void deleteUserByGroupId(int groupID) {
+		sqlSession.delete(namespace+".deleteUserByGroupId", groupID);
+	}
 
 }

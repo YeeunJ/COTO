@@ -30,4 +30,9 @@ public class GroupProblemDAOImpl implements GroupProblemDAO {
 		
 		return sqlSession.selectOne(namespace+".readProbCountByGoalIDAndUserID", param);
 	}
+	
+	@Override
+	public void deleteProblemByGoalID(int id) {
+		sqlSession.delete(namespace+".deleteProblemByGoalID", id);
+	}
 }

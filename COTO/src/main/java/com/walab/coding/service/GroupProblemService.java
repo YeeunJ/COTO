@@ -10,4 +10,6 @@ public interface GroupProblemService {
 
 	int readProbCountByGoalIDAndUserID(int id, int userID);
 
+	void deleteProblemByGoalID(int id);
+
 }

@@ -85,5 +85,13 @@ public class GroupInfoDAOImpl implements GroupInfoDAO {
 
 		return sqlSession.selectOne(namespace+".readGroupLeaderByGroupID", param);
 	}
+	
+	@Override
+	public void deleteGroupInfoByGroupId(int groupID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", groupID);
+		
+		sqlSession.delete(namespace+".deleteGroup", param);
+	}
 
 }

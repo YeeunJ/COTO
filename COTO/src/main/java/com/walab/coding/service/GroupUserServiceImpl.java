@@ -29,5 +29,10 @@ public class GroupUserServiceImpl implements GroupUserService {
 	public int totalGroupUser(int groupID) {
 		return groupUserDAO.totalGroupUser(groupID);	
 	}
+	
+	@Override
+	public void deleteUserByGroupId(int groupID) {
+		groupUserDAO.deleteUserByGroupId(groupID);
+	}
 
 }
