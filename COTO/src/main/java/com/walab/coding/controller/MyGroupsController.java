@@ -43,6 +43,7 @@ import com.walab.coding.service.GroupProblemService;
 import com.walab.coding.service.GroupService;
 import com.walab.coding.service.ProblemService;
 import com.walab.coding.service.UserProblemService;
+import com.walab.coding.service.UserService;
 import com.walab.coding.service.GroupUserService;
 
 
@@ -67,7 +68,9 @@ public class MyGroupsController {
 	GroupProblemService groupProblemService;
 	@Autowired
 	GroupUserService groupUserService;
-	
+	@Autowired
+	UserService userService;
+
 	@Autowired
 	ProblemService problemService;
 	
@@ -86,12 +89,17 @@ public class MyGroupsController {
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<GroupDTO> myGroups = groupService.readMyGroups(userID);
 		List<GroupDTO> adminGroups = groupService.readAdminGroups(userID);
+		List<UserDTO> user = userService.readUser(userID);
+		String userEmail = user.get(0).getEmail();
+		
+		System.out.println(user);
 		
 		for(int i=0; i<adminGroups.size(); i++) {
 			adminGroups.get(i).setAttendance(groupUserService.attendanceByGroup(adminGroups.get(i).getId()));
 			adminGroups.get(i).setTotalGroupUser(groupUserService.totalGroupUser(adminGroups.get(i).getId()));
 		}
 		
+		mv.addObject("userEmail", userEmail);
 		mv.addObject("adminGroups", adminGroups);
 		mv.addObject("userID", userID);
 		mv.addObject("CodingSite", codingSite);
