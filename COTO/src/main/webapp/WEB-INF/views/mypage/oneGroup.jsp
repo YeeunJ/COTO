@@ -8,11 +8,11 @@
 <jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
 <link rel="stylesheet" href="../resources/css/myGroup.css?asd" />
-<script src="../resources/js/myGroup.js"></script>
-<script src="../resources/js/createModal.js"></script>
+<!-- <script src="../resources/js/myGroup.js"></script>-->
+ <script src="../resources/js/createModal.js"></script>
+<script src="../resources/js/oneGroup.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <link href="../resources/css/oneGroup.css" rel="stylesheet">
-<!-- <link href="../resources/css/problems.css" rel="stylesheet">
  -->
 
 <div id="SiteContainer" class="container">
@@ -113,19 +113,7 @@
 
 <script>
 	var groupID = ${groupID};
-	var chartColors=[
-		'rgb(255, 196, 196)',
-		'rgb(255, 221, 196)',
-		'rgb(255, 237, 196)',
-		'rgb(224, 255, 196)',
-		'rgb(196, 240, 255)',
-		'rgb(196, 219, 255)',
-		'rgb(198, 196, 255)',
-		'rgb(231, 196, 255)',
-		'rgb(255, 196, 255)',
-		'rgb(255, 196, 222)',
-		'rgb(255, 196, 200)',
-	];
+	
 	
 	var progressByUser = new Array();
 	<c:forEach items="${progressByUser}" var="p">
@@ -139,7 +127,7 @@
 		progressByUser.push(list);
 	</c:forEach>
 	
-	$(document).ready(function(){
+	/* $(document).ready(function(){
 		DrawProgressChart();
 	});
 	
@@ -204,7 +192,7 @@
 	        }
 		});
 	}
-	
+	 */
 	
 
 </script>

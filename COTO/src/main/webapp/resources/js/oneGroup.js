@@ -1,32 +1,79 @@
-$(document).ready(function() {
-	$('#searchButton').on('click', function() {
-		search();
-	});
-	
-	drawChart1();
-	drawChart2();
+$(document).ready(function(){
+	DrawProgressChart();
 });
 
+var chartColors=[
+	'rgb(255, 196, 196)',
+	'rgb(255, 221, 196)',
+	'rgb(255, 237, 196)',
+	'rgb(224, 255, 196)',
+	'rgb(196, 240, 255)',
+	'rgb(196, 219, 255)',
+	'rgb(198, 196, 255)',
+	'rgb(231, 196, 255)',
+	'rgb(255, 196, 255)',
+	'rgb(255, 196, 222)',
+	'rgb(255, 196, 200)',
+];
 
-function search(page){
-	if($('#recentPage').val() == null) {
-		page=1;
-	}	
+function DrawProgressChart() {
+	
+	var chartLabels = [];
+	var chartDatas = [];
+	var newColor=[];
+	
+	for (var i=0 ; i< progressByUser.length ; i++){
+		chartDatas.push(progressByUser[i].count);
+		chartLabels.push(progressByUser[i].nickName);
+		newColor.push(chartColors[i])
+	}
+	
+	var ctx = document.getElementById('progressChart').getContext('2d'); 
+	var chart = new Chart(ctx, { 
+		type: 'bar',
+		data: { 
+			labels: chartLabels, 
+			datasets: [{
+				backgroundColor: chartColors,
+				data: chartDatas,
+			}] }, 
+			options: {
+				legend: {
+			         display: false //This will do the task
+			    }, 
+				scales: {
+					xAxes: [{ 
+						ticks: { 
+							fontSize: '15' } 
+					}], 
+					yAxes: [{ 
+						ticks: { 
+							beginAtZero: true, 
+							stepSize: 1,
+							fontSize: '15' } 
+					}] 
+				} 
+			} 
+		});
+}
+
+function deleteGroup(groupID) {
+	console.log("그룹삭제 버튼 클릭!");
 	
 	$.ajax({
-		url: "./problems/search",
+		url: "./groups/deleteGroup",
 		type: "POST",
 		async: false,
 		data: {
-			page: page,
-			searchValue:$('#searchValue').val()
+			groupID: groupID
 		},
 		success: function(data){
+			console.log("그룹삭제 완료!");
 			$('#problemsContent').html(data);
 		}, 
 		error:function(request, status, error){
 			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		}
+        }
 	});
 }
 
@@ -35,19 +82,22 @@ function deleteThis(id){
 	$(allid).remove();
 }
 
+
 var count=0;
 function insertProblems(){
+	
 	var siteName = $(".sweet-modal-content #siteName option:selected").text();
 	var siteId = $('.sweet-modal-content #siteName').val();
+	console.log("siteId: "+siteId);
 	var site = $(".sweet-modal-content #siteName option:selected").val();
 	var value = $(".sweet-modal-content #problems").val();
+	console.log(value);
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #confirmSite').html();
-	
 	$(".sweet-modal-content #problems").val("");
 	if(siteId == 1){
 		$.ajax({
-        url : '../crawling/'+siteName,
+		url: '../crawling/'+siteName,
         type: 'POST',
         data: {
         	"problem": valueSplit,
@@ -56,6 +106,7 @@ function insertProblems(){
         },
         success: function(data){
             console.log(data);
+             count += valueSplit.length+1;
             var data2 = $('.sweet-modal-content #confirmSite').html()+data;
         	$('.sweet-modal-content #confirmSite').html(data2);
         },
@@ -65,11 +116,10 @@ function insertProblems(){
     });
 	}else{
 		for(var i in valueSplit){
-			data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><i class="small smaller material-icons" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/>';
+			data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><i class="small smaller material-icons checkIcon" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/></div>';
 			count++;
 		}
 		$('.sweet-modal-content #confirmSite').html(data);
-		$('#confirmSite').html(data);
 	}
 };
 
@@ -91,12 +141,6 @@ function baekjoon(){
 		insertProblems();
 	}
 };
-
-// create Modal
-function groupCreateModal(userID) {
-	if(userID > 0) createModel("#createGroup", "새로운 그룹 생성", addajax, searchF);
-	else alert("로그인을 해야 글쓰기가 가능합니다.");
-}
 
 function problemCreateModal(userID) {
 	if(userID > 0) createModel("#createProblem", "새로운 문제 리스트 생성", addProblem, searchF);
@@ -165,91 +209,8 @@ function addProblem(){
 
 }
 
-
-function addajax(){
-	
-	var groupTitle = $(".sweet-modal-content #groupTitle").val();
-	var groupGoal = $(".sweet-modal-content #groupGoal").val();
-	var startDate = $(".sweet-modal-content #startDate").val();
-	var endDate = $(".sweet-modal-content #endDate").val();
-	var groupDesc = $(".sweet-modal-content #groupDesc").val();
-	var users = [];
-	
-	$('.sweet-modal-content .chip').each(function(){
-		var chipSplit = $(this).text().split("close");
-		console.log(chipSplit[0]);
-		users.push(chipSplit[0]);
-	});
-	console.log(users);
-	
-	$.ajax({
-        url : "./groups/createGroup",
-        type: 'POST',
-        data: {
-        	groupTitle : groupTitle,
-        	groupGoal : groupGoal,
-        	startDate : startDate,
-        	endDate : endDate,
-        	groupDesc : groupDesc,
-        	users : users,
-        },
-        success: function(data) {
-        	$('#adminGroupContent').html(data);
-        },
-        error:function(request,status,error){
-        	alert("error");
-            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        },
-    });
-
-}
-
 function searchF() {
 
-}
-
-function insertProblems(){
-	
-	var siteName = $(".sweet-modal-content #siteName option:selected").text();
-	var siteId = $('.sweet-modal-content #siteName').val();
-	console.log("siteId: "+siteId);
-	var site = $(".sweet-modal-content #siteName option:selected").val();
-	var value = $(".sweet-modal-content #problems").val();
-	console.log(value);
-	var valueSplit = value.split(',');
-	var data = $('.sweet-modal-content #confirmSite').html();
-	$(".sweet-modal-content #problems").val("");
-	if(siteId == 1){
-		$.ajax({
-        url : './crawling/'+siteName,
-        type: 'POST',
-        data: {
-        	"problem": valueSplit,
-        	"siteID": siteId,
-        	"count": count
-        },
-        success: function(data){
-            console.log(data);
-             count += valueSplit.length+1;
-            var data2 = $('.sweet-modal-content #confirmSite').html()+data;
-        	$('.sweet-modal-content #confirmSite').html(data2);
-        },
-        error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        },
-    });
-	}else{
-		for(var i in valueSplit){
-			data += '<div id = "confirmProblemValue'+count+'" onClick="deleteThis(\'confirmProblemValue'+count+'\')"><i class="small smaller material-icons checkIcon" style="color:green;">done</i><input disabled name="'+siteId+'" value="'+valueSplit[i].trim()+' ('+siteName+')" id="last_name disabled" type="text" class="problem validate" style="width:90%;padding-left: 10px;"/></div>';
-			count++;
-		}
-		$('.sweet-modal-content #confirmSite').html(data);
-	}
-};
-
-function deleteThis(id){
-	var allid = "#"+id;
-	$(allid).remove();
 }
 
 
@@ -358,3 +319,8 @@ function uncheckProblem(id, name, goalID, groupID){
 }
 
 
+
+
+
+	
+	
