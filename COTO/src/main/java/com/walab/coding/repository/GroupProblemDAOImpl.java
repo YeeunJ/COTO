@@ -23,10 +23,11 @@ public class GroupProblemDAOImpl implements GroupProblemDAO {
 	}
 	
 	@Override
-	public int readProbCountByGoalIDAndUserID(int id, int userID) {
+	public int readProbCountByGoalIDAndUserID(int id, int userID, String endDate) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", id);
 		param.put("userID", userID);
+		param.put("endDate", endDate);
 		
 		return sqlSession.selectOne(namespace+".readProbCountByGoalIDAndUserID", param);
 	}

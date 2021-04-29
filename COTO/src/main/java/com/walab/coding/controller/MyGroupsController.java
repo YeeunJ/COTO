@@ -213,14 +213,15 @@ public class MyGroupsController {
 		List<GroupInfoDTO> groupInfo = groupInfoService.readGroupInfoById(groupID);
 		List<Map<String,Object>> progressByUser = groupGoalService.progressByUser(groupID);
 		List<GroupUserDTO> groupUser = groupUserService.readUsersByGroup(groupID);
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		int countGroupUser = groupUser.size();
 		
 		for(int i=0;i<groupGoal.size();i++) {
 			List<GroupProblemDTO> groupProb = groupProblemService.readProblemsByGoalId(groupGoal.get(i).getId());
 			groupGoal.get(i).setProbCount(groupProb.size());
-			int cnt = groupProblemService.readProbCountByGoalIDAndUserID(groupGoal.get(i).getId(), userID);
-			groupGoal.get(i).setProgress(cnt/groupGoal.get(i).getProbCount()*100);
+			int cnt = groupProblemService.readProbCountByGoalIDAndUserID(groupGoal.get(i).getId(), userID, transFormat.format(groupGoal.get(i).getEndDate()));
+			groupGoal.get(i).setProgress(cnt*100 / groupGoal.get(i).getProbCount());
 		}
 		
 		System.out.println(groupInfo);
@@ -266,6 +267,7 @@ public class MyGroupsController {
 		List<GroupInfoDTO> groupInfo = groupInfoService.readGroupInfoById(groupID);
 		List<Map<String,Object>> progressByUser = groupGoalService.progressByUser(groupID);
 		List<GroupUserDTO> groupUser = groupUserService.readUsersByGroup(groupID);
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		int countGroupUser = groupUser.size();
 		
@@ -273,8 +275,8 @@ public class MyGroupsController {
 		for(int i=0;i<groupGoal.size();i++) {
 			List<GroupProblemDTO> groupProb = groupProblemService.readProblemsByGoalId(groupGoal.get(i).getId());
 			groupGoal.get(i).setProbCount(groupProb.size());
-			int cnt = groupProblemService.readProbCountByGoalIDAndUserID(groupGoal.get(i).getId(), userID);
-			groupGoal.get(i).setProgress(cnt/groupGoal.get(i).getProbCount()*100);
+			int cnt = groupProblemService.readProbCountByGoalIDAndUserID(groupGoal.get(i).getId(), userID, transFormat.format(groupGoal.get(i).getEndDate()));
+			groupGoal.get(i).setProgress(cnt*100 / groupGoal.get(i).getProbCount());
 		}
 		
 		System.out.println(groupInfo);

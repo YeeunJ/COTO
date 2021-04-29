@@ -9,11 +9,13 @@
 	</select>
 	
 	<select id="readProbCountByGoalIDAndUserID" parameterType="hashmap" resultType="int">
-		SELECT IFNULL(COUNT(*), 0)
+		SELECT IFNULL(COUNT(up.regdate), 0)
 		FROM YeeunJ.groupProblem as gp LEFT JOIN (
-			SELECT problemID, userID
+			SELECT problemID, userID, regdate
 			FROM YeeunJ.userProblem
-		    WHERE userID = #{userID}) as up ON gp.problemID = up.problemID
+			<![CDATA[
+		    WHERE userID = #{userID} AND regdate < #{endDate}) as up ON gp.problemID = up.problemID
+		    ]]>
 		WHERE goalID = #{id};
 	</select>
 	

@@ -13,7 +13,6 @@
 <script src="../resources/js/oneGroup.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <link href="../resources/css/oneGroup.css" rel="stylesheet">
- -->
 
 <div id="SiteContainer" class="container">
 

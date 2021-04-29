@@ -20,8 +20,8 @@ public class GroupProblemServiceImpl implements GroupProblemService {
 	}
 	
 	@Override
-	public int readProbCountByGoalIDAndUserID(int id, int userID) {
-		return groupProblemDAO.readProbCountByGoalIDAndUserID(id, userID);
+	public int readProbCountByGoalIDAndUserID(int id, int userID, String endDate) {
+		return groupProblemDAO.readProbCountByGoalIDAndUserID(id, userID, endDate);
 	}
 	
 	@Override
