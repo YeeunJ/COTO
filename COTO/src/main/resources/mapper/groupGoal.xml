@@ -4,32 +4,51 @@
 <mapper namespace="groupGoal">
 
 	<insert id="createGroupGoal" parameterType="hashmap">
-		INSERT INTO groupGoal (startDate, endDate, groupID) 
+		INSERT INTO groupGoal
+		(startDate, endDate, groupID)
 		VALUES (#{startDate}, #{endDate}, #{groupID})
 	</insert>
-	
+
 	<insert id="createGroupProblem" parameterType="hashmap">
-		INSERT INTO groupProblem (goalID, problemID) 
+		INSERT INTO
+		groupProblem (goalID, problemID)
 		VALUES (#{goalID}, #{problemID})
 	</insert>
-	
+
 	<select id="readGroupGoalID" resultType="int">
-		SELECT MAX(id) FROM groupGoal
+		SELECT MAX(id) FROM
+		groupGoal
 	</select>
-	
-	<select id="readGoalListByGroupId" parameterType="int" resultType="com.walab.coding.model.GroupGoalDTO">
-		SELECT * 
+
+	<select id="readGoalListByGroupId" parameterType="int"
+		resultType="com.walab.coding.model.GroupGoalDTO">
+		SELECT *
 		FROM groupGoal
-		WHERE groupID = #{goalID}
+		WHERE groupID = #{groupID}
+	</select>
+
+	<select id="progressByUser" parameterType="hashmap"
+		resultType="com.walab.coding.model.GroupUserDTO">
+		SELECT GP.userID, GP.count, U.name, U.email, U.nickName
+		FROM (SELECT UP.userID, COUNT(*) AS count FROM userProblem AS UP,
+		groupUser AS GU
+		WHERE GU.groupID = #{groupID} AND GU.userID = UP.userID
+		AND UP.problemID IN (SELECT GP.problemID FROM groupProblem AS GP,
+		groupGoal AS GG
+		WHERE GG.groupID = #{groupID} AND GP.goalID = GG.id)
+		GROUP BY userID) AS GP, user AS U
+		WHERE GP.userID = U.id
+	</select>
+
+	<select id="readGoalByGroupIdAndGoalId" parameterType="hashmap"
+		resultType="com.walab.coding.model.GroupGoalDTO">
+		SELECT *
+		FROM groupGoal
+		WHERE groupID = #{groupID} AND id = #{goalID}
 	</select>
 	
-	<select id="progressByUser" parameterType="hashmap" resultType="com.walab.coding.model.GroupUserDTO">
-		SELECT GP.userID, GP.count, U.name, U.email, U.nickName FROM (SELECT UP.userID, COUNT(*) AS count FROM userProblem AS UP, groupUser AS GU
-			WHERE GU.groupID = #{groupID} AND GU.userID = UP.userID
-				AND UP.problemID IN (SELECT GP.problemID FROM groupProblem AS GP, groupGoal AS GG
-			WHERE GG.groupID =  #{groupID} AND GP.goalID = GG.id)
-			GROUP BY userID) AS GP, user AS U
-				WHERE GP.userID = U.id
-	</select>
-	
+	<delete id="deleteGoalByGroupId" parameterType="int">
+		DELETE FROM groupGoal WHERE groupID = #{groupID}
+	</delete>
+
 </mapper>

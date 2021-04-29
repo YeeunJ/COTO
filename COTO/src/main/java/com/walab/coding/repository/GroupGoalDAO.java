@@ -19,4 +19,8 @@ public interface GroupGoalDAO {
 
 	List<GroupUserDTO> progressByUser(int groupID);
 
+	GroupGoalDTO readGoalByGroupIdAndGoalId(int groupID, int goalID);
+
+	void deleteGoalByGroupId(int groupID);
+
 }

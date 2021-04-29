@@ -8,35 +8,62 @@
 <div id="groupListContent">
 	
  	<c:forEach items="${groupInfo}" var="grouplist" varStatus="status">
-
-
 	<!-- Content Row -->
 	<div class="card-wrap">
 		<div class="card-content1">
 			<div class="card shadow card-body">
-				<div class="font-color card-title">${grouplist.groupName} 정보</div>
+				<div class="font-color card-title">${grouplist.groupName} 그룹 정보</div>
+				<div id="editBtn" onclick="editInfo()">수정</div>
+				<div id="editBtn" class="complete" onclick="complete(${groupID})" style="display: none;">완료</div>
+				<div id="editBtn" class="cancel" onclick="cancel()" style="display: none;">취소</div>
 				
-<%-- 				<div id="table">
-					<c:forEach items="${readOtherUserPage}" var="r" varStatus="status">
+				<div id="groupInfo">
+				<div id="table">
 						<div class="tableRow">
-							<span class="tableCell td2">현재 목표</span> <span class="tableCell td4">${grouplist.goal}</span>
+							<span class="tableCell td2">소개</span> 
+							<span class="tableCell td4">${grouplist.groupDesc}</span>
 						</div>
 						<div class="tableRow">
-							<span class="tableCell td2">현재 푼 문제수</span> <span
-								class="tableCell td4">문제</span>
+							<span class="tableCell td2">유지기간</span> 
+							<span class="tableCell td4">
+								${grouplist.startDate} ~ ${grouplist.endDate}
+							</span>
 						</div>
-					</c:forEach>
 						<div class="tableRow">
-							<span class="tableCell td2" style="font-size: 13px;">전체 푼 문제수</span> 
-								<span class="tableCell td4">문제</span>
+							<span class="tableCell td2">인원</span> 
+								<span class="tableCell td4">${countGroupUser}명</span>
 						</div>
-				</div> --%>
+				</div>
+				</div>
+				
+				<div id="editInfo" style="display: none;">
+				<div id="table">
+						<div class="tableRow">
+							<span class="tableCell td2">그룹 소개</span> 
+							<span class="tableCell td4">
+								<input type="text" id="desc" name="desc" value="${grouplist.groupDesc}">
+							</span>
+						</div>
+						<div class="tableRow">
+							<span class="tableCell td2">그룹 시작일</span> 
+							<span class="tableCell td4">
+								<input type="date" id="startDate" name="startDate" value="${grouplist.startDate}">
+							</span>
+						</div>
+						<div class="tableRow">
+							<span class="tableCell td2">그룹 종료일</span> 
+							<span class="tableCell td4">
+								<input type="date" id="endDate" name="endDate" value="${grouplist.endDate}">
+							</span>
+						</div>
+				</div>
+				</div>
 			</div>
 		</div>
 
 		<div class="card-content2">
 			<div class="card shadow card-body">
-				<div class="font-color card-title">${grouplist.groupName} 진행도</div>
+				<div class="font-color card-title">${grouplist.groupName} 그룹 진행도</div>
 				<div class="chart-container"> 
 					<canvas id="progressChart"></canvas> 
 				</div>
@@ -47,6 +74,127 @@
 	
 	</c:forEach>	
 </div>
+
+<script>
+function editInfo(){
+	$('#editBtn').hide();
+	$('.complete').show();
+	$('.cancel').show();
+	
+	$('#groupInfo').hide();
+	$('#editInfo').show();
+}
+
+function complete(groupID){
+	$.ajax({
+		url: "./update",
+		type: "POST",
+		async: false,
+		data: {
+			id: groupID,
+			desc: $('#desc').val(),
+			startDate: $('#startDate').val(),
+			endDate: $('#endDate').val()
+		},
+		success: function(data){
+			$('#groupListContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
+	
+	$('#editBtn').show();
+	$('.complete').hide();
+	$('.cancel').hide();
+	
+	$('#groupInfo').show();
+	$('#editInfo').hide();
+}
+
+function cancel(){
+	$('#editBtn').show();
+	$('.complete').hide();
+	$('.cancel').hide();
+	
+	$('#groupInfo').show();
+	$('#editInfo').hide();
+}
+
+	//차트 
+	var groupID = ${groupID};
+	var chartColors=[
+		'rgb(255, 196, 196)',
+		'rgb(255, 221, 196)',
+		'rgb(255, 237, 196)',
+		'rgb(224, 255, 196)',
+		'rgb(196, 240, 255)',
+		'rgb(196, 219, 255)',
+		'rgb(198, 196, 255)',
+		'rgb(231, 196, 255)',
+		'rgb(255, 196, 255)',
+		'rgb(255, 196, 222)',
+		'rgb(255, 196, 200)',
+	];
+	
+	var progressByUser = new Array();
+	<c:forEach items="${progressByUser}" var="p">
+		var list = new Object();
+		list.userID = ${p.userID};
+		list.count = ${p.count};
+		list.name = '${p.name}';
+		list.email = '${p.email}';
+		list.nickName = '${p.nickName}';
+		//list.userName = ${p.userName};
+		progressByUser.push(list);
+	</c:forEach>
+	
+	$(document).ready(function(){
+		DrawProgressChart();
+	});
+	
+	
+	function DrawProgressChart() {
+		
+		var chartLabels = [];
+		var chartDatas = [];
+		var newColor=[];
+		
+		for (var i=0 ; i< progressByUser.length ; i++){
+			chartDatas.push(progressByUser[i].count);
+			chartLabels.push(progressByUser[i].nickName);
+			newColor.push(chartColors[i])
+		}
+		
+		var ctx = document.getElementById('progressChart').getContext('2d'); 
+		var chart = new Chart(ctx, { 
+			type: 'bar',
+			data: { 
+				labels: chartLabels, 
+				datasets: [{
+					backgroundColor: chartColors,
+					data: chartDatas,
+				}] }, 
+				options: {
+					legend: {
+				         display: false //This will do the task
+				    }, 
+					scales: {
+						xAxes: [{ 
+							ticks: { 
+								fontSize: '15' } 
+						}], 
+						yAxes: [{ 
+							ticks: { 
+								beginAtZero: true, 
+								stepSize: 1,
+								fontSize: '15' } 
+						}] 
+					} 
+				} 
+			});
+	}
+</script>
 
 
 

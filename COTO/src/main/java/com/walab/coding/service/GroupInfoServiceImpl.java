@@ -56,5 +56,20 @@ public class GroupInfoServiceImpl implements GroupInfoService {
 		
 		return groups;
 	}
+	
+	@Override
+	public int update(GroupInfoDTO gid) {
+		return groupInfoDAO.update(gid);
+	}
+	
+	@Override
+	public int readGroupLeaderByGroupID(int groupID) {
+		return groupInfoDAO.readGroupLeaderByGroupID(groupID);
+	}
+	
+	@Override
+	public void deleteGroupInfoByGroupId(int groupID) {
+		groupInfoDAO.deleteGroupInfoByGroupId(groupID);
+	}
 
 }

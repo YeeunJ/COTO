@@ -61,6 +61,22 @@
 	color: #e69138ff;
 }
 
+#editBtn{
+	display: inline-block;
+	font-size:13px;
+	text-decoration: underline;
+	float: right;
+	padding: 4% 2% 4% 2%;
+	color: #7a7a7a;
+	cursor: pointer;
+}
+.card-title{
+	display: inline-block;
+}
+#editInfo .td4{
+	padding-bottom:0 !important;
+}
+
 .card-wrap {
 	width: 100%;
 	display: inline-flex;
@@ -72,9 +88,9 @@
 	width: 200px;
 } 
 
-.card-content1, .card-content2 {
+/* .card-content1, .card-content2 {
 	margin-right: 15px;
-}
+} */
 
 .card-body {
 	border-radius: 10%;

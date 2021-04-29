@@ -39,16 +39,15 @@ $(document).on("click", ".deleteBtn", function(){
 		</div>
 
 		<c:forEach items="${goalList}" var="goals" varStatus="status">
-			<div class="tableRow" id="goals${goals.id}"
-				onclick="printAllContent('#goals${goals.id}', ${goals.id})">
+			<div class="tableRow" id="goals${goals.id}">
 				<div class="readGoal" hidden>${goals.goal}</div>
 				<div class="readGoalNum" hidden>${goals.goalNum}개</div>
 				<span class="tableCell td1">${status.count}</span> 
-				<span class="tableCell td3 readTitle"> 
+				<span class="tableCell td3 readTitle" onclick="printAllContent('#goals${goals.id}', ${goals.id})"> 
 					<fmt:formatDate pattern="yyyy-MM-dd" value="${goals.startDate}" /> 
 					~ <fmt:formatDate pattern="yyyy-MM-dd" value="${goals.endDate}" />
 				</span>
-				<span class="tableCell td3">
+				<span class="tableCell td3" onclick="printAllContent('#goals${goals.id}', ${goals.id})">
 					<div class="prog">
 						<fmt:formatNumber value="${goals.rate}" pattern=".0" var="userRate"/>
 						<c:if test="${userRate <= 100.0 }">
@@ -68,10 +67,10 @@ $(document).on("click", ".deleteBtn", function(){
 					var="endDate" />
 				<c:choose>
 					<c:when test="${endDate > nowDate}">
-						<span class="tableCell td2 readStatus" style="color: #e69138ff;">진행중</span>
+						<span class="tableCell td2 readStatus" style="color: #e69138ff;" onclick="printAllContent('#goals${goals.id}', ${goals.id})">진행중</span>
 					</c:when>
 					<c:otherwise>
-						<span class="tableCell td1 readStatus">종료</span>
+						<span class="tableCell td1 readStatus" style="color: #7a7a7a;" onclick="printAllContent('#goals${goals.id}', ${goals.id})">종료</span>
 					</c:otherwise>
 				</c:choose>
 				<span class="tableCell td1"><button value="${goals.id}" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>

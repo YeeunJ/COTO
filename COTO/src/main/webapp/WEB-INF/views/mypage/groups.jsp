@@ -56,6 +56,10 @@
 
 		<p class="title">사용자 등록</p>
 		<div id="groupUsers" class="chips chips-placeholder input-field">
+			<div class="chip" id="tabindex">
+				${ userEmail }
+				<!-- <i class="material-icons close" onclick="deletechip(tabindex)">close</i> -->
+			</div>
 		</div>
 				
 		<p class="title">그룹 목표</p>

@@ -5,12 +5,14 @@ import java.util.Date;
 public class ProblemDTO {
 	int id;
 	int siteID;
-	int count;
-	String siteName;
-	String siteUrl;
 	String name;
 	String link;
 	Date regdate;
+	
+	private Date userDate;
+	int count;
+	String siteName;
+	String siteUrl;
 	
 	public int getId() {
 		return id;
@@ -59,6 +61,13 @@ public class ProblemDTO {
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
+	}
+	
+	public Date getUserDate() {
+		return userDate;
+	}
+	public void setUserDate(Date userDate) {
+		this.userDate = userDate;
 	}
 	
 	@Override

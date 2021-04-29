@@ -1,19 +1,18 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ page import = "com.walab.coding.model.UserDTO" %>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
 <link rel="stylesheet" href="../resources/css/myGroup.css?asd" />
-<script src="../resources/js/myGroup.js"></script>
-<script src="../resources/js/createModal.js"></script>
+<!-- <script src="../resources/js/myGroup.js"></script>-->
+ <script src="../resources/js/createModal.js"></script>
+<script src="../resources/js/oneGroup.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <link href="../resources/css/oneGroup.css" rel="stylesheet">
-<!-- <link href="../resources/css/problems.css" rel="stylesheet">
- -->
 
 <div id="SiteContainer" class="container">
 
@@ -37,7 +36,16 @@
 			<button class="input-field custom-button" onclick="problemCreateModal(${userID})">문제 추가</button>
 		</c:if>
 		
-		<button id="dropBtn" class="input-field custom-button" onclick="dropGroup(${userID}, ${groupID})">탈퇴하기</button>
+		<c:forEach items="${groupInfo}" var="groupInfo" varStatus="status">
+		<c:choose>
+			<c:when test="${groupInfo.userID == userID}">
+				 <button id="deleteBtn" class="input-field custom-button" onclick="deleteGroup(${groupID})">그룹삭제하기</button>
+			</c:when>
+			<c:otherwise>
+				<button id="dropBtn" class="input-field custom-button" onclick="dropGroup(${userID}, ${groupID})">탈퇴하기</button>
+			</c:otherwise>
+		</c:choose>
+		</c:forEach>
 	</div>
 		
 	<div id="groupAjaxContent">
@@ -74,7 +82,7 @@
 				<button type="button" id="add" class="modal_button lighten-1" onClick="insertProblems()">추가</button>
 			</div>
 			
-			<div class="input-field col s10">
+			<div class="input-field col s10 input-field-custom">
 				<label for="last_name">입력한 Problems</label> <br> <br>
 				<div class="recom-confirmSite" id="confirmSite"></div>
 			</div>
@@ -82,45 +90,29 @@
 		</form>
 	</div>
 	
-	<!-- 문제 추가 모달  -->
-	<div id="readGoalProblem" class="container" style="display:none;">
-		<div>
-			<p class="title desc">문제 리스트</p>
-			<div id="readProblems" class="readBox">
-				<c:forEach items="${groupProbDetail}" var="gp" varStatus="status">
-					<div class="recomProblemID${status.index}" style="display:none;">${gp.id}</div>
-					<div class="sitetitle">${gp.problemID}</div>
-					<%-- <div id="eachProblemContent${rp.problemID}">
+
+	
+	<div id="modalContent">
+		<%@ include file="../ajaxContent/groupDetailModal.jsp"%>
+	</div>
+	
+	<%-- <div id="eachProblemContent${rp.problemID}">
 						<c:if test="${!empty rp.name}">
 							<c:if test="${!empty rp.siteName}">
 								<div class="recomProblemID${status.index}" style="display:none;">${rp.id}</div>
 							</c:if>
 						</c:if>
 					</div> --%>
-				</c:forEach>
-			</div>
-		</div>
-	</div>
 	
 </div>
+<br><br>
+<%@ include file="../inc/footer.jsp"%>
 
 
 
 <script>
 	var groupID = ${groupID};
-	var chartColors=[
-		'rgb(255, 196, 196)',
-		'rgb(255, 221, 196)',
-		'rgb(255, 237, 196)',
-		'rgb(224, 255, 196)',
-		'rgb(196, 240, 255)',
-		'rgb(196, 219, 255)',
-		'rgb(198, 196, 255)',
-		'rgb(231, 196, 255)',
-		'rgb(255, 196, 255)',
-		'rgb(255, 196, 222)',
-		'rgb(255, 196, 200)',
-	];
+	
 	
 	var progressByUser = new Array();
 	<c:forEach items="${progressByUser}" var="p">
@@ -134,7 +126,7 @@
 		progressByUser.push(list);
 	</c:forEach>
 	
-	$(document).ready(function(){
+	/* $(document).ready(function(){
 		DrawProgressChart();
 	});
 	
@@ -180,7 +172,26 @@
 			});
 	}
 
-	
+	function deleteGroup(groupID) {
+		console.log("그룹삭제 버튼 클릭!");
+		
+		$.ajax({
+			url: "./groups/deleteGroup",
+			type: "POST",
+			async: false,
+			data: {
+				groupID: groupID
+			},
+			success: function(data){
+				console.log("그룹삭제 완료!");
+				$('#problemsContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+	}
+	 */
 	
 
 </script>
