@@ -60,16 +60,34 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="card-content2">
-			<div class="card shadow card-body">
-				<div class="font-color card-title">${grouplist.groupName} 그룹 진행도</div>
-				<div class="chart-container"> 
-					<canvas id="progressChart"></canvas> 
+<%--  		<fmt:formatDate value="${grouplist.endDate}" pattern="yyyy-MM-dd" var="endDate"></fmt:formatDate>	  
+ 		<c:set var="now" value="<%=new java.util.Date()%>"/>
+ 		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate"></fmt:formatDate>	 --%>  
+<%--  		end: ${endDate}
+ 		now: ${nowDate} --%>
+<%--  		<c:choose>
+			<c:when test="${endDate < nowDate}">	
+				<div class="card-content2">
+					<div class="card shadow card-body">
+						<div class="font-color card-title">${grouplist.groupName} ${endDate} ${nowDate}</div>
+						<div class="font-color card-title">종료된 그룹입니다.</div>
+					</div>
 				</div>
+			</c:when>
+			<c:otherwise>  --%>
+				<div class="card-content2">
+					<div class="card shadow card-body">
+						<div class="font-color card-title">${grouplist.groupName} ${endDate} ${nowDate}</div>
+						<div class="chart-container"> 
+							<canvas id="progressChart"></canvas> 
+						</div>
+		
+					</div>
+				</div>
+<%--  			</c:otherwise>
+		</c:choose> 
+ --%>
 
-			</div>
-		</div>
 	</div>
 	
 	</c:forEach>	
