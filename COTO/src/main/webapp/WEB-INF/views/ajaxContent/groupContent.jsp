@@ -8,16 +8,18 @@
 <div class="table">
 	<div class="tableRow">
 		<span class="tableCell th1">No.</span> 
-		<span class="tableCell th5">기간</span>
+		<span class="tableCell th4">기간</span>
 		<span class="tableCell th1">문제 수</span> 
 		<span class="tableCell th2">진행률</span>
 		<span class="tableCell th1">상태</span>
+		<span class="tableCell th2">삭제</span>
 	</div>
+	
 	
  	<c:forEach items="${groupGoal}" var="group" varStatus="status">
  	<div class="tableRow center" id="recoms${group.id}" onclick="printGoalProblems(${group.id}, ${group.groupID})">
  		<span class = "tableCell td1">${status.count}</span>
-  		<span class = "tableCell td5">${group.startDate} ~ ${group.endDate}</span>
+  		<span class = "tableCell td4">${group.startDate} ~ ${group.endDate}</span>
   		<span class = "tableCell td1">${group.probCount}</span>
  		<span class = "tableCell td2">${group.progress}%</span>
  		<fmt:formatDate value="${group.endDate}" var="endDate" />
@@ -29,6 +31,7 @@
 					<span class="tableCell td1" style="color: #7a7a7a;">종료</span>
 				</c:otherwise>
 			</c:choose>
+ 		<button class = "whitebtn">삭제</button>			
  	</div>
 	</c:forEach>
 </div>

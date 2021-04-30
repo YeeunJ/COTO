@@ -16,7 +16,8 @@
 				<div id="editBtn" onclick="editInfo()">수정</div>
 				<div id="editBtn" class="complete" onclick="complete(${groupID})" style="display: none;">완료</div>
 				<div id="editBtn" class="cancel" onclick="cancel()" style="display: none;">취소</div>
-				
+ 				<fmt:formatDate value="${grouplist.endDate}" pattern="yyyy-MM-dd" var="endDate"></fmt:formatDate>	  
+ 				<fmt:formatDate value="${grouplist.startDate}" pattern="yyyy-MM-dd" var="startDate"></fmt:formatDate>				
 				<div id="groupInfo">
 				<div id="table">
 						<div class="tableRow">
@@ -26,7 +27,7 @@
 						<div class="tableRow">
 							<span class="tableCell td2">유지기간</span> 
 							<span class="tableCell td4">
-								${grouplist.startDate} ~ ${grouplist.endDate}
+								${startDate} ~ ${endDate}
 							</span>
 						</div>
 						<div class="tableRow">
@@ -35,6 +36,7 @@
 						</div>
 				</div>
 				</div>
+	  
 				
 				<div id="editInfo" style="display: none;">
 				<div id="table">
@@ -60,33 +62,29 @@
 				</div>
 			</div>
 		</div>
-<%--  		<fmt:formatDate value="${grouplist.endDate}" pattern="yyyy-MM-dd" var="endDate"></fmt:formatDate>	  
  		<c:set var="now" value="<%=new java.util.Date()%>"/>
- 		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate"></fmt:formatDate>	 --%>  
-<%--  		end: ${endDate}
- 		now: ${nowDate} --%>
-<%--  		<c:choose>
+ 		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate"></fmt:formatDate>	 
+ 		<c:choose>
 			<c:when test="${endDate < nowDate}">	
 				<div class="card-content2">
 					<div class="card shadow card-body">
-						<div class="font-color card-title">${grouplist.groupName} ${endDate} ${nowDate}</div>
-						<div class="font-color card-title">종료된 그룹입니다.</div>
+						<div class="font-color card-title">유지기간이 만료되어 종료된 그룹입니다.</div>
 					</div>
 				</div>
 			</c:when>
-			<c:otherwise>  --%>
+			<c:otherwise>  
 				<div class="card-content2">
 					<div class="card shadow card-body">
-						<div class="font-color card-title">${grouplist.groupName} ${endDate} ${nowDate}</div>
+						<div class="font-color card-title">${grouplist.groupName}</div>
 						<div class="chart-container"> 
 							<canvas id="progressChart"></canvas> 
 						</div>
 		
 					</div>
 				</div>
-<%--  			</c:otherwise>
+  			</c:otherwise>
 		</c:choose> 
- --%>
+ 
 
 	</div>
 	

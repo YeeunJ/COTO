@@ -9,8 +9,8 @@ public class GroupInfoDTO {
 	String groupName;
 	String goal;
 	String groupDesc;
-	String startDate;
-	String endDate;
+	Date startDate;
+	Date endDate;
 	Date regdate;
 	
 	public int getId() {
@@ -43,16 +43,16 @@ public class GroupInfoDTO {
 	public void setGroupDesc(String groupDesc) {
 		this.groupDesc = groupDesc;
 	}
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 	public Date getRegdate() {

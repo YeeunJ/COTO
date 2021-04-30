@@ -151,11 +151,16 @@ public class MyGroupsController {
 		
 		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
 		GroupInfoDTO info = new GroupInfoDTO();
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date startDateFormat  = transFormat.parse(startDate);
+		Date endDateFormat  = transFormat.parse(endDate);
+		
 		info.setGroupName(groupTitle);
 		info.setGoal(groupGoal);
 		info.setGroupDesc(groupDesc);
-		info.setStartDate(startDate);
-		info.setEndDate(endDate);
+		info.setStartDate(startDateFormat);
+		info.setEndDate(endDateFormat);
 		info.setUserID(userID);
 
 		info.toString();
@@ -241,15 +246,19 @@ public class MyGroupsController {
 	
 	@RequestMapping(value = "/mypage/update", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView eachGroupEdit(HttpServletRequest httpServletRequest, ModelAndView mv) {
+	public ModelAndView eachGroupEdit(HttpServletRequest httpServletRequest, ModelAndView mv) throws ParseException {
 		
 		int groupID = Integer.parseInt(httpServletRequest.getParameter("id"));
 		
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date startDateFormat  = transFormat.parse(httpServletRequest.getParameter("startDate"));
+		Date endDateFormat  = transFormat.parse(httpServletRequest.getParameter("endDate"));
 		//editInfo
 		GroupInfoDTO gid = new GroupInfoDTO();
 		gid.setGroupDesc(httpServletRequest.getParameter("desc"));
-		gid.setStartDate(httpServletRequest.getParameter("startDate"));
-		gid.setEndDate(httpServletRequest.getParameter("endDate"));
+		gid.setStartDate(startDateFormat);
+		gid.setEndDate(endDateFormat);
 		gid.setId(groupID);		
 		
 		if (groupInfoService.update(gid) > 0) {
@@ -267,7 +276,6 @@ public class MyGroupsController {
 		List<GroupInfoDTO> groupInfo = groupInfoService.readGroupInfoById(groupID);
 		List<Map<String,Object>> progressByUser = groupGoalService.progressByUser(groupID);
 		List<GroupUserDTO> groupUser = groupUserService.readUsersByGroup(groupID);
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		int countGroupUser = groupUser.size();
 		
