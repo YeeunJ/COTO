@@ -49,13 +49,13 @@
 						<div class="tableRow">
 							<span class="tableCell td2">그룹 시작일</span> 
 							<span class="tableCell td4">
-								<input type="date" id="startDate" name="startDate" value="${grouplist.startDate}">
+								<input type="date" id="startDate" name="startDate" value="${startDate}">
 							</span>
 						</div>
 						<div class="tableRow">
 							<span class="tableCell td2">그룹 종료일</span> 
 							<span class="tableCell td4">
-								<input type="date" id="endDate" name="endDate" value="${grouplist.endDate}">
+								<input type="date" id="endDate" name="endDate" value="${endDate}">
 							</span>
 						</div>
 				</div>

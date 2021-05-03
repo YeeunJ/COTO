@@ -92,8 +92,6 @@ public class MyGroupsController {
 		List<UserDTO> user = userService.readUser(userID);
 		String userEmail = user.get(0).getEmail();
 		
-		System.out.println(user);
-		
 		for(int i=0; i<adminGroups.size(); i++) {
 			adminGroups.get(i).setAttendance(groupUserService.attendanceByGroup(adminGroups.get(i).getId()));
 			adminGroups.get(i).setTotalGroupUser(groupUserService.totalGroupUser(adminGroups.get(i).getId()));

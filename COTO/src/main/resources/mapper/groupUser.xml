@@ -16,6 +16,7 @@
 	
 	<select id="attendanceByGroup" parameterType="hashmap"
 		resultType="int">
+		<!-- 그룹에 등록된 문제를 유저가 풀 때, 그 문제의 등록일이 오늘일 경우 출석한 것으로 처리하는 쿼리 -->
 		SELECT count(*) as attendance
 		FROM (SELECT UP.userID, COUNT(*) AS count, UP.problemID, GU.groupID as gID
 		FROM YeeunJ.userProblem AS UP, YeeunJ.groupUser AS GU
