@@ -12,8 +12,10 @@
 	<div class="card-wrap">
 		<div class="card-content1">
 			<div class="card shadow card-body">
-				<div class="font-color card-title">${grouplist.groupName} 그룹 정보</div>
-				<div id="editBtn" onclick="editInfo()">수정</div>
+				<div class="font-color card-title">${grouplist.groupName} 정보</div>
+				<c:if test = "${adminID == userID}">
+					<div id="editBtn" onclick="editInfo()">수정</div>
+				</c:if>
 				<div id="editBtn" class="complete" onclick="complete(${groupID})" style="display: none;">완료</div>
 				<div id="editBtn" class="cancel" onclick="cancel()" style="display: none;">취소</div>
  				<fmt:formatDate value="${grouplist.endDate}" pattern="yyyy-MM-dd" var="endDate"></fmt:formatDate>	  
@@ -75,7 +77,7 @@
 			<c:otherwise>  
 				<div class="card-content2">
 					<div class="card shadow card-body">
-						<div class="font-color card-title">${grouplist.groupName}</div>
+						<div class="font-color card-title">${grouplist.groupName} 진행도</div>
 						<div class="chart-container"> 
 							<canvas id="progressChart"></canvas> 
 						</div>

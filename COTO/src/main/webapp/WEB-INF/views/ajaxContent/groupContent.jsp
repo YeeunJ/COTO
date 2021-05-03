@@ -12,7 +12,9 @@
 		<span class="tableCell th1">문제 수</span> 
 		<span class="tableCell th2">진행률</span>
 		<span class="tableCell th1">상태</span>
-		<span class="tableCell th2">삭제</span>
+		<c:if test = "${adminID == userID}">
+			<span class="tableCell th2">삭제</span>
+		</c:if>
 	</div>
 	
 	
@@ -31,7 +33,9 @@
 					<span class="tableCell td1" style="color: #7a7a7a;">종료</span>
 				</c:otherwise>
 			</c:choose>
- 		<button class = "whitebtn">삭제</button>			
+		<c:if test = "${adminID == userID}">
+ 			<button class = "whitebtn">삭제</button>	
+ 		</c:if>		
  	</div>
 	</c:forEach>
 </div>

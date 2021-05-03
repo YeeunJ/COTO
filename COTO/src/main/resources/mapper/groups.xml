@@ -7,7 +7,7 @@
 		FROM ((groupInfo
 		INNER JOIN groupUser ON groupInfo.id = groupUser.groupID)
 		INNER JOIN user ON groupInfo.userID = user.id)
-		WHERE groupUser.userID = #{userID};
+		WHERE groupUser.userID = #{userID} and groupUser.isAdmin=0;
 	</select>
 	
 	<select id="readAdminGroups" resultType="com.walab.coding.model.GroupDTO" parameterType="hashmap">
