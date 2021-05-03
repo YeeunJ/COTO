@@ -93,6 +93,8 @@ public class GroupGoalDAOImpl implements GroupGoalDAO {
 	
 	@Override
 	public void deleteGoalByGroupId(int groupID) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("groupID", groupID);
 		sqlSession.delete(namespace+".deleteGoalByGroupId", groupID);
 	}
 

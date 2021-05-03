@@ -4,7 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
+<script>
 
+</script>
 <div class="table">
 	<div class="tableRow">
 		<span class="tableCell th1">No.</span> 
@@ -17,21 +19,22 @@
 	
 	
  	<c:forEach items="${groupGoal}" var="group" varStatus="status">
- 	<div class="tableRow center" id="recoms${group.id}" onclick="printGoalProblems(${group.id}, ${group.groupID})">
- 		<span class = "tableCell td1">${status.count}</span>
-  		<span class = "tableCell td4">${group.startDate} ~ ${group.endDate}</span>
-  		<span class = "tableCell td1">${group.probCount}</span>
- 		<span class = "tableCell td2">${group.progress}%</span>
+ 	<div class="tableRow center" id="recoms${group.id}" >
+ 		<span class = "tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})">${status.count}</span>
+  		<span class = "tableCell td4" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.startDate} ~ ${group.endDate}</span>
+  		<span class = "tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.probCount}</span>
+ 		<span class = "tableCell td2" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.progress}%</span>
  		<fmt:formatDate value="${group.endDate}" var="endDate" />
 			<c:choose>
 				<c:when test="${endDate > nowDate}">
-					<span class="tableCell td1" style="color: #e69138ff;">진행중</span>
+					<span class="tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})" style="color: #e69138ff;">진행중</span>
 				</c:when>
 				<c:otherwise>
-					<span class="tableCell td1" style="color: #7a7a7a;">종료</span>
+					<span class="tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})" style="color: #7a7a7a;">종료</span>
 				</c:otherwise>
 			</c:choose>
- 		<button class = "whitebtn">삭제</button>			
+		 <span class = "tableCell td2"><button class = "input-field custom-button" style = "padding: 3px 17px; margin: 0" onclick="deleteGroupGoal(${group.groupID})">삭제</button></span>
+		
  	</div>
 	</c:forEach>
 </div>
