@@ -11,7 +11,7 @@ function printAllContent(id, goalID){
 	
 	readModel("#readGoalList", "기록 상세보기");
 	$('select').formSelect();
-}
+} 
 
 function readProblemActivities(goalID){
 	$.ajax({

@@ -4,9 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
-<script>
 
-</script>
 <div class="table">
 	<div class="tableRow">
 		<span class="tableCell th1">No.</span> 
@@ -33,8 +31,8 @@
 					<span class="tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})" style="color: #7a7a7a;">종료</span>
 				</c:otherwise>
 			</c:choose>
-		 <span class = "tableCell td2"><button class = "input-field custom-button" style = "padding: 3px 17px; margin: 0" onclick="deleteGroupGoal(${group.groupID})">삭제</button></span>
-		
+		 <span class = "tableCell td2"><button onclick="deleteGroupGoal(${group.groupID})" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>
+		 		
  	</div>
 	</c:forEach>
 </div>

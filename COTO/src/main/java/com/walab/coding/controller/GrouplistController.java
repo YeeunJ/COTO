@@ -15,6 +15,7 @@ import com.walab.coding.model.GroupDTO;
 import com.walab.coding.service.CodingSiteService;
 import com.walab.coding.service.GroupInfoService;
 import com.walab.coding.service.GroupService;
+import com.walab.coding.service.GroupUserService;
 import com.walab.coding.service.UserProblemService;
 
 /**
@@ -37,6 +38,9 @@ public class GrouplistController {
 	@Autowired
 	GroupInfoService groupInfoService;
 	
+	@Autowired
+	GroupUserService groupUserService;
+	
 	/**
 	 * Reads coding sites and shows by page
 	 */	
@@ -46,10 +50,12 @@ public class GrouplistController {
 		
 		List<GroupDTO> groups = groupInfoService.search(0, 10, "", "");
 		
-		System.out.println(groups.toString());
+		for(int i=0; i<groups.size(); i++) {
+			groups.get(i).setAttendance(groupUserService.attendanceByGroup(groups.get(i).getId()));
+			groups.get(i).setAttendanceRate(((double)groups.get(i).getAttendance() / (double)groups.get(i).getUserCnt())*100);
+		}
 		
-		mv.addObject("groups", groups);
-		
+		mv.addObject("groups", groups);		
 		mv.setViewName("groupList");
 		
 		return mv;
@@ -78,6 +84,11 @@ public class GrouplistController {
 		}
 		
 		List<GroupDTO> groups = groupInfoService.search(s_point, list, searchValue, orderValue);
+		
+		for(int i=0; i<groups.size(); i++) {
+			groups.get(i).setAttendance(groupUserService.attendanceByGroup(groups.get(i).getId()));
+			groups.get(i).setAttendanceRate(((double)groups.get(i).getAttendance() / (double)groups.get(i).getUserCnt())*100);
+		}
 		
 		ModelAndView mv = new ModelAndView();
 		

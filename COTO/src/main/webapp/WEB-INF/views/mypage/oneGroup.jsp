@@ -13,6 +13,49 @@
 <script src="../resources/js/oneGroup.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <link href="../resources/css/oneGroup.css" rel="stylesheet">
+<script>
+function deleteGroup(groupID) {
+	console.log("그룹삭제 버튼 클릭!");
+	
+	if (confirm("정말로 삭제하겠습니까?")){
+		$.ajax({
+			url: "./groups/deleteGroup",
+			type: "POST",
+			async: false,
+			data: {
+				groupID: groupID
+			},
+			success: function(data){
+				console.log("그룹삭제 완료!");
+				$('#problemsContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+	}
+}
+
+function dropGroup(userID, groupID) {
+	if (confirm("정말로 탈퇴하시겠습니까?")){
+		$.ajax({
+			url: "./groups/dropGroup",
+			type: "POST",
+			async: false,
+			data: {
+				userID: userID,
+				groupID: groupID
+			},
+			success: function(data){
+				console.log("탈퇴 완료!");
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		       }
+		});
+	}
+}
+</script>
 
 <div id="SiteContainer" class="container">
 

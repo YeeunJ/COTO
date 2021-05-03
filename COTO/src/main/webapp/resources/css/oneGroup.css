@@ -52,3 +52,14 @@
 	max-width: 80%;
     overflow-x: scroll;
 }
+button{
+	border:0; 
+	outling:0; 
+	cursor:pointer; 
+	background-color: white;
+}
+
+.fa-times {
+    color: orange;
+}
+
