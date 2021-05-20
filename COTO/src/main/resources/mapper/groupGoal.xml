@@ -50,5 +50,8 @@
 	<delete id="deleteGoalByGroupId" parameterType="int">
 		DELETE FROM groupGoal WHERE groupID = #{groupID}
 	</delete>
-
+	
+	<delete id="deleteGoalByGoalID" parameterType="int">
+		DELETE FROM groupGoal WHERE id = #{id}
+	</delete>
 </mapper>

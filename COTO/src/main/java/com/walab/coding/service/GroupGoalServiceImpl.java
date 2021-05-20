@@ -112,5 +112,10 @@ public class GroupGoalServiceImpl implements GroupGoalService {
 	public void deleteGoalByGroupId(int groupID) {
 		groupGoalDAO.deleteGoalByGroupId(groupID);
 	}
+	
+	@Override
+	public void deleteGoalByGoalID(int id) {
+		groupGoalDAO.deleteGoalByGoalID(id);
+	}
 
 }

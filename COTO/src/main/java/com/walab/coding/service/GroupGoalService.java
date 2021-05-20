@@ -14,4 +14,6 @@ public interface GroupGoalService {
 	List<Map<String, Object>> progressByUser(int groupID);
 	GroupGoalDTO readGoalByGroupIdAndGoalId(int groupID, int goalID);
 	void deleteGoalByGroupId(int groupID);
+	void deleteGoalByGoalID(int id);
+
 }

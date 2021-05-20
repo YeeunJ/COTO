@@ -31,7 +31,7 @@
 					<span class="tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})" style="color: #7a7a7a;">종료</span>
 				</c:otherwise>
 			</c:choose>
-		 <span class = "tableCell td2"><button onclick="deleteGroupGoal(${group.groupID})" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>
+		 <span class = "tableCell td2"><button onclick="deleteGroupGoal(${group.id})" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>
 		 		
  	</div>
 	</c:forEach>

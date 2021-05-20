@@ -9,7 +9,7 @@ public interface GroupProblemService {
 	List<GroupProblemDTO> readProblemsByGoalId(int id);
 
 	int readProbCountByGoalIDAndUserID(int id, int userID, String endDate);
-
+	
 	void deleteProblemByGoalID(int id);
 
 }

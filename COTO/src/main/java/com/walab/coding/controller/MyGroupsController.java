@@ -223,10 +223,12 @@ public class MyGroupsController {
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		int countGroupUser = groupUser.size();
+		
 		for(int i=0;i<groupGoal.size();i++) {
 			List<GroupProblemDTO> groupProb = groupProblemService.readProblemsByGoalId(groupGoal.get(i).getId());
 			groupGoal.get(i).setProbCount(groupProb.size());
 			int cnt = groupProblemService.readProbCountByGoalIDAndUserID(groupGoal.get(i).getId(), userID, transFormat.format(groupGoal.get(i).getEndDate()));
+			if(groupGoal.get(i).getProbCount()>0)
 			groupGoal.get(i).setProgress(cnt*100 / groupGoal.get(i).getProbCount());
 		}
 		
@@ -478,16 +480,10 @@ public class MyGroupsController {
 	
 	@RequestMapping(value = "/mypage/groups/deleteGroupGoal", method = RequestMethod.POST)
 	public ModelAndView deleteGroupGoal(ModelAndView mv, HttpServletRequest httpServletRequest,
-			@RequestParam(value="groupID") int groupID) {
-		
-		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
-		
-		for(int i=0;i<groupGoal.size();i++) {
-			groupProblemService.deleteProblemByGoalID(groupGoal.get(i).getId());
-		}
-		
-		groupGoalService.deleteGoalByGroupId(groupID);
-		
+			@RequestParam(value="goalID") int goalID) {
+				
+		groupGoalService.deleteGoalByGoalID(goalID);
+
 		mv = new ModelAndView("redirect:/mypage/groups");
 		
 		return mv;

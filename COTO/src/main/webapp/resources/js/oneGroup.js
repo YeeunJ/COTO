@@ -283,8 +283,8 @@ function uncheckProblem(id, name, goalID, groupID){
 
 
 
-function deleteGroupGoal(groupID) {
-	console.log("그룹삭제 버튼 클릭!");
+function deleteGroupGoal(goalID) {
+	console.log("그룹골 삭제 버튼 클릭!");
 	if (confirm("정말로 삭제하겠습니까?")){
 	
 	$.ajax({
@@ -292,10 +292,10 @@ function deleteGroupGoal(groupID) {
 		type: "POST",
 		async: false,
 		data: {
-			groupID: groupID
+			goalID : goalID
 		},
 		success: function(data){
-			console.log("그룹삭제 완료!");
+			console.log("그룹골 삭제 완료!");
 			$('#problemsContent').html(data);
 		}, 
 		error:function(request, status, error){
