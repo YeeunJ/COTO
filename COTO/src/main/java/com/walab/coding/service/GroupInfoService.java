@@ -20,5 +20,9 @@ public interface GroupInfoService {
 	List<GroupDTO> search(int s_point, int list, String searchValue, String orderValue);
 	
 	public int update(GroupInfoDTO gid);
+
+	public int readGroupLeaderByGroupID(int groupID);
+
+	void deleteGroupInfoByGroupId(int groupID);
 	
 }

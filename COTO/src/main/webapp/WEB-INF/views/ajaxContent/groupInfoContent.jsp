@@ -5,23 +5,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
-<style>
-#editBtn{
-	display: inline-block;
-	font-size:13px;
-	text-decoration: underline;
-	float: right;
-	padding: 4% 2% 4% 2%;
-	color: #7a7a7a;
-	cursor: pointer;
-}
-.card-title{
-	display: inline-block;
-}
-#editInfo .td4{
-	padding-bottom:0 !important;
-}
-</style>
 <div id="groupListContent">
 	
  	<c:forEach items="${groupInfo}" var="grouplist" varStatus="status">
@@ -29,11 +12,14 @@
 	<div class="card-wrap">
 		<div class="card-content1">
 			<div class="card shadow card-body">
-				<div class="font-color card-title">${grouplist.groupName} 그룹 정보</div>
-				<div id="editBtn" onclick="editInfo()">수정</div>
+				<div class="font-color card-title">${grouplist.groupName} 정보</div>
+				<c:if test = "${adminID == userID}">
+					<div id="editBtn" onclick="editInfo()">수정</div>
+				</c:if>
 				<div id="editBtn" class="complete" onclick="complete(${groupID})" style="display: none;">완료</div>
 				<div id="editBtn" class="cancel" onclick="cancel()" style="display: none;">취소</div>
-				
+ 				<fmt:formatDate value="${grouplist.endDate}" pattern="yyyy-MM-dd" var="endDate"></fmt:formatDate>	  
+ 				<fmt:formatDate value="${grouplist.startDate}" pattern="yyyy-MM-dd" var="startDate"></fmt:formatDate>				
 				<div id="groupInfo">
 				<div id="table">
 						<div class="tableRow">
@@ -43,15 +29,16 @@
 						<div class="tableRow">
 							<span class="tableCell td2">유지기간</span> 
 							<span class="tableCell td4">
-								${grouplist.startDate} ~ ${grouplist.endDate}
+								${startDate} ~ ${endDate}
 							</span>
 						</div>
 						<div class="tableRow">
-							<span class="tableCell td2" style="font-size: 13px;">회원 수</span> 
+							<span class="tableCell td2">인원</span> 
 								<span class="tableCell td4">${countGroupUser}명</span>
 						</div>
 				</div>
 				</div>
+	  
 				
 				<div id="editInfo" style="display: none;">
 				<div id="table">
@@ -64,29 +51,43 @@
 						<div class="tableRow">
 							<span class="tableCell td2">그룹 시작일</span> 
 							<span class="tableCell td4">
-								<input type="date" id="startDate" name="startDate" value="${grouplist.startDate}">
+								<input type="date" id="startDate" name="startDate" value="${startDate}">
 							</span>
 						</div>
 						<div class="tableRow">
 							<span class="tableCell td2">그룹 종료일</span> 
 							<span class="tableCell td4">
-								<input type="date" id="endDate" name="endDate" value="${grouplist.endDate}">
+								<input type="date" id="endDate" name="endDate" value="${endDate}">
 							</span>
 						</div>
 				</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="card-content2">
-			<div class="card shadow card-body">
-				<div class="font-color card-title">${grouplist.groupName} 그룹 진행도</div>
-				<div class="chart-container"> 
-					<canvas id="progressChart"></canvas> 
+ 		<c:set var="now" value="<%=new java.util.Date()%>"/>
+ 		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate"></fmt:formatDate>	 
+ 		<c:choose>
+			<c:when test="${endDate < nowDate}">	
+				<div class="card-content2">
+					<div class="card shadow card-body">
+						<div class="font-color card-title">유지기간이 만료되어 종료된 그룹입니다.</div>
+					</div>
 				</div>
+			</c:when>
+			<c:otherwise>  
+				<div class="card-content2">
+					<div class="card shadow card-body">
+						<div class="font-color card-title">${grouplist.groupName} 진행도</div>
+						<div class="chart-container"> 
+							<canvas id="progressChart"></canvas> 
+						</div>
+		
+					</div>
+				</div>
+  			</c:otherwise>
+		</c:choose> 
+ 
 
-			</div>
-		</div>
 	</div>
 	
 	</c:forEach>	

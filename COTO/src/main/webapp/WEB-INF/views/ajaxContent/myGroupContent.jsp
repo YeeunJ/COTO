@@ -13,12 +13,11 @@
  -->	</div>
 	
  	<c:forEach items="${groups}" var="group" varStatus="status">
- 	<div class="tableRow center" id="recoms${group.id}">
+ 	<div class="tableRow center" id="recoms${group.id}" onclick="location.href='./eachGroup?groupID=${ group.id }';">
  		<span class = "tableCell td1 pIndex">${status.count}</span>
-  		<span class = "tableCell td3 pName">${group.groupName}</span>
+  		<span class = "tableCell td3 pName"><a href="./eachGroup?groupID=${ group.id }">${group.groupName}</a></span>
   		<span class = "tableCell td3 pNumber">${group.goal}</span>
  		<span class = "tableCell td2 pAdmin">${group.name}</span>
- 		</span>
  		
 <!--  		<span class = "tableCell td1 pToday"></span>
   		<span class = "tableCell td1 pNow"></span> -->

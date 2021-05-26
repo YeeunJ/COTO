@@ -2,21 +2,37 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
 
 <div class="table">
 	<div class="tableRow">
 		<span class="tableCell th1">No.</span> 
-		<span class="tableCell th5">기간</span>
-		<span class="tableCell th2">문제 수</span> 
-		<span class="tableCell th2">진행률(?)</span>
+		<span class="tableCell th4">기간</span>
+		<span class="tableCell th1">문제 수</span> 
+		<span class="tableCell th2">진행률</span>
+		<span class="tableCell th1">상태</span>
+		<span class="tableCell th2">삭제</span>
 	</div>
 	
+	
  	<c:forEach items="${groupGoal}" var="group" varStatus="status">
- 	<div class="tableRow center" id="recoms${group.id}" onclick="printGoalProblems(${group.id}, ${group.groupID})">
- 		<span class = "tableCell td1">${status.count}</span>
-  		<span class = "tableCell td5">${group.startDate} ~ ${group.endDate}</span>
-  		<span class = "tableCell td2">${group.probCount}</span>
- 		<span class = "tableCell td2">진행률(?)</span>
+ 	<div class="tableRow center" id="recoms${group.id}" >
+ 		<span class = "tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})">${status.count}</span>
+  		<span class = "tableCell td4" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.startDate} ~ ${group.endDate}</span>
+  		<span class = "tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.probCount}</span>
+ 		<span class = "tableCell td2" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.progress}%</span>
+ 		<fmt:formatDate value="${group.endDate}" var="endDate" />
+			<c:choose>
+				<c:when test="${endDate > nowDate}">
+					<span class="tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})" style="color: #e69138ff;">진행중</span>
+				</c:when>
+				<c:otherwise>
+					<span class="tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})" style="color: #7a7a7a;">종료</span>
+				</c:otherwise>
+			</c:choose>
+		 <span class = "tableCell td2"><button onclick="deleteGroupGoal(${group.id})" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>
+		 		
  	</div>
 	</c:forEach>
 </div>

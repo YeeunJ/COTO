@@ -15,13 +15,14 @@
 	</div>
 	
  	<c:forEach items="${groups}" var="groups" varStatus="status">
+ 	<fmt:parseNumber var= "attendanceRate" integerOnly= "true" value= "${groups.attendanceRate}"/>
  	<div class="tableRow center" id="recoms${groups.id}">
  		<span class = "tableCell td1 pIndex mobile">${status.count}</span>
   		<span class = "tableCell td1 pName">${groups.groupName}</span>
   		<span class = "tableCell td3 pNumber">${groups.goal}</span>
   		<span class = "tableCell td1 pAdmin mobile">${groups.nickName}</span> 		
-   		<span class = "tableCell td1 ">${groups.userCnt}</span>
-   		<span class = "tableCell td1 ">(출석률)</span>  		
+   		<span class = "tableCell td1 ">${groups.userCnt}명</span>
+   		<span class = "tableCell td1 ">${attendanceRate}%</span>  		
 	</div>
 	</c:forEach>	
 </div>

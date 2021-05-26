@@ -107,5 +107,15 @@ public class GroupGoalServiceImpl implements GroupGoalService {
 	public GroupGoalDTO readGoalByGroupIdAndGoalId(int groupID, int goalID) {
 		return groupGoalDAO.readGoalByGroupIdAndGoalId(groupID, goalID);
 	}
+	
+	@Override
+	public void deleteGoalByGroupId(int groupID) {
+		groupGoalDAO.deleteGoalByGroupId(groupID);
+	}
+	
+	@Override
+	public void deleteGoalByGoalID(int id) {
+		groupGoalDAO.deleteGoalByGoalID(id);
+	}
 
 }

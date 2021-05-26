@@ -7,4 +7,20 @@
 		FROM groupProblem
 		WHERE goalID = #{goalID}
 	</select>
+	
+	<select id="readProbCountByGoalIDAndUserID" parameterType="hashmap" resultType="int">
+		SELECT IFNULL(COUNT(up.regdate), 0)
+		FROM YeeunJ.groupProblem as gp LEFT JOIN (
+			SELECT problemID, userID, regdate
+			FROM YeeunJ.userProblem
+			<![CDATA[
+		    WHERE userID = #{userID} AND regdate < #{endDate}) as up ON gp.problemID = up.problemID
+		    ]]>
+		WHERE goalID = #{id};
+	</select>
+	
+	<delete id="deleteProblemByGoalID" parameterType="int">
+		DELETE FROM groupProblem WHERE goalID = #{id}
+	</delete>
+	
 </mapper>

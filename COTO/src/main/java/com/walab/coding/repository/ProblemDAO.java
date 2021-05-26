@@ -23,5 +23,7 @@ public interface ProblemDAO {
 
 	public int readTotalProblemCnt();
 
-	public List<Map<String, Object>> readCountBySite();	
+	public List<Map<String, Object>> readCountBySite();
+
+	public ProblemDTO readProblembyProblemIDAndUserID(int problemID, int userID);	
 }

@@ -14,4 +14,26 @@
 		WHERE GU.userID = U.id AND GU.groupID = #{groupID}
 	</select>
 	
+	<select id="attendanceByGroup" parameterType="hashmap"
+		resultType="int">
+		<!-- 그룹에 등록된 문제를 유저가 풀 때, 그 문제의 등록일이 오늘일 경우 출석한 것으로 처리하는 쿼리 -->
+		SELECT count(*) as attendance
+		FROM (SELECT UP.userID, COUNT(*) AS count, UP.problemID, GU.groupID as gID
+		FROM YeeunJ.userProblem AS UP, YeeunJ.groupUser AS GU
+		WHERE GU.groupID = #{groupID} AND GU.userID = UP.userID and
+		DATE_FORMAT(UP.regdate,'%Y-%m-%d')=DATE_FORMAT(now(),'%Y-%m-%d')
+		AND UP.problemID IN (SELECT GP.problemID FROM YeeunJ.groupProblem AS GP,
+		YeeunJ.groupGoal AS GG
+		WHERE GG.groupID = #{groupID} AND GP.goalID = GG.id) GROUP BY userID) AS GP
+	</select>
+	
+	<select id="totalGroupUser" parameterType="hashmap"
+		resultType="int">
+		SELECT count(*) as totalGroupUser FROM YeeunJ.groupUser where groupID = #{groupID}
+	</select>
+	
+	<delete id="deleteUserByGroupId" parameterType="int">
+		DELETE FROM groupUser WHERE groupID = #{groupID}
+	</delete>
+	
 </mapper>

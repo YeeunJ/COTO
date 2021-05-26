@@ -21,4 +21,8 @@ public interface GroupGoalDAO {
 
 	GroupGoalDTO readGoalByGroupIdAndGoalId(int groupID, int goalID);
 
+	void deleteGoalByGroupId(int groupID);
+	
+	void deleteGoalByGoalID(int id);
+
 }
