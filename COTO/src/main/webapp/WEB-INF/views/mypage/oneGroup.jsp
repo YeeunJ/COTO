@@ -72,10 +72,12 @@ function dropGroup(userID, groupID) {
 	
 	<div id="groupAjaxContent">
 		<%@ include file="../ajaxContent/groupInfoContent.jsp"%>
-	</div> 
+	</div>
 
 	<div class="top-bar">
-		<c:if test = "${adminID == userID}">
+		<c:set var="now" value="<%=new java.util.Date()%>"/>
+		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate"></fmt:formatDate>	 
+		<c:if test = "${adminID == userID && endDate >= nowDate}">
 			<button class="input-field custom-button" onclick="problemCreateModal(${userID})">문제 추가</button>
 		</c:if>
 		
