@@ -22,6 +22,8 @@ public interface RecommendService {
 	public RecommendDTO readRecommend(int recomID);
 
 	public List<RecommendDTO> readRecomByPage(String searchValue, String orderValue, List<String> tagValue, int s_point, int list);
+	
+	public List<RecommendDTO> readRecomByPageTag(String searchValue, String orderValue, List<String> tagValue, int s_point, int list, String tagName);
 
 	public int readRecomListCnt();
 	

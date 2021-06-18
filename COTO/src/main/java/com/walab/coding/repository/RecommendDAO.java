@@ -17,6 +17,8 @@ public interface RecommendDAO {
 	
 	public List<RecommendDTO> readRecomByPage(String searchValue, String orderValue, List<String> tagValue, int s_point, int list);
 	
+	public List<RecommendDTO> readRecomByPageTag(String searchValue, String orderValue, List<String> tagValue, int s_point, int list, String tagName);
+	
 	public int readRecomListCnt();
 	
 	public int updateRecommend(RecommendDTO r);

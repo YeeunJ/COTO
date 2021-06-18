@@ -101,6 +101,24 @@ public class RecommendServiceImpl implements RecommendService {
 	}
 	
 	/**
+	 * Read recommend zip by page & tag
+	 * usage: RecommendController
+	 */
+	@Override
+	public List<RecommendDTO> readRecomByPageTag(String searchValue, String orderValue, List<String> tagValue, int s_point, int list, String tagName) {
+		List<RecommendDTO> recoms = recommendDAO.readRecomByPageTag(searchValue, orderValue, tagValue, s_point, list, tagName);
+
+		for(int i=0;i<recoms.size();i++) {
+			recoms.get(i).setRecomCount(recomCountDAO.readRecomCount(recoms.get(i).getId()));
+
+			int recomID = recoms.get(i).getId();
+			recoms.get(i).setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));
+		}
+
+		return recoms;
+	}
+	
+	/**
 	 * Read recommend zip count
 	 * usage: RecommendController
 	 */

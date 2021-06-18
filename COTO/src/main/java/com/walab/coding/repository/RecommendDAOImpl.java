@@ -68,6 +68,20 @@ public class RecommendDAOImpl implements RecommendDAO {
 	}
 	
 	@Override
+	public List<RecommendDTO> readRecomByPageTag(String searchValue, String orderValue, List<String> tagValue, int s_point, int list, String tagName) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("s_point", s_point);
+		param.put("list", list);
+		param.put("searchValue", searchValue);
+		param.put("orderValue", orderValue);
+		param.put("tagValue", tagValue);
+		param.put("tagName", tagName);
+
+
+		return sqlSession.selectList(namespace+".readRecomByPageTag", param);
+	}
+	
+	@Override
 	public int readRecomListCnt() {
 		return sqlSession.selectOne(namespace+".readRecomListCnt");
 	}

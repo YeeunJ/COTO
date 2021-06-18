@@ -12,6 +12,7 @@ public interface RecomCartService {
 	 * usage: MyproblemController
 	 */
 	List<RecommendDTO> readCartByRecommend(String searchValue, String orderValue, List<String> tagValue, int s_point, int list, int userID);
+	List<RecommendDTO> readCartByPageTag(String searchValue, String orderValue, List<String> tagValue, int s_point, int list, int userID, String tagName);
 	public int readCartByID(int recomID, int userID);
 	//List<RecommendDTO> readCartByRecommend(int userID);
 	void deleteRecomCart(RecomCartDTO cart);

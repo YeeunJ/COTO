@@ -13,6 +13,7 @@ footer.page-footer {
 	height: 31px;
 	border-radius: 20px;
 	float: left;
+	cursor: pointer;
 }
 fieldset {
 	background: #fff;
@@ -326,11 +327,30 @@ input[type='radio']:checked {
   background-color: #e69138ff !important;
 }
 .tag-bar > button{
-	float: right;
+	/* float: right; */
 	margin: 1px;
+	margin-bottom: 10px;
 }
-.tag-bar:before{
+/* .tag-bar:before{
 	content:"";
 	clear: both;
 	display: block;
+} */
+.tag-bar {
+	display: block;
+	clear: both;
+	width: 85%;
+	max-height: 88px;
+	overflow: auto;
+	/* overflow-y:hidden;
+	overflow-x:hidden; */
+}
+.tag_more {
+	float: right;
+	margin-bottom: 20px;
+	border: none;
+	background-color: inherit;
+	color: #e69138ff;
+	cursor: pointer;
+	width: 10%;
 }

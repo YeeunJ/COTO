@@ -1,14 +1,44 @@
+var tagChecking;
+var tagName;
+
 // Or with jQuery
 $(document).ready(function(){
+	tagChecking = 0;
+
     $('#orderValue').formSelect();
     $('#searchButton').on('click', function() {
-		search();
+		if($('#searchValue').val() == "") tagChecking = 0;
+
+    	if(tagChecking == 0) search();
+    	else if(tagChecking == 1) searchTag();
 	});
 	$('#orderValue').on('change', function() {
-		search();
+		if(tagChecking == 0) search();
+    	else if(tagChecking == 1) searchTag();
 	});
 	search();
+	tagMore(0, 5);
 });
+
+function tagMore(first, length) {
+	for(var i=0;i<length;i++) {
+		$('#check'+i+'Button').show();
+	}
+
+	if(first == 1) {
+		$('#tag_show').hide();
+		$('#tag_hide').show();
+	}
+}
+
+function tagMoreDone(length) {
+	for(var i=5;i<length;i++) {
+		$('#check'+i+'Button').hide();
+	}
+
+	$('#tag_hide').hide();
+	$('#tag_show').show();
+}
 
 var selectHtml="";
 
@@ -32,6 +62,63 @@ function search(page){
 				searchValue:$('#searchValue').val(),
 				orderValue:$('#orderValue option:selected').val(),
 				tagValue: JSON.stringify(tagArray)
+			},
+			success: function(data){
+				$('#pageajaxContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+	});
+}
+
+function clickTag(id) {
+	tagChecking = 1;
+	tagName = $('#'+id).val();
+	searchTag();
+
+	/*console.log(id);
+	console.log($('#'+id).val());
+	$.ajax({
+			url: "recommendProblem/tagSearch",
+			type: "POST",
+			async: false,
+			data: {
+				tagValue: $('#'+id).val()
+			},
+			success: function(data){
+				$('#pageajaxContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+	});*/
+}
+
+function searchTag(page){
+	//console.log(tagChecking);
+	//console.log(tagName);
+
+	var tagArray = [];
+	$('.tagCheck:checked').each(function(){
+		tagArray.push(this.value);
+		console.log(this.value);
+	});
+
+	if($('#recentPage').val() == null) {
+		page=1;
+	}	
+
+	$.ajax({
+			url: "recommendProblem/tagSearch",
+			type: "POST",
+			async: false,
+			data: {
+				page: page,
+				searchValue:$('#searchValue').val(),
+				orderValue:$('#orderValue option:selected').val(),
+				tagValue: JSON.stringify(tagArray),
+				tagName: tagName
 			},
 			success: function(data){
 				$('#pageajaxContent').html(data);

@@ -91,6 +91,34 @@ public class RecomCartServiceImpl implements RecomCartService {
 		}
 		return recomList;
 	}
+	
+	@Override
+	public List<RecommendDTO> readCartByPageTag(String searchValue, String orderValue, List<String> tagValue, int s_point, int list, int userID, String tagName) {
+
+		List<RecommendDTO> recomList = recommendDAO.readRecomByPageTag(searchValue, orderValue, tagValue, s_point, list, tagName);
+
+		//List<RecommendDTO> recomList = recommendDAO.readRecommendList();
+		List<RecommendDTO> myList = recomCartDAO.readCartRecommendList(userID);
+
+
+		for(int i=0 ; i<recomList.size() ; i++) {
+			recomList.get(i).setRecomCount(recomCountDAO.readRecomCount(recomList.get(i).getId()));
+
+			int recomID = recomList.get(i).getId();
+			recomList.get(i).setRecomCommentCount(recomCommentDAO.readRecomCommentCount(recomID));
+			for(int j=0 ; j<myList.size() ; j++) {
+				int myCartID = myList.get(j).getId();
+				if( myCartID == recomID) {
+					recomList.get(i).setUserCart(1);
+					break;
+				}
+				else {
+					recomList.get(i).setUserCart(0);
+				}
+			}
+		}
+		return recomList;
+	}
 
 
 

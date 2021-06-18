@@ -11,7 +11,15 @@
 	</select>
 	
 	<select id="readProblemTagList" resultType="com.walab.coding.model.RecomTagDTO" >
-		SELECT tag FROM YeeunJ.recomTag group by tag order by tag;
+		SELECT t.tag AS tag, COUNT(*) AS tagCount 
+		FROM (
+			SELECT rt.*
+		    FROM YeeunJ.recomTag AS rt LEFT OUTER JOIN YeeunJ.recommend AS r ON rt.recomID = r.id
+		    WHERE r.deletedate IS NULL
+		) AS t
+		group by t.tag 
+		order by COUNT(*) DESC 
+		LIMIT 30;
 	</select>
 	
 	<delete id="deleteRecomTag" parameterType="hashmap">
