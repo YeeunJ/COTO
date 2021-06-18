@@ -23,7 +23,7 @@
 <script src="./resources/js/materialize.js"></script>
 <script src="./resources/js/init.js"></script>
 <script src="./resources/js/jquery.sweet-modal.min.js"></script>
-<script src="./resources/js/createModal.js"></script>
+<script src="./resources/js/createModal.js?v=1"></script>
 
 </head>
 <body>

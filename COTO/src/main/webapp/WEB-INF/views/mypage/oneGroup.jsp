@@ -7,9 +7,9 @@
 
 <jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
-<link rel="stylesheet" href="../resources/css/myGroup.css?asd" />
- <script src="../resources/js/createModal.js"></script>
-<script src="../resources/js/oneGroup.js"></script>
+<link rel="stylesheet" href="../resources/css/myGroup.css?v1" />
+ <script src="../resources/js/createModal.js?v1"></script>
+<script src="../resources/js/oneGroup.js?v1"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <link href="../resources/css/oneGroup.css" rel="stylesheet">
 <script>

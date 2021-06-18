@@ -8,10 +8,10 @@
 
 <jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
-<link href="../resources/css/problems.css" rel="stylesheet">
-<link rel="stylesheet" href="../resources/css/myGroup.css?asd" />
+<link href="../resources/css/problems.css?v1" rel="stylesheet">
+<link rel="stylesheet" href="../resources/css/myGroup.css?v1" />
 
-<script src="../resources/js/myGroup.js"></script>
+<script src="../resources/js/myGroup.js?v1"></script>
 
 <div id="SiteContainer" class="container">
 	
