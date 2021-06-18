@@ -213,6 +213,8 @@ public class RecommendController {
 	public ModelAndView createRecomCheck(HttpServletRequest httpServletRequest) {
 		int userID = -1;
 		int rpID = Integer.parseInt(httpServletRequest.getParameter("rpID"));
+		String problemName= httpServletRequest.getParameter("problemName");
+		String link  = httpServletRequest.getParameter("link");
 		UserProblemDTO upd = new UserProblemDTO();
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
@@ -222,7 +224,13 @@ public class RecommendController {
 		}
 
 		RecomProblemDTO rp = recomProblemsService.readEachProblem(rpID, userID);
-
+		if(rp == null) {
+			rp = new RecomProblemDTO();
+			rp.setProblemID(rpID);
+			rp.setName(problemName);
+			rp.setLink(link);
+		}
+		rp.setLink(link);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("rp", rp);
 		mv.setViewName("ajaxContent/recomCheckContent");
@@ -592,6 +600,7 @@ public class RecommendController {
 		int userID = -1;
 		int rpID = Integer.parseInt(httpServletRequest.getParameter("rpID"));
 		String problemName = httpServletRequest.getParameter("problemName");
+		String link = httpServletRequest.getParameter("link");
 		UserProblemDTO upd = new UserProblemDTO();
 		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
 			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
@@ -605,6 +614,7 @@ public class RecommendController {
 			rp = new RecomProblemDTO();
 			rp.setProblemID(rpID);
 			rp.setName(problemName);
+			rp.setLink(link);
 		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("rp", rp);
