@@ -5,7 +5,14 @@ public class RecomTagDTO {
 	private int id;
 	private int recomID;
 	private String tag;
+	private int tagCount;
 	
+	public int getTagCount() {
+		return tagCount;
+	}
+	public void setTagCount(int tagCount) {
+		this.tagCount = tagCount;
+	}
 	public int getId() {
 		return id;
 	}

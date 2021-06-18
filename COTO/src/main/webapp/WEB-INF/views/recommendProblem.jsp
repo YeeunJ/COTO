@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "com.walab.coding.model.UserDTO" %>
 
@@ -37,12 +38,17 @@
 			</select>
 		</div>
 	</div>
+
 	<div class = "tag-bar">
 		<c:forEach items="${tags}" var="tag" varStatus="status">
 			<input type="checkbox" class = "tagCheck" id = "check${status.index}" disabled="disabled" value = "${tag.tag}" hidden/>
-			<button class="input-field custom-button tag-button" id = "check${status.index}Button" style="border: 1px solid #e69138e0;" onclick="clickTag('check${status.index}')"># ${tag.tag}</button>
+			<button class="input-field custom-button tag-button" id = "check${status.index}Button" style="border: 1px solid #e69138e0; display: none;" onclick="clickTag('check${status.index}')">
+			# ${tag.tag} &nbsp&nbsp<span style="color:#e69138e0;">${tag.tagCount}</span>
+			</button>
 		</c:forEach>
 	</div>
+	<button id="tag_show" class="tag_more" onclick="tagMore(1, ${fn:length(tags)})">더보기 v</button>
+	<button id="tag_hide" class="tag_more" onclick="tagMoreDone(${fn:length(tags)})" style="display: none;">접기 ⌃</button>
 	
 	<div id="pageajaxContent">
 		<%@ include file="./ajaxContent/recommendContent.jsp"%>

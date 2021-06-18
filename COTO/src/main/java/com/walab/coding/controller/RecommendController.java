@@ -644,7 +644,7 @@ public class RecommendController {
 		mv.addObject("s_page", s_page);
 		mv.addObject("e_page", e_page);
 		
-		if((UserDTO)httpServletRequest.getSession().getAttribute("user") == null) {
+		if((UserDTO)httpServ)letRequest.getSession().getAttribute("user") == null) {
 			mv.addObject("recoms", recoms);
 		}
 		mv.addObject("codingSite", codingSite);
@@ -734,6 +734,72 @@ public class RecommendController {
 			
 			mv.addObject("userID", userID);
 			List<RecommendDTO> recomCart = recomCartService.readCartByRecommend(searchValue, orderValue, tagData, s_point, list, userID);
+
+			mv.addObject("recoms", recomCart);
+
+		}
+				
+		mv.addObject("pagename", "recommendProblem");
+		mv.addObject("page", page);
+		mv.addObject("s_page", s_page);
+		mv.addObject("e_page", e_page);
+		
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") == null) {
+			mv.addObject("recoms", recoms);
+		}
+		mv.addObject("codingSite", codingSite);
+
+		mv.setViewName("ajaxContent/recommendContent");
+
+		return mv;
+	}
+	
+	@RequestMapping(value = "/tagSearch", method = {RequestMethod.POST})
+	public ModelAndView tagSearch(HttpServletRequest httpServletRequest,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "searchValue", defaultValue = "") String searchValue,
+			@RequestParam(value = "orderValue", defaultValue = "") String orderValue,
+			@RequestParam(value = "tagValue", defaultValue = "") List<String> tagValue,
+			@RequestParam(value = "tagName") String tagName) {
+
+		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
+		List<String> tagData = new ArrayList<String>();
+		
+		if(!tagValue.get(0).equalsIgnoreCase("[]")) {
+			tagValue.stream().forEach(tag -> {
+				String [] tagSplit = tag.split("\"");
+				tagData.add(tagSplit[1]);
+			});
+		}
+		
+		int listCnt = recommendService.readRecomListCnt();
+		int list = 10;
+		int block = 10;
+
+		int pageNum = (int) Math.ceil((float)listCnt/list);
+		int nowBlock = (int)Math.ceil((float)page/block);
+
+		int s_point = (page-1)*list;
+
+		int s_page = nowBlock*block - (block-1);
+		if (s_page <= 1) {
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+			if (pageNum <= e_page) {
+				e_page = pageNum;
+		}
+
+		List<RecommendDTO> recoms = recommendService.readRecomByPageTag(searchValue, orderValue, tagData, s_point, list, tagName);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		int userID = -1;
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+			
+			mv.addObject("userID", userID);
+			List<RecommendDTO> recomCart = recomCartService.readCartByPageTag(searchValue, orderValue, tagData, s_point, list, userID, tagName);
 
 			mv.addObject("recoms", recomCart);
 
