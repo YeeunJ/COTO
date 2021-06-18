@@ -16,6 +16,13 @@
 	.card-content1 {width: 100%; margin:0;}
 	.pNow {visibility: visible !important;}
 }
+#table #goal:hover {
+	cursor: default !important;
+	background-color: white !important;
+}
+.editBtn, .deleteBtn {
+	background-color: transparent !important;
+}
 #pTable{
 	min-height: 438px;
 }

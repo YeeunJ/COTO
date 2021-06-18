@@ -40,18 +40,18 @@
 						<div class="font-color card-title">나의 목표</div>
 						<div id="table">
 							<c:forEach items="${goal}" var="goal" varStatus="status">
-								<div class="tableRow">
+								<div class="tableRow" id="goal">
 									<span class="tableCell td2">목표</span> <span
 										class="tableCell td4">${goal.goal}</span>
 								</div>
-								<div class="tableRow">
+								<div class="tableRow" id="goal">
 									<span class="tableCell td2">기간</span> <span
 										class="tableCell td4" style="font-size: 14px;"> <fmt:formatDate
 											pattern="yyyy-MM-dd" value="${goal.startDate}" /> ~ <fmt:formatDate
 											pattern="yyyy-MM-dd" value="${goal.endDate}" />
 									</span>
 								</div>
-								<div class="tableRow">
+								<div class="tableRow" id="goal">
 									<span class="tableCell td2">목표 문제수</span> <span
 										class="tableCell td4">${goal.goalNum}문제</span>
 								</div>
