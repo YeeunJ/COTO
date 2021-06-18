@@ -81,43 +81,6 @@ public class MyproblemsController {
 	
 	@Autowired
 	RecomCartService recomCartService;
-
-	/**
-	 * Create problem zip 
-	 */
-	@RequestMapping(value = "/createProblem", method = RequestMethod.POST)
-	@ResponseBody
-	public String createProblem(HttpServletRequest httpServletRequest, ModelAndView mv,
-			@RequestParam(value = "siteId[]") List<String> siteId,
-			@RequestParam(value = "problem[]") List<String> problem,
-			@RequestParam(value = "link[]") List<String> link) {
-
-		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
-
-		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
-
-		for (int i = 0; i < siteId.size(); i++) {
-			UserProblemDTO p = new UserProblemDTO();
-			p.setUserID(userID);
-
-			if (Integer.parseInt(siteId.get(i)) != 0)
-				p.setSiteID(Integer.parseInt(siteId.get(i)));
-
-			p.setProblem(problem.get(i));
-
-			if (link.size() > 0) {
-				p.setLink(link.get(i));
-			}
-			p.setDifficulty(null);
-			p.setMemo(null);
-
-			probs.add(p);
-		}
-
-		userProblemService.createUserProblem(probs);
-
-		return "success";
-	}
 	
 	@RequestMapping(value = "/addRecomCart", method = RequestMethod.POST)
 	public ModelAndView createRecomCart(HttpServletRequest httpServletRequest) {
@@ -201,29 +164,29 @@ public class MyproblemsController {
 	}	
 	@RequestMapping(value = "/deleteRecomProblem", method = RequestMethod.POST)
 	public ModelAndView deleteRecomProblem(HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView();
+		RecomCartDTO cart = new RecomCartDTO();
+		
+		int userID = -1;
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+		}
+		
 		int recomID = Integer.parseInt(httpServletRequest.getParameter("id"));
+		
+		cart.setRecomID(recomID);
+		cart.setUserID(userID);
+		recomCartService.deleteRecomCart(cart);
 
 		recommendService.deleteRecom(recomID);
+		
+		
+		
+		List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
+		
+		mv.addObject("recomCarts", recomCart);
 
-		List<RecommendDTO> recoms = recommendService.readRecommendList();
-		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
-		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemList();
-		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
-
-		for(int i=0;i<recomProblem.size();i++) {
-			for(int j=0;j<codingSite.size();j++) {
-				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
-					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
-			}
-		}
-
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("recoms", recoms);
-		mv.addObject("commentCount", commentCount);
-		mv.addObject("recomProblem", recomProblem);
-		mv.addObject("recomProblemTag", recomProblemTag);
-		mv.setViewName("ajaxContent/recommendContent");
+		mv.setViewName("ajaxContent/recomCartContent");
 
 		return mv;
 	}

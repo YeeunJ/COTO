@@ -87,7 +87,7 @@ $(document).on("click", ".deleteBtn", function(){
 <style>
 #activities:before {
 	content: "";
-	background-image: url("../resources/img/activityimg.jpg");
+	background-image: url("../resources/img/problem.png");
 	background-size: cover;
 	top: 0;
 	left: 0;

@@ -7,17 +7,14 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?asd" />
-<link href="./resources/css/problemList.css?qwe" rel="stylesheet">
-<link href="./resources/css/groupList.css" rel="stylesheet">
-<!-- <script src="./resources/js/problemList.js"></script> -->
+<link href="./resources/css/groupList.css?qwe" rel="stylesheet">
 <script src="./resources/js/groupList.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
-
 <!-- SiteContainer -->
 <div id="SiteContainer" class="container">
-	<div id="problem">
+	<div id="group">
 		<div class="content">
 			<h4>그룹 리스트</h4>
 			<p>여러 그룹들을 확인하고 함께 코딩에 참여해보세요!</p>

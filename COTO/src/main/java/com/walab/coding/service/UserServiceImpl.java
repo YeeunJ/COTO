@@ -74,8 +74,8 @@ public class UserServiceImpl implements UserService{
 	 * Return the number of duplicate email
 	 */
 	@Override
-	public int readUserCountByNickname(String Nickname) {
-		return userDAO.readUserCountByNickname(Nickname);
+	public int readUserCountByNickname(String Nickname, int userID) {
+		return userDAO.readUserCountByNickname(Nickname, userID);
 	}
 	
 	/**

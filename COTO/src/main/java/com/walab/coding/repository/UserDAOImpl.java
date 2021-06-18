@@ -91,10 +91,10 @@ public class UserDAOImpl implements UserDAO{
 	 * Return the number of duplicate email
 	 */
 	@Override
-	public int readUserCountByNickname(String nickname) {
+	public int readUserCountByNickname(String nickname, int userID) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("nickName", nickname);
-	
+		param.put("userID", userID);
 		return sqlSession.selectOne("user.readUserCountByNickname", param);
 	}
 	

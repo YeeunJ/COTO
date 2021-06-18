@@ -1,3 +1,139 @@
+#user {
+	position: relative;
+	padding: 80px 0;
+	margin-bottom: 3%;
+}
+#user:before {
+	content: "";
+	background-image: url("../img/userManage.jpg");
+	background-size: cover;
+	top: 0;
+	left: 0;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
+	opacity: 0.4;
+	z-index: -1;
+}
+.chart-div {
+	display:inline-block;
+}
+.probname {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+fieldset {
+	background: #fff;
+	border: none;
+}
+.top-bar{
+	padding-bottom: 6% !important;
+}
+.search {
+	padding: 0px;
+	margin-left: 10px;
+	display: flex;
+	float: right;
+	width: 25% !important;
+}
+.search_bt {
+	all: unset;
+}
+.custom-button:hover {
+	background-color: #e69138ff;
+	color: white;
+	border: 1px solid #e69138ff;
+}
+.order {
+	width: 13%;
+	float: right;
+}
+.title {
+	border: 0;
+	background-color: Transparent;
+}
+.comment {
+	border-bottom: 1px solid #bdbdbd;
+}
+#chart-wrapper {
+	/* padding: 0 10px; */
+}
+.chart-div{
+	width: 48%;
+    height: 220px;
+    border-radius: 15px!important;
+    padding: 5px 10px;
+}
+.chart-canvas{
+    margin: 15px auto 0 auto;
+}
+
+.right{
+	float: right;
+}
+
+.countTitle {
+	font-size: 17px;
+    font-weight: 600;
+    color: #555454;
+}
+.countBySite {
+	font-size: 13px;
+}
+.p-wrapper {
+	padding: 10px 0 20px 0;
+}
+.p-wrapper p {
+	margin:0;
+}
+
+/* 반응형 */
+@media only screen and (max-width: 830px) {
+  #chartBySite{
+  	margin-top: 20px !important;
+    height: 160px !important;
+    width: 240px !important;
+  }
+  #averageForWeek{
+    margin-top: 40px !important;
+    height: 130px !important;
+    width: 250px !important;
+  }
+}
+@media only screen and (max-width: 700px) {
+  #chartBySite{
+    height: 180px !important;
+    width: 260px !important;
+  }
+  #container{
+  	display:none;
+  }
+  .chart-div {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  #canvas-holder{
+  	display:none;
+  }
+  #container{
+  	display:none;
+  }
+}
+
+canvas {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}		
+
+@media screen and (max-width: 400px){
+	span.mobile{
+		display:none !important;
+	}
+
+}
 @media screen and (max-width: 500px){
 	.skip{
   		display:none !important;

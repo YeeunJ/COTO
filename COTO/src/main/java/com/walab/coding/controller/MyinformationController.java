@@ -130,7 +130,8 @@ public class MyinformationController {
 	public int dupCheck(HttpServletRequest httpServeletRequest) throws ParseException {
 		
 		String nickName = httpServeletRequest.getParameter("nickName");
-		int result = userService.readUserCountByNickname(nickName);
+		int userID = Integer.parseInt(httpServeletRequest.getParameter("userID"));
+		int result = userService.readUserCountByNickname(nickName, userID);
 
 		return result;
 	}
