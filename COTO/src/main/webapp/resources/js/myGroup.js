@@ -3,10 +3,7 @@ $(document).ready(function() {
 		search();
 	});
 	
-	drawChart1();
-	drawChart2();
 });
-
 
 function search(page){
 	if($('#recentPage').val() == null) {
@@ -103,7 +100,7 @@ function problemCreateModal(userID) {
 	else alert("로그인을 해야 글쓰기가 가능합니다.");
 }
 
-function addProblem(){
+/*function addProblem(){
 	
 	var probStartDate = $(".sweet-modal-content #probStartDate").val();
 	var probEndDate = $(".sweet-modal-content #probEndDate").val();
@@ -163,7 +160,7 @@ function addProblem(){
         },
     });
 
-}
+}*/
 
 
 function addajax(){
@@ -176,11 +173,12 @@ function addajax(){
 	var users = [];
 	
 	$('.sweet-modal-content .chip').each(function(){
+		console.log($(this).text());
+		
 		var chipSplit = $(this).text().split("close");
-		console.log(chipSplit[0]);
+		
 		users.push(chipSplit[0]);
 	});
-	console.log(users);
 	
 	$.ajax({
         url : "./groups/createGroup",
@@ -201,7 +199,7 @@ function addajax(){
             console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
     });
-
+	
 }
 
 function searchF() {

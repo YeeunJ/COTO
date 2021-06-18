@@ -44,18 +44,30 @@
 	
 		
 <div id="commentDetail">
+
+	<%-- <span>recommmend User : ${ recom.userID }</span>
+	<span>recomID : ${ recom.id }</span>
+	<span>userID : ${ loginID }</span>
+	<span>isAdmin : ${ isAdmin }</span> --%>
 	<div class="comment-add">
 		<textarea id="comment-textarea" placeholder="댓글을 달아주세요."></textarea>
 		<button id="addComment" class="modal_button add-btn"
 			onclick="addComment()">등록</button>
 	</div>
 	<div id="modal-comment" class="wrapper">
-		<input type="text" name="recomID" value="${ recomID }" hidden>
+		<input type="text" name="recomID" value="${ recom.id }" hidden>
 
 		<c:forEach items="${recomComment}" var="r" varStatus="status">
 			<div class="comment-wrapper">
+				<%-- <span>${ r.userID }</span> --%>
 				<span class="username" onclick="moveUserPage('${r.nickName}')">${ r.name }</span>
 				<span class="commentdate">${r.regDate}</span>
+				<c:choose>
+					<c:when test = "${recom.userID == loginID || isAdmin == 1 || r.userID == loginID }">
+						<span class="comment-delete" onclick="deleteComment('${r.commentID}')">삭제</span>		
+					</c:when>
+				</c:choose>
+				
 				<p class="comment">${ r.content }</p>
 				<%-- <c:choose>
 					<c:when test = "${loginID ==-1}">
@@ -88,4 +100,7 @@
 function moveUserPage(nickName){
 	location.href='./'+encodeURI(encodeURIComponent(nickName));
 };
+
+
+
 </script>

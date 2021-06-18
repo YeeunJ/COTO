@@ -117,6 +117,17 @@ fieldset {
     border-bottom: 1px solid #bdbdbd;
     margin-bottom: 15px;
 }
+.comment-delete {
+	border: 2px solid #e69238;
+    padding: 1.5px 3px;
+    border-radius: 7px;
+    margin-left: 2px;
+    font-size: 12px;
+    color: #e69238;
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+}
 .add-btn {
 	height: 35px;
     width: 40px;

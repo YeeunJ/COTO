@@ -8,27 +8,28 @@
 <div id="pTable">
 <div class="table">
 	<div class="tableRow">
-		<span class="tableCell th05 tIndex">No.</span> 
-		<span class="tableCell th2">문제 제목</span> 
-		<span class="tableCell th2">사이트</span> 
+		<span class="tableCell th05 tIndex">No.</span>
+		<span class="tableCell th2">문제 제목</span>
+		<span class="tableCell th2">사이트</span>
 		<span class="tableCell th2 tMemo">메모</span>
-		<span class="tableCell th1 tRegdate">날짜</span> 
+		<span class="tableCell th1 tRegdate">날짜</span>
 		<span class="tableCell th1 tDifficulty">난이도</span>
 		<span class="tableCell th1 tButton"></span>
 	</div>
 
 	<c:forEach items="${problems}" var="problem" varStatus="status">
-		<div class="tableRow center">
-			<span class="tableCell td05 pIndex">${(page-1)*list+status.count}</span>
-			<span class="tableCell td2 pTitle"><a href="${problem.link}"
+		<div class="tableRow center" >
+			<span onclick="expandRow(${problem.id})" class="tableCell td05 pIndex">${(page-1)*list+status.count}</span>
+			<span onclick="expandRow(${problem.id})" class="tableCell td2 pTitle">
+				<a href="${problem.link}"
 				target="_blank">${problem.problem}</a></span> <span
-				class="tableCell td2 pSite"><a href="${problem.siteUrl}"
+				onclick="expandRow(${problem.id})" class="tableCell td2 pSite"><a href="${problem.siteUrl}"
 				target="_blank">${problem.site}</a></span> <span
-				class="tableCell td2 pMemo">${problem.memo}</span> <span
-				class="tableCell td2 pRegdate">${problem.regDate}</span> <span
-				class="tableCell td1 pDifficulty"><img style="width: 60px;"
+				onclick="expandRow(${problem.id})" class="tableCell td2 pMemo pMemo${problem.id}">${problem.memo}</span> <span
+				onclick="expandRow(${problem.id})" class="tableCell td2 pRegdate">${problem.regDate}</span> <span
+				onclick="expandRow(${problem.id})" class="tableCell td1 pDifficulty"><img style="width: 60px;"
 				alt="${problem.difficulty}"
-				src="../resources/img/difficulty${problem.difficulty}.png"></span> 
+				src="../resources/img/difficulty${problem.difficulty}.png"></span>
 				<span class="tableCell td1 pButton">
 				<button value="${problem.id}" class="editBtn" type="button">
 					<i class="fas fa-pen"></i>
@@ -110,7 +111,7 @@ $(document).ready(function() {
 
 	var posts = new Array();
 	<c:forEach items="${problems}" var="u" varStatus="status">
-		
+
 		var list = new Object();
 		list.index = "${(page-1)*list+status.count}";
 		list.id = "${u.getId()}";
@@ -121,7 +122,7 @@ $(document).ready(function() {
 		list.memo = "${u.getMemo()}";
 		list.regDate = "${u.getRegDate()}";
 		list.difficulty = "${u.getDifficulty()}";
-		
+
 		posts.push(list);
 	</c:forEach>
 
@@ -130,7 +131,7 @@ $(document).ready(function() {
 		var editCell = tableRow.find('.tableCell');
 		var index = $('.tableRow').index(tableRow);
 		var pageV = $("#recentPage").val();
-		
+
 		$(editCell[0]).html('<input id="Uid" type="hidden" name="id" value="'+ posts[index-5].id +'" /> <p>'+  posts[index-5].index +'</p>');
 		$(editCell[1]).html(posts[index-5].problem);
 		$(editCell[2]).html(posts[index-5].site);
@@ -139,12 +140,12 @@ $(document).ready(function() {
 		$(editCell[5]).html('<input id="Udifficulty" type="number" min="0" max="5" name="difficulty" value="'+ posts[index-5].difficulty +'">');
 		$(editCell[6]).html('<button id="cancelbtn" type="button"><i class="fas fa-times"/></i></button><button onclick="updateAjax('+pageV+')" type="button"><i class="fas fa-pen"></i></button>');
 	});
-	
+
 	$(document).on("click", "#cancelbtn", function() {
 		var tableRow = $(this).closest('.tableRow');
 		var cancelCell = tableRow.find('.tableCell');
 		var index = $('.tableRow').index(tableRow);
-	
+
 		$(cancelCell[0]).html(posts[index-5].index);
 		$(cancelCell[1]).html('<a href="'+posts[index-5].link+'" target="_blank">'+posts[index-5].problem+'</a>');
 		$(cancelCell[2]).html('<a href="'+posts[index-5].siteUrl+'" target="_blank">'+posts[index-5].site+'</a>');
@@ -167,12 +168,12 @@ $(document).ready(function() {
 				},
 				success: function(data){
 					$('#problemsContent').html(data);
-				}, 
+				},
 				error:function(request, status, error){
 					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		        }
 			});
 		}
-	}); 
+	});
 })
 </script>

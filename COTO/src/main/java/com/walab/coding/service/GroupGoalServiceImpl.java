@@ -46,7 +46,9 @@ public class GroupGoalServiceImpl implements GroupGoalService {
 				p.setSiteID(Integer.parseInt(siteId.get(i)));
 			}
 			p.setName(problem.get(i));
-			if(link.get(i) == null) {
+			if(link.get(i).contains("없는 문제")) {
+				continue;
+			}else if(link.get(i) == null) {
 				p.setLink(null); 
 			} else {
 				p.setLink(link.get(i));

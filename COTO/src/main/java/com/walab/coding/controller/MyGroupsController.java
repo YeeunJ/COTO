@@ -185,7 +185,7 @@ public class MyGroupsController {
 	
 	@RequestMapping(value = "/mypage/groups/createProblem", method = RequestMethod.POST)
 	@ResponseBody
-	public String createProblem(HttpServletRequest httpServletRequest, ModelAndView mv,
+	public ModelAndView createProblem(HttpServletRequest httpServletRequest, ModelAndView mv,
 			@RequestParam(value="probStartDate") String probStartDate,
 			@RequestParam(value="groupID") int groupID,
 			@RequestParam(value="probEndDate") String probEndDate,
@@ -195,6 +195,8 @@ public class MyGroupsController {
 			) throws UnsupportedEncodingException, ParseException {
 		
 		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+		int adminID = groupService.readAdminofGroup(groupID);		
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		// groupID 보내줘야 함
 		groupGoalService.createGoal(probStartDate, probEndDate, groupID);
@@ -202,11 +204,16 @@ public class MyGroupsController {
 		int goalID = groupGoalService.readGoalID();
 		groupGoalService.createGoalProblems(goalID, problem, siteId, link);
 		
-		return "success";
+		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
+		
+		mv.addObject("userID", userID);
+		mv.addObject("adminID", adminID);
+		mv.addObject("groupGoal", groupGoal);
+		mv.setViewName("ajaxContent/groupContent");
+		
+		return mv;
 	}
-	
-	
-	
+		
 	@RequestMapping(value = "/mypage/eachGroup", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView eachGroup(HttpServletRequest httpServletRequest, ModelAndView mv) {
@@ -231,8 +238,6 @@ public class MyGroupsController {
 			if(groupGoal.get(i).getProbCount()>0)
 			groupGoal.get(i).setProgress(cnt*100 / groupGoal.get(i).getProbCount());
 		}
-		
-		System.out.println(groupInfo);
 		
 		mv.addObject("progressByUser", progressByUser);
 		mv.addObject("CodingSite", codingSite);
@@ -480,14 +485,24 @@ public class MyGroupsController {
 	
 	@RequestMapping(value = "/mypage/groups/deleteGroupGoal", method = RequestMethod.POST)
 	public ModelAndView deleteGroupGoal(ModelAndView mv, HttpServletRequest httpServletRequest,
-			@RequestParam(value="goalID") int goalID) {
-				
+			@RequestParam(value="goalID") int goalID,
+			@RequestParam(value="groupID") int groupID) {
+		
+		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+		int adminID = groupService.readAdminofGroup(groupID);	
+		
 		groupGoalService.deleteGoalByGoalID(goalID);
+		
+		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
 
-		mv = new ModelAndView("redirect:/mypage/groups");
+		mv = new ModelAndView();
+		
+		mv.addObject("userID", userID);
+		mv.addObject("adminID", adminID);
+		mv.addObject("groupGoal", groupGoal);
+		mv.setViewName("ajaxContent/groupContent");
 		
 		return mv;
-
 	}	
 	
 }

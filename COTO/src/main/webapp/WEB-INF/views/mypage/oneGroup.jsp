@@ -8,7 +8,6 @@
 <jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
 <link rel="stylesheet" href="../resources/css/myGroup.css?asd" />
-<!-- <script src="../resources/js/myGroup.js"></script>-->
  <script src="../resources/js/createModal.js"></script>
 <script src="../resources/js/oneGroup.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
@@ -26,8 +25,7 @@ function deleteGroup(groupID) {
 				groupID: groupID
 			},
 			success: function(data){
-				console.log("그룹삭제 완료!");
-				$('#problemsContent').html(data);
+				location.href="http://localhost:8080/coding/mypage/groups";
 			}, 
 			error:function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -68,21 +66,21 @@ function dropGroup(userID, groupID) {
 	</div>	 	
 	</c:forEach>
 	
-
-	
-	<div id="groupAjaxContent">
+	<div id="groupAjaxContent____">
 		<%@ include file="../ajaxContent/groupInfoContent.jsp"%>
-	</div> 
+	</div>
 
 	<div class="top-bar">
-		<c:if test = "${adminID == userID}">
+		<c:set var="now" value="<%=new java.util.Date()%>"/>
+		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate"></fmt:formatDate>	 
+		<c:if test = "${adminID == userID && endDate >= nowDate}">
 			<button class="input-field custom-button" onclick="problemCreateModal(${userID})">문제 추가</button>
 		</c:if>
 		
 		<c:forEach items="${groupInfo}" var="groupInfo" varStatus="status">
 		<c:choose>
 			<c:when test="${groupInfo.userID == userID}">
-				 <button id="deleteBtn" class="input-field custom-button" onclick="deleteGroup(${groupID})">그룹삭제하기</button>
+				 <button id="deleteBtn" class="input-field custom-button delete-button" onclick="deleteGroup(${groupID})">그룹삭제하기</button>
 			</c:when>
 			<c:otherwise>
 				<button id="dropBtn" class="input-field custom-button" onclick="dropGroup(${userID}, ${groupID})">탈퇴하기</button>

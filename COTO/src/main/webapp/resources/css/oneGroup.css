@@ -1,3 +1,13 @@
+.deleteBtn {
+	background-color: transparent !important;
+}
+.endGroup{
+	position: absolute;
+	left:14.5%;
+}
+#table .goal:hover{
+	background-color: white !important;
+}
 #myDoughnutChart{ margin: auto;}
 @media screen and (max-width: 700px) {
 	.card-content2 { display: none; } 
@@ -44,7 +54,13 @@
 	max-width: 420px;
     max-height: 200px;	
 }
-
+.empty-problem {
+	text-align: center;
+    padding: 50px 20px;
+}
+.delete-button {
+	margin-right: 7px;
+}
 .chart-container {
 	position: relative; 
 	width:80%;

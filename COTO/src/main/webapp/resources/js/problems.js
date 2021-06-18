@@ -9,6 +9,21 @@ $(document).ready(function() {
 	}
 });
 
+function expandRow(problemId) {
+
+	if($('.pMemo'+problemId).css("white-space") == "nowrap") {
+		$('.pMemo'+problemId).css("text-overflow", "initial");
+		$('.pMemo'+problemId).css("white-space", "inherit");
+		$('.pMemo'+problemId).css("overflow", "auto");
+	} else {
+		$('.pMemo'+problemId).css("text-overflow", "ellipsis");
+		$('.pMemo'+problemId).css("white-space", "nowrap");
+		$('.pMemo'+problemId).css("overflow", "hidden");
+	}
+
+}
+
+
 function updateAjax(pageV){	
 	$.ajax({
 		url: "problems/update",

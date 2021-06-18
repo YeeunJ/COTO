@@ -1,9 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
 
 <div class="table">
 	<div class="tableRow">
@@ -18,14 +17,16 @@
 		<!-- <span class="tableCell th2">삭제</span> -->
 	</div>
 	
-	
  	<c:forEach items="${groupGoal}" var="group" varStatus="status">
  	<div class="tableRow center" id="recoms${group.id}" >
  		<span class = "tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})">${status.count}</span>
   		<span class = "tableCell td4" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.startDate} ~ ${group.endDate}</span>
   		<span class = "tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.probCount}</span>
  		<span class = "tableCell td2" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.progress}%</span>
- 		<fmt:formatDate value="${group.endDate}" var="endDate" />
+ 		
+		<fmt:formatDate value="${group.endDate}" pattern="yyyy-MM-dd" var="endDate" />
+ 		<c:set var="now" value="<%=new java.util.Date()%>"/>
+		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate"></fmt:formatDate>	 
 			<c:choose>
 				<c:when test="${endDate > nowDate}">
 					<span class="tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})" style="color: #e69138ff;">진행중</span>
@@ -35,12 +36,17 @@
 				</c:otherwise>
 			</c:choose>
 		<c:if test = "${adminID == userID}">
-			<span class="tableCell td2"><button onclick="deleteGroupGoal(${group.id})" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>
+			<span class="tableCell td2"><button onclick="deleteGroupGoal(${group.id},${group.groupID})" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>
 		</c:if>
 		 		
  	</div>
 	</c:forEach>
 </div>
+<c:choose>
+	<c:when test="${fn:length(groupGoal) == 0}">
+		<div class="empty-problem">등록된 문제집이 없습니다.</div>
+	</c:when>
+</c:choose>
 
 <%-- 
 <div class="table" id="recommendContent">

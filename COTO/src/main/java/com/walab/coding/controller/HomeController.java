@@ -110,8 +110,10 @@ public class HomeController {
 				p.setSiteID(Integer.parseInt(siteId.get(i)));
 
 			p.setProblem(problem.get(i));
-
-			if (link.size() > 0) {
+			System.out.println(link.get(i));
+			if(link.get(i).contains("없는 문제")) {
+				continue;
+			}else if (link.size() > 0) {
 				p.setLink(link.get(i));
 			}
 			p.setDifficulty(null);
