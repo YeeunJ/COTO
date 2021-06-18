@@ -12,12 +12,12 @@
 <link rel="stylesheet" href="../resources/css/solvedProblem.css?asd" />
 <link rel="stylesheet" href="../resources/css/problemsCart.css?asd" />
 
-<script src="../resources/js/createModal.js"></script>
-<script src="../resources/js/problems.js"></script>
+<script src="../resources/js/createModal.js?v1"></script>
+<script src="../resources/js/problems.js?v1"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-<script src="../resources/js/recomCart.js"></script>
+<script src="../resources/js/recomCart.js?v1"></script>
 
 <div id="SiteContainer" class="container">
 	<div id="problem">

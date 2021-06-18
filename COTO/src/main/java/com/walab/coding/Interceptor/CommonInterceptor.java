@@ -37,6 +37,8 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 			        return false;
 				}
 			}
+			System.out.println(((UserDTO) request.getSession().getAttribute("user")).getEmail());
+			System.out.println(((UserDTO) request.getSession().getAttribute("user")).getId());
 			request.setAttribute("userID", ((UserDTO)request.getSession().getAttribute("user")).getId());
 		}
 		return super.preHandle(request, response, handler);
@@ -55,7 +57,6 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		request.setAttribute("codingSiteFooter", codingSite);
-		
 		super.postHandle(request, response, handler, modelAndView);
 	}
 	

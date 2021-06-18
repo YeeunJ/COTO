@@ -44,7 +44,7 @@ public class MyinformationController {
 	public ModelAndView viewUsers(HttpServletRequest request, ModelAndView mv) {
 		
 		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
-		
+		System.out.println(userID);
 		List<UserDTO> users = userService.readUser(userID);
 		mv.addObject("users", users);
 		mv.setViewName("mypage/information");
@@ -63,13 +63,17 @@ public class MyinformationController {
 	public ModelAndView updateGoal(ModelAndView mv, HttpServletRequest httpServletRequest) throws ParseException {
 		
 		int userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
-	
+		int goalNum=0;
+		Date today = new Date();
+		Date startDate = today;
+		Date endDate = today;
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		String goal = httpServletRequest.getParameter("goal");
-		Date startDate = transFormat.parse(httpServletRequest.getParameter("startDate"));
-		Date endDate = transFormat.parse(httpServletRequest.getParameter("endDate"));
-		int goalNum = Integer.parseInt(httpServletRequest.getParameter("goalNum"));
+				
+		try { startDate = transFormat.parse(httpServletRequest.getParameter("startDate")); } catch(Exception e){}
+		try { endDate = transFormat.parse(httpServletRequest.getParameter("endDate")); } catch(Exception e){}
+		try { goalNum = Integer.parseInt(httpServletRequest.getParameter("goalNum")); } catch(Exception e){}
 				
 		java.sql.Date sdate = new java.sql.Date(startDate.getTime());
 		java.sql.Date edate = new java.sql.Date(endDate.getTime());

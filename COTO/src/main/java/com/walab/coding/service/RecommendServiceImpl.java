@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.walab.coding.model.RecomProblemDTO;
 import com.walab.coding.model.RecommendDTO;
+import com.walab.coding.repository.RecomCartDAO;
 import com.walab.coding.repository.RecomCommentDAO;
 import com.walab.coding.repository.RecomCountDAO;
 import com.walab.coding.repository.RecommendDAO;
@@ -20,7 +21,8 @@ public class RecommendServiceImpl implements RecommendService {
 	RecomCountDAO recomCountDAO;
 	@Autowired
 	RecomCommentDAO recomCommentDAO;
-	
+	@Autowired
+	RecomCartDAO recomCartDAO;
 	/**
 	 * Create recommend zip
 	 * usage: RecommendController
@@ -142,6 +144,7 @@ public class RecommendServiceImpl implements RecommendService {
 	 */
 	@Override
 	public int deleteRecom(int recomID) {
+		recomCartDAO.deleteRecomProblem(recomID);
 		return recommendDAO.deleteRecom(recomID);
 	}
 	

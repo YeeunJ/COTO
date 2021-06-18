@@ -9,8 +9,8 @@
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
 
-<link href="../resources/css/activities.css" rel="stylesheet">
-<script src="../resources/js/activities.js"></script>
+<link href="../resources/css/activities.css?v" rel="stylesheet">
+<script src="../resources/js/activities.js?v1"></script>
 <script>
 $(document).on("click", ".deleteBtn", function(){
 	var id = $(this).val();

@@ -24,7 +24,7 @@
 		resultType="com.walab.coding.model.GroupGoalDTO">
 		SELECT *
 		FROM groupGoal
-		WHERE groupID = #{groupID}
+		WHERE groupID = #{groupID} order by startDate desc
 	</select>
 
 	<select id="progressByUser" parameterType="hashmap"

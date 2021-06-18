@@ -673,13 +673,15 @@ function deleteRecomCartinModal(){
 
 
 
-function checkProblem(id){
+function checkProblem(id, name, link){
 	$.ajax({
 		url : "recommendProblem/addRecomCheck",
 		type : "POST",
 		async : false,
 		data : {
 			rpID : id,
+			problemName: name,
+			link: link
 		},
 		success : function(data) {
 			console.log(data);
@@ -695,14 +697,15 @@ function checkProblem(id){
 		}
 	});
 }
-function uncheckProblem(id, name){
+function uncheckProblem(id, name, link){
 	$.ajax({
 		url : "recommendProblem/deleteRecomCheck",
 		type : "POST",
 		async : false,
 		data : {
 			rpID : id,
-			problemName: name
+			problemName: name,
+			link: link
 		},
 		success : function(data) {
 			console.log(data);

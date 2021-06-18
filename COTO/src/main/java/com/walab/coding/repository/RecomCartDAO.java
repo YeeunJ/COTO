@@ -13,4 +13,5 @@ public interface RecomCartDAO {
 	int readTotalProbCnt(int recomID);
 	int readUserProbCnt(int userID,int recomID);
 	int readCartByRecommend(int recomID, int userID);
+	public void deleteRecomProblem(int recomID);
 }
