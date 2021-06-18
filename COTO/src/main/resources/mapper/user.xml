@@ -7,7 +7,7 @@
 	</insert>
 	
 	<select id="readUserIDByEmail" resultType="int" parameterType="hashmap">
-		SELECT id FROM user WHERE email=#{email}
+		SELECT COUNT(*) FROM user WHERE email=#{email}
 	</select>
 	
 	<select id="readUserIDByNickname" resultType="int" parameterType="hashmap">

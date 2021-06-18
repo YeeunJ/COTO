@@ -125,6 +125,88 @@ function createModel(content, titleValue, actionFunction, closeFunction){
 }
 
 
+
+// 그룹 생성 모달
+function groupCreateModel(content, titleValue, actionFunction, closeFunction){
+	
+	content = "<div style='height: 600px !important; overflow: scroll;'>" + $(content).html() + "</div>";
+		var variant = {
+			args: [
+				{
+					content: content,
+					title: titleValue,
+					showCloseButton: true,
+					onClose: function(){
+						if(closeFunction != null) closeFunction();
+					},
+					onOpen: function(){
+						$('.sweet-modal-box select').formSelect();
+						//$('.sweet-modal-content .chips').chips();
+						$('.sweet-modal-content .chips-placeholder').chips({
+							placeholder: 'Enter a tag',
+							secondaryPlaceholder: '+Tag',
+							onChipAdd: function(){
+								var text = $('.sweet-modal-content .chips input').val();
+								checkEmail(text);
+								/*
+								$('.sweet-modal-content .chips .chip:last').remove();
+								$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close" onclick="deletechip(tabindex'+count+')">close</i></div>');
+								count++;
+								*/
+							},
+							onChipSelect: function(){
+							},
+							onChipDelete: function(){
+								//console.log($(this));
+							}
+						});
+						
+						$('.sweet-modal-content #createTitle').change( function() {
+							if($('.sweet-modal-content #createTitle').val() != "") insCount++;
+							else insCount--;
+							
+							if(insCount >= 2) {
+								$('.sweet-modal-buttons .disableCheck').css('pointer-events','inherit');
+								$('.sweet-modal-buttons .disableCheck').addClass('originBg');
+							}
+							else if(insCount < 2) {
+								$('.sweet-modal-buttons .disableCheck').removeAttr('style');
+								$('.sweet-modal-buttons .disableCheck').removeClass('originBg');
+							}
+							console.log(insCount);
+						});
+						
+						checkInsert(index);
+						checkDelete(id);
+					},
+					theme: $.sweetModal.THEME_MIXED,
+					buttons: [
+						{
+							label: '등록',
+							classes: 'modal_button disableCheck',
+							action: function() {
+								actionFunction();
+								return $.sweetModal({
+									content: '<p style = "font-weight:800;font-size:15px;padding-top: 15px;text-align: center;">데이터가 등록 되었습니다~:)</p>',
+									theme: $.sweetModal.THEME_MIXED,
+									icon: $.sweetModal.ICON_SUCCESS,
+									onClose: function(){
+										if(closeFunction != null) closeFunction();
+									}
+								});
+							}
+						}
+					]
+				}
+			]
+		};
+		
+		variant.fn = variant.fn || $.sweetModal;
+		variant.fn.apply(this, variant.args);
+}
+
+
+
 function deleteThis(id){
 	var allid = "#"+id;
 	$(allid).remove();

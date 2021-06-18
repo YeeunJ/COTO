@@ -363,6 +363,20 @@ public class MyGroupsController {
 
 	}
 	
+	@RequestMapping(value = "/mypage/groups/checkEmail", method = RequestMethod.POST)
+	@ResponseBody
+	public int checkEmail(HttpServletRequest httpServletRequest,
+			@RequestParam(value="email") String email) {
+		
+		System.out.println(email);
+		int checkEmail = userService.readUserIDByEmail(email);
+		System.out.println(">>>>>>>>>> checkEmail " + checkEmail);
+		
+		
+		return checkEmail;
+	}
+	
+	
 	@RequestMapping(value = "/mypage/addProbCheck", method = RequestMethod.POST)
 	public ModelAndView createProbCheck(HttpServletRequest httpServletRequest) {
 		int userID = -1;

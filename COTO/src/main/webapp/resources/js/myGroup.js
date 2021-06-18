@@ -91,7 +91,7 @@ function baekjoon(){
 
 // create Modal
 function groupCreateModal(userID) {
-	if(userID > 0) createModel("#createGroup", "새로운 그룹 생성", addajax, searchF);
+	if(userID > 0) groupCreateModel("#createGroup", "새로운 그룹 생성", addajax, searchF);
 	else alert("로그인을 해야 글쓰기가 가능합니다.");
 }
 
@@ -99,6 +99,37 @@ function problemCreateModal(userID) {
 	if(userID > 0) createModel("#createProblem", "새로운 문제 리스트 생성", addProblem, searchF);
 	else alert("로그인을 해야 글쓰기가 가능합니다.");
 }
+
+function checkEmail(email) {
+	console.log("email", email);
+	
+	$.ajax({
+        url : "./groups/checkEmail",
+        type: 'POST',
+        data: {
+	        email: email
+        },
+        success: function(data) {
+			
+        	console.log(data);
+			
+			if(data == 0) {
+				alert("존재하지 않는 유저입니다.");
+				$('.sweet-modal-content .chips .chip:last').remove();
+			} else {
+				$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close" onclick="deletechip(tabindex'+count+')">close</i></div>');
+				count++;
+			}
+			
+        },
+        error:function(request,status,error){
+        	alert("error");
+            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        	return -1;
+		},
+    });
+}
+
 
 function addProblem(){
 	
@@ -172,6 +203,28 @@ function addajax(){
 	var groupDesc = $(".sweet-modal-content #groupDesc").val();
 	var users = [];
 	
+	if(groupTitle == "") {
+		alert("그룹 이름을 입력해주세요!");
+		return;
+	}
+	if(groupGoal == "") {
+		alert("그룹 목표를 입력해주세요!");
+		return null;
+	}
+	if(startDate == "") {
+		alert("그룹 시작일을 입력해주세요!");
+		return;
+	}
+	if(endDate == "") {
+		alert("그룹 종료일을 입력해주세요!");
+		return;
+	}
+	if(groupDesc == "") {
+		alert("그룹 상세 설명을 입력해주세요!");
+		return;
+	}
+		
+	
 	$('.sweet-modal-content .chip').each(function(){
 		console.log($(this).text());
 		
@@ -179,7 +232,7 @@ function addajax(){
 		
 		users.push(chipSplit[0]);
 	});
-	
+	/*
 	$.ajax({
         url : "./groups/createGroup",
         type: 'POST',
@@ -199,6 +252,7 @@ function addajax(){
             console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
     });
+	*/
 	
 }
 
