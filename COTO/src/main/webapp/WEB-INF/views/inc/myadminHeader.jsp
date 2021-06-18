@@ -48,8 +48,8 @@
 				</li>
 				<li id = "list"><span id = "listspan" onclick="location.href='../usermanage'">사이트 관리<i class="material-icons right">arrow_drop_down</i></span>
 					<ul class = "submenu">
-						<li id = "list"><span id = "listspan" onclick="location.href='../manageCodingsite'">코딩 사이트 관리</span></li>
 						<li id = "list"><span id = "listspan" onclick="location.href='../usermanage'">사용자 관리</span></li>
+						<li id = "list"><span id = "listspan" onclick="location.href='../manageCodingsite'">코딩 사이트 관리</span></li>						
 					</ul>
 				</li>				
 				<li class = "right">
