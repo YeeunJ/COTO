@@ -85,7 +85,7 @@ function readDetailModalContent(recomID, count) {
 				else if(dataSplit[i].indexOf("readLoginID") != -1) logID = $( dataSplit[i] ).text();
 				else if(dataSplit[i].indexOf("readUserID") != -1) uID = $( dataSplit[i] ).text();
 				else if(dataSplit[i].indexOf("readAdminID") != -1) adminID = $( dataSplit[i] ).text();
-			}
+			}			
 			
 			$("#modalContent").html(data);
 			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, readRecomCartContent);
@@ -96,6 +96,23 @@ function readDetailModalContent(recomID, count) {
 					+ "message:" + request.responseText + "\n"
 					+ "error:" + error);
 		}
+	});
+}
+
+function deleteAjax (){
+	$.ajax({
+		url: "../mypage/problems/deleteRecomProblem",
+		type: "POST",
+		async: false,
+		data: {
+			id:$('#updateRecomID').html()
+		},
+		success: function(data){
+			$('#recomCartContent').html(data);
+		}, 
+		error:function(request, status, error){
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
 	});
 }
 
@@ -153,7 +170,7 @@ function addRecomCart(){
 
 }
 
-function deleteRecomCart(){
+function deleteRecomCartinModal(){
 	if(confirm("문제집을 장바구니에서 지우시겠습니까?")) {
 		$.ajax({
 			url: "../mypage/problems/deleteRecomCart",

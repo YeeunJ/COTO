@@ -98,30 +98,30 @@ public class HomeController {
 									@RequestParam(value="link[]") List<String> link) {
 	
 		
-		List<UserProblemDTO> problems = new ArrayList<UserProblemDTO>();
+		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
 
-		
-		for(int i=0 ; i<siteId.size() ; i++) {
-			UserProblemDTO userProblem = new UserProblemDTO();
-			
-			userProblem.setUserID((int)httpServletRequest.getAttribute("userID"));
-			if(Integer.parseInt(siteId.get(i)) != 0) {
-				userProblem.setSiteID(Integer.parseInt(siteId.get(i)));
+		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+
+		for (int i = 0; i < siteId.size(); i++) {
+			UserProblemDTO p = new UserProblemDTO();
+			p.setUserID(userID);
+
+			if (Integer.parseInt(siteId.get(i)) != 0)
+				p.setSiteID(Integer.parseInt(siteId.get(i)));
+
+			p.setProblem(problem.get(i));
+
+			if (link.size() > 0) {
+				p.setLink(link.get(i));
 			}
-			userProblem.setProblem(problem.get(i));
-			if(link.get(i) == null) {
-				userProblem.setLink(null); 
-			} else {
-				userProblem.setLink(link.get(i));
-			}
-			userProblem.setDifficulty(null);
-			userProblem.setMemo(null);
-			
-			problems.add(userProblem);
+			p.setDifficulty(null);
+			p.setMemo(null);
+
+			probs.add(p);
 		}
-		
-		userProblemService.createUserProblem(problems);
-		
+
+		userProblemService.createUserProblem(probs);
+
 		return "success";
 	}
 	
