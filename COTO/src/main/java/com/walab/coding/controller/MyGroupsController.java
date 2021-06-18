@@ -233,6 +233,7 @@ public class MyGroupsController {
 		}
 		
 		System.out.println(groupInfo);
+		System.out.println(groupGoal);
 		
 		mv.addObject("progressByUser", progressByUser);
 		mv.addObject("CodingSite", codingSite);

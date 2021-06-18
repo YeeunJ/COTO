@@ -2,8 +2,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
 
 <div class="table">
 	<div class="tableRow">
@@ -25,7 +23,10 @@
   		<span class = "tableCell td4" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.startDate} ~ ${group.endDate}</span>
   		<span class = "tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.probCount}</span>
  		<span class = "tableCell td2" onclick="printGoalProblems(${group.id}, ${group.groupID})">${group.progress}%</span>
- 		<fmt:formatDate value="${group.endDate}" var="endDate" />
+ 		
+		<fmt:formatDate value="${group.endDate}" pattern="yyyy-MM-dd" var="endDate" />
+ 		<c:set var="now" value="<%=new java.util.Date()%>"/>
+		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate"></fmt:formatDate>	 
 			<c:choose>
 				<c:when test="${endDate > nowDate}">
 					<span class="tableCell td1" onclick="printGoalProblems(${group.id}, ${group.groupID})" style="color: #e69138ff;">진행중</span>
