@@ -81,43 +81,6 @@ public class MyproblemsController {
 	
 	@Autowired
 	RecomCartService recomCartService;
-
-	/**
-	 * Create problem zip 
-	 */
-	@RequestMapping(value = "/createProblem", method = RequestMethod.POST)
-	@ResponseBody
-	public String createProblem(HttpServletRequest httpServletRequest, ModelAndView mv,
-			@RequestParam(value = "siteId[]") List<String> siteId,
-			@RequestParam(value = "problem[]") List<String> problem,
-			@RequestParam(value = "link[]") List<String> link) {
-
-		List<UserProblemDTO> probs = new ArrayList<UserProblemDTO>();
-
-		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
-
-		for (int i = 0; i < siteId.size(); i++) {
-			UserProblemDTO p = new UserProblemDTO();
-			p.setUserID(userID);
-
-			if (Integer.parseInt(siteId.get(i)) != 0)
-				p.setSiteID(Integer.parseInt(siteId.get(i)));
-
-			p.setProblem(problem.get(i));
-
-			if (link.size() > 0) {
-				p.setLink(link.get(i));
-			}
-			p.setDifficulty(null);
-			p.setMemo(null);
-
-			probs.add(p);
-		}
-
-		userProblemService.createUserProblem(probs);
-
-		return "success";
-	}
 	
 	@RequestMapping(value = "/addRecomCart", method = RequestMethod.POST)
 	public ModelAndView createRecomCart(HttpServletRequest httpServletRequest) {
