@@ -258,6 +258,7 @@ function checkProblem(id, goalID, groupID){
 		}
 	});
 }
+
 function uncheckProblem(id, name, goalID, groupID){
 	$.ajax({
 		url : "./deleteProbCheck",
@@ -285,7 +286,7 @@ function uncheckProblem(id, name, goalID, groupID){
 
 
 
-function deleteGroupGoal(goalID) {
+function deleteGroupGoal(goalID,groupID) {
 	console.log("그룹골 삭제 버튼 클릭!");
 	if (confirm("정말로 삭제하겠습니까?")){
 	
@@ -294,11 +295,12 @@ function deleteGroupGoal(goalID) {
 		type: "POST",
 		async: false,
 		data: {
-			goalID : goalID
+			goalID : goalID,
+			groupID : groupID
 		},
 		success: function(data){
 			console.log("그룹골 삭제 완료!");
-			$('#problemsContent').html(data);
+			$('#groupAjaxContent').html(data);
 		}, 
 		error:function(request, status, error){
 			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

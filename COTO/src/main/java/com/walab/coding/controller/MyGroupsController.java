@@ -485,14 +485,24 @@ public class MyGroupsController {
 	
 	@RequestMapping(value = "/mypage/groups/deleteGroupGoal", method = RequestMethod.POST)
 	public ModelAndView deleteGroupGoal(ModelAndView mv, HttpServletRequest httpServletRequest,
-			@RequestParam(value="goalID") int goalID) {
-				
+			@RequestParam(value="goalID") int goalID,
+			@RequestParam(value="groupID") int groupID) {
+		
+		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
+		int adminID = groupService.readAdminofGroup(groupID);	
+		
 		groupGoalService.deleteGoalByGoalID(goalID);
+		
+		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
 
-		mv = new ModelAndView("redirect:/mypage/groups");
+		mv = new ModelAndView();
+		
+		mv.addObject("userID", userID);
+		mv.addObject("adminID", adminID);
+		mv.addObject("groupGoal", groupGoal);
+		mv.setViewName("ajaxContent/groupContent");
 		
 		return mv;
-
 	}	
 	
 }
