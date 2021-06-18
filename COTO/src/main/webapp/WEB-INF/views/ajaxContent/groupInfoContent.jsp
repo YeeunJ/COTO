@@ -70,7 +70,7 @@
 			<c:when test="${endDate < nowDate}">	
 				<div class="card-content2">
 					<div class="card shadow card-body">
-						<div class="font-color card-title">유지기간이 만료되어 종료된 그룹입니다.</div>
+						<div class="font-color card-title endGroup">유지기간이 만료되어 종료된 그룹입니다.</div>
 					</div>
 				</div>
 			</c:when>

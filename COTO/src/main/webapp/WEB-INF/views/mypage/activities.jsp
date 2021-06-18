@@ -63,8 +63,7 @@ $(document).on("click", ".deleteBtn", function(){
 						
 					</div>
 				</span>
-				<fmt:formatDate value="${goals.endDate}" pattern="yyyy-MM-dd"
-					var="endDate" />
+				<fmt:formatDate value="${goals.endDate}" pattern="yyyy-MM-dd" var="endDate" />
 				<c:choose>
 					<c:when test="${endDate > nowDate}">
 						<span class="tableCell td2 readStatus" style="color: #e69138ff;" onclick="printAllContent('#goals${goals.id}', ${goals.id})">진행중</span>
@@ -73,8 +72,7 @@ $(document).on("click", ".deleteBtn", function(){
 						<span class="tableCell td1 readStatus" style="color: #7a7a7a;" onclick="printAllContent('#goals${goals.id}', ${goals.id})">종료</span>
 					</c:otherwise>
 				</c:choose>
-				<span class="tableCell td1"><button value="${goals.id}" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>
-				
+				<span class="tableCell td1"><button value="${goals.id}" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>	
 			</div>
 		</c:forEach>
 		
