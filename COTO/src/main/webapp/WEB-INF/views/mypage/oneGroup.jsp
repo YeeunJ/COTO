@@ -8,7 +8,6 @@
 <jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
 <link rel="stylesheet" href="../resources/css/myGroup.css?asd" />
-<!-- <script src="../resources/js/myGroup.js"></script>-->
  <script src="../resources/js/createModal.js"></script>
 <script src="../resources/js/oneGroup.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
@@ -67,9 +66,7 @@ function dropGroup(userID, groupID) {
 	</div>	 	
 	</c:forEach>
 	
-
-	
-	<div id="groupAjaxContent">
+	<div id="groupAjaxContent____">
 		<%@ include file="../ajaxContent/groupInfoContent.jsp"%>
 	</div>
 

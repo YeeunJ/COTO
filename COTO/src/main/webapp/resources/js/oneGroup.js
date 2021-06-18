@@ -181,7 +181,9 @@ function addProblem(){
         	link : link
         },
         success: function(data) {
-        	console.log(data);
+        console.log(data);
+        console.log($('#groupAjaxContent').html());
+        	$('#groupAjaxContent').html(data);
         },
         error:function(request,status,error){
         	alert("error");
