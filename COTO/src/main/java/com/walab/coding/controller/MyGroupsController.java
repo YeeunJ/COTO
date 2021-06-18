@@ -221,7 +221,14 @@ public class MyGroupsController {
 		
 		int groupID = Integer.parseInt(httpServletRequest.getParameter("groupID"));
 		int userID = ((UserDTO) httpServletRequest.getSession().getAttribute("user")).getId();
-		int adminID = groupService.readAdminofGroup(groupID);
+		int adminID = 0;
+		try {
+			adminID = groupService.readAdminofGroup(groupID);
+		}catch(NullPointerException e) {
+			mv.setViewName("/mypage/oneGroup404");
+			
+			return mv;
+		}
 		
 		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
 		List<GroupGoalDTO> groupGoal = groupGoalService.readGoalListByGroupId(groupID);
