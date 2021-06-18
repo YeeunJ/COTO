@@ -19,7 +19,7 @@
 	</select>
 
 	<select id="readUserCountByNickname" resultType="int" parameterType="hashmap">
-		SELECT COUNT(*) FROM user WHERE nickName=#{nickName}
+		SELECT COUNT(*) FROM user WHERE nickName=#{nickName} and id != #{userID}
 	</select>
 	
 	<select id="readAllUser" resultType="com.walab.coding.model.UserDTO">

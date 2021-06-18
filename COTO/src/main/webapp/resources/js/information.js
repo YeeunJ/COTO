@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
 	
-	var dupCheck=0;
+	var dupCheck=1;
 	
 	$('input[name="nickName"]').change(function(){
 		dupCheck=0;
@@ -18,6 +18,7 @@ $(document).ready(function(){
 			async: false,
 			data: {
 				nickName:$('input[name="nickName"]').val(),
+				userID:$('input[name="id"]').val(),
 			},
 			success: function(data){
 				if(data==0){
