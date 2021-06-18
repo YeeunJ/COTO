@@ -201,29 +201,29 @@ public class MyproblemsController {
 	}	
 	@RequestMapping(value = "/deleteRecomProblem", method = RequestMethod.POST)
 	public ModelAndView deleteRecomProblem(HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView();
+		RecomCartDTO cart = new RecomCartDTO();
+		
+		int userID = -1;
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+		}
+		
 		int recomID = Integer.parseInt(httpServletRequest.getParameter("id"));
+		
+		cart.setRecomID(recomID);
+		cart.setUserID(userID);
+		recomCartService.deleteRecomCart(cart);
 
 		recommendService.deleteRecom(recomID);
+		
+		
+		
+		List<RecommendDTO> recomCart = recomCartService.readCartRecommendList(userID);
+		
+		mv.addObject("recomCarts", recomCart);
 
-		List<RecommendDTO> recoms = recommendService.readRecommendList();
-		List<Map<Integer,Integer>> commentCount = recomCommentService.readCount();
-		List<CodingSiteDTO> codingSite = codingSiteService.readCodingSite();
-		List<RecomProblemDTO> recomProblem = recomProblemsService.readProblemList();
-		List<RecomTagDTO> recomProblemTag = recomTagService.readProblemTag();
-
-		for(int i=0;i<recomProblem.size();i++) {
-			for(int j=0;j<codingSite.size();j++) {
-				if(recomProblem.get(i).getSiteID() == codingSite.get(j).getId())
-					recomProblem.get(i).setSiteName(codingSite.get(j).getSiteName());
-			}
-		}
-
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("recoms", recoms);
-		mv.addObject("commentCount", commentCount);
-		mv.addObject("recomProblem", recomProblem);
-		mv.addObject("recomProblemTag", recomProblemTag);
-		mv.setViewName("ajaxContent/recommendContent");
+		mv.setViewName("ajaxContent/recomCartContent");
 
 		return mv;
 	}
