@@ -40,6 +40,9 @@
 	<delete id="deleteCart" parameterType="hashmap">
 		DELETE FROM recomCart where recomID=#{recomID} AND userID=#{userID}
 	</delete>
+	<delete id="deleteCartProblem" parameterType="hashmap">
+		delete from recomCart where recomID = ${recomID}
+	</delete>
 	
 	
 </mapper>

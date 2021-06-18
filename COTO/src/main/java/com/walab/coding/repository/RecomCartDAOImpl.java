@@ -64,6 +64,16 @@ public class RecomCartDAOImpl implements RecomCartDAO {
 		sqlSession.delete(namespace+".deleteCart", param);
 		
 	}
+	
+	@Override
+	public void deleteRecomProblem(int recomID) {
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("recomID", recomID);
+		
+		sqlSession.delete(namespace+".deleteCartProblem", param);
+		
+	}
 
 	@Override
 	public int readTotalProbCnt(int recomID) {
