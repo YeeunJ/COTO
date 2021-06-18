@@ -18,16 +18,16 @@
 	</div>
 
 	<c:forEach items="${problems}" var="problem" varStatus="status">
-		<div class="tableRow center">
-			<span class="tableCell td05 pIndex">${(page-1)*list+status.count}</span>
-			<span class="tableCell td2 pTitle">
+		<div class="tableRow center" >
+			<span onclick="expandRow(${problem.id})" class="tableCell td05 pIndex">${(page-1)*list+status.count}</span>
+			<span onclick="expandRow(${problem.id})" class="tableCell td2 pTitle">
 				<a href="${problem.link}"
 				target="_blank">${problem.problem}</a></span> <span
-				class="tableCell td2 pSite"><a href="${problem.siteUrl}"
+				onclick="expandRow(${problem.id})" class="tableCell td2 pSite"><a href="${problem.siteUrl}"
 				target="_blank">${problem.site}</a></span> <span
-				class="tableCell td2 pMemo">${problem.memo}</span> <span
-				class="tableCell td2 pRegdate">${problem.regDate}</span> <span
-				class="tableCell td1 pDifficulty"><img style="width: 60px;"
+				onclick="expandRow(${problem.id})" class="tableCell td2 pMemo pMemo${problem.id}">${problem.memo}</span> <span
+				onclick="expandRow(${problem.id})" class="tableCell td2 pRegdate">${problem.regDate}</span> <span
+				onclick="expandRow(${problem.id})" class="tableCell td1 pDifficulty"><img style="width: 60px;"
 				alt="${problem.difficulty}"
 				src="../resources/img/difficulty${problem.difficulty}.png"></span> 
 				<span class="tableCell td1 pButton">

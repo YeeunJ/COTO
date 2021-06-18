@@ -50,7 +50,13 @@
 	max-width: 420px;
     max-height: 200px;	
 }
-
+.empty-problem {
+	text-align: center;
+    padding: 50px 20px;
+}
+.delete-button {
+	margin-right: 7px;
+}
 .chart-container {
 	position: relative; 
 	width:80%;
