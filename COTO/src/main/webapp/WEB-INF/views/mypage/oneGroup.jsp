@@ -80,7 +80,7 @@ function dropGroup(userID, groupID) {
 		<c:forEach items="${groupInfo}" var="groupInfo" varStatus="status">
 		<c:choose>
 			<c:when test="${groupInfo.userID == userID}">
-				 <button id="deleteBtn" class="input-field custom-button" onclick="deleteGroup(${groupID})">그룹삭제하기</button>
+				 <button id="deleteBtn" class="input-field custom-button delete-button" onclick="deleteGroup(${groupID})">그룹삭제하기</button>
 			</c:when>
 			<c:otherwise>
 				<button id="dropBtn" class="input-field custom-button" onclick="dropGroup(${userID}, ${groupID})">탈퇴하기</button>
