@@ -1,3 +1,9 @@
+.deleteBtn {
+	background-color: transparent !important;
+}
+#table .goal:hover{
+	background-color: white !important;
+}
 #myDoughnutChart{ margin: auto;}
 @media screen and (max-width: 700px) {
 	.card-content2 { display: none; } 

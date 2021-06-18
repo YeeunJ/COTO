@@ -15,6 +15,10 @@
 	opacity: 0.4;
 	z-index: -1;
 }
+.tableRow:hover {
+	cursor: default !important;
+	background-color: white !important;
+}
 .chart-div {
 	display:inline-block;
 }

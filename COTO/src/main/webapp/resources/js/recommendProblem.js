@@ -82,6 +82,30 @@ function addComment() {
 	}
 }
 
+// delete comment
+function deleteComment (commentID) {
+	var recomID = $('#readRecomID').html();
+	if(confirm("댓글을 삭제하시겠습니까?")) {
+		$.ajax({
+	        url : './recommendProblem/deleteComment',
+	        type: 'POST',
+	        data: {
+				recomID: recomID,
+				commentID : commentID
+	        },
+	        success: function(data) {
+				$('.sweet-modal-content #recomCountCommentContent').html(data);
+	        },
+	        error:function(request,status,error){
+	            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        },
+	    });
+	}
+	
+}
+
+
+
 //create modal db에
 function addajax(){
 	var siteId = [];

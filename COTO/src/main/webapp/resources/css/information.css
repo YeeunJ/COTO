@@ -47,8 +47,11 @@
 }
 .tableCell {
  	border-bottom: none !important;
-} 
-
+}
+.tableRow:hover {
+	cursor: default !important;
+	background-color: white !important;
+}
 #dupCheck{
 	margin-left: 8px;
     position: absolute;

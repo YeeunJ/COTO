@@ -20,14 +20,14 @@
 				<c:set var="link" value="${problem.link}"/>							
 				<c:choose>
 					<c:when test="${fn:substring(link,0,4) eq 'http'}">
-						<a href="${problem.link}">${problem.name}</a>
+						<a href="${problem.link}" target="_blank">${problem.name}</a>
 					</c:when>
 					<c:otherwise>
 						${problem.name}
 					</c:otherwise>
 				</c:choose>	
 		</span> 
-		<span class="tableCell td1"> <a href="${problem.siteUrl}">${problem.siteName}</a></span> 
+		<span class="tableCell td1"> <a href="${problem.siteUrl}" target="_blank">${problem.siteName}</a></span> 
 		<span class="tableCell td1">${problem.count}</span> 
 		<fmt:formatDate value="${problem.regdate}" var="formattedDate" type="date" pattern="yyyy-MM-dd" />
 		<span class="tableCell td1 mobile">${formattedDate}</span> 
