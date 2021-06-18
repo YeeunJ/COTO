@@ -36,7 +36,7 @@
 				</c:otherwise>
 			</c:choose>
 		<c:if test = "${adminID == userID}">
-			<span class="tableCell td2"><button onclick="deleteGroupGoal(${group.id})" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>
+			<span class="tableCell td2"><button onclick="deleteGroupGoal(${group.id},${group.groupID})" class="deleteBtn" type="button"><i class="fas fa-times"/></i></button></span>
 		</c:if>
 		 		
  	</div>

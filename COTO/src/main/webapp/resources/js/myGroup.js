@@ -2,14 +2,14 @@ $(document).ready(function() {
 	$('#searchButton').on('click', function() {
 		search();
 	});
-	
+
 });
 
 function search(page){
 	if($('#recentPage').val() == null) {
 		page=1;
-	}	
-	
+	}
+
 	$.ajax({
 		url: "./problems/search",
 		type: "POST",
@@ -20,7 +20,7 @@ function search(page){
 		},
 		success: function(data){
 			$('#problemsContent').html(data);
-		}, 
+		},
 		error:function(request, status, error){
 			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		}
@@ -40,7 +40,7 @@ function insertProblems(){
 	var value = $(".sweet-modal-content #problems").val();
 	var valueSplit = value.split(',');
 	var data = $('.sweet-modal-content #confirmSite').html();
-	
+
 	$(".sweet-modal-content #problems").val("");
 	if(siteId == 1){
 		$.ajax({
@@ -77,13 +77,13 @@ function baekjoon(){
 	var value = parseFloat(inputValue.replace(/,/gi, " "));
 
 	if(selectValue=='1'){
-		if(isNaN(value) == true){ 
+		if(isNaN(value) == true){
 			alert("백준 문제를 등록할때는 숫자만 입력할 수 있습니다.");
-			
+
 		}else{
 			insertProblems();
 		}
-		
+
 	}else{
 		insertProblems();
 	}
@@ -102,7 +102,7 @@ function problemCreateModal(userID) {
 
 function checkEmail(email) {
 	console.log("email", email);
-	
+
 	$.ajax({
         url : "./groups/checkEmail",
         type: 'POST',
@@ -110,9 +110,9 @@ function checkEmail(email) {
 	        email: email
         },
         success: function(data) {
-			
+
         	console.log(data);
-			
+
 			if(data == 0) {
 				alert("존재하지 않는 유저입니다.");
 				$('.sweet-modal-content .chips .chip:last').remove();
@@ -120,7 +120,7 @@ function checkEmail(email) {
 				$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close" onclick="deletechip(tabindex'+count+')">close</i></div>');
 				count++;
 			}
-			
+
         },
         error:function(request,status,error){
         	alert("error");
@@ -132,25 +132,25 @@ function checkEmail(email) {
 
 
 function addProblem(){
-	
+
 	var probStartDate = $(".sweet-modal-content #probStartDate").val();
 	var probEndDate = $(".sweet-modal-content #probEndDate").val();
 	var siteId = [];
 	var link = [];
-	var problem = [];	
-	
+	var problem = [];
+
 	$('.sweet-modal-content .problem').each(function(){
-		
+
 		var s_id = 0;
 		var l = "";
 		var p;
-		
+
 		var valueSplit = $(this).val().split(' (');
-		
+
 		if($(this).attr('name') == 0){ // link로 설정하는 경우
 			l = valueSplit[0].trim();
 			console.log("link: "+l);
-			
+
 			var split = l.split('/');
 			p = split[split.length-1].trim();
 			console.log("problem: "+split[split.length-1].trim());
@@ -162,15 +162,15 @@ function addProblem(){
 			if(len.length != 0)
 				l = len[len.length-1].trim();
 		}
-		
+
 		siteId.push(s_id);
 		problem.push(p);
 		link.push(l);
-		
+
 	});
-	
+
 	console.log(problem);
-	
+
 	$.ajax({
         url : "./groups/createProblem",
         type: 'POST',
@@ -191,18 +191,18 @@ function addProblem(){
         },
     });
 
-}
+}*/
 
 
 function addajax(){
-	
+
 	var groupTitle = $(".sweet-modal-content #groupTitle").val();
 	var groupGoal = $(".sweet-modal-content #groupGoal").val();
 	var startDate = $(".sweet-modal-content #startDate").val();
 	var endDate = $(".sweet-modal-content #endDate").val();
 	var groupDesc = $(".sweet-modal-content #groupDesc").val();
 	var users = [];
-	
+
 	if(groupTitle == "") {
 		alert("그룹 이름을 입력해주세요!");
 		return;
@@ -223,13 +223,13 @@ function addajax(){
 		alert("그룹 상세 설명을 입력해주세요!");
 		return;
 	}
-		
-	
+
+
 	$('.sweet-modal-content .chip').each(function(){
 		console.log($(this).text());
-		
+
 		var chipSplit = $(this).text().split("close");
-		
+
 		users.push(chipSplit[0]);
 	});
 	/*
@@ -253,7 +253,7 @@ function addajax(){
         },
     });
 	*/
-	
+
 }
 
 function searchF() {
@@ -261,7 +261,7 @@ function searchF() {
 }
 
 function insertProblems(){
-	
+
 	var siteName = $(".sweet-modal-content #siteName option:selected").text();
 	var siteId = $('.sweet-modal-content #siteName').val();
 	console.log("siteId: "+siteId);
@@ -307,7 +307,7 @@ function deleteThis(id){
 
 function dropGroup(userID, groupID) {
 		alert("hello");
-		
+
 		$.ajax({
 			url: "./groups/dropGroup",
 			type: "POST",
@@ -318,7 +318,7 @@ function dropGroup(userID, groupID) {
 			},
 			success: function(data){
 				console.log("탈퇴 완료!");
-			}, 
+			},
 			error:function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	        }
@@ -329,7 +329,7 @@ function printGoalProblems(goalID, groupID) {
 		var title;
 		var userID;
 		var groupLeader;
-		
+
 		$.ajax({
 			url : "./readModalInfo",
 			type : "POST",
@@ -342,16 +342,16 @@ function printGoalProblems(goalID, groupID) {
 				var dataSplit = data.split("\n");
 				for(var i=0;i<dataSplit.length;i++) {
 					dataSplit[i] = dataSplit[i].trim();
-					
+
 					if(dataSplit[i].indexOf("readGoalTitle") != -1) title = $( dataSplit[i] ).text();
 					if(dataSplit[i].indexOf("userID") != -1) userID = $( dataSplit[i] ).text();
 					if(dataSplit[i].indexOf("groupLeader") != -1) groupLeader = $( dataSplit[i] ).text();
 				}
-				
+
 				$("#modalContent").html(data);
 				//if(userID == groupLeader) rudModel("#readGoalProblem", "#readGoalProblem", title, title, updateAjax, deleteAjax, search, 0);
 				//else readModel("#readGoalProblem", title);
-				
+
 				readModel("#readGoalProblem", title);
 			},
 			error : function(request, status, error) {
@@ -361,7 +361,7 @@ function printGoalProblems(goalID, groupID) {
 			}
 		});
 	}
-	
+
 function checkProblem(id, goalID, groupID){
 	$.ajax({
 		url : "./addProbCheck",
@@ -408,5 +408,3 @@ function uncheckProblem(id, name, goalID, groupID){
 		}
 	});
 }
-
-
