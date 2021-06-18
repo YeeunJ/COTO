@@ -7,12 +7,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <link rel="stylesheet" href="./resources/css/solvedProblem.css?a" />
 <link rel="stylesheet" href="./resources/css/userManage.css?a" />
-<link href="./resources/css/problemList.css?qwe" rel="stylesheet">
-<link href="./resources/css/userManage.css?asd" rel="stylesheet">
 <script src="./resources/js/userManage.js"></script>
 
 <div id="SiteContainer" class="container">
-	<div id="problem">
+	<div id="user">
 		<div class="content">
 			<h4>사용자 관리</h4>
 			<p>사이트 사용자들을 확인하고, 관리자 설정을 해주세요!</p>
