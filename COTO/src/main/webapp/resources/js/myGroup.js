@@ -116,9 +116,6 @@ function checkEmail(email) {
 			if(data == 0) {
 				alert("존재하지 않는 유저입니다.");
 				$('.sweet-modal-content .chips .chip:last').remove();
-			} else {
-				$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close" onclick="deletechip(tabindex'+count+')">close</i></div>');
-				count++;
 			}
 
         },
@@ -191,17 +188,17 @@ function addProblem(){
         },
     });
 
-}*/
+}
 
 
 function addajax(){
-
 	var groupTitle = $(".sweet-modal-content #groupTitle").val();
 	var groupGoal = $(".sweet-modal-content #groupGoal").val();
 	var startDate = $(".sweet-modal-content #startDate").val();
 	var endDate = $(".sweet-modal-content #endDate").val();
 	var groupDesc = $(".sweet-modal-content #groupDesc").val();
 	var users = [];
+	/*
 
 	if(groupTitle == "") {
 		alert("그룹 이름을 입력해주세요!");
@@ -223,7 +220,7 @@ function addajax(){
 		alert("그룹 상세 설명을 입력해주세요!");
 		return;
 	}
-
+	*/
 
 	$('.sweet-modal-content .chip').each(function(){
 		console.log($(this).text());
@@ -232,7 +229,9 @@ function addajax(){
 
 		users.push(chipSplit[0]);
 	});
-	/*
+	console.log(users);
+	
+	
 	$.ajax({
         url : "./groups/createGroup",
         type: 'POST',
@@ -251,8 +250,8 @@ function addajax(){
         	alert("error");
             console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         },
-    });
-	*/
+    });	
+	
 
 }
 

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<button class="input-field custom-button" onclick="groupCreateModal(${userID})">그룹 만들기</button>
+<button class="input-field custom-button" onclick="groupCreateModal(${userID})"${userID})">그룹 만들기</button>
 <h5 class="font-color">내가 관리하는 그룹</h5>
 			
 <div class="table">

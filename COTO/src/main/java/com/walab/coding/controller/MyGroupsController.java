@@ -165,6 +165,7 @@ public class MyGroupsController {
 		groupInfoService.createGroupInfo(info);
 		int groupID = groupInfoService.readGroupID();
 				
+		System.out.println(users);
 		groupInfoService.createGroupUsers(users, groupID);
 		//groupGoalService.createGoal(probStartDate, probEndDate, groupID);
 		

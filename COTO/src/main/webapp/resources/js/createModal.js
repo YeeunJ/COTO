@@ -148,14 +148,14 @@ function groupCreateModel(content, titleValue, actionFunction, closeFunction){
 							onChipAdd: function(){
 								var text = $('.sweet-modal-content .chips input').val();
 								checkEmail(text);
-								/*
+								
 								$('.sweet-modal-content .chips .chip:last').remove();
 								$('.sweet-modal-content .chips input').before('<div class = "chip" id="tabindex'+count+'">'+text+'<i class = "material-icons close" onclick="deletechip(tabindex'+count+')">close</i></div>');
 								count++;
-								*/
+								
 							},
 							onChipSelect: function(){
-							},
+					 		},
 							onChipDelete: function(){
 								//console.log($(this));
 							}
