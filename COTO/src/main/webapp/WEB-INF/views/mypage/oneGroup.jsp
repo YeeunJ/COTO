@@ -26,8 +26,7 @@ function deleteGroup(groupID) {
 				groupID: groupID
 			},
 			success: function(data){
-				console.log("그룹삭제 완료!");
-				$('#problemsContent').html(data);
+				location.href="http://localhost:8080/coding/mypage/groups";
 			}, 
 			error:function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -72,10 +71,12 @@ function dropGroup(userID, groupID) {
 	
 	<div id="groupAjaxContent">
 		<%@ include file="../ajaxContent/groupInfoContent.jsp"%>
-	</div> 
+	</div>
 
 	<div class="top-bar">
-		<c:if test = "${adminID == userID}">
+		<c:set var="now" value="<%=new java.util.Date()%>"/>
+		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate"></fmt:formatDate>	 
+		<c:if test = "${adminID == userID && endDate >= nowDate}">
 			<button class="input-field custom-button" onclick="problemCreateModal(${userID})">문제 추가</button>
 		</c:if>
 		
