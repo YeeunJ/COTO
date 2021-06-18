@@ -26,8 +26,7 @@ function deleteGroup(groupID) {
 				groupID: groupID
 			},
 			success: function(data){
-				console.log("그룹삭제 완료!");
-				$('#problemsContent').html(data);
+				location.href="http://localhost:8080/coding/mypage/groups";
 			}, 
 			error:function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
