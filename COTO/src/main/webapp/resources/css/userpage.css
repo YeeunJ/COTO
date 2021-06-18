@@ -26,6 +26,9 @@
 	font-size: 20px !important;
 	padding: 2% 2% 4% 2%;
 }
+.user-card {
+	height: 225px;
+}
 .tc{
 	word-break: break-all;
 	text-align: left !important;

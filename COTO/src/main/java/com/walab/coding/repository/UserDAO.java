@@ -14,7 +14,7 @@ public interface UserDAO {
 	public List<UserDTO> readUserAll(int userID);
 	public int readUserIDByEmail(String email);
 	public int readIsAdminByUserID(int userID);
-	public int readUserCountByNickname(String nickname);
+	public int readUserCountByNickname(String nickname, int userID);
 	public int updateUser(UserDTO updateUser);
 	public void updateUserAdmin(int isAdmin, int userID);
 	public int selectedUserTotalProblem(String nickName);

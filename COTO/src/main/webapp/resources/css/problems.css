@@ -23,9 +23,9 @@
 .editBtn, .deleteBtn {
 	background-color: transparent !important;
 }
-#pTable{
+/* #pTable{
 	min-height: 438px;
-}
+} */
 .input-field-custom.col label {
     left: 0 !important;
 }

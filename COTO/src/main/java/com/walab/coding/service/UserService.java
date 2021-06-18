@@ -37,7 +37,7 @@ public interface UserService {
 	 * Return the number of duplicate email
 	 * usage: RegisterController
 	 */
-	public int readUserCountByNickname(String Nickname);
+	public int readUserCountByNickname(String Nickname, int userID);
 	
 	/**
 	 * Update a user's basic information

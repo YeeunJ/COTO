@@ -96,7 +96,7 @@ public class RegisterController {
 	public int dupCheck(HttpServletRequest httpServeletRequest) throws ParseException {
 		
 		String nickName = httpServeletRequest.getParameter("nickName");
-		int result = userService.readUserCountByNickname(nickName);
+		int result = userService.readUserCountByNickname(nickName, 0);
 
 		return result;
 	}

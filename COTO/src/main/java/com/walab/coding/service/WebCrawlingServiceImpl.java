@@ -46,7 +46,13 @@ public class WebCrawlingServiceImpl implements WebCrawlingService {
 					e.printStackTrace();
 				}
 				System.out.println("----------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>----------");
-
+				if(pd.getName() == null) {
+					pd.setName(prob);
+				}
+				System.out.println(pd.getLink());
+				if(pd.getLink() == null) {
+					pd.setLink("없는 문제이므로 기록되지 않습니다. 있는 문제일 경우 링크로 등록해주세요!!");
+				}
 				pd.setSiteID(siteID);
 				pd.setSiteName(siteInfo.getSiteName());
 				pd.setSiteUrl(siteInfo.getSiteUrl());
@@ -81,6 +87,13 @@ public List<ProblemDTO> crawlingLeetcodeByName(List<String> problem, int siteID)
 				}
 				System.out.println("----------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>----------");
 				
+				if(pd.getName().isEmpty()) {
+					pd.setName(prob);
+				}
+				System.out.println(pd.getLink());
+				if(pd.getLink().isEmpty()) {
+					pd.setLink("없는 문제이므로 기록되지 않습니다. 있는 문제일 경우 링크로 등록해주세요!!");
+				}
 				pd.setSiteID(siteID);
 				pd.setSiteName(siteInfo.getSiteName());
 				pd.setSiteUrl(siteInfo.getSiteUrl());

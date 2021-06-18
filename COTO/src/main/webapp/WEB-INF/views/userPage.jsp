@@ -25,7 +25,7 @@
 		<!-- Content Row -->
 	<div class="card-wrap">
 		<div class="card-content1">
-			<div class="card shadow card-body">
+			<div class="card shadow card-body user-card">
 				<div class="font-color card-title">${nickName}님의 목표</div>
 				<div id="table">
 					<c:forEach items="${readOtherUserPage}" var="r" varStatus="status">
@@ -46,7 +46,7 @@
 		</div>
 
 		<div class="card-content2">
-			<div class="card shadow card-body">
+			<div class="card shadow card-body user-card">
 				<div class="font-color card-title">${nickName}님의 진행도</div>
 				<canvas id="myDoughnutChart" width="340vw" height="130px">
 				</canvas>
