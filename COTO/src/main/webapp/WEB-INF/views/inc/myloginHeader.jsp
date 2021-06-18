@@ -24,7 +24,7 @@
 <script src="../resources/js/init.js"></script>
 <script src="../resources/js/jquery.sweet-modal.min.js"></script>
 <script src="../resources/vendor/chart.js/Chart.min.js"></script>
-<script src="../resources/js/createModal.js"></script>
+<script src="../resources/js/createModal.js?v=1"></script>
 
 </head>
 <body>

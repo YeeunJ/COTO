@@ -44,7 +44,7 @@ public class MyinformationController {
 	public ModelAndView viewUsers(HttpServletRequest request, ModelAndView mv) {
 		
 		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
-		
+		System.out.println(userID);
 		List<UserDTO> users = userService.readUser(userID);
 		mv.addObject("users", users);
 		mv.setViewName("mypage/information");

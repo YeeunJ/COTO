@@ -7,8 +7,8 @@
 
 <jsp:include page= "<%=\"../inc/my\".concat(((String)request.getAttribute(\"header\")))%>" />
 
-<link href="../resources/css/information.css" rel="stylesheet">
-<script src="../resources/js/information.js"></script>
+<link href="../resources/css/information.css?v1" rel="stylesheet">
+<script src="../resources/js/information.js?v1"></script>
 
 <div id="SiteContainer" class="container">
 	<div id="information">
