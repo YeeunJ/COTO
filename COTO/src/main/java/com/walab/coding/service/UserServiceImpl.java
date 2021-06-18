@@ -27,7 +27,12 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	public int readUserIDByEmail(String email) {
-		int userID = userDAO.readUserIDByEmail(email);
+		int userID;
+		try {
+			userID = userDAO.readUserIDByEmail(email);
+		} catch(NullPointerException e) {
+			userID = 0;
+		}
 		
 		return userID;
 	}

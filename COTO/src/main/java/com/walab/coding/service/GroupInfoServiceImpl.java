@@ -37,6 +37,9 @@ public class GroupInfoServiceImpl implements GroupInfoService {
 	public void createGroupUsers(List<String> users, int groupID) {
 		for(int i=0 ; i<users.size() ; i++) {
 			int userID = userDAO.readUserIDByEmail(users.get(i));
+			
+			System.out.println(users.get(i));
+			System.out.println(userID);
 			if(i==0)
 				groupInfoDAO.createGroupUser(userID, 1, groupID);
 			else
