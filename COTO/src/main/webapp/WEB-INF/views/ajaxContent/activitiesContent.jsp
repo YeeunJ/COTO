@@ -6,19 +6,19 @@
 <!-- read modal -->
 <div>
 	<div class="table">
-		<div class="tableRow">
+		<div class="tableRow goal">
 			<span class="tableCell th2_">목표</span>
 			<span class="tableCell td5"	id="goal"></span>
 		</div>
-		<div class="tableRow">
+		<div class="tableRow goal">
 			<span class="tableCell th2_">기간</span>
 			<span class="tableCell td5" id="term"></span>
 		</div>
-		<div class="tableRow">
+		<div class="tableRow goal">
 			<span class="tableCell th2_">목표 문제수</span>
 			<span class="tableCell td5" id="goalNum"></span>
 		</div>
-		<div class="tableRow">
+		<div class="tableRow goal">
 			<span class="tableCell th2_">달성률</span>
 			<span class="tableCell td5" id="rate"></span>
 		</div>

@@ -1,4 +1,9 @@
-
+.table .goal:hover{
+	background-color: white !important;
+}
+.deleteBtn {
+	background-color: transparent !important;
+}
 .fa-times{color: orange;}
 
 button{border:0; outling:0; cursor:pointer; background-color: white;}

@@ -22,17 +22,17 @@
  				<fmt:formatDate value="${grouplist.startDate}" pattern="yyyy-MM-dd" var="startDate"></fmt:formatDate>				
 				<div id="groupInfo">
 				<div id="table">
-						<div class="tableRow">
+						<div class="tableRow goal">
 							<span class="tableCell td2">소개</span> 
 							<span class="tableCell td4">${grouplist.groupDesc}</span>
 						</div>
-						<div class="tableRow">
+						<div class="tableRow goal">
 							<span class="tableCell td2">유지기간</span> 
 							<span class="tableCell td4">
 								${startDate} ~ ${endDate}
 							</span>
 						</div>
-						<div class="tableRow">
+						<div class="tableRow goal">
 							<span class="tableCell td2">인원</span> 
 								<span class="tableCell td4">${countGroupUser}명</span>
 						</div>
@@ -42,19 +42,19 @@
 				
 				<div id="editInfo" style="display: none;">
 				<div id="table">
-						<div class="tableRow">
+						<div class="tableRow goal">
 							<span class="tableCell td2">그룹 소개</span> 
 							<span class="tableCell td4">
 								<input type="text" id="desc" name="desc" value="${grouplist.groupDesc}">
 							</span>
 						</div>
-						<div class="tableRow">
+						<div class="tableRow goal">
 							<span class="tableCell td2">그룹 시작일</span> 
 							<span class="tableCell td4">
 								<input type="date" id="startDate" name="startDate" value="${startDate}">
 							</span>
 						</div>
-						<div class="tableRow">
+						<div class="tableRow goal">
 							<span class="tableCell td2">그룹 종료일</span> 
 							<span class="tableCell td4">
 								<input type="date" id="endDate" name="endDate" value="${endDate}">

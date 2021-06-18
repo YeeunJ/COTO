@@ -17,6 +17,7 @@
 }
 .tableRow:hover {
 	cursor: default !important;
+	background-color: white !important;
 }
 
 .chart-div {
