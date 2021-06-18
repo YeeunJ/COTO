@@ -46,7 +46,7 @@
 				</div>
 				<div class="tableRow">
 					<span class="tableCell th3">목표 개수</span> <span
-						class="tableCell td8"><input type="number" name="goalNum"
+						class="tableCell td8"><input type="number" name="goalNum" min="0"
 						value="${goal.goalNum}"/> </span>				
 				</div>
 			</c:forEach>
