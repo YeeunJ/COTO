@@ -259,6 +259,7 @@ function searchF() {
 
 }
 
+
 function insertProblems(){
 
 	var siteName = $(".sweet-modal-content #siteName option:selected").text();

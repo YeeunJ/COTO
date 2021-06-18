@@ -230,7 +230,6 @@
 		<div class="table" id="recomCartContent">
 			<%@ include file="../ajaxContent/recomCartContent.jsp"%>
 		</div>
-
 	</div>
 </div>
 <div id="modalContent">

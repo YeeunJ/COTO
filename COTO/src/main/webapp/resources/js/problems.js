@@ -9,6 +9,9 @@ $(document).ready(function() {
 	}
 });
 
+function moveUserPage(nickName){
+	location.href='../'+encodeURI(encodeURIComponent(nickName));
+};
 function expandRow(problemId) {
 
 	if($('.pMemo'+problemId).css("white-space") == "nowrap") {

@@ -72,6 +72,11 @@ function search(page){
 	});
 }
 
+function moveUserPage(nickName){
+	location.href='./'+encodeURI(encodeURIComponent(nickName));
+};
+
+
 function clickTag(id) {
 	tagChecking = 1;
 	tagName = $('#'+id).val();
@@ -383,7 +388,7 @@ function readDetailModalContent(recomID, count) {
 			
 			$("#modalContent").html(data);
 			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search, tCnt);
-			else readModel("#readRecommendProblem", title);
+			else readCartModel("#readRecommendProblem", title, search);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n"

@@ -45,10 +45,11 @@
 		
 <div id="commentDetail">
 
-	<%-- <span>recommmend User : ${ recom.userID }</span>
+<%-- 	<span>recommmend User : ${ recom.userID }</span>
 	<span>recomID : ${ recom.id }</span>
 	<span>userID : ${ loginID }</span>
-	<span>isAdmin : ${ isAdmin }</span> --%>
+	<span>isAdmin : ${ isAdmin }</span> 
+ --%>	
 	<div class="comment-add">
 		<textarea id="comment-textarea" placeholder="댓글을 달아주세요."></textarea>
 		<button id="addComment" class="modal_button add-btn"
@@ -56,7 +57,6 @@
 	</div>
 	<div id="modal-comment" class="wrapper">
 		<input type="text" name="recomID" value="${ recom.id }" hidden>
-
 		<c:forEach items="${recomComment}" var="r" varStatus="status">
 			<div class="comment-wrapper">
 				<%-- <span>${ r.userID }</span> --%>
@@ -96,11 +96,3 @@
 <style>
 .username:hover{ color: #e69138ff; font-weight:bold; cursor: pointer;}
 </style>
-<script>
-function moveUserPage(nickName){
-	location.href='./'+encodeURI(encodeURIComponent(nickName));
-};
-
-
-
-</script>

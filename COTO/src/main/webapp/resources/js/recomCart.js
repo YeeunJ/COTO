@@ -37,6 +37,7 @@ function addComment() {
 	}
 }
 
+
 //read modal에서 recom count
 function addRecomCount(){
 	$.ajax({
@@ -55,6 +56,27 @@ function addRecomCount(){
 	});
 }
 
+// delete comment
+function deleteComment (commentID) {
+	var recomID = $('#readRecomID').html();
+	if(confirm("댓글을 삭제하시겠습니까?")) {
+		$.ajax({
+	        url : '../recommendProblem/deleteComment',
+	        type: 'POST',
+	        data: {
+				recomID: recomID,
+				commentID : commentID
+	        },
+	        success: function(data) {
+				$('.sweet-modal-content #recomCountCommentContent').html(data);
+	        },
+	        error:function(request,status,error){
+	            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        },
+	    });
+	}
+}
+
 //문제 list에서 클릭 시, detail modal 불러오기
 function printCartAllContent(recomId){
 	selectHtml = $('#selectHtml').html();
@@ -62,15 +84,33 @@ function printCartAllContent(recomId){
 	readDetailModalContent(recomId);
 }
 
+
+function recomCartAjax() {
+	$.ajax({
+			url: "../mypage/problems/readRecomCartContent",
+			type: "POST",
+			async: false,
+			success: function(data){
+				console.log(data);
+				$('#recomCartContent').html(data);
+			}, 
+			error:function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+	});
+}
+
+
 //detail modal에 들어갈 내용 read
-function readDetailModalContent(recomID, count) {
+function readDetailModalContent(recomID) {
 	var title;
 	var logID;
 	var uID;
 	var adminID;
+	var tCnt;
 	
 	$.ajax({
-		url : "../mypage/problems/readModalInfo",
+		url : '../recommendProblem/readModalInfo',
 		type : "POST",
 		async : false,
 		data : {
@@ -85,11 +125,13 @@ function readDetailModalContent(recomID, count) {
 				else if(dataSplit[i].indexOf("readLoginID") != -1) logID = $( dataSplit[i] ).text();
 				else if(dataSplit[i].indexOf("readUserID") != -1) uID = $( dataSplit[i] ).text();
 				else if(dataSplit[i].indexOf("readAdminID") != -1) adminID = $( dataSplit[i] ).text();
-			}			
+				else if(dataSplit[i].indexOf("updateTagCount") != -1) tCnt = $( dataSplit[i] ).text();
+				
+			}
 			
 			$("#modalContent").html(data);
-			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, readRecomCartContent);
-			else readCartModel("#readRecommendProblem", title, readRecomCartContent);
+			if(logID == uID || adminID > 0) rudModel("#readRecommendProblem", "#updateRecommendProblem", title, title, updateAjax, deleteAjax, search, tCnt);
+			else readCartModel("#readRecommendProblem", title, recomCartAjax);
 		},
 		error : function(request, status, error) {
 			console.log("code:" + request.status + "\n"
@@ -98,6 +140,7 @@ function readDetailModalContent(recomID, count) {
 		}
 	});
 }
+
 
 function deleteAjax (){
 	$.ajax({
