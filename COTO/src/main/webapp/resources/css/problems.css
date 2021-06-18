@@ -16,9 +16,9 @@
 	.card-content1 {width: 100%; margin:0;}
 	.pNow {visibility: visible !important;}
 }
-#pTable{
+/* #pTable{
 	min-height: 438px;
-}
+} */
 .input-field-custom.col label {
     left: 0 !important;
 }

@@ -20,7 +20,8 @@
 	<c:forEach items="${problems}" var="problem" varStatus="status">
 		<div class="tableRow center">
 			<span class="tableCell td05 pIndex">${(page-1)*list+status.count}</span>
-			<span class="tableCell td2 pTitle"><a href="${problem.link}"
+			<span class="tableCell td2 pTitle">
+				<a href="${problem.link}"
 				target="_blank">${problem.problem}</a></span> <span
 				class="tableCell td2 pSite"><a href="${problem.siteUrl}"
 				target="_blank">${problem.site}</a></span> <span

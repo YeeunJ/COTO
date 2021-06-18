@@ -155,7 +155,13 @@ public class RecommendController {
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		int commentCount = recomComment.size();
 		int cartYN = recomCartService.readCartByID(recomID, userID);
-
+		RecommendDTO recom = recommendService.readRecommend(recomID);
+		int isAdmin = userService.readIsAdminByUserID(userID);
+		
+		
+		mv.addObject("recom", recom);
+		mv.addObject("isAdmin", isAdmin);
+		mv.addObject("loginID", userID);
 		mv.addObject("cartYN", cartYN);
 		mv.addObject("countInfo", rcd);
 		mv.addObject("recomComment", recomComment);
@@ -165,6 +171,41 @@ public class RecommendController {
 		return mv;
 	}
 
+	/**
+	 * Delete comment
+	 */
+	@RequestMapping(value = "/deleteComment", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView deleteComment(HttpServletRequest httpServletRequest, ModelAndView mv) {
+		RecomCountDTO rcd;
+		int userID = -1;
+		if((UserDTO)httpServletRequest.getSession().getAttribute("user") != null) {
+			userID = ((UserDTO)httpServletRequest.getSession().getAttribute("user")).getId();
+		}
+		int recomID = Integer.parseInt(httpServletRequest.getParameter("recomID"));
+		int commentID = Integer.parseInt(httpServletRequest.getParameter("commentID"));
+		recomCommentService.deleteRecomComment(commentID);
+	
+		rcd = recomCountService.readRecomCount(recomID, userID);
+		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
+		RecommendDTO recom = recommendService.readRecommend(recomID);
+		
+		int commentCount = recomComment.size();
+		int cartYN = recomCartService.readCartByID(recomID, userID);
+		int isAdmin = userService.readIsAdminByUserID(userID);
+
+		mv.addObject("recom", recom);
+		mv.addObject("isAdmin", isAdmin);
+		mv.addObject("loginID", userID);
+		mv.addObject("cartYN", cartYN);
+		mv.addObject("countInfo", rcd);
+		mv.addObject("recomComment", recomComment);
+		mv.addObject("commentCount", commentCount);
+		mv.setViewName("ajaxContent/recomCommentCountContent");
+
+		return mv;
+	}
+	
 	/**
 	 * Create recommend ???
 	 */
@@ -209,8 +250,14 @@ public class RecommendController {
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		int commentCount = recomComment.size();
 		int cartYN = recomCartService.readCartByID(recomID, userID);
+		RecommendDTO recom = recommendService.readRecommend(recomID);
+		int isAdmin = userService.readIsAdminByUserID(userID);
 
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("recom", recom);
+		mv.addObject("isAdmin", isAdmin);
+		mv.addObject("loginID", userID);
+		mv.addObject("userID", userID);
 		mv.addObject("cartYN", cartYN);
 		mv.addObject("countInfo", rcd);
 		mv.addObject("recomComment", recomComment);
@@ -313,6 +360,13 @@ public class RecommendController {
 		int cartYN = recomCartService.readCartByID(recomID, userID);
 		
 		ModelAndView mv = new ModelAndView();
+		
+		RecommendDTO recom = recommendService.readRecommend(recomID);
+		int isAdmin = userService.readIsAdminByUserID(userID);
+
+		mv.addObject("recom", recom);
+		mv.addObject("isAdmin", isAdmin);
+		mv.addObject("loginID", userID);
 		mv.addObject("cartYN", cartYN);
 		mv.addObject("countInfo", rcd);
 		mv.addObject("recomComment", recomComment);
@@ -354,6 +408,7 @@ public class RecommendController {
 		List<RecomTagDTO> recomProblemTag = recomTagService.readTagByID(recomID);
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		
+		
 		int commentCount = recomComment.size();
 		RecomCountDTO rcd;
 		int userID = -1;
@@ -380,6 +435,10 @@ public class RecommendController {
 			if(str.length() < 5 || !(str.substring(0, 5).equals("https"))) recomProblem.get(i).setLink(null);
 		}
 		
+		int isAdmin = userService.readIsAdminByUserID(userID);
+		
+		mv.addObject("recomUser", recom.getUserID());
+		mv.addObject("isAdmin", isAdmin);
 		mv.addObject("cartYN", cartYN);
 		mv.addObject("recomID", recomID);
 		mv.addObject("loginID", userID);
@@ -407,7 +466,7 @@ public class RecommendController {
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 
 		int userID = ((UserDTO)request.getSession().getAttribute("user")).getId();
-
+		
 		mv.addObject("userid", userID);
 		mv.addObject("recomID", recomID);
 		mv.addObject("recomComment", recomComment);
@@ -575,6 +634,12 @@ public class RecommendController {
 		int commentCount = recomComment.size();
 
 		ModelAndView mv = new ModelAndView();
+		RecommendDTO recom = recommendService.readRecommend(recomID);
+		int isAdmin = userService.readIsAdminByUserID(userID);
+
+		mv.addObject("recom", recom);
+		mv.addObject("isAdmin", isAdmin);
+		mv.addObject("loginID", userID);
 		mv.addObject("countInfo", rcd);
 		mv.addObject("recomComment", recomComment);
 		mv.addObject("commentCount", commentCount);
@@ -673,8 +738,14 @@ public class RecommendController {
 		List<Map<String,Object>> recomComment = recomCommentService.read(recomID);
 		int commentCount = recomComment.size();
 		int cartYN = recomCartService.readCartByID(recomID, userID);
+		RecommendDTO recom = recommendService.readRecommend(recomID);
+		int isAdmin = userService.readIsAdminByUserID(userID);
 		
 		ModelAndView mv = new ModelAndView();
+
+		mv.addObject("recom", recom);
+		mv.addObject("isAdmin", isAdmin);
+		mv.addObject("loginID", userID);
 		mv.addObject("cartYN", cartYN);
 		mv.addObject("countInfo", rcd);
 		mv.addObject("recomComment", recomComment);

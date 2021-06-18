@@ -21,7 +21,7 @@
 	</insert>
 	
 	<select id="readRecomComment" resultMap="Comment" parameterType="hashmap">
-		SELECT R.id, U.id, U.name, U.nickName,date_format(R.regdate, '%Y-%m-%d') as regDate, R.content 
+		SELECT R.id AS commentID, U.id AS userId, U.name, U.nickName,date_format(R.regdate, '%Y-%m-%d') as regDate, R.content 
 		FROM recomComment AS R, user AS U 
 		WHERE R.userId = U.id AND R.recomID=#{recomID}
 		ORDER BY R.regDate DESC
@@ -37,7 +37,7 @@
 	
 	
 	<delete id="deleteRecomComment" parameterType="hashmap">
-		delete from recomComment where recomID = #{recomID}
+		delete from recomComment where id = #{recomID}
 	</delete>
 	
 </mapper>
