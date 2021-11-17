@@ -498,10 +498,9 @@ public class MyGroupsController {
 //		mv.addObject("groups", myGroups);
 		//mv.setView(new RedirectView("/mypage/groups", true));
 		//mv.setViewName("mypage/groups");
-		
-		mv = new ModelAndView("redirect:/mypage/groups");
-		
-		return mv;
+		System.out.println("deleteGroup Controller");
+		String url = "redirect:/mypage/groups";
+		return new ModelAndView(url);
 
 	}
 	

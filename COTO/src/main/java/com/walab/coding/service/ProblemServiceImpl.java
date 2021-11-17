@@ -67,12 +67,7 @@ public class ProblemServiceImpl implements ProblemService {
 			map.put("ratio", 0);
 			map.put("count", 0);
 			
-//			System.out.println("siteID: "+siteID + " siteName: " + siteName);
-//			System.out.println(ratioBySite.size());
-//			System.out.println("count size: "+count.size());
-//			System.out.println(count);
 			for(int j=0 ; j<ratioBySite.size(); j++) {
-				System.out.println("test: "+ratioBySite.get(j));
 				if(siteID == ratioBySite.get(j).get("siteID")) {
 					map.put("ratio", ratioBySite.get(j).get("ratio"));
 				}
