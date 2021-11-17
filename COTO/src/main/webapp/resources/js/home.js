@@ -166,5 +166,6 @@ function baekjoon(){
 $(document).on("click", ".tag", function(){
 		var tags=$(this).text();
 		var tag = tags.replace(/#/g, '');
-		alert(tag);
+		//alert(tag);
+		location.href="recommendProblem?tagName="+tag;
 	});

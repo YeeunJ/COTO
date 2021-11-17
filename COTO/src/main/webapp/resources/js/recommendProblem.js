@@ -18,7 +18,16 @@ $(document).ready(function(){
 	});
 	search();
 	tagMore(0, 5);
+	
+	if(!(getParameterByName('tagName') == "")) parameterTag(getParameterByName('tagName'));
 });
+
+function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
 
 function tagMore(first, length) {
 	for(var i=0;i<length;i++) {
@@ -76,6 +85,13 @@ function moveUserPage(nickName){
 	location.href='./'+encodeURI(encodeURIComponent(nickName));
 };
 
+function parameterTag(name) {
+	tagChecking = 1;
+	tagName = name;
+	console.log(name);
+	
+	searchTag();
+}
 
 function clickTag(id) {
 	tagChecking = 1;
