@@ -95,14 +95,15 @@ function createModel(content, titleValue, actionFunction, closeFunction){
 							console.log(insCount);
 						});
 						
-						checkInsert(index);
+						//checkInsert(index);
 						checkDelete(id);
 					},
 					theme: $.sweetModal.THEME_MIXED,
 					buttons: [
 						{
 							label: '등록',
-							classes: 'modal_button disableCheck',
+							classes: 'modal_button',
+							//classes: 'modal_button disableCheck',
 							action: function() {
 								actionFunction();
 								return $.sweetModal({
