@@ -10,7 +10,7 @@
        		  up.difficulty as difficulty, up.memo as memo, up.regdate as regdate 
 	   		  from YeeunJ.userProblem as up where up.userID=#{userID}) as subquery 
 		join YeeunJ.problem as p on subquery.problemID=p.id 
-		join YeeunJ.codingSite as c on p.siteID=c.id;
+		left join YeeunJ.codingSite as c on p.siteID=c.id;
 	</select>
 	
 	<select id="searchUserProblemByContent" resultType="com.walab.coding.model.UserProblemDTO" parameterType="hashmap">
@@ -60,7 +60,7 @@
  	</select>
  	
  	<insert id="createUserProblem" parameterType="com.walab.coding.model.UserProblemDTO">
- 		INSERT INTO userProblem (userID, problemID) VALUES (#{userID}, #{problemID})
+ 		INSERT INTO userProblem (userID, problemID) SELECT #{userID}, #{problemID} FROM DUAL WHERE NOT EXISTS(SELECT problemID FROM userProblem WHERE userID = #{userID} and problemID = #{problemID})
 <!-- 		INSERT INTO userProblem  (userID, siteID, problem, link, difficulty, memo) VALUES (#{userID}, #{siteID}, #{problem}, #{link}, #{difficulty}, #{memo})-->	
 	</insert>
 	
@@ -118,7 +118,7 @@
 	      		  up.difficulty as difficulty, up.memo as memo, up.regdate as regdate 
 	   		  from YeeunJ.userProblem as up where up.userID=#{userID}) as subquery 
 		join YeeunJ.problem as p on subquery.problemID=p.id 
-		join YeeunJ.codingSite as c on p.siteID=c.id
+		left join YeeunJ.codingSite as c on p.siteID=c.id
 		ORDER BY id LIMIT #{s_point}, #{list}
 	</select>
 	<select id="readProblemCnt" resultType="int" parameterType="hashmap">

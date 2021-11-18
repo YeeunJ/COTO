@@ -44,7 +44,7 @@ public class LoginController {
 	@GetMapping(value = "")
 	public ModelAndView login() {
 		String redirectUrl = "redirect:https://accounts.google.com/o/oauth2/v2/auth?"
-				+ "client_id=525299869648-ditsvp6v9d31jd8pm9311j4c4g9d325e.apps.googleusercontent.com"
+				+ "client_id="+clientId
 				+ "&redirect_uri="+REDIRECTION_URL
 				+ "&response_type=code"
 				+ "&scope=email%20profile%20openid"
@@ -90,8 +90,10 @@ public class LoginController {
 		
 		//ID Token만 추출 (사용자의 정보는 jwt로 인코딩 되어있다)
 		String jwtToken = result.getIdToken();
+		System.out.println(jwtToken);
 		String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
 		.queryParam("id_token", jwtToken).toUriString();
+		System.out.println(requestUrl);
 		
 		String resultJson = restTemplate.getForObject(requestUrl, String.class);
 		
@@ -108,7 +110,6 @@ public class LoginController {
 		return model;
 
 	}
-
 	/**
 	 * 토큰 무효화 
 	 **/
@@ -116,7 +117,7 @@ public class LoginController {
 	@ResponseBody
 	public Map<String, String> revokeToken(@RequestParam(value = "token") String token) throws JsonProcessingException {
 
-		Map<String, String> result = new HashMap<>();
+		Map<String, String> result = new HashMap<String, String>();
 		RestTemplate restTemplate = new RestTemplate();
 		final String requestUrl = UriComponentsBuilder.fromHttpUrl(GOOGLE_REVOKE_TOKEN_BASE_URL).queryParam("token", token).toUriString();
 		

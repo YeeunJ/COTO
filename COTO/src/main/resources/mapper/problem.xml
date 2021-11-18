@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id="readProblemByUser" resultType="com.walab.coding.model.ProblemDTO" parameterType="hashmap">
-		SELECT * FROM problem WHERE siteID=#{siteID} AND (name=#{name} AND link=#{link})
+		SELECT * FROM problem WHERE siteID=#{siteID} AND (name=#{name} AND (link=#{link} OR link is null))
 	</select>
 	
 	<select id="readProblemCnt" resultType="int">
@@ -103,8 +103,8 @@
 	</resultMap>
 	
 	<select id="countBySite" parameterType="hashmap" resultMap="countBySite">
-		SELECT siteID, COUNT(siteID) AS problemCnt FROM problem AS P, codingSite AS C
-		WHERE P.siteID = C.id
+		SELECT siteID, COUNT(siteID) AS problemCnt FROM problem AS P
+		left join codingSite AS C on P.siteID = C.id
 		GROUP BY siteID
 	</select>
 	
