@@ -25,7 +25,7 @@ function deleteGroup(groupID) {
 				groupID: groupID
 			},
 			success: function(data){
-				location.href="http://localhost:8080/coding/mypage/groups";
+				location.href="http://walab.handong.edu:8080/coto/mypage/groups";
 			}, 
 			error:function(request, status, error){
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

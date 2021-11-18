@@ -79,7 +79,7 @@
 			<div class="input-field col s6">
 				<input id="problems" type="text" class="validate"> <label
 					for="problems">Problems</label> <span class="helper-text">문제들을
-					입력할 때 ,로 구분해주세요!!(띄워쓰기X)</span>
+					입력할 때 ,로 구분해주세요!!(띄어쓰기X)</span>
 			</div>
 			<button type="button" id="add" class="modal_button lighten-1"
 				onClick="insertProblems()">추가</button>
