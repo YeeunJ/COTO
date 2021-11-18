@@ -71,14 +71,13 @@ public class ProblemServiceImpl implements ProblemService {
 				if(siteID == ratioBySite.get(j).get("siteID")) {
 					map.put("ratio", ratioBySite.get(j).get("ratio"));
 				}
-			}
-			for(int k=0 ; k<count.size(); k++) {
-				if(siteID == count.get(k).get("siteID")) { 
-					map.put("count", count.get(k).get("problemCnt"));
+				if(siteID == count.get(j).get("siteID")) { 
+					map.put("count", count.get(j).get("problemCnt"));
 				}
 			}
 			ratio.add(map);
 		}
+		
 		return ratio;
 	}
 	
